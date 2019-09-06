@@ -144,7 +144,7 @@ templates:
                 ${'%'} if stream_args:
                 args=${'$'}{stream_args},
                 ${'%'} endif
-                ${'%'} if stream_chans:
+                ${'%'} if eval(stream_chans):
                 channels=${'$'}{stream_chans},
                 ${'%'} else:
                 channels=range(${'$'}{nchan}),
