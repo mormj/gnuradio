@@ -157,8 +157,6 @@ function(GRCC)
   list(APPEND PYTHONPATHS
     ${CMAKE_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/gnuradio-runtime/python
-    ${CMAKE_SOURCE_DIR}/gnuradio-runtime/lib/swig
-    ${CMAKE_BINARY_DIR}/gnuradio-runtime/lib/swig
     )
 
   if(WIN32)

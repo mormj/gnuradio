@@ -55,7 +55,6 @@ include(GrVersion) #setup version info
 
 # Minimum dependency versions for central dependencies:
 set(GR_BOOST_MIN_VERSION "1.53")
-set(GR_SWIG_MIN_VERSION "3.0.8")
 set(GR_CMAKE_MIN_VERSION "3.5.1")
 set(GR_MAKO_MIN_VERSION "0.4.2")
 set(GR_PYTHON_MIN_VERSION "2.7.6")
@@ -358,21 +357,10 @@ include(GrBoost)
 ########################################################################
 include(GrPython)
 GR_PYTHON_CHECK_MODULE("six - python 2 and 3 compatibility library" six "True" SIX_FOUND)
-find_package(SWIG)
-
-if(SWIG_FOUND)
-    SET(SWIG_VERSION_CHECK FALSE)
-    if("${SWIG_VERSION}" VERSION_EQUAL ${GR_SWIG_MIN_VERSION} OR
-       "${SWIG_VERSION}" VERSION_GREATER ${GR_SWIG_MIN_VERSION})
-        SET(SWIG_VERSION_CHECK TRUE)
-    endif()
-endif(SWIG_FOUND)
 
 include(GrComponent)
 GR_REGISTER_COMPONENT("python-support" ENABLE_PYTHON
     PYTHONLIBS_FOUND
-    SWIG_FOUND
-    SWIG_VERSION_CHECK
     SIX_FOUND
 )
 
@@ -464,7 +452,6 @@ install(
 list(APPEND GR_TEST_PYTHON_DIRS
     ${CMAKE_BINARY_DIR}/gnuradio-runtime/python
     ${CMAKE_SOURCE_DIR}/gnuradio-runtime/python
-    ${CMAKE_BINARY_DIR}/gnuradio-runtime/swig
 )
 
 
