@@ -122,6 +122,10 @@ pmt_t get_PMT_EOF()
 //                           Booleans
 ////////////////////////////////////////////////////////////////////////////
 
+int add(int i, int j) {
+    return i + j;
+}
+
 pmt_bool::pmt_bool() {}
 
 bool is_true(pmt_t obj) { return obj != PMT_F; }

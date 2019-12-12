@@ -136,6 +136,7 @@ PMT_API pmt_t get_PMT_EOF();
 #define PMT_F get_PMT_F()
 #define PMT_EOF get_PMT_EOF()
 
+int add(int i, int j);
 
 /*
  * ------------------------------------------------------------------------

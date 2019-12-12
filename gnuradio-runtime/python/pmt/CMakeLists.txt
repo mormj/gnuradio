@@ -24,24 +24,73 @@ include(GrPython)
 ########################################################################
 GR_PYTHON_INSTALL(FILES
     __init__.py
-    pmt_to_python.py
+    # pmt_to_python.py
     DESTINATION ${GR_PYTHON_DIR}/pmt
 )
 
 ########################################################################
+# Python Bindings
+########################################################################
+
+# Get include dirs
+include_directories(${PYTHON_INCLUDE_DIRS})
+set(PYBIND11_INCLUDE_DIR
+    "${CMAKE_SOURCE_DIR}/deps/pybind11/include"
+    CACHE
+    STRING
+    "Location of PyBind11 includes"
+)
+include_directories(${PYBIND11_INCLUDE_DIR})
+execute_process(
+    COMMAND "${PYTHON_EXECUTABLE}" -c
+    "from __future__ import print_function\ntry:\n import numpy\n import os\n inc_path = numpy.get_include()\n if os.path.exists(os.path.join(inc_path, 'numpy', 'arrayobject.h')):\n  print(inc_path, end='')\nexcept:\n pass"
+    OUTPUT_VARIABLE PYTHON_NUMPY_INCLUDE_DIR)
+
+message(STATUS "^^^%^%^%^^^^%^%^%^^^^^^^^^^^^^^^%^^%^^^^^^^^^^^^^%%^")
+message(STATUS ${CMAKE_CURRENT_SOURCE_DIR}/../../lib)
+
+# Build pyuhd library
+add_library(pmt_python SHARED ${CMAKE_CURRENT_SOURCE_DIR}/python_bindings.cpp)
+target_include_directories(pmt_python PUBLIC
+    ${PYTHON_NUMPY_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+    ${PYBIND11_INCLUDE_DIR}
+)
+
+# target_link_libraries(pmt_python ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-pmt )
+target_link_libraries(pmt_python ${Boost_LIBRARIES} Python::Python gnuradio-pmt)
+
+# Copy pyuhd library to the staging directory
+if(WIN32)
+    set(PMT_PYTHON_LIBRARY_NAME pmt_python.pyd)
+else()
+    set(PMT_PYTHON_LIBRARY_NAME pmt_python${CMAKE_SHARED_MODULE_SUFFIX})
+endif(WIN32)
+
+add_custom_command(TARGET pmt_python
+    POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:pmt_python> ${CMAKE_CURRENT_BINARY_DIR}/${PMT_PYTHON_LIBRARY_NAME})
+
+message(STATUS ${CMAKE_INSTALL_PREFIX})
+
+message(STATUS "Utilizing the python install directory: ${PMT_PYTHON_DIR}")
+message(STATUS ${CMAKE_CURRENT_BINARY_DIR})
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} DESTINATION ${GR_PYTHON_DIR} COMPONENT pythonapi)
+
+########################################################################
 # Setup unit tests
 ########################################################################
-if(ENABLE_TESTING)
-include(GrTest)
-file(GLOB py_qa_test_files "qa_*.py")
-foreach(py_qa_test_file ${py_qa_test_files})
-    get_filename_component(py_qa_test_name ${py_qa_test_file} NAME_WE)
-    set(GR_TEST_PYTHON_DIRS
-        ${CMAKE_BINARY_DIR}/gnuradio-runtime/python
-        ${CMAKE_BINARY_DIR}/gnuradio-runtime/swig
-        ${CMAKE_BINARY_DIR}/gnuradio-blocks/swig		
-    )
-    set(GR_TEST_TARGET_DEPS gnuradio-runtime)
-    GR_ADD_TEST(${py_qa_test_name} ${QA_PYTHON_EXECUTABLE} -B ${py_qa_test_file})
-endforeach(py_qa_test_file)
-endif(ENABLE_TESTING)
+# if(ENABLE_TESTING)
+# include(GrTest)
+# file(GLOB py_qa_test_files "qa_*.py")
+# foreach(py_qa_test_file ${py_qa_test_files})
+#     get_filename_component(py_qa_test_name ${py_qa_test_file} NAME_WE)
+#     set(GR_TEST_PYTHON_DIRS
+#         ${CMAKE_BINARY_DIR}/gnuradio-runtime/python
+#         ${CMAKE_BINARY_DIR}/gnuradio-runtime/swig
+#         ${CMAKE_BINARY_DIR}/gnuradio-blocks/swig		
+#     )
+#     set(GR_TEST_TARGET_DEPS gnuradio-runtime)
+#     GR_ADD_TEST(${py_qa_test_name} ${QA_PYTHON_EXECUTABLE} -B ${py_qa_test_file})
+# endforeach(py_qa_test_file)
+# endif(ENABLE_TESTING)

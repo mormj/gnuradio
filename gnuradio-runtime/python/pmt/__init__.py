@@ -44,19 +44,14 @@ from __future__ import unicode_literals
 
 import os
 
-try:
-    from .pmt_swig import *
-except ImportError:
-    dirname, filename = os.path.split(os.path.abspath(__file__))
-    __path__.append(os.path.join(dirname, "..", "..", "swig"))
-    from .pmt_swig import *
+from .pmt_python import *
 
 # due to changes in the PMT_NIL singleton for static builds, we force
 # this into Python here.
-PMT_NIL = get_PMT_NIL()
-PMT_T = get_PMT_T()
-PMT_F = get_PMT_F()
-PMT_EOF = get_PMT_EOF()
+# PMT_NIL = get_PMT_NIL()
+# PMT_T = get_PMT_T()
+# PMT_F = get_PMT_F()
+# PMT_EOF = get_PMT_EOF()
 
-from .pmt_to_python import pmt_to_python as to_python
-from .pmt_to_python import python_to_pmt as to_pmt
+# from .pmt_to_python import pmt_to_python as to_python
+# from .pmt_to_python import python_to_pmt as to_pmt
