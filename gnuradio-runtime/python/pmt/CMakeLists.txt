@@ -24,24 +24,57 @@ include(GrPython)
 ########################################################################
 GR_PYTHON_INSTALL(FILES
     __init__.py
-    pmt_to_python.py
+    # pmt_to_python.py
     DESTINATION ${GR_PYTHON_DIR}/pmt
 )
 
 ########################################################################
+# Python Bindings
+########################################################################
+
+pybind11_add_module(pmt_python ${CMAKE_CURRENT_SOURCE_DIR}/python_bindings.cpp)
+target_include_directories(pmt_python PUBLIC
+    ${PYTHON_NUMPY_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+    ${PYBIND11_INCLUDE_DIR} 
+)
+target_link_libraries(pmt_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-pmt)
+
+
+# if(WIN32)
+#     set(PMT_PYTHON_LIBRARY_NAME libpmt_python.pyd)
+# else()
+#     set(PMT_PYTHON_LIBRARY_NAME libpmt_python${CMAKE_SHARED_MODULE_SUFFIX})
+# endif(WIN32)
+
+# add_custom_command(TARGET pmt_python
+#     POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:pmt_python> ${CMAKE_CURRENT_BINARY_DIR}/${PMT_PYTHON_LIBRARY_NAME})
+
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} DESTINATION ${GR_PYTHON_DIR} COMPONENT pythonapi)
+
+#Debug variable names
+# get_cmake_property(_variableNames VARIABLES)
+# list (SORT _variableNames)
+# foreach (_variableName ${_variableNames})
+#     message(STATUS "${_variableName}=${${_variableName}}")
+# endforeach()
+
+
+########################################################################
 # Setup unit tests
 ########################################################################
-if(ENABLE_TESTING)
-include(GrTest)
-file(GLOB py_qa_test_files "qa_*.py")
-foreach(py_qa_test_file ${py_qa_test_files})
-    get_filename_component(py_qa_test_name ${py_qa_test_file} NAME_WE)
-    set(GR_TEST_PYTHON_DIRS
-        ${CMAKE_BINARY_DIR}/gnuradio-runtime/python
-        ${CMAKE_BINARY_DIR}/gnuradio-runtime/swig
-        ${CMAKE_BINARY_DIR}/gnuradio-blocks/swig		
-    )
-    set(GR_TEST_TARGET_DEPS gnuradio-runtime)
-    GR_ADD_TEST(${py_qa_test_name} ${QA_PYTHON_EXECUTABLE} -B ${py_qa_test_file})
-endforeach(py_qa_test_file)
-endif(ENABLE_TESTING)
+# if(ENABLE_TESTING)
+# include(GrTest)
+# file(GLOB py_qa_test_files "qa_*.py")
+# foreach(py_qa_test_file ${py_qa_test_files})
+#     get_filename_component(py_qa_test_name ${py_qa_test_file} NAME_WE)
+#     set(GR_TEST_PYTHON_DIRS
+#         ${CMAKE_BINARY_DIR}/gnuradio-runtime/python
+#         ${CMAKE_BINARY_DIR}/gnuradio-runtime/swig
+#         ${CMAKE_BINARY_DIR}/gnuradio-blocks/swig		
+#     )
+#     set(GR_TEST_TARGET_DEPS gnuradio-runtime)
+#     GR_ADD_TEST(${py_qa_test_name} ${QA_PYTHON_EXECUTABLE} -B ${py_qa_test_file})
+# endforeach(py_qa_test_file)
+# endif(ENABLE_TESTING)

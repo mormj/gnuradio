@@ -59,6 +59,11 @@ public:
      * \brief Set multiplicative constant
      */
     virtual void set_k(T k) = 0;
+
+    virtual std::shared_ptr<gr::basic_block> to_basic_block()
+    {
+        return std::enable_shared_from_this<gr::basic_block>::shared_from_this();
+    }
 };
 
 typedef multiply_const<std::int16_t> multiply_const_ss;

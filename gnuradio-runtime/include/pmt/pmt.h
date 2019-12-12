@@ -53,7 +53,7 @@ namespace pmt {
 /*!
  * \brief base class of all pmt types
  */
-class pmt_base : boost::noncopyable
+class PMT_API pmt_base : boost::noncopyable
 {
 
 public:
@@ -136,6 +136,7 @@ PMT_API pmt_t get_PMT_EOF();
 #define PMT_F get_PMT_F()
 #define PMT_EOF get_PMT_EOF()
 
+PMT_API int asdf(int i, int j);
 
 /*
  * ------------------------------------------------------------------------

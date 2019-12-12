@@ -25,7 +25,7 @@
 #include <gnuradio/digital/api.h>
 #include <gnuradio/gr_complex.h>
 #include <gnuradio/tags.h>
-#include <boost/enable_shared_from_this.hpp>
+// #include <boost/enable_shared_from_this.hpp>
 
 namespace gr {
 namespace digital {

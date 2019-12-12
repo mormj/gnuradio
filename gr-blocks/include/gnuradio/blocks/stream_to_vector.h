@@ -46,6 +46,8 @@ public:
      * \param nitems_per_block number of items to put into each vector (vector size)
      */
     static sptr make(size_t itemsize, size_t nitems_per_block);
+
+    TO_BASIC_BLOCK
 };
 
 } /* namespace blocks */

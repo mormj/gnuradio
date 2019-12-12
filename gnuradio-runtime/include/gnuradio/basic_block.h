@@ -29,7 +29,7 @@
 #include <gnuradio/runtime_types.h>
 #include <gnuradio/sptr_magic.h>
 #include <gnuradio/thread/thread.h>
-#include <boost/enable_shared_from_this.hpp>
+// #include <boost/enable_shared_from_this.hpp>
 #include <boost/foreach.hpp>
 #include <boost/function.hpp>
 #include <boost/thread/condition_variable.hpp>
@@ -160,7 +160,7 @@ public:
 
     gr::io_signature::sptr input_signature() const { return d_input_signature; }
     gr::io_signature::sptr output_signature() const { return d_output_signature; }
-    basic_block_sptr to_basic_block(); // Needed for Python type coercion
+    virtual std::shared_ptr<gr::basic_block> to_basic_block(); // Needed for Python type coercion
 
     /*!
      * True if the block has an alias (see set_block_alias).
@@ -418,6 +418,12 @@ inline std::ostream& operator<<(std::ostream& os, basic_block_sptr basic_block)
     os << basic_block->identifier();
     return os;
 }
+
+#define TO_BASIC_BLOCK \
+    virtual std::shared_ptr<gr::basic_block> to_basic_block() \
+    { \
+        return std::enable_shared_from_this<gr::basic_block>::shared_from_this(); \
+    }
 
 } /* namespace gr */
 

@@ -28,7 +28,7 @@
 #include <gnuradio/gr_complex.h>
 #include <pmt/pmt.h>
 #include <boost/any.hpp>
-#include <boost/enable_shared_from_this.hpp>
+// #include <boost/enable_shared_from_this.hpp>
 #include <vector>
 
 namespace gr {
