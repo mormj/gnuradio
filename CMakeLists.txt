@@ -438,6 +438,19 @@ message(STATUS "  Override with -DENABLE_INTERNAL_VOLK=ON/OFF")
 # Handle logging
 find_package(LOG4CPP REQUIRED)
 
+# include(CMakePackageConfigHelpers)
+# configure_package_config_file(
+#     ${PROJECT_SOURCE_DIR}/cmake/Modules/pybind11Config.cmake.in
+#     ${CMAKE_CURRENT_BINARY_DIR}/cmake/Modules/Findpybind11.cmake
+#     INSTALL_DESTINATION ${GR_CMAKE_DIR}
+#     )
+    
+# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_BINARY_DIR}/cmake/Modules/")
+
+message(STATUS ${CMAKE_MODULE_PATH})
+
+find_package(pybind11 REQUIRED)
+
 ########################################################################
 # Distribute the README file
 ########################################################################

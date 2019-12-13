@@ -8,10 +8,13 @@
 #ifndef INCLUDED_PMT_PYTHON_HPP
 #define INCLUDED_PMT_PYTHON_HPP
 
-#pragma once
+// #pragma once
 
 #include <pmt/pmt.h>
 
+int add(int i, int j) {
+    return i + j;
+}
 
 void export_pmt(py::module& m)
 {
@@ -26,8 +29,9 @@ void export_pmt(py::module& m)
 
     // m.def("is_bool", &pmt::is_bool);
     // m.def("to_bool", &pmt::to_bool);
-    m.def("add", &pmt::add, "A function which adds two numbers");
+    m.def("add", &add, "A function which adds two numbers");
+    m.def("asdf", &pmt::asdf, "A function which adds two numbers");
 
-}
+} 
 
 #endif /* INCLUDED_UHD_USRP_MULTI_USRP_PYTHON_HPP */
