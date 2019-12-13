@@ -29,7 +29,7 @@ void export_pmt(py::module& m)
 
     // m.def("is_bool", &pmt::is_bool);
     // m.def("to_bool", &pmt::to_bool);
-    m.def("add", &add, "A function which adds two numbers");
+    // m.def("add", &add, "A function which adds two numbers");
     m.def("asdf", &pmt::asdf, "A function which adds two numbers");
 
 } 

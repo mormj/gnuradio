@@ -37,7 +37,7 @@ void* init_numpy()
 // }
 // #endif
 
-PYBIND11_MODULE(libpmt_python, m)
+PYBIND11_MODULE(pmt_python, m)
 {
     // Initialize the numpy C API
     // (otherwise we will see segmentation faults)
