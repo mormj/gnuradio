@@ -71,30 +71,30 @@ message(STATUS ${PYTHON_NUMPY_INCLUDE_DIR})
 # Copy pyuhd library to the staging directory
 
 
-# pybind11_add_module(pmt_python ${CMAKE_CURRENT_SOURCE_DIR}/python_bindings.cpp)
-# target_include_directories(pmt_python PUBLIC
-#     ${PYTHON_NUMPY_INCLUDE_DIR}
-#     ${CMAKE_CURRENT_SOURCE_DIR}/../../lib
-#     ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-#     ${PYBIND11_INCLUDE_DIR} 
-# )
-# target_link_libraries(pmt_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-pmt)
-
-message(STATUS "^^^%^%^%^^^^%^%^%^^^^^^^^^^^^^^^%^^%^^^^^^^^^^^^^%%^")
-message(STATUS ${PYTHON_LIBRARIES})
-
-add_library(pmt_python SHARED python_bindings.cpp)
+pybind11_add_module(pmt_python ${CMAKE_CURRENT_SOURCE_DIR}/python_bindings.cpp)
 target_include_directories(pmt_python PUBLIC
     ${PYTHON_NUMPY_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../lib
     ${CMAKE_CURRENT_SOURCE_DIR}/../../include
     ${PYBIND11_INCLUDE_DIR} 
 )
-SET(PMT_LINK_LIBRARIES -Wl,--no-as-needed gnuradio-pmt)
-# /share/gnuradio/grnext/src/gnuradio/build/gnuradio-runtime/lib/pmt/libgnuradio-pmt.so.3.9.0.0-git
-target_link_libraries(pmt_python  ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} pybind11::module ${PMT_LINK_LIBRARIES})
-set_target_properties(pmt_python PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
-                                         SUFFIX "${PYTHON_MODULE_EXTENSION}")
+target_link_libraries(pmt_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-pmt)
+
+message(STATUS "^^^%^%^%^^^^%^%^%^^^^^^^^^^^^^^^%^^%^^^^^^^^^^^^^%%^")
+message(STATUS ${Boost_LIBRARIES})
+
+# add_library(pmt_python SHARED python_bindings.cpp)
+# target_include_directories(pmt_python PUBLIC
+#     ${PYTHON_NUMPY_INCLUDE_DIR}
+#     ${CMAKE_CURRENT_SOURCE_DIR}/../../lib
+#     ${CMAKE_CURRENT_SOURCE_DIR}/../../include
+#     ${PYBIND11_INCLUDE_DIR} 
+# )
+# SET(PMT_LINK_LIBRARIES -Wl,--no-as-needed gnuradio-pmt)
+# # /share/gnuradio/grnext/src/gnuradio/build/gnuradio-runtime/lib/pmt/libgnuradio-pmt.so.3.9.0.0-git
+# target_link_libraries(pmt_python  ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} pybind11::module ${PMT_LINK_LIBRARIES})
+# set_target_properties(pmt_python PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
+#                                          SUFFIX "${PYTHON_MODULE_EXTENSION}")
 
 # if(WIN32)
 #     set(PMT_PYTHON_LIBRARY_NAME libpmt_python.pyd)

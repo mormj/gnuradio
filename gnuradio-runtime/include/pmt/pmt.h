@@ -53,7 +53,7 @@ namespace pmt {
 /*!
  * \brief base class of all pmt types
  */
-class pmt_base : boost::noncopyable
+class PMT_API pmt_base : boost::noncopyable
 {
 
 public:
