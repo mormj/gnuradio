@@ -438,19 +438,26 @@ message(STATUS "  Override with -DENABLE_INTERNAL_VOLK=ON/OFF")
 # Handle logging
 find_package(LOG4CPP REQUIRED)
 
-# include(CMakePackageConfigHelpers)
-# configure_package_config_file(
-#     ${PROJECT_SOURCE_DIR}/cmake/Modules/pybind11Config.cmake.in
-#     ${CMAKE_CURRENT_BINARY_DIR}/cmake/Modules/Findpybind11.cmake
-#     INSTALL_DESTINATION ${GR_CMAKE_DIR}
-#     )
-    
-# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_BINARY_DIR}/cmake/Modules/")
-
 message(STATUS ${CMAKE_MODULE_PATH})
 
+########################################################################
+# PyBind11 Related
+########################################################################
 find_package(pybind11 REQUIRED)
-# find_package (Python REQUIRED COMPONENTS Development)
+# Get include dirs
+# include_directories(${PYTHON_INCLUDE_DIRS})
+# set(PYBIND11_INCLUDE_DIR
+#     "${CMAKE_SOURCE_DIR}/deps/pybind11/include"
+#     CACHE
+#     STRING
+#     "Location of PyBind11 includes"
+# )
+
+execute_process(
+    COMMAND "${PYTHON_EXECUTABLE}" -c
+    "from __future__ import print_function\ntry:\n import numpy\n import os\n inc_path = numpy.get_include()\n if os.path.exists(os.path.join(inc_path, 'numpy', 'arrayobject.h')):\n  print(inc_path, end='')\nexcept:\n pass"
+    OUTPUT_VARIABLE PYTHON_NUMPY_INCLUDE_DIR)
+
 
 ########################################################################
 # Distribute the README file

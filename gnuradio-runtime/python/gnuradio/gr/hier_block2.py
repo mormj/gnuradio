@@ -22,7 +22,9 @@ from __future__ import unicode_literals
 
 import functools
 
-from .runtime_swig import hier_block2_swig, dot_graph
+# from .runtime_swig import hier_block2_swig, dot_graph
+from .gr_python import hier_block2
+
 import pmt
 
 
@@ -152,8 +154,8 @@ class hier_block2(object):
         """
         self.primitive_message_port_register_hier_out(pmt.intern(portname))
 
-    def dot_graph(self):
-        """
-        Return graph representation in dot language
-        """
-        return dot_graph(self._impl)
+    # def dot_graph(self):
+    #     """
+    #     Return graph representation in dot language
+    #     """
+    #     return dot_graph(self._impl)

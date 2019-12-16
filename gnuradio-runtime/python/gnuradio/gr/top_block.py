@@ -22,14 +22,13 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from .runtime_swig import (top_block_swig,
+from .gr_python import (top_block, hier_block2,
     top_block_wait_unlocked, top_block_run_unlocked,
     top_block_start_unlocked, top_block_stop_unlocked,
-    top_block_unlock_unlocked, dot_graph_tb)
+    top_block_unlock_unlocked) #, dot_graph_tb)
 
 import threading
 
-from .hier_block2 import hier_block2
 
 class _top_block_waiter(threading.Thread):
     """
@@ -135,8 +134,8 @@ class top_block(hier_block2):
         """
         _top_block_waiter(self._impl).wait(self.handle_sigint)
 
-    def dot_graph(self):
-        """
-        Return graph representation in dot language
-        """
-        return dot_graph_tb(self._impl)
+    # def dot_graph(self):
+    #     """
+    #     Return graph representation in dot language
+    #     """
+    #     return dot_graph_tb(self._impl)

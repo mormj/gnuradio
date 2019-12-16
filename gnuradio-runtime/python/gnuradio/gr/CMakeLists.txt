@@ -33,6 +33,24 @@ GR_PYTHON_INSTALL(FILES
 )
 
 ########################################################################
+# Python Bindings
+########################################################################
+
+pybind11_add_module(gr_python ${CMAKE_CURRENT_SOURCE_DIR}/python_bindings.cpp)
+target_include_directories(gr_python PUBLIC
+    ${PYTHON_NUMPY_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
+    ${PYBIND11_INCLUDE_DIR} 
+)
+target_link_libraries(gr_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime)
+
+message(STATUS "!!@#$%@#$%^$%&^#%^&#$!@#$!@#$!$^@^%$")
+message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
+get_target_property(OUT gr_python INCLUDE_DIRECTORIES)
+message(STATUS ${OUT})
+
+########################################################################
 # Handle the unit tests
 ########################################################################
 if(ENABLE_TESTING)
