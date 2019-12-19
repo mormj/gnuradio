@@ -7,6 +7,7 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/complex.h>
+#include <pybind11/stl.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/arrayobject.h>
@@ -18,12 +19,10 @@ namespace py = pybind11;
 #include <boost/shared_ptr.hpp>
 PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
-#include "exports/top_block_python.hpp"
-#include "exports/io_signature_python.hpp"
-#include "exports/hier_block2_python.hpp"
-#include "exports/basic_block_python.hpp"
-#include "exports/block_python.hpp"
-#include "exports/sync_block_python.hpp"
+// #include "exports/basic_block_python.hpp"
+#include "exports/vector_source_python.hpp"
+#include "exports/null_sink_python.hpp"
+#include "exports/multiply_const_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -42,35 +41,22 @@ void* init_numpy()
 // }
 // #endif
 
-PYBIND11_MODULE(gr_python, m)
+PYBIND11_MODULE(blocks_python, m)
 {
     // Initialize the numpy C API
     // (otherwise we will see segmentation faults)
     init_numpy();
+    
+    py::module::import("gnuradio.gr");
 
     // Register types submodule
     // export_pmt(m);
-    export_basic_block(m);
-    export_block(m);
-    export_sync_block(m);
-
-    export_top_block(m);
-    export_io_signature(m);
-    export_hier_block2(m);
-    
+    // export_basic_block(m);
+    export_vector_source(m);
+    export_null_sink(m);
+    export_multiply_const(m);
 
 
-    // %constant int sizeof_char 	= sizeof(char);
-    m.attr("sizeof_char") = sizeof(char);
-    // %constant int sizeof_short	= sizeof(short);
-    m.attr("sizeof_short") = sizeof(short);
-    // %constant int sizeof_int	= sizeof(int);
-    m.attr("sizeof_int") = sizeof(int);
-    // %constant int sizeof_float	= sizeof(float);
-    m.attr("sizeof_float") = sizeof(float);
-    // %constant int sizeof_double	= sizeof(double);
-    m.attr("sizeof_double") = sizeof(double);
-    // %constant int sizeof_gr_complex	= sizeof(gr_complex);
-    m.attr("sizeof_gr_complex") = sizeof(gr_complex);
+
 }
 

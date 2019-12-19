@@ -50,6 +50,8 @@ message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
 get_target_property(OUT gr_python INCLUDE_DIRECTORIES)
 message(STATUS ${OUT})
 
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} DESTINATION ${GR_PYTHON_DIR}/gnuradio/ COMPONENT pythonapi)
+
 ########################################################################
 # Handle the unit tests
 ########################################################################

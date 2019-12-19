@@ -18,14 +18,29 @@ void export_hier_block2(py::module& m)
     using hier_block2      = gr::hier_block2;
     using basic_block_sptr = boost::shared_ptr<gr::basic_block>;
 
-    py::class_<hier_block2, boost::shared_ptr<hier_block2>>(m, "hier_block2")     
+    py::class_<hier_block2, gr::basic_block, boost::shared_ptr<hier_block2>>(m, "hier_block2_pb")     
         
         .def(py::init(&gr::make_hier_block2))
-        .def("connect", (void (hier_block2::*)(basic_block_sptr)) &hier_block2::connect)
-        .def("connect", (void (hier_block2::*)(basic_block_sptr, int, basic_block_sptr, int)) &hier_block2::connect)
-        
-        // .def("asdf", (void (hier_block2::*)()) &hier_block2::asdf)
-        // .def("asdf", (void (hier_block2::*)(int)) &hier_block2::asdf)
+        .def("primitive_connect", (void (hier_block2::*)(basic_block_sptr)) &hier_block2::connect)
+        .def("primitive_connect", (void (hier_block2::*)(basic_block_sptr, int, basic_block_sptr, int)) &hier_block2::connect)
+        .def("primitive_disconnect", (void (hier_block2::*)(basic_block_sptr)) &hier_block2::disconnect)
+        .def("primitive_disconnect", (void (hier_block2::*)(basic_block_sptr, int, basic_block_sptr, int)) &hier_block2::disconnect)
+        .def("primitive_msg_connect", (void (hier_block2::*)(basic_block_sptr,
+                     pmt::pmt_t,
+                     basic_block_sptr,
+                     pmt::pmt_t)) &hier_block2::msg_connect)
+        .def("primitive_msg_connect", (void (hier_block2::*)(basic_block_sptr,
+                     std::string,
+                     basic_block_sptr,
+                     std::string)) &hier_block2::msg_connect)
+        .def("primitive_msg_disconnect", (void (hier_block2::*)(basic_block_sptr,
+                     pmt::pmt_t,
+                     basic_block_sptr,
+                     pmt::pmt_t)) &hier_block2::msg_disconnect)
+        .def("primitive_msg_disconnect", (void (hier_block2::*)(basic_block_sptr,
+                     std::string,
+                     basic_block_sptr,
+                     std::string)) &hier_block2::msg_disconnect)
         ;
 } 
 

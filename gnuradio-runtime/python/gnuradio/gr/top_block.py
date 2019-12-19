@@ -22,11 +22,12 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from .gr_python import (top_block, hier_block2,
+from .gr_python import (top_block_pb,
     top_block_wait_unlocked, top_block_run_unlocked,
     top_block_start_unlocked, top_block_stop_unlocked,
     top_block_unlock_unlocked) #, dot_graph_tb)
 
+from .hier_block2 import hier_block2
 import threading
 
 
@@ -100,7 +101,7 @@ class top_block(hier_block2):
         Create a top block with a given name.
         """
         # not calling hier_block2.__init__, we set our own _impl
-        self._impl = top_block_swig(name)
+        self._impl = top_block_pb(name)
         self.handle_sigint = True
 
     def start(self, max_noutput_items=10000000):

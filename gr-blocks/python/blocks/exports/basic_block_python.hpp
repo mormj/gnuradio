@@ -5,20 +5,19 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 //
 
+/// THIS IS A COPY OF THE MAIN BASIC BLOCK FROM GR -- need to put in shareable locations
+
 #ifndef INCLUDED_GR_BASIC_BLOCK_PYTHON_HPP
 #define INCLUDED_GR_BASIC_BLOCK_PYTHON_HPP
 
 // #pragma once
 
 #include <gnuradio/basic_block.h>
-#include <gnuradio/msg_accepter.h>
 #include <pmt/pmt.h>
-#include <boost/enable_shared_from_this.hpp>
 
 void export_basic_block(py::module& m)
 {
     using basic_block      = gr::basic_block;
-    // py::class_<boost::enable_shared_from_this<basic_block>>(m,"enable_shared_from_this");
 
     py::class_<basic_block, boost::shared_ptr<basic_block>>(m, "basic_block")
         // pmt::pmt_t message_subscribers(pmt::pmt_t port);
@@ -31,9 +30,6 @@ void export_basic_block(py::module& m)
         .def("name", &basic_block::name)
         // std::string symbol_name() const { return d_symbol_name; }
         .def("symbol_name", &basic_block::symbol_name)
-
-        // basic_block_sptr to_basic_block();
-        .def("to_basic_block", &basic_block::to_basic_block)
 
         ;
 } 
