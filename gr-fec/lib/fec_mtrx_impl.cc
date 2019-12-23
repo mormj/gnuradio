@@ -17,6 +17,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <vector>
+#include <algorithm>
 
 namespace gr {
 namespace fec {
