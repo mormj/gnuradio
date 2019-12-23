@@ -36,7 +36,7 @@ namespace blocks {
 class BLOCKS_API message_strobe_random_impl : public message_strobe_random
 {
 private:
-    boost::shared_ptr<gr::thread::thread> d_thread;
+    std::shared_ptr<gr::thread::thread> d_thread;
     bool d_finished;
     float d_mean_ms;
     float d_std_ms;
@@ -46,13 +46,13 @@ private:
     long next_delay();
 
     boost::mt19937 d_rng;
-    boost::shared_ptr<
+    std::shared_ptr<
         boost::variate_generator<boost::mt19937, boost::poisson_distribution<>>>
         d_variate_poisson;
-    boost::shared_ptr<
+    std::shared_ptr<
         boost::variate_generator<boost::mt19937, boost::normal_distribution<>>>
         d_variate_normal;
-    boost::shared_ptr<boost::variate_generator<boost::mt19937, boost::uniform_real<>>>
+    std::shared_ptr<boost::variate_generator<boost::mt19937, boost::uniform_real<>>>
         d_variate_uniform;
 
     const pmt::pmt_t d_port;

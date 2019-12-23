@@ -70,7 +70,7 @@ message_strobe_random_impl::message_strobe_random_impl(
 
     // set up ports
     message_port_register_out(d_port);
-    d_thread = boost::shared_ptr<gr::thread::thread>(
+    d_thread = std::shared_ptr<gr::thread::thread>(
         new gr::thread::thread(boost::bind(&message_strobe_random_impl::run, this)));
 
     message_port_register_in(pmt::mp("set_msg"));
@@ -97,19 +97,19 @@ long message_strobe_random_impl::next_delay()
 void message_strobe_random_impl::update_dist()
 {
     boost::poisson_distribution<> pd(d_mean_ms);
-    d_variate_poisson = boost::shared_ptr<
+    d_variate_poisson = std::shared_ptr<
         boost::variate_generator<boost::mt19937, boost::poisson_distribution<>>>(
         new boost::variate_generator<boost::mt19937, boost::poisson_distribution<>>(d_rng,
                                                                                     pd));
 
     boost::normal_distribution<> nd(d_mean_ms, d_std_ms);
-    d_variate_normal = boost::shared_ptr<
+    d_variate_normal = std::shared_ptr<
         boost::variate_generator<boost::mt19937, boost::normal_distribution<>>>(
         new boost::variate_generator<boost::mt19937, boost::normal_distribution<>>(d_rng,
                                                                                    nd));
 
     boost::uniform_real<> ud(d_mean_ms - d_std_ms, d_mean_ms + d_std_ms);
-    d_variate_uniform = boost::shared_ptr<
+    d_variate_uniform = std::shared_ptr<
         boost::variate_generator<boost::mt19937, boost::uniform_real<>>>(
         new boost::variate_generator<boost::mt19937, boost::uniform_real<>>(d_rng, ud));
 }
