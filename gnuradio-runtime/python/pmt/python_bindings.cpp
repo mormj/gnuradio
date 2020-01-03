@@ -19,7 +19,7 @@ namespace py = pybind11;
 #include <boost/shared_ptr.hpp>
 PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
-#include "pmt/pmt_python.hpp"
+#include "exports/pmt_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
