@@ -21,7 +21,7 @@ void export_vector_source_template(py::module& m, const char *classname)
     // using vector_source      = gr::blocks::vector_source<T>;
 
     
-    py::class_<gr::blocks::vector_source<T>, gr::sync_block, boost::shared_ptr<gr::blocks::vector_source<T>>>(m, classname)
+    py::class_<gr::blocks::vector_source<T>, gr::sync_block, std::shared_ptr<gr::blocks::vector_source<T>>>(m, classname)
         // static sptr make(const std::vector<T>& data,
         //                  bool repeat = false,
         //                  unsigned int vlen = 1,
@@ -60,7 +60,7 @@ void export_vector_source(py::module& m)
 {
     using vector_source_b      = gr::blocks::vector_source_b;
 
-    py::class_<vector_source_b, boost::shared_ptr<vector_source_b>>(m, "vector_source_b")
+    py::class_<vector_source_b, std::shared_ptr<vector_source_b>>(m, "vector_source_b")
         // static sptr make(const std::vector<T>& data,
         //                  bool repeat = false,
         //                  unsigned int vlen = 1,

@@ -13,14 +13,14 @@
 #include <gnuradio/basic_block.h>
 #include <gnuradio/msg_accepter.h>
 #include <pmt/pmt.h>
-#include <boost/enable_shared_from_this.hpp>
+// #include <boost/enable_shared_from_this.hpp>
 
 void export_basic_block(py::module& m)
 {
     using basic_block      = gr::basic_block;
-    // py::class_<boost::enable_shared_from_this<basic_block>>(m,"enable_shared_from_this");
+    // py::class_<std::enable_shared_from_this<basic_block>>(m,"enable_shared_from_this");
 
-    py::class_<basic_block, boost::shared_ptr<basic_block>>(m, "basic_block")
+    py::class_<basic_block, std::shared_ptr<basic_block>>(m, "basic_block")
         // pmt::pmt_t message_subscribers(pmt::pmt_t port);
         .def("message_subscribers", &basic_block::message_subscribers)
         // long unique_id() const { return d_unique_id; }

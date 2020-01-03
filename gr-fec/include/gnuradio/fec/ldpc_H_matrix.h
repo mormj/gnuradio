@@ -23,7 +23,7 @@
 
 #include <gnuradio/fec/api.h>
 #include <gnuradio/fec/fec_mtrx.h>
-#include <boost/enable_shared_from_this.hpp>
+// #include <boost/enable_shared_from_this.hpp>
 #include <memory>
 
 namespace gr {

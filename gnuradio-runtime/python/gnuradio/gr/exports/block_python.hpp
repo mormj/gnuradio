@@ -17,7 +17,7 @@ void export_block(py::module& m)
     using block      = gr::block;
     // py::class_<boost::enable_shared_from_this<block>>(m,"enable_shared_from_this");
 
-    py::class_<block, gr::basic_block, boost::shared_ptr<block>>(m, "block")
+    py::class_<block, gr::basic_block, std::shared_ptr<block>>(m, "block")
             .def("history", &block::history)
             .def("set_history", &block::set_history)
 

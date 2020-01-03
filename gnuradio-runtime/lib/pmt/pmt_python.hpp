@@ -20,7 +20,7 @@ void export_pmt(py::module& m)
 {
     using pmt_base      = pmt::pmt_base;
     using pmt_t         = pmt::pmt_t;
-    py::class_<pmt_base, boost::shared_ptr<pmt_base>>(m, "pmt_t")
+    py::class_<pmt_base, std::shared_ptr<pmt_base>>(m, "pmt_t")
         // .def(py::init())
         // .def(py::init<const std::string&, const std::string&>())
         ;

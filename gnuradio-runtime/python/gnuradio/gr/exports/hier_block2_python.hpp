@@ -16,9 +16,9 @@
 void export_hier_block2(py::module& m)
 {
     using hier_block2      = gr::hier_block2;
-    using basic_block_sptr = boost::shared_ptr<gr::basic_block>;
+    using basic_block_sptr = std::shared_ptr<gr::basic_block>;
 
-    py::class_<hier_block2, gr::basic_block, boost::shared_ptr<hier_block2>>(m, "hier_block2_pb")     
+    py::class_<hier_block2, gr::basic_block, std::shared_ptr<hier_block2>>(m, "hier_block2_pb")     
         
         .def(py::init(&gr::make_hier_block2))
         .def("primitive_connect", (void (hier_block2::*)(basic_block_sptr)) &hier_block2::connect)
