@@ -22,6 +22,7 @@ void export_vector_source_template(py::module& m, const char *classname)
 
     
     py::class_<gr::blocks::vector_source<T>, gr::sync_block, std::shared_ptr<gr::blocks::vector_source<T>>>(m, classname)
+    // py::class_<gr::blocks::vector_source<T>, gr::sync_block, gr::blocks::vector_source<T>::sptr >(m, classname)
         // static sptr make(const std::vector<T>& data,
         //                  bool repeat = false,
         //                  unsigned int vlen = 1,

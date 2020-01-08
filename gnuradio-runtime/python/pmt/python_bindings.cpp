@@ -16,8 +16,8 @@ namespace py = pybind11;
 
 // Allow boost::shared_ptr<T> to be a holder class of an object (PyBind11
 // supports boost::shared_ptr and std::unique_ptr out of the box)
-#include <boost/shared_ptr.hpp>
-PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
+// #include <boost/shared_ptr.hpp>
+// PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
 #include "exports/pmt_python.hpp"
 

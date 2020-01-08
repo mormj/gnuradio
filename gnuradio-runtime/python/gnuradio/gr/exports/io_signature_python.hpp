@@ -16,6 +16,7 @@ void export_io_signature(py::module& m)
 {
     using io_signature      = gr::io_signature;
     py::class_<io_signature, std::shared_ptr<io_signature>>(m, "io_signature")    
+    // py::class_<io_signature, gr::io_signature::sptr>(m, "io_signature")    
         // io_signature(int min_streams,
         //              int max_streams,
         //              const std::vector<int>& sizeof_stream_items);
