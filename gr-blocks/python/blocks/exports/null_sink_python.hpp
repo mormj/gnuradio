@@ -18,8 +18,7 @@ void export_null_sink(py::module& m)
 {
     using null_sink      = gr::blocks::null_sink;
 
-    //py::class_<null_sink, gr::sync_block, std::shared_ptr<null_sink>>(m, "null_sink")
-    py::class_<gr::blocks::null_sink, gr::sync_block, gr::blocks::null_sink::sptr>(m, "null_sink")
+    py::class_<null_sink, gr::sync_block, std::shared_ptr<null_sink>>(m, "null_sink")
         .def(py::init(&null_sink::make))
         ;
 } 

@@ -16,31 +16,30 @@
 void export_hier_block2(py::module& m)
 {
     using hier_block2      = gr::hier_block2;
-    // using basic_block_sptr = std::shared_ptr<gr::basic_block>;
+    using basic_block_sptr = std::shared_ptr<gr::basic_block>;
 
     py::class_<hier_block2, gr::basic_block, std::shared_ptr<hier_block2>>(m, "hier_block2_pb")     
-    // py::class_<hier_block2, gr::basic_block, gr::hier_block2_sptr>(m, "hier_block2_pb")     
         
         .def(py::init(&gr::make_hier_block2))
-        .def("primitive_connect", (void (hier_block2::*)(gr::basic_block_sptr)) &hier_block2::connect)
-        .def("primitive_connect", (void (hier_block2::*)(gr::basic_block_sptr, int, gr::basic_block_sptr, int)) &hier_block2::connect)
-        .def("primitive_disconnect", (void (hier_block2::*)(gr::basic_block_sptr)) &hier_block2::disconnect)
-        .def("primitive_disconnect", (void (hier_block2::*)(gr::basic_block_sptr, int, gr::basic_block_sptr, int)) &hier_block2::disconnect)
-        .def("primitive_msg_connect", (void (hier_block2::*)(gr::basic_block_sptr,
+        .def("primitive_connect", (void (hier_block2::*)(basic_block_sptr)) &hier_block2::connect)
+        .def("primitive_connect", (void (hier_block2::*)(basic_block_sptr, int, basic_block_sptr, int)) &hier_block2::connect)
+        .def("primitive_disconnect", (void (hier_block2::*)(basic_block_sptr)) &hier_block2::disconnect)
+        .def("primitive_disconnect", (void (hier_block2::*)(basic_block_sptr, int, basic_block_sptr, int)) &hier_block2::disconnect)
+        .def("primitive_msg_connect", (void (hier_block2::*)(basic_block_sptr,
                      pmt::pmt_t,
-                     gr::basic_block_sptr,
+                     basic_block_sptr,
                      pmt::pmt_t)) &hier_block2::msg_connect)
-        .def("primitive_msg_connect", (void (hier_block2::*)(gr::basic_block_sptr,
+        .def("primitive_msg_connect", (void (hier_block2::*)(basic_block_sptr,
                      std::string,
-                     gr::basic_block_sptr,
+                     basic_block_sptr,
                      std::string)) &hier_block2::msg_connect)
-        .def("primitive_msg_disconnect", (void (hier_block2::*)(gr::basic_block_sptr,
+        .def("primitive_msg_disconnect", (void (hier_block2::*)(basic_block_sptr,
                      pmt::pmt_t,
-                     gr::basic_block_sptr,
+                     basic_block_sptr,
                      pmt::pmt_t)) &hier_block2::msg_disconnect)
-        .def("primitive_msg_disconnect", (void (hier_block2::*)(gr::basic_block_sptr,
+        .def("primitive_msg_disconnect", (void (hier_block2::*)(basic_block_sptr,
                      std::string,
-                     gr::basic_block_sptr,
+                     basic_block_sptr,
                      std::string)) &hier_block2::msg_disconnect)
         ;
 } 
