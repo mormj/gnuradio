@@ -21,8 +21,10 @@ namespace py = pybind11;
 
 // #include "exports/basic_block_python.hpp"
 #include "exports/vector_source_python.hpp"
+#include "exports/vector_sink_python.hpp"
 #include "exports/null_sink_python.hpp"
 #include "exports/multiply_const_python.hpp"
+#include "exports/stream_to_vector_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -56,8 +58,10 @@ PYBIND11_MODULE(blocks_python, m)
     // export_pmt(m);
     // export_basic_block(m);
     export_vector_source(m);
+    export_vector_sink(m);
     export_null_sink(m);
     export_multiply_const(m);
+    export_stream_to_vector(m);
 
 
 

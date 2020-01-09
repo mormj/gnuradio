@@ -419,6 +419,12 @@ inline std::ostream& operator<<(std::ostream& os, basic_block_sptr basic_block)
     return os;
 }
 
+#define TO_BASIC_BLOCK \
+    virtual std::shared_ptr<gr::basic_block> to_basic_block() \
+    { \
+        return std::enable_shared_from_this<gr::basic_block>::shared_from_this(); \
+    }
+
 } /* namespace gr */
 
 #endif /* INCLUDED_GR_BASIC_BLOCK_H */

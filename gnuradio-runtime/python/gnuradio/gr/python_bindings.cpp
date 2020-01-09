@@ -24,6 +24,7 @@ namespace py = pybind11;
 #include "exports/basic_block_python.hpp"
 #include "exports/block_python.hpp"
 #include "exports/sync_block_python.hpp"
+#include "exports/sync_decimator_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -53,6 +54,7 @@ PYBIND11_MODULE(gr_python, m)
     export_basic_block(m);
     export_block(m);
     export_sync_block(m);
+    export_sync_decimator(m);
     export_io_signature(m);
     export_hier_block2(m);
     export_top_block(m);    
