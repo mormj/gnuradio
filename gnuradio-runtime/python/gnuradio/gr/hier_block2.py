@@ -41,10 +41,10 @@ def _multiple_endpoints(func):
             func(self, block)
         else:
             try:
-                # endp = [(p.to_basic_block(), 0) if hasattr(p, 'to_basic_block')
-                #         else (p[0].to_basic_block(), p[1]) for p in points]
-                endp = [(p, 0) if hasattr(p, 'to_basic_block')
-                        else (p[0], p[1]) for p in points]
+                endp = [(p.to_basic_block(), 0) if hasattr(p, 'to_basic_block')
+                        else (p[0].to_basic_block(), p[1]) for p in points]
+                # endp = [(p, 0) if hasattr(p, 'to_basic_block')
+                #         else (p[0], p[1]) for p in points]
             except (ValueError, TypeError, AttributeError) as err:
                 raise ValueError("Unable to coerce endpoints: " + str(err))
 

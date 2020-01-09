@@ -35,8 +35,7 @@ namespace blocks {
 template <class T>
 typename multiply_const<T>::sptr multiply_const<T>::make(T k, size_t vlen)
 {
-    auto s = gnuradio::get_initial_sptr(new multiply_const_impl<T>(k, vlen));
-    return s;
+    return gnuradio::get_initial_sptr(new multiply_const_impl<T>(k, vlen));
 }
 
 template <>

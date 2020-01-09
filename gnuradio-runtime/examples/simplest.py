@@ -43,7 +43,7 @@ class simplest(gr.top_block):
         ##################################################
         # Connections
         ##################################################
-        self.connect(mc, ns)
+        self.connect(vs, mc, ns)
 
     def get_samp_rate(self):
         return self.samp_rate

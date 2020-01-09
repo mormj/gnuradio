@@ -60,9 +60,10 @@ basic_block::~basic_block()
     global_block_registry.block_unregister(this);
 }
 
-basic_block_sptr basic_block::to_basic_block() 
+std::shared_ptr<gr::basic_block> basic_block::to_basic_block() 
 { 
     return shared_from_this(); 
+    // return std::enable_shared_from_this<gr::basic_block>::shared_from_this();
 }
 
 void basic_block::set_block_alias(std::string name)

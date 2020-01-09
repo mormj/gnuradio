@@ -32,8 +32,7 @@ namespace blocks {
 
 null_sink::sptr null_sink::make(size_t sizeof_stream_item)
 {
-    null_sink::sptr s = gnuradio::get_initial_sptr(new null_sink_impl(sizeof_stream_item));
-    return s;
+    return gnuradio::get_initial_sptr(new null_sink_impl(sizeof_stream_item));;
 }
 
 null_sink_impl::null_sink_impl(size_t sizeof_stream_item)
