@@ -39,7 +39,10 @@ public:
     multiply_const_impl(T k, size_t vlen);
 
     T k() const { return d_k; }
-    void set_k(T k) { d_k = k; }
+    void set_k(T k) { 
+        d_k = k; 
+        }
+        
 
     int work(int noutput_items,
              gr_vector_const_void_star& input_items,

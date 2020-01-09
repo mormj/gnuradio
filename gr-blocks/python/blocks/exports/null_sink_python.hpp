@@ -23,29 +23,29 @@ void export_null_sink(py::module& m)
         ;
 } 
 
-namespace pybind11 {
-    template<> struct polymorphic_type_hook<gr::blocks::null_sink> {
-        static const void *get(const gr::blocks::null_sink *src, const std::type_info*& type) {
-            // note that src may be nullptr
-            if (src) {
-                type = &typeid(gr::basic_block);
-                return dynamic_cast<const gr::basic_block*>(src);
-            }
-            return src;
-        }
-    };
+// namespace pybind11 {
+//     template<> struct polymorphic_type_hook<gr::blocks::null_sink> {
+//         static const void *get(const gr::blocks::null_sink *src, const std::type_info*& type) {
+//             // note that src may be nullptr
+//             if (src) {
+//                 type = &typeid(gr::basic_block);
+//                 return dynamic_cast<const gr::basic_block*>(src);
+//             }
+//             return src;
+//         }
+//     };
 
-    template<> struct polymorphic_type_hook<gr::basic_block> {
-        static const void *get(const gr::basic_block *src, const std::type_info*& type) {
-            // note that src may be nullptr
-            if (src) {
-                type = &typeid(gr::blocks::null_sink);
-                return dynamic_cast<const gr::blocks::null_sink*>(src);
-            }
-            return src;
-        }
-    };
-} // namespace pybind11
+//     template<> struct polymorphic_type_hook<gr::basic_block> {
+//         static const void *get(const gr::basic_block *src, const std::type_info*& type) {
+//             // note that src may be nullptr
+//             if (src) {
+//                 type = &typeid(gr::blocks::null_sink);
+//                 return dynamic_cast<const gr::blocks::null_sink*>(src);
+//             }
+//             return src;
+//         }
+//     };
+// } // namespace pybind11
 
 // namespace pybind11 {
 //     template<> struct polymorphic_type_hook<gr::basic_block> {

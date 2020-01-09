@@ -35,6 +35,10 @@ void export_basic_block(py::module& m)
         // basic_block_sptr to_basic_block();
         .def("to_basic_block", &basic_block::to_basic_block)
 
+
+        .def("input_signature", &basic_block::input_signature)
+        .def("output_signature", &basic_block::output_signature)
+
         ;
 } 
 
