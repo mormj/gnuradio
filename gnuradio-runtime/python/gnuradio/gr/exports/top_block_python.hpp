@@ -66,7 +66,7 @@ void export_top_block(py::module& m)
 {
     using top_block      = gr::top_block;
 
-    py::class_<top_block, std::shared_ptr<top_block>>(m, "top_block_pb")
+    py::class_<top_block, gr::hier_block2, std::shared_ptr<top_block>>(m, "top_block_pb")
         // .def(py::init())
         .def(py::init(&gr::make_top_block))
         .def("start", &top_block::start)

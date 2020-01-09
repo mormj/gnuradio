@@ -53,11 +53,9 @@ PYBIND11_MODULE(gr_python, m)
     export_basic_block(m);
     export_block(m);
     export_sync_block(m);
-
-    export_top_block(m);
     export_io_signature(m);
     export_hier_block2(m);
-    
+    export_top_block(m);    
 
 
     // %constant int sizeof_char 	= sizeof(char);
