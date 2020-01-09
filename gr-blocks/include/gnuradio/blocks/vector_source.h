@@ -79,6 +79,11 @@ public:
     virtual void set_data(const std::vector<T>& data,
                           const std::vector<tag_t>& tags = std::vector<tag_t>()) = 0;
     virtual void set_repeat(bool repeat) = 0;
+
+    virtual std::shared_ptr<gr::basic_block> to_basic_block()
+    {
+        return std::enable_shared_from_this<gr::basic_block>::shared_from_this();
+    }
 };
 
 typedef vector_source<std::uint8_t> vector_source_b;

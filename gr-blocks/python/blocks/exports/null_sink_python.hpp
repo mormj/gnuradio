@@ -20,6 +20,7 @@ void export_null_sink(py::module& m)
 
     py::class_<null_sink, gr::sync_block, std::shared_ptr<null_sink>>(m, "null_sink")
         .def(py::init(&null_sink::make))
+        .def("to_basic_block",&null_sink::to_basic_block)
         ;
 } 
 

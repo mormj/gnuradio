@@ -34,7 +34,7 @@ class simplest(gr.top_block):
 
         mc.set_k(7)
         mc.k()
-        b = mc.to_bb()
+        # b = mc.to_bb()
         b = mc.to_basic_block()
         b = ns.to_basic_block()
         b = vs.to_basic_block()
