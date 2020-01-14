@@ -12,7 +12,7 @@
 
 #include <gnuradio/io_signature.h>
 
-void export_io_signature(py::module& m)
+void bind_io_signature(py::module& m)
 {
     using io_signature      = gr::io_signature;
     py::class_<io_signature, std::shared_ptr<io_signature>>(m, "io_signature")    

@@ -15,7 +15,7 @@
 #include <gnuradio/sync_block.h>
 
 template<typename T>
-void export_vector_sink_template(py::module& m, const char *classname)
+void bind_vector_sink_template(py::module& m, const char *classname)
 {
     using vector_sink      = gr::blocks::vector_sink<T>;
 
@@ -28,13 +28,13 @@ void export_vector_sink_template(py::module& m, const char *classname)
         ;
 } 
 
-void export_vector_sink(py::module& m)
+void bind_vector_sink(py::module& m)
 {
-    export_vector_sink_template<std::uint8_t>(m,"vector_sink_b");
-    export_vector_sink_template<std::int16_t>(m,"vector_sink_s");
-    export_vector_sink_template<std::int32_t>(m,"vector_sink_i");
-    export_vector_sink_template<float>(m,"vector_sink_f");
-    export_vector_sink_template<gr_complex>(m,"vector_sink_c");
+    bind_vector_sink_template<std::uint8_t>(m,"vector_sink_b");
+    bind_vector_sink_template<std::int16_t>(m,"vector_sink_s");
+    bind_vector_sink_template<std::int32_t>(m,"vector_sink_i");
+    bind_vector_sink_template<float>(m,"vector_sink_f");
+    bind_vector_sink_template<gr_complex>(m,"vector_sink_c");
 }
 
 

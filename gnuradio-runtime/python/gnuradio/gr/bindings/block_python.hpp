@@ -12,7 +12,7 @@
 
 #include <gnuradio/block.h>
 
-void export_block(py::module& m)
+void bind_block(py::module& m)
 {
     using block      = gr::block;
     // py::class_<boost::enable_shared_from_this<block>>(m,"enable_shared_from_this");

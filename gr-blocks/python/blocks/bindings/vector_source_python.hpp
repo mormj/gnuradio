@@ -16,7 +16,7 @@
 
 #if 1
 template<typename T>
-void export_vector_source_template(py::module& m, const char *classname)
+void bind_vector_source_template(py::module& m, const char *classname)
 {
     // using vector_source      = gr::blocks::vector_source<T>;
 
@@ -46,18 +46,18 @@ void export_vector_source_template(py::module& m, const char *classname)
         ;
 } 
 
-void export_vector_source(py::module& m)
+void bind_vector_source(py::module& m)
 {
-    export_vector_source_template<std::uint8_t>(m,"vector_source_b");
-    export_vector_source_template<std::int16_t>(m,"vector_source_s");
-    export_vector_source_template<std::int32_t>(m,"vector_source_i");
-    export_vector_source_template<float>(m,"vector_source_f");
-    export_vector_source_template<gr_complex>(m,"vector_source_c");
+    bind_vector_source_template<std::uint8_t>(m,"vector_source_b");
+    bind_vector_source_template<std::int16_t>(m,"vector_source_s");
+    bind_vector_source_template<std::int32_t>(m,"vector_source_i");
+    bind_vector_source_template<float>(m,"vector_source_f");
+    bind_vector_source_template<gr_complex>(m,"vector_source_c");
 }
 
 #else
 // Brute force it
-void export_vector_source(py::module& m)
+void bind_vector_source(py::module& m)
 {
     using vector_source_b      = gr::blocks::vector_source_b;
 

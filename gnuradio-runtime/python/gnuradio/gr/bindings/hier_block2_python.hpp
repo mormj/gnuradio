@@ -13,7 +13,7 @@
 #include <gnuradio/hier_block2.h>
 #include <gnuradio/basic_block.h>
 
-void export_hier_block2(py::module& m)
+void bind_hier_block2(py::module& m)
 {
     using hier_block2      = gr::hier_block2;
     using basic_block_sptr = std::shared_ptr<gr::basic_block>;

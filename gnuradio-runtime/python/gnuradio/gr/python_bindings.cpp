@@ -18,13 +18,13 @@ namespace py = pybind11;
 // #include <boost/shared_ptr.hpp>
 // PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
-#include "exports/top_block_python.hpp"
-#include "exports/io_signature_python.hpp"
-#include "exports/hier_block2_python.hpp"
-#include "exports/basic_block_python.hpp"
-#include "exports/block_python.hpp"
-#include "exports/sync_block_python.hpp"
-#include "exports/sync_decimator_python.hpp"
+#include "bindings/top_block_python.hpp"
+#include "bindings/io_signature_python.hpp"
+#include "bindings/hier_block2_python.hpp"
+#include "bindings/basic_block_python.hpp"
+#include "bindings/block_python.hpp"
+#include "bindings/sync_block_python.hpp"
+#include "bindings/sync_decimator_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -50,14 +50,14 @@ PYBIND11_MODULE(gr_python, m)
     init_numpy();
 
     // Register types submodule
-    // export_pmt(m);
-    export_basic_block(m);
-    export_block(m);
-    export_sync_block(m);
-    export_sync_decimator(m);
-    export_io_signature(m);
-    export_hier_block2(m);
-    export_top_block(m);    
+    // bind_pmt(m);
+    bind_basic_block(m);
+    bind_block(m);
+    bind_sync_block(m);
+    bind_sync_decimator(m);
+    bind_io_signature(m);
+    bind_hier_block2(m);
+    bind_top_block(m);    
 
 
     // %constant int sizeof_char 	= sizeof(char);

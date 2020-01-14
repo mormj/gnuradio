@@ -62,7 +62,7 @@ void top_block_unlock_unlocked(gr::top_block_sptr r) noexcept(false)
     )
 }
 
-void export_top_block(py::module& m)
+void bind_top_block(py::module& m)
 {
     using top_block      = gr::top_block;
 

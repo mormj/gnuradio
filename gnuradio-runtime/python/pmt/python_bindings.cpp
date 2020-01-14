@@ -19,24 +19,17 @@ namespace py = pybind11;
 // #include <boost/shared_ptr.hpp>
 // PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
-#include "exports/pmt_python.hpp"
+#include "bindings/pmt_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
 // This function is also necessary because it ensures access to the C API
 // and removes a warning.
-// #if PY_MAJOR_VERSION >= 3
 void* init_numpy()
 {
     import_array();
     return NULL;
 }
-// #else
-// void init_numpy()
-// {
-    // import_array();
-// }
-// #endif
 
 PYBIND11_MODULE(pmt_python, m)
 {
@@ -45,6 +38,6 @@ PYBIND11_MODULE(pmt_python, m)
     init_numpy();
 
     // Register types submodule
-    export_pmt(m);
+    bind_pmt(m);
 }
 

@@ -12,11 +12,7 @@
 
 #include <pmt/pmt.h>
 
-int add(int i, int j) {
-    return i + j;
-}
-
-void export_pmt(py::module& m)
+void bind_pmt(py::module& m)
 {
     using pmt_base      = pmt::pmt_base;
     using pmt_t         = pmt::pmt_t;

@@ -15,7 +15,7 @@
 #include <pmt/pmt.h>
 // #include <boost/enable_shared_from_this.hpp>
 
-void export_basic_block(py::module& m)
+void bind_basic_block(py::module& m)
 {
     using basic_block      = gr::basic_block;
     // py::class_<std::enable_shared_from_this<basic_block>>(m,"enable_shared_from_this");

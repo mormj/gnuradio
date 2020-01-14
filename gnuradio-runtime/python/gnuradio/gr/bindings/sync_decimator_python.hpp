@@ -13,7 +13,7 @@
 #include <gnuradio/sync_decimator.h>
 #include <pmt/pmt.h>
 
-void export_sync_decimator(py::module& m)
+void bind_sync_decimator(py::module& m)
 {
     using sync_decimator      = gr::sync_decimator;
     py::class_<sync_decimator, gr::block, std::shared_ptr<sync_decimator>>(m, "sync_decimator")

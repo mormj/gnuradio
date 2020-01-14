@@ -19,12 +19,11 @@ namespace py = pybind11;
 // #include <boost/shared_ptr.hpp>
 // PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
-// #include "exports/basic_block_python.hpp"
-#include "exports/vector_source_python.hpp"
-#include "exports/vector_sink_python.hpp"
-#include "exports/null_sink_python.hpp"
-#include "exports/multiply_const_python.hpp"
-#include "exports/stream_to_vector_python.hpp"
+#include "bindings/vector_source_python.hpp"
+#include "bindings/vector_sink_python.hpp"
+#include "bindings/null_sink_python.hpp"
+#include "bindings/multiply_const_python.hpp"
+#include "bindings/stream_to_vector_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -55,13 +54,13 @@ PYBIND11_MODULE(blocks_python, m)
     py::module::import("gnuradio.gr");
 
     // Register types submodule
-    // export_pmt(m);
-    // export_basic_block(m);
-    export_vector_source(m);
-    export_vector_sink(m);
-    export_null_sink(m);
-    export_multiply_const(m);
-    export_stream_to_vector(m);
+    // bind_pmt(m);
+    // bind_basic_block(m);
+    bind_vector_source(m);
+    bind_vector_sink(m);
+    bind_null_sink(m);
+    bind_multiply_const(m);
+    bind_stream_to_vector(m);
 
 
 

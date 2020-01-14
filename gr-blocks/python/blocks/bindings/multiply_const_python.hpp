@@ -14,7 +14,7 @@
 #include <gnuradio/sync_block.h>
 
 template<typename T>
-void export_multiply_const_template(py::module& m, const char *classname)
+void bind_multiply_const_template(py::module& m, const char *classname)
 {
     using multiply_const      = gr::blocks::multiply_const<T>;
 
@@ -26,16 +26,16 @@ void export_multiply_const_template(py::module& m, const char *classname)
         ;
 } 
 
-void export_multiply_const(py::module& m)
+void bind_multiply_const(py::module& m)
 {
 // typedef multiply_const<std::int16_t> multiply_const_ss;
 // typedef multiply_const<std::int32_t> multiply_const_ii;
 // typedef multiply_const<float> multiply_const_ff;
 // typedef multiply_const<gr_complex> multiply_const_cc;
-export_multiply_const_template<std::int16_t>(m,"multiply_const_ss");
-export_multiply_const_template<std::int32_t>(m,"multiply_const_ii");
-export_multiply_const_template<float>(m,"multiply_const_ff");
-export_multiply_const_template<gr_complex>(m,"multiply_const_cc");
+bind_multiply_const_template<std::int16_t>(m,"multiply_const_ss");
+bind_multiply_const_template<std::int32_t>(m,"multiply_const_ii");
+bind_multiply_const_template<float>(m,"multiply_const_ff");
+bind_multiply_const_template<gr_complex>(m,"multiply_const_cc");
 }
 
 #endif /* INCLUDED_BLOCKS_multiply_const_PYTHON_HPP */

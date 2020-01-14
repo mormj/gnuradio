@@ -13,7 +13,7 @@
 #include <gnuradio/sync_block.h>
 #include <pmt/pmt.h>
 
-void export_sync_block(py::module& m)
+void bind_sync_block(py::module& m)
 {
     using sync_block = gr::sync_block;
     py::class_<sync_block, gr::block, std::shared_ptr<sync_block>>(m, "sync_block")

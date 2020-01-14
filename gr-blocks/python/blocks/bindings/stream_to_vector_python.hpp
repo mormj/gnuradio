@@ -14,7 +14,7 @@
 #include <gnuradio/sync_block.h>
 
 
-void export_stream_to_vector(py::module& m)
+void bind_stream_to_vector(py::module& m)
 {
     using stream_to_vector      = gr::blocks::stream_to_vector;
 

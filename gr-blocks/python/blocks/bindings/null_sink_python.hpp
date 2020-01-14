@@ -14,7 +14,7 @@
 #include <gnuradio/sync_block.h>
 
 
-void export_null_sink(py::module& m)
+void bind_null_sink(py::module& m)
 {
     using null_sink      = gr::blocks::null_sink;
 
