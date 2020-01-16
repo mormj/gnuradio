@@ -103,6 +103,7 @@ class BlockHeaderParser(BlockTool):
         """
         gr = self.modname.split('-')[0]
         module = self.modname.split('-')[-1]
+        self.parsed_data['module_name'] = module
         generator_path, generator_name = utils.find_xml_generator()
         xml_generator_config = parser.xml_generator_configuration_t(
             xml_generator_path=generator_path,
@@ -144,6 +145,10 @@ class BlockHeaderParser(BlockTool):
                     main_class = _class
                     self.parsed_data['class'] = str(_class).split('::')[
                         2].split(' ')[0]
+                    # in more complicated blocks, there are many classes included in this declaration
+                    # Break after the first class - safe to assume this is the "main class"?
+                    self.parsed_data['block_type'] = main_class.bases[0].declaration_path[-1]
+                    break
         except RuntimeError:
             raise BlockToolException(
                 'Block header namespace {} must consist of a valid class instance'.format(module))
