@@ -3,7 +3,7 @@
     blockname = header_info['class']
     modname = header_info['module_name']
     grblocktype = header_info['block_type']
-    methods=header_info['methods']
+    method_functions=header_info['method_functions']
 %>
 
 ${license}
@@ -23,20 +23,27 @@ void bind_${blockname}(py::module& m)
         .def(py::init(&${blockname}::make)
         )
 % else:
-        .def(py::init(&${blockname}::make)
+        .def(py::init(&${blockname}::make),
 % for arg in make_arguments:
             py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(make_arguments)-1 else ',' } 
 % endfor
         )
 % endif
 
-        
-
-% for method in methods:
-        ## ${method}
-        .def("${method['name']}",&${blockname}::${method['name']})
+% for fcn in method_functions:
+<%
+fcn_args = fcn['arguments']
+%>
+% if len(fcn_args) == 0:
+        .def("${fcn['name']}",&${blockname}::${fcn['name']})
+%else:
+        .def("${fcn['name']}",&${blockname}::${fcn['name']},
+% for arg in fcn_args:
+            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}, 
 % endfor
-
+        )
+% endif
+% endfor
         .def("to_basic_block",[](std::shared_ptr<${blockname}> p){
             return p->to_basic_block();
         })

@@ -19,13 +19,44 @@
 # Boston, MA 02110-1301, USA.
 
 import os
+from os import path
+import pathlib
 import re
 from argparse import ArgumentParser
 from gnuradio.blocktool import BlockHeaderParser
 import json
+from mako.template import Template
+from datetime import datetime
+
+def str_to_fancyc_comment(text):
+    """ Return a string as a C formatted comment. """
+    l_lines = text.splitlines()
+    if len(l_lines[0]) == 0:
+        outstr = "/*\n"
+    else:
+        outstr = "/* " + l_lines[0] + "\n"
+    for line in l_lines[1:]:
+        if len(line) == 0:
+            outstr += " *\n"
+        else:
+            outstr += " * " + line + "\n"
+    outstr += " */\n"
+    return outstr
 
 
-def write_bindings(module_name, module_path, header_info):
+def get_block_python(header_info):
+    current_path = os.path.dirname(pathlib.Path(__file__).absolute())
+    tpl = Template(filename=os.path.join(current_path,'pybind11_templates','license.mako'))
+    license = str_to_fancyc_comment(tpl.render(year=datetime.now().year))
+
+    tpl = Template(filename=os.path.join(current_path,'pybind11_templates','block_python_hpp.mako'))
+    return tpl.render(
+        license=license,
+        header_info=header_info
+    )
+    
+
+def write_bindings(module_name, module_path, header_info, output_dir):
     # python/[module_name]/bindings
     #  --> does [module_name]_python.hpp exist?
 
@@ -36,13 +67,19 @@ def write_bindings(module_name, module_path, header_info):
     #  --> (if not there) create python_bindings.cpp
     #  --> add bind_[module_name] module to python_bindings.cpp
 
-    with open('{}.json'.format(header_info['class']), 'w') as outfile:
+    json_pathname = os.path.join(output_dir,'{}.json'.format(header_info['class']))
+    binding_pathname = os.path.join(output_dir,'{}_python.hpp'.format(header_info['class']))
+    with open(json_pathname, 'w') as outfile:
         json.dump(header_info, outfile)
 
-    pass
+    try:
+        pybind_code = get_block_python(header_info)
+        with open(binding_pathname, 'w+') as outfile:
+            outfile.write(pybind_code)
+    except:
+        pass
 
-
-def process_header_file(file_to_process, module_name, module_path, prefix):
+def process_header_file(file_to_process, module_name, module_path, prefix, output_dir):
     module_include_path = os.path.abspath(os.path.join(module_path, 'include'))
     # blocks_include_path=os.path.abspath(os.path.join(module_path,'..','gr-blocks','include'))
     # gr_include_path=os.path.abspath(os.path.join(module_path,'..','gnuradio-runtime','include'))
@@ -51,26 +88,50 @@ def process_header_file(file_to_process, module_name, module_path, prefix):
     include_paths = ','.join((prefix_include_path, module_include_path))
     parser = BlockHeaderParser(
         include_paths=include_paths, file_path=file_to_process)
-    header_info = parser.get_header_info()
-    write_bindings(module_name, module_path, header_info)
+    try:
+        header_info = parser.get_header_info()
+        write_bindings(module_name, module_path, header_info, output_dir)
+    except Exception as e:
+        print(e)
+        failure_pathname = os.path.join(output_dir,'failed_conversions.txt')
+        with open(failure_pathname, 'w+') as outfile:
+            outfile.write(file_to_process)
+            outfile.write('\n')
 
 
 def process_module_files(args):
+
     module_path = args.module
     prefix = args.prefix
     module_name = os.path.basename(args.module)
     if module_name.startswith('gr-'):
         module_name = module_name.split('gr-')[1]
 
-    # drill down to the include directory
-    for root, dirs, files in os.walk(os.path.join(module_path, 'include')):
-        path = root.split(os.sep)
-        print((len(path) - 1) * '---', os.path.basename(root))
-        if path[-1] == module_name:
-            for file in files:
-                print(len(path) * '---', file)
-                process_header_file(os.path.join(root, file),
-                                    module_name, module_path, prefix)
+    output_dir = args.output
+    output_dir = os.path.join(output_dir,module_name)
+    if output_dir and not os.path.exists(output_dir):
+        output_dir = os.path.abspath(output_dir)
+        print('creating directory {}'.format(output_dir))
+        os.mkdir(output_dir)
+
+    if os.path.isdir(module_path):
+        # drill down to the include directory
+        for root, dirs, files in os.walk(os.path.join(module_path, 'include')):
+            path = root.split(os.sep)
+            print((len(path) - 1) * '---', os.path.basename(root))
+            if path[-1] == module_name:
+                for file in files:
+                    print(len(path) * '---', file)
+                    _, file_extension = os.path.splitext(file)
+                    if (file_extension == '.h'):
+                        process_header_file(os.path.join(root, file),
+                                        module_name, module_path, prefix, output_dir)
+    elif os.path.isfile(module_path):
+        file = module_path
+        _, file_extension = os.path.splitext(file)
+        if (file_extension == '.h'):
+            process_header_file(file,
+                            module_name, os.path.abspath(os.path.join(os.path.dirname(module_path),'..','..','..')), prefix, output_dir)
 
         # self.module = self.target_file
         # for dirs in self.module:
@@ -82,7 +143,7 @@ def process_module_files(args):
         # self.targetdir = os.path.dirname(self.target_file)
         # for dirs in os.scandir(self.module):
         #     if dirs.is_dir():
-        #         if dirs.path.endswith('lib'):
+        #         if dirs.os.path.endswith('lib'):
         #             self.impldir = dirs.path
         # self.impl_file = os.path.join(self.impldir,
         #                               self.filename.split('.')[0]+'_impl.cc')
@@ -98,6 +159,11 @@ def parse_args():
         '--module',
         '-m',
         help='Path of gnuradio module to process')
+    parser.add_argument(
+        '--output',
+        '-o',
+        help='Path to output directory for generated files (temporary)',
+        default = '')
     return parser.parse_args()
 
 

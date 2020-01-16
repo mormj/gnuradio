@@ -5,9 +5,10 @@ from datetime import datetime
 
 current_path = path.dirname(pathlib.Path(__file__).absolute())
 
-filename = 'symbol_sync_cc.json'
-
-with open(path.join(current_path,filename)) as json_file:
+# filename = 'symbol_sync_cc.json'
+filename = '/share/tmp/blocktool_pybind/file_source.h/file_source.json'
+#with open(path.join(current_path,filename)) as json_file:
+with open(filename) as json_file:
     header_info = json.load(json_file)
 
 from pybind_templates import Templates as T

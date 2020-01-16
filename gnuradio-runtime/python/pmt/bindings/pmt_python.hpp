@@ -27,6 +27,7 @@ void bind_pmt(py::module& m)
     m.def("is_bool", &pmt::is_bool);
     m.def("to_bool", &pmt::to_bool);
     m.def("from_bool", &pmt::from_bool);
+    m.def("string_to_symbol", &pmt::string_to_symbol);
     // m.def("add", &add, "A function which adds two numbers");
     // m.def("asdf", &pmt::asdf, "A function which adds two numbers");
 
