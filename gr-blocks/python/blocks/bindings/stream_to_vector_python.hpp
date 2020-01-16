@@ -20,7 +20,9 @@ void bind_stream_to_vector(py::module& m)
 
     py::class_<stream_to_vector, gr::sync_block, std::shared_ptr<stream_to_vector>>(m, "stream_to_vector")
         .def(py::init(&stream_to_vector::make),py::arg("itemsize"), py::arg("nitems_per_block"))
-        .def("to_basic_block",&stream_to_vector::to_basic_block)
+        .def("to_basic_block",[](std::shared_ptr<stream_to_vector> p){
+            return p->to_basic_block();
+        })
         ;
 } 
 

@@ -47,11 +47,7 @@ public:
      * \param sizeof_stream_item size of the stream items in bytes.
      */
     static sptr make(size_t sizeof_stream_item);
-
-    virtual std::shared_ptr<gr::basic_block> to_basic_block()
-    {
-        return std::enable_shared_from_this<gr::basic_block>::shared_from_this();
-    }    
+ 
 };
 
 } /* namespace blocks */

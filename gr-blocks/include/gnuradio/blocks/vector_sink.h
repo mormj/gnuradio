@@ -58,10 +58,6 @@ public:
     virtual std::vector<T> data() const = 0;
     virtual std::vector<tag_t> tags() const = 0;
 
-    virtual std::shared_ptr<gr::basic_block> to_basic_block()
-    {
-        return std::enable_shared_from_this<gr::basic_block>::shared_from_this();
-    }
 };
 
 typedef vector_sink<std::uint8_t> vector_sink_b;

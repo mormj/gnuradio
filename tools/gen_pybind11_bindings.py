@@ -106,7 +106,6 @@ def main():
     Run this if the program was invoked on the commandline
     """
     args = parse_args()
-
     process_module_files(args)
 
 

@@ -20,8 +20,5 @@ license = tpl.render(year=datetime.now().year)
 tpl = Template(filename=path.join(current_path,'block_python_hpp.mako'))
 print(tpl.render(
     license=license,
-    grblocktype=header_info['block_type'],
-    modname=header_info['module_name'],
-    blockname=header_info['class'],
-    methods=header_info['methods']
+    header_info=header_info
 ))

@@ -14,6 +14,16 @@
 #include <gnuradio/blocks/vector_sink.h>
 #include <gnuradio/sync_block.h>
 
+// namespace gr {
+// namespace blocks {
+//     class 
+// virtual std::shared_ptr<gr::basic_block> to_basic_block()
+// {
+//     return std::enable_shared_from_this<gr::basic_block>::shared_from_this();
+// }
+// } // namespace blocks
+// } // namespace gr
+
 template<typename T>
 void bind_vector_sink_template(py::module& m, const char *classname)
 {
@@ -21,7 +31,10 @@ void bind_vector_sink_template(py::module& m, const char *classname)
 
     py::class_<vector_sink, gr::sync_block, std::shared_ptr<vector_sink>>(m, classname)
         .def(py::init(&gr::blocks::vector_sink<T>::make), py::arg("vlen")=1, py::arg("reserve_items")=1024)
-        .def("to_basic_block",&vector_sink::to_basic_block)
+        // .def("to_basic_block",&vector_sink::to_basic_block)
+        .def("to_basic_block",[](std::shared_ptr<vector_sink> p){
+            return p->to_basic_block();
+        })
         .def("reset",&vector_sink::reset)
         .def("data",&vector_sink::data)
         .def("tags",&vector_sink::tags)

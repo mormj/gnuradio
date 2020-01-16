@@ -47,7 +47,6 @@ public:
      */
     static sptr make(size_t itemsize, size_t nitems_per_block);
 
-    TO_BASIC_BLOCK
 };
 
 } /* namespace blocks */

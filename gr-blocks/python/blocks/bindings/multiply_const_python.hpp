@@ -20,7 +20,9 @@ void bind_multiply_const_template(py::module& m, const char *classname)
 
     py::class_<multiply_const, gr::sync_block, std::shared_ptr<multiply_const>>(m, classname)
         .def(py::init(&multiply_const::make),py::arg("k"), py::arg("vlen")=1, py::return_value_policy::take_ownership)
-        .def("to_basic_block",&multiply_const::to_basic_block)
+        .def("to_basic_block",[](std::shared_ptr<multiply_const> p){
+            return p->to_basic_block();
+        })
         .def("k",&multiply_const::k)
         .def("set_k",&multiply_const::set_k)
         ;
