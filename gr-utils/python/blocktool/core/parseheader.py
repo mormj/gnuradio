@@ -194,6 +194,8 @@ class BlockHeaderParser(BlockTool):
                 'make')[-1].split(')')[0].split('(')[1].lstrip().rstrip().split(',')
             if make_func:
                 for arg in make_func[0].arguments:
+                    make_arguments = None
+                    '''
                     for _arg in _make_fun:
                         if str(arg.name) in _arg:
                             make_arguments = {
@@ -211,8 +213,19 @@ class BlockHeaderParser(BlockTool):
                                 make_arguments['default'] = "True"
                             elif "false" in _arg:
                                 make_arguments['default'] = "False"
-                    self.parsed_data['make']['arguments'].append(
-                        make_arguments.copy())
+                    '''
+                    # In case the search did not find an argument in the inner loop
+                    # This happens while parsing digital/symbol_sync_cc.h
+                    if make_arguments:
+                        self.parsed_data['make']['arguments'].append(
+                            make_arguments.copy())
+                    else:
+                        self.parsed_data['make']['arguments'].append(
+                            {
+                                "name": str(arg.name),
+                                "dtype": str(arg.decl_type),
+                                "default": arg.default_value  # can we get default argument directly from arg
+                            })
         except RuntimeError:
             self.parsed_data['make'] = {}
             self.parsed_data['make']['arguments'] = []
