@@ -136,8 +136,6 @@ PMT_API pmt_t get_PMT_EOF();
 #define PMT_F get_PMT_F()
 #define PMT_EOF get_PMT_EOF()
 
-PMT_API int asdf(int i, int j);
-
 /*
  * ------------------------------------------------------------------------
  * Booleans.  Two constants, #t and #f.
