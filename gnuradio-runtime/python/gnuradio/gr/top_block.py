@@ -96,7 +96,7 @@ class top_block(hier_block2):
     python subclassing.
     """
 
-    def __init__(self, name="top_block"):
+    def __init__(self, name="top_block", catch_exceptions=True):
         """
         Create a top block with a given name.
         """

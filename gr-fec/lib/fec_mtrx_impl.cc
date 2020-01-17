@@ -398,7 +398,7 @@ gsl_matrix* fec_mtrx_impl::calc_inverse_mod2(const gsl_matrix* original_matrix) 
 
     if (status) {
         // Inverse not found by GSL functions.
-        throw "Error in calc_inverse_mod2(): inverse not found.\n";
+        throw "Error in calc_inverse_mod2(): inverse not found.";
     }
 
     // Find determinant
@@ -423,7 +423,7 @@ gsl_matrix* fec_mtrx_impl::calc_inverse_mod2(const gsl_matrix* original_matrix) 
 
     int max_value = gsl_matrix_max(matrix_inverse);
     if (!max_value) {
-        throw "Error in calc_inverse_mod2(): The matrix inverse found is all zeros.\n";
+        throw "Error in calc_inverse_mod2(): The matrix inverse found is all zeros.";
     }
 
     // Verify that the inverse was found by taking matrix
@@ -440,7 +440,7 @@ gsl_matrix* fec_mtrx_impl::calc_inverse_mod2(const gsl_matrix* original_matrix) 
     double test_if_not_equal = gsl_matrix_max(identity);
 
     if (test_if_not_equal > 0) {
-        throw "Error in calc_inverse_mod2(): The matrix inverse found is not valid.\n";
+        throw "Error in calc_inverse_mod2(): The matrix inverse found is not valid.";
     }
 
     return matrix_inverse;

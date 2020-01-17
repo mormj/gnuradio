@@ -45,7 +45,6 @@ public:
                         ir_type interp_type,
                         int n_filters,
                         const std::vector<float>& taps);
-    ~symbol_sync_cc_impl();
 
     void forecast(int noutput_items, gr_vector_int& ninput_items_required);
     int general_work(int noutput_items,
@@ -71,13 +70,13 @@ public:
 
 private:
     // Timing Error Detector
-    timing_error_detector* d_ted;
+    std::unique_ptr<timing_error_detector> d_ted;
 
     // Symbol Clock Tracking and Estimation
-    clock_tracking_loop* d_clock;
+    std::unique_ptr<clock_tracking_loop> d_clock;
 
     // Interpolator and Interpolator Positioning and Alignment
-    interpolating_resampler_ccf* d_interp;
+    std::unique_ptr<interpolating_resampler_ccf> d_interp;
 
     // Block Internal Clocks
     // 4 clocks that run synchronously, aligned to the Symbol Clock:
@@ -103,15 +102,15 @@ private:
     float d_avg_clock_period;
 
     // Block output
-    float d_osps;
-    int d_osps_n;
+    const float d_osps;
+    const int d_osps_n;
 
     // Tag Propagation and Symbol Clock Tracking Reset/Resync
     uint64_t d_filter_delay; // interpolator filter delay
     std::vector<tag_t> d_tags;
     std::vector<tag_t> d_new_tags;
-    pmt::pmt_t d_time_est_key;
-    pmt::pmt_t d_clock_est_key;
+    const pmt::pmt_t d_time_est_key;
+    const pmt::pmt_t d_clock_est_key;
 
     // Optional Diagnostic Outputs
     int d_noutputs;

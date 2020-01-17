@@ -30,8 +30,8 @@
 namespace gr {
 namespace channels {
 
-const float default_delays2[] = { 1.0, 1.9, 2.7 };
-const float default_mags2[] = { 1.0, 0.95, 0.8 };
+constexpr float default_delays2[] = { 1.0, 1.9, 2.7 };
+constexpr float default_mags2[] = { 1.0, 0.95, 0.8 };
 
 /*!
  * \brief fading simulator
@@ -56,22 +56,21 @@ public:
      * \param K      Rician factor (ratio of the specular power to the scattered power)
      * \param seed   a random number to seed the noise generators
      * \param delays a vector of values that specify the time delay of each impulse
-     * \param delay_std a vector of values that specify the gaussian step size std of
-     * delays \param delay_maxdev a vector of values that specify the max deviation of
+     * \param delays_std a vector of values that specify the gaussian step size std of
+     * delays \param delays_maxdev a vector of values that specify the max deviation of
      * each delay component \param mags   a vector of values that specify the magnitude of
-     * each impulse \param mags   a vector of values that specify the magnitude of each
-     * impulse \param ntaps  the number of filter taps
+     * each impulse \param ntaps  the number of filter taps
      */
     static sptr make(unsigned int N,
                      float fDTs,
                      bool LOS,
                      float K,
-                     int seed,
+                     uint32_t seed,
                      std::vector<float> delays,
-                     std::vector<float> delay_std,
-                     std::vector<float> delay_maxdev,
+                     std::vector<float> delays_std,
+                     std::vector<float> delays_maxdev,
                      std::vector<float> mags,
-                     int ntaps);
+                     unsigned int ntaps);
 
     virtual float fDTs() = 0;
     virtual float K() = 0;

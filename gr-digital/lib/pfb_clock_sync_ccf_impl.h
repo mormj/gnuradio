@@ -40,10 +40,10 @@ private:
     float d_alpha;
     float d_beta;
 
-    int d_nfilters;
+    const int d_nfilters;
     int d_taps_per_filter;
-    std::vector<kernel::fir_filter_ccf*> d_filters;
-    std::vector<kernel::fir_filter_ccf*> d_diff_filters;
+    std::vector<std::unique_ptr<kernel::fir_filter_ccf>> d_filters;
+    std::vector<std::unique_ptr<kernel::fir_filter_ccf>> d_diff_filters;
     std::vector<std::vector<float>> d_taps;
     std::vector<std::vector<float>> d_dtaps;
     std::vector<float> d_updated_taps;
@@ -63,6 +63,10 @@ private:
     void create_diff_taps(const std::vector<float>& newtaps,
                           std::vector<float>& difftaps);
 
+    void set_taps(const std::vector<float>& taps,
+                  std::vector<std::vector<float>>& ourtaps,
+                  std::vector<std::unique_ptr<kernel::fir_filter_ccf>>& ourfilter);
+
 public:
     pfb_clock_sync_ccf_impl(double sps,
                             float loop_bw,
@@ -71,7 +75,6 @@ public:
                             float init_phase = 0,
                             float max_rate_deviation = 1.5,
                             int osps = 1);
-    ~pfb_clock_sync_ccf_impl();
 
     void setup_rpc();
 
@@ -80,10 +83,6 @@ public:
     void forecast(int noutput_items, gr_vector_int& ninput_items_required);
 
     void update_taps(const std::vector<float>& taps);
-
-    void set_taps(const std::vector<float>& taps,
-                  std::vector<std::vector<float>>& ourtaps,
-                  std::vector<kernel::fir_filter_ccf*>& ourfilter);
 
     std::vector<std::vector<float>> taps() const;
     std::vector<std::vector<float>> diff_taps() const;

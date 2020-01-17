@@ -28,6 +28,7 @@ GR_PYTHON_INSTALL(
     optfir.py
     pfb.py
     rational_resampler.py
+    file_taps_loader.py
     DESTINATION ${GR_PYTHON_DIR}/gnuradio/filter
 )
 

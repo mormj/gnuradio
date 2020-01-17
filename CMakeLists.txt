@@ -46,6 +46,9 @@ GR_CHECK_BUILD_TYPE(${CMAKE_BUILD_TYPE})
 SET(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "")
 message(STATUS "Build type set to ${CMAKE_BUILD_TYPE}.")
 
+include(GrComponent)
+GR_REGISTER_COMPONENT("testing-support" ENABLE_TESTING)
+
 # Set the version information here
 SET(VERSION_MAJOR 3)
 SET(VERSION_API   9)
@@ -57,8 +60,7 @@ include(GrVersion) #setup version info
 set(GR_BOOST_MIN_VERSION "1.53")
 set(GR_CMAKE_MIN_VERSION "3.5.1")
 set(GR_MAKO_MIN_VERSION "0.4.2")
-set(GR_PYTHON_MIN_VERSION "2.7.6")
-set(GR_PYTHON3_MIN_VERSION "3.6.5")
+set(GR_PYTHON_MIN_VERSION "3.6.5")
 set(GCC_MIN_VERSION "4.8.4")
 set(CLANG_MIN_VERSION "3.4.0")
 set(APPLECLANG_MIN_VERSION "500")
@@ -364,10 +366,6 @@ GR_REGISTER_COMPONENT("python-support" ENABLE_PYTHON
     SIX_FOUND
 )
 
-GR_REGISTER_COMPONENT("testing-support" ENABLE_TESTING
-    Boost_FOUND
-)
-
 if(${CMAKE_BUILD_TYPE} STREQUAL "Coverage")
   include(CodeCoverage)
   setup_target_for_coverage(coverage "ctest || exit 0" coverage)
@@ -487,6 +485,12 @@ list(APPEND GR_TEST_PYTHON_DIRS
 # multiprecision arithmetic library header to include
 find_package(MPLIB)
 add_definitions(${MPLIB_DEFINITIONS})
+
+########################################################################
+# Post-Install tasks are tasks that are usually not executed during
+# install, but for source builds, that's actually more convenient.
+########################################################################
+GR_REGISTER_COMPONENT("post-install" ENABLE_POSTINSTALL)
 
 ########################################################################
 # Add subdirectories (in order of deps)

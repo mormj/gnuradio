@@ -67,9 +67,11 @@ class ModToolAdd(ModTool):
             raise ModToolException('Programming language not specified.')
         if self.info['lang'] not in self.language_candidates:
             raise ModToolException('Invalid programming language.')
+        if self.info['blocktype'] == 'tagged_stream' and self.info['lang'] == 'python':
+            raise ModToolException('Tagged Stream Blocks for Python currently unsupported')            
         if self.info['blockname'] is None:
             raise ModToolException('Blockname not specified.')
-        if not re.match('[a-zA-Z0-9_]+', self.info['blockname']):
+        if not re.match('^[a-zA-Z0-9_]+$', self.info['blockname']):
             raise ModToolException('Invalid block name.')
         if not isinstance(self.add_py_qa, bool):
             raise ModToolException('Expected a boolean value for add_python_qa.')
@@ -127,10 +129,10 @@ class ModToolAdd(ModTool):
 
     def run(self):
         """ Go, go, go. """
-        # This portion will be covered by the CLI
-        if not self.cli:
-            self.validate()
-            self.assign()
+
+        # Some validation covered by the CLI - validate all parameters here
+        self.validate()
+        self.assign()
 
         has_swig = (
                 self.info['lang'] == 'cpp'
@@ -161,7 +163,7 @@ class ModToolAdd(ModTool):
             return
         try:
             append_re_line_sequence(self._file['cmlib'],
-                                    'list\(APPEND test_{}_sources.*\n'.format(self.info['modname']),
+                                    r'list\(APPEND test_{}_sources.*\n'.format(self.info['modname']),
                                     'qa_{}.cc'.format(self.info['blockname']))
             append_re_line_sequence(self._file['qalib'],
                                     '#include.*\n',
@@ -183,7 +185,7 @@ class ModToolAdd(ModTool):
             return
         try:
             append_re_line_sequence(self._file['cmlib'],
-                                    'list\(APPEND test_{}_sources.*\n'.format(self.info['modname']),
+                                   r'list\(APPEND test_{}_sources.*\n'.format(self.info['modname']),
                                     'qa_{}.cc'.format(self.info['blockname']))
             self.scm.mark_files_updated((self._file['cmlib'],))
         except IOError:
@@ -255,7 +257,7 @@ class ModToolAdd(ModTool):
         if re.search('#include', oldfile):
             append_re_line_sequence(self._file['swig'], '^#include.*\n', include_str)
         else: # I.e., if the swig file is empty
-            regexp = re.compile('^%\{\n', re.MULTILINE)
+            regexp = re.compile(r'^%\{\n', re.MULTILINE)
             oldfile = regexp.sub('%%{\n%s\n' % include_str, oldfile, count=1)
             with open(self._file['swig'], 'w') as f:
                 f.write(oldfile)
