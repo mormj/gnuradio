@@ -3,7 +3,7 @@
     blockname = header_info['class']
     modname = header_info['module_name']
     grblocktype = header_info['block_type']
-    method_functions=header_info['method_functions']
+    member_functions=header_info['member_functions']
 %>
 
 ${license}
@@ -30,7 +30,7 @@ void bind_${blockname}(py::module& m)
         )
 % endif
 
-% for fcn in method_functions:
+% for fcn in member_functions:
 <%
 fcn_args = fcn['arguments']
 %>
@@ -39,7 +39,7 @@ fcn_args = fcn['arguments']
 %else:
         .def("${fcn['name']}",&${blockname}::${fcn['name']},
 % for arg in fcn_args:
-            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}, 
+            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(make_arguments)-1 else ',' } 
 % endfor
         )
 % endif

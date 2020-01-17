@@ -14,16 +14,6 @@
 #include <gnuradio/blocks/vector_sink.h>
 #include <gnuradio/sync_block.h>
 
-// namespace gr {
-// namespace blocks {
-//     class 
-// virtual std::shared_ptr<gr::basic_block> to_basic_block()
-// {
-//     return std::enable_shared_from_this<gr::basic_block>::shared_from_this();
-// }
-// } // namespace blocks
-// } // namespace gr
-
 template<typename T>
 void bind_vector_sink_template(py::module& m, const char *classname)
 {

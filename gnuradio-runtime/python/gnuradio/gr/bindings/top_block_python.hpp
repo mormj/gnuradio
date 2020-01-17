@@ -68,7 +68,7 @@ void bind_top_block(py::module& m)
 
     py::class_<top_block, gr::hier_block2, std::shared_ptr<top_block>>(m, "top_block_pb")
         // .def(py::init())
-        .def(py::init(&gr::make_top_block))
+        .def(py::init(&gr::make_top_block), py::arg("name"), py::arg("catch_exceptions") = false)
         .def("start", &top_block::start)
         .def("stop", &top_block::stop)
         .def("run", &top_block::run)

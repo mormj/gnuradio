@@ -18,6 +18,7 @@ namespace py = pybind11;
 // #include <boost/shared_ptr.hpp>
 // PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
+#include "bindings/tags_python.hpp"
 #include "bindings/top_block_python.hpp"
 #include "bindings/io_signature_python.hpp"
 #include "bindings/hier_block2_python.hpp"
@@ -50,7 +51,7 @@ PYBIND11_MODULE(gr_python, m)
     init_numpy();
 
     // Register types submodule
-    // bind_pmt(m);
+    bind_tags(m);
     bind_basic_block(m);
     bind_block(m);
     bind_sync_block(m);

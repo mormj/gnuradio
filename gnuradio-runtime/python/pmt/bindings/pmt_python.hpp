@@ -17,13 +17,14 @@ void bind_pmt(py::module& m)
     using pmt_base      = pmt::pmt_base;
     using pmt_t         = pmt::pmt_t;
     py::class_<pmt_base, std::shared_ptr<pmt_base>>(m, "pmt_t")
+        .def("__repr__", &pmt::write_string)
         // .def(py::init())
         // .def(py::init<const std::string&, const std::string&>())
         ;
     // py::class_<pmt_t>(m, "pmt_t")
         // ;
     // py::class_<pmt::exception>(m,"exception");
-
+    
     m.def("is_bool", &pmt::is_bool);
     m.def("to_bool", &pmt::to_bool);
     m.def("from_bool", &pmt::from_bool);

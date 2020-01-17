@@ -281,10 +281,10 @@ class BlockHeaderParser(BlockTool):
         except RuntimeError:
             self.parsed_data['properties'] = []
 
-        # all method functions
+        # all member functions
         # setters and getters do not return all member functions for a block
         try:
-            self.parsed_data['method_functions'] = []
+            self.parsed_data['member_functions'] = []
             query_methods = declarations.access_type_matcher_t('public')
             functions = main_class.member_functions(function=query_methods,
                                                   allow_empty=True,
@@ -303,9 +303,9 @@ class BlockHeaderParser(BlockTool):
                                 "default": argument.default_value
                             }
                             fcn_args['arguments'].append(args.copy())
-                        self.parsed_data['method_functions'].append(fcn_args.copy())
+                        self.parsed_data['member_functions'].append(fcn_args.copy())
         except RuntimeError:
-            self.parsed_data['method_functions'] = []
+            self.parsed_data['member_functions'] = []
 
         # documentation
         try:
