@@ -23,7 +23,7 @@ from os import path
 import pathlib
 import re
 from argparse import ArgumentParser
-from gnuradio.blocktool import BlockHeaderParser, NonBlockHeaderParser
+from gnuradio.blocktool import BlockHeaderParser
 import json
 from mako.template import Template
 from datetime import datetime
@@ -43,17 +43,6 @@ def str_to_fancyc_comment(text):
     outstr += " */\n"
     return outstr
 
-def get_nonblock_python(header_info):
-    current_path = os.path.dirname(pathlib.Path(__file__).absolute())
-    tpl = Template(filename=os.path.join(current_path,'pybind11_templates','license.mako'))
-    license = str_to_fancyc_comment(tpl.render(year=datetime.now().year))
-
-    tpl = Template(filename=os.path.join(current_path,'pybind11_templates','nonblock_python_hpp.mako'))
-    return tpl.render(
-        license=license,
-        header_info=header_info
-    )
-
 
 def get_block_python(header_info):
     current_path = os.path.dirname(pathlib.Path(__file__).absolute())
@@ -65,30 +54,7 @@ def get_block_python(header_info):
         license=license,
         header_info=header_info
     )
-
-
-def write_bindings_generic(module_name, module_path, header_info, output_dir):
-    # python/[module_name]/bindings
-    #  --> does [module_name]_python.hpp exist?
-
-    #  --> create [module_name]_python.hpp
-
-    # python/[module_name]
-    #  --> Update CMakeLists.txt with Python Bindings info
-    #  --> (if not there) create python_bindings.cpp
-    #  --> add bind_[module_name] module to python_bindings.cpp
-
-    json_pathname = os.path.join(output_dir,'{}.json'.format('::'.join(header_info['namespace'])))
-    binding_pathname = os.path.join(output_dir,'{}_python.hpp'.format('::'.join(header_info['namespace'])))
-    with open(json_pathname, 'w') as outfile:
-        json.dump(header_info, outfile)
-
-    try:
-        pybind_code = get_nonblock_python(header_info)
-        with open(binding_pathname, 'w+') as outfile:
-            outfile.write(pybind_code)
-    except:
-        pass    
+    
 
 def write_bindings(module_name, module_path, header_info, output_dir):
     # python/[module_name]/bindings
@@ -132,25 +98,6 @@ def process_header_file(file_to_process, module_name, module_path, prefix, outpu
             outfile.write(file_to_process)
             outfile.write('\n')
 
-def process_nonblock_header_file(file_to_process, module_name, module_path, prefix, output_dir, namespace):
-    module_include_path = os.path.abspath(os.path.join(module_path, 'include'))
-    # blocks_include_path=os.path.abspath(os.path.join(module_path,'..','gr-blocks','include'))
-    # gr_include_path=os.path.abspath(os.path.join(module_path,'..','gnuradio-runtime','include'))
-    # include_paths = ','.join((module_include_path,blocks_include_path,gr_include_path))
-    prefix_include_path = os.path.abspath(os.path.join(prefix, 'include'))
-    include_paths = ','.join((prefix_include_path, module_include_path))
-    parser = NonBlockHeaderParser(
-        include_paths=include_paths, file_path=file_to_process)
-    try:
-        header_info = parser.get_header_info(namespace)
-        write_bindings_generic(module_name, module_path, header_info, output_dir)
-    except Exception as e:
-        print(e)
-        failure_pathname = os.path.join(output_dir,'failed_conversions.txt')
-        with open(failure_pathname, 'w+') as outfile:
-            outfile.write(file_to_process)
-            outfile.write('\n')
-
 
 def process_module_files(args):
 
@@ -183,11 +130,7 @@ def process_module_files(args):
         file = module_path
         _, file_extension = os.path.splitext(file)
         if (file_extension == '.h'):
-            if args.nonblock:
-                process_nonblock_header_file(file,
-                            module_name, os.path.abspath(os.path.join(os.path.dirname(module_path),'..','..')), prefix, output_dir, args.namespace)
-            else:
-                process_header_file(file,
+            process_header_file(file,
                             module_name, os.path.abspath(os.path.join(os.path.dirname(module_path),'..','..','..')), prefix, output_dir)
 
 
@@ -202,18 +145,6 @@ def parse_args():
         '--module',
         '-m',
         help='Path of gnuradio module to process')
-    parser.add_argument(
-        '--nonblock',
-        '-n',
-        action='store_true',
-        help='Flag to process a non block header file'
-    )
-    parser.add_argument(
-        '--namespace',
-        nargs='+',
-        help='namespace to parse',
-        default=[]
-    )
     parser.add_argument(
         '--output',
         '-o',
@@ -231,4 +162,4 @@ def main():
 
 
 if __name__ == "__main__":
-    exit(not (main()))
+    main()
