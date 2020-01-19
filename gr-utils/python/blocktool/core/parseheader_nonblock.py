@@ -130,15 +130,40 @@ class NonBlockHeaderParser(BlockTool):
         # classes
         try:
             self.parsed_data['classes'] = []
+
             for _class in main_namespace.declarations:
                 if isinstance(_class, declarations.class_t):
                     current_class = {'name': _class.name, 'member_functions':[]}
-                    
-                    # constructor
+                    member_functions = []
+                    constructors = []                    
+                    # constructors
+                    try: 
+                        query_methods = declarations.access_type_matcher_t('public')
+                        cotrs = _class.constructors(function=query_methods,
+                                                            allow_empty=True,
+                                                            header_file=self.target_file,
+                                                            name=_class.name)
+                        for cotr in cotrs:
+                            
+                            cotr_args = {
+                                "name": str(cotr.name),
+                                "arguments": []
+                            }
+                            for argument in cotr.arguments:
+                                args = {
+                                    "name": str(argument.name),
+                                    "dtype": str(argument.decl_type),
+                                    "default": argument.default_value
+                                }
+                                cotr_args['arguments'].append(args.copy())
+                            constructors.append(cotr_args.copy())
+                        current_class['constructors'] = constructors
+                    except RuntimeError:
+                        pass
 
                     # class member functions
                     try:
-                        member_functions = []
+                        
                         query_methods = declarations.access_type_matcher_t('public')
                         functions = _class.member_functions(function=query_methods,
                                                             allow_empty=True,
@@ -157,10 +182,10 @@ class NonBlockHeaderParser(BlockTool):
                                     }
                                     fcn_args['arguments'].append(args.copy())
                                 member_functions.append(fcn_args.copy())
-                        current_class['member_functions'].append(member_functions)
-                        self.parsed_data['classes'].append(current_class)
+                        current_class['member_functions'] = member_functions
                     except RuntimeError:
                         pass
+                    self.parsed_data['classes'].append(current_class)
         except:
             pass
 

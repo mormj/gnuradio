@@ -1,6 +1,5 @@
 <%
     namespace = header_info['namespace']
-    basename = header_info['base_name']
     modname = header_info['module_name']
     classes=header_info['classes']
     free_functions=header_info['free_functions']
@@ -18,9 +17,34 @@ void bind_${basename}(py::module& m)
     using ${basename}    = ${"::".join(namespace)}::${basename};
 % for cls in classes:
 <%
-member_functions = cls['member_functions']
+try:
+        member_functions = cls['member_functions']
+except:
+        member_functions = []
+try:
+        constructors = cls['constructors']
+except:
+        constructors = []
 %>
     py::class_<${cls['name']}, std::shared_ptr<${cls['name']}>>(m, "${cls['name']}")
+% for fcn in constructors:
+<%
+fcn_args = fcn['arguments']
+%>\
+% if len(fcn_args) == 0:
+        .def(py::init<>())
+%else:
+        .def(py::init<\
+% for arg in fcn_args:
+${arg['dtype']}${'>(),' if loop.index == len(fcn['arguments'])-1 else ',' }\
+% endfor ## args
+
+% for arg in fcn_args:
+           py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
+% endfor
+        )
+% endif
+% endfor ## constructors
 % for fcn in member_functions:
 <%
 fcn_args = fcn['arguments']
@@ -38,21 +62,22 @@ fcn_args = fcn['arguments']
         ;
 % endfor ## classes
 
+% if free_functions:
 % for fcn in free_functions:
 <%
 fcn_args = fcn['arguments']
 %>\
 % if len(fcn_args) == 0:
-        m.def("${fcn['name']}",&${basename}::${fcn['name']});
+    m.def("${fcn['name']}",&${basename}::${fcn['name']});
 %else:
-        m.def("${fcn['name']}",&${basename}::${fcn['name']},
+    m.def("${fcn['name']}",&${basename}::${fcn['name']},
 % for arg in fcn_args:
-            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
+        py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
 % endfor
-        );
+    );
 % endif
 % endfor
-
+% endif ## free_functions
 } 
 
 #endif /* INCLUDED_${modname.upper()}_${basename.upper()}_PYTHON_HPP */
