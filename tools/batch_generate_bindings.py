@@ -31,6 +31,7 @@ prefix = '/share/gnuradio/grnext'
 include_path = '/share/gnuradio/grnext/src/gnuradio/gnuradio-runtime/include/gnuradio'
 output_dir = '/share/tmp/blocktool_pybind'
 namespace = ['gr']
+bindings_path = '/share/gnuradio/grnext/src/gnuradio/gnuradio-runtime/python/gnuradio/gr/bindings/tmp'
 
 
 import warnings

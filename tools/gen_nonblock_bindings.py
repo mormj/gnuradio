@@ -66,10 +66,12 @@ def write_bindings_generic(module_path, base_name, header_info, output_dir, name
         pybind_code = get_nonblock_python(header_info, base_name, namespace)
         with open(binding_pathname, 'w+') as outfile:
             outfile.write(pybind_code)
+        return binding_pathname
     except:
-        pass    
+        return None
 
 def process_nonblock_header_file(file_to_process, module_path, prefix, output_dir, namespace):
+    binding_pathname = None
     # module_include_path = os.path.abspath(os.path.join(module_path, 'include'))
     base_name = os.path.splitext(os.path.basename(file_to_process))[0]
     module_include_path = os.path.abspath(os.path.dirname(module_path))
@@ -82,7 +84,7 @@ def process_nonblock_header_file(file_to_process, module_path, prefix, output_di
         include_paths=include_paths, file_path=file_to_process)
     try:
         header_info = parser.get_header_info(namespace)
-        write_bindings_generic(module_path, base_name, header_info, output_dir, namespace)
+        binding_pathname = write_bindings_generic(module_path, base_name, header_info, output_dir, namespace)
     except Exception as e:
         print(e)
         failure_pathname = os.path.join(output_dir,'failed_conversions.txt')
@@ -91,6 +93,7 @@ def process_nonblock_header_file(file_to_process, module_path, prefix, output_di
             outfile.write(str(e))
             outfile.write('\n')
 
+    return binding_pathname
 
 def process_file(args):
 
@@ -108,7 +111,7 @@ def process_file(args):
             print('creating directory {}'.format(output_dir))
             os.makedirs(output_dir)
 
-        process_nonblock_header_file(file,
+        return process_nonblock_header_file(file,
                     module_path, prefix, output_dir, args.namespace)
 
 
