@@ -43,7 +43,7 @@ def str_to_fancyc_comment(text):
     outstr += " */\n"
     return outstr
 
-def get_nonblock_python(header_info, base_name):
+def get_nonblock_python(header_info, base_name, namespace):
     current_path = os.path.dirname(pathlib.Path(__file__).absolute())
     tpl = Template(filename=os.path.join(current_path,'pybind11_templates','license.mako'))
     license = str_to_fancyc_comment(tpl.render(year=datetime.now().year))
@@ -53,16 +53,17 @@ def get_nonblock_python(header_info, base_name):
         license=license,
         header_info=header_info,
         basename = base_name
+        # namespace = namespace
     )
 
-def write_bindings_generic(module_path, base_name, header_info, output_dir):
+def write_bindings_generic(module_path, base_name, header_info, output_dir, namespace):
     json_pathname = os.path.join(output_dir,'{}.json'.format(base_name))
     binding_pathname = os.path.join(output_dir,'{}_python.hpp'.format(base_name))
     with open(json_pathname, 'w') as outfile:
         json.dump(header_info, outfile)
 
     try:
-        pybind_code = get_nonblock_python(header_info, base_name)
+        pybind_code = get_nonblock_python(header_info, base_name, namespace)
         with open(binding_pathname, 'w+') as outfile:
             outfile.write(pybind_code)
     except:
@@ -81,12 +82,13 @@ def process_nonblock_header_file(file_to_process, module_path, prefix, output_di
         include_paths=include_paths, file_path=file_to_process)
     try:
         header_info = parser.get_header_info(namespace)
-        write_bindings_generic(module_path, base_name, header_info, output_dir)
+        write_bindings_generic(module_path, base_name, header_info, output_dir, namespace)
     except Exception as e:
         print(e)
         failure_pathname = os.path.join(output_dir,'failed_conversions.txt')
-        with open(failure_pathname, 'w+') as outfile:
+        with open(failure_pathname, 'a+') as outfile:
             outfile.write(file_to_process)
+            outfile.write(str(e))
             outfile.write('\n')
 
 

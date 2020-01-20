@@ -4,13 +4,11 @@ import argparse
 
 import warnings
 with warnings.catch_warnings():
-    warnings.filterwarnings("ignore",category=DeprecationWarning)
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
     import time
 
 
-include_path = '/share/gnuradio/grnext/src/gnuradio/gnuradio-runtime/include/gnuradio'
-output_dir = '/share/tmp/blocktool_pybind'
-namespace = ['gr']
+
 
 def get_file_list(include_path):
     file_list = []
@@ -21,14 +19,22 @@ def get_file_list(include_path):
             print(len(path) * '---', file)
             _, file_extension = os.path.splitext(file)
             if (file_extension == '.h'):
-                pathname = os.path.join(root,file)
+                pathname = os.path.join(root, file)
                 print(pathname)
                 file_list.append(pathname)
     return file_list
-                    
-                                        
-file_list = get_file_list(include_path)
-for fn in file_list:
-    args = argparse.Namespace(filename=fn, output=output_dir, 
-        prefix='/share/gnuradio/grnext',namespace=namespace)
-    gen_nonblock_bindings.process_file(args)
+
+
+def gen_bindings(file_list, output_dir, prefix, namespace):
+    file_list = get_file_list(include_path)
+    for fn in file_list:
+        args = argparse.Namespace(filename=fn, output=output_dir,
+                                  prefix=prefix, namespace=namespace)
+        gen_nonblock_bindings.process_file(args)
+
+prefix = '/share/gnuradio/grnext'
+include_path = '/share/gnuradio/grnext/src/gnuradio/gnuradio-runtime/include/gnuradio'
+output_dir = '/share/tmp/blocktool_pybind'
+namespace = ['gr']
+
+gen_bindings(get_file_list(include_path), output_dir, prefix, namespace)

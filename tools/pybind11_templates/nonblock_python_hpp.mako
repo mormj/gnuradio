@@ -7,8 +7,8 @@
 
 ${license}
 
-#ifndef INCLUDED_${modname.upper()}_${basename.upper()}_PYTHON_HPP
-#define INCLUDED_${modname.upper()}_${basename.upper()}_PYTHON_HPP
+#ifndef INCLUDED_${'_'.join(namespace).upper()}_${basename.upper()}_PYTHON_HPP
+#define INCLUDED_${'_'.join(namespace).upper()}_${basename.upper()}_PYTHON_HPP
 
 #include <${modname}/${basename}.h>
 
@@ -80,4 +80,4 @@ fcn_args = fcn['arguments']
 % endif ## free_functions
 } 
 
-#endif /* INCLUDED_${modname.upper()}_${basename.upper()}_PYTHON_HPP */
+#endif /* INCLUDED_${'_'.join(namespace).upper()}_${basename.upper()}_PYTHON_HPP */

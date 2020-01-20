@@ -26,5 +26,6 @@ tpl = Template(filename=os.path.join(current_path,'nonblock_python_hpp.mako'))
 print(tpl.render(
     license=license,
     header_info=header_info,
-    basename = base_name
+    basename = base_name,
+    namespace = ['pmt']
 ))
