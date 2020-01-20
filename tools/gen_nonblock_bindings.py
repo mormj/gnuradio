@@ -43,7 +43,7 @@ def str_to_fancyc_comment(text):
     outstr += " */\n"
     return outstr
 
-def get_nonblock_python(header_info, base_name, namespace):
+def get_nonblock_python(header_info, base_name, namespace, prefix_include_root):
     current_path = os.path.dirname(pathlib.Path(__file__).absolute())
     tpl = Template(filename=os.path.join(current_path,'pybind11_templates','license.mako'))
     license = str_to_fancyc_comment(tpl.render(year=datetime.now().year))
@@ -52,25 +52,26 @@ def get_nonblock_python(header_info, base_name, namespace):
     return tpl.render(
         license=license,
         header_info=header_info,
-        basename = base_name
+        basename = base_name,
         # namespace = namespace
+        prefix_include_root = prefix_include_root
     )
 
-def write_bindings_generic(module_path, base_name, header_info, output_dir, namespace):
+def write_bindings_generic(module_path, base_name, header_info, output_dir, namespace, prefix_include_root):
     json_pathname = os.path.join(output_dir,'{}.json'.format(base_name))
     binding_pathname = os.path.join(output_dir,'{}_python.hpp'.format(base_name))
     with open(json_pathname, 'w') as outfile:
         json.dump(header_info, outfile)
 
     try:
-        pybind_code = get_nonblock_python(header_info, base_name, namespace)
+        pybind_code = get_nonblock_python(header_info, base_name, namespace, prefix_include_root)
         with open(binding_pathname, 'w+') as outfile:
             outfile.write(pybind_code)
         return binding_pathname
     except:
         return None
 
-def process_nonblock_header_file(file_to_process, module_path, prefix, output_dir, namespace):
+def process_nonblock_header_file(file_to_process, module_path, prefix, output_dir, namespace, prefix_include_root):
     binding_pathname = None
     # module_include_path = os.path.abspath(os.path.join(module_path, 'include'))
     base_name = os.path.splitext(os.path.basename(file_to_process))[0]
@@ -84,7 +85,7 @@ def process_nonblock_header_file(file_to_process, module_path, prefix, output_di
         include_paths=include_paths, file_path=file_to_process)
     try:
         header_info = parser.get_header_info(namespace)
-        binding_pathname = write_bindings_generic(module_path, base_name, header_info, output_dir, namespace)
+        binding_pathname = write_bindings_generic(module_path, base_name, header_info, output_dir, namespace, prefix_include_root)
     except Exception as e:
         print(e)
         failure_pathname = os.path.join(output_dir,'failed_conversions.txt')
@@ -112,7 +113,7 @@ def process_file(args):
             os.makedirs(output_dir)
 
         return process_nonblock_header_file(file,
-                    module_path, prefix, output_dir, args.namespace)
+                    module_path, prefix, output_dir, args.namespace, args.prefix_include_root)
 
 
 def parse_args():

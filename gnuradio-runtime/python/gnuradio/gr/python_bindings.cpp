@@ -29,6 +29,8 @@ namespace py = pybind11;
 
 #include "bindings/high_res_timer_python.hpp"
 
+#include "bindings/block_detail_python.hpp"
+
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
 // This function is also necessary because it ensures access to the C API
@@ -63,6 +65,7 @@ PYBIND11_MODULE(gr_python, m)
     bind_top_block(m);    
 
     bind_high_res_timer(m);
+    bind_block_detail(m);
 
 
     // %constant int sizeof_char 	= sizeof(char);
