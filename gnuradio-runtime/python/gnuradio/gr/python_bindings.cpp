@@ -27,6 +27,8 @@ namespace py = pybind11;
 #include "bindings/sync_block_python.hpp"
 #include "bindings/sync_decimator_python.hpp"
 
+#include "bindings/high_res_timer_python.hpp"
+
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
 // This function is also necessary because it ensures access to the C API
@@ -59,6 +61,8 @@ PYBIND11_MODULE(gr_python, m)
     bind_io_signature(m);
     bind_hier_block2(m);
     bind_top_block(m);    
+
+    bind_high_res_timer(m);
 
 
     // %constant int sizeof_char 	= sizeof(char);

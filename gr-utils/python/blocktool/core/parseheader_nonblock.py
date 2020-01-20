@@ -131,8 +131,12 @@ class NonBlockHeaderParser(BlockTool):
         try:
             self.parsed_data['classes'] = []
 
-            for _class in main_namespace.declarations:
-                if isinstance(_class, declarations.class_t):
+            # query_methods = declarations.access_type_matcher_t('public')
+            classes = main_namespace.classes(header_file=self.target_file)
+            if classes:
+                for _class in classes:
+            # for _class in main_namespace.declarations:
+                # if isinstance(_class, declarations.class_t):
                     current_class = {'name': _class.name, 'member_functions':[]}
                     member_functions = []
                     constructors = []                    
@@ -198,7 +202,7 @@ class NonBlockHeaderParser(BlockTool):
             functions = main_namespace.free_functions(allow_empty=True,
                                                 header_file=self.target_file)
             for fcn in functions:
-                if str(fcn.name) not in [_class.name, '~'+_class.name, 'make']:
+                if str(fcn.name) not in ['make']:
                     fcn_args = {
                         "name": str(fcn.name),
                         "arguments": []

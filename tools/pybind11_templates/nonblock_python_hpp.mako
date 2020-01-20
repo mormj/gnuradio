@@ -14,7 +14,9 @@ ${license}
 
 void bind_${basename}(py::module& m)
 {
+% if classes:
     using ${basename}    = ${"::".join(namespace)}::${basename};
+% endif ##classes
 % for cls in classes:
 <%
 try:
@@ -68,9 +70,9 @@ fcn_args = fcn['arguments']
 fcn_args = fcn['arguments']
 %>\
 % if len(fcn_args) == 0:
-    m.def("${fcn['name']}",&${basename}::${fcn['name']});
+    m.def("${fcn['name']}",&${'::'.join(namespace)}::${fcn['name']});
 %else:
-    m.def("${fcn['name']}",&${basename}::${fcn['name']},
+    m.def("${fcn['name']}",&${'::'.join(namespace)}::${fcn['name']},
 % for arg in fcn_args:
         py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
 % endfor

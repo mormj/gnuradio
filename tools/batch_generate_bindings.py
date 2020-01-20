@@ -2,11 +2,6 @@ import gen_nonblock_bindings
 import os
 import argparse
 
-import warnings
-with warnings.catch_warnings():
-    warnings.filterwarnings("ignore", category=DeprecationWarning)
-    import time
-
 
 
 
@@ -37,4 +32,8 @@ include_path = '/share/gnuradio/grnext/src/gnuradio/gnuradio-runtime/include/gnu
 output_dir = '/share/tmp/blocktool_pybind'
 namespace = ['gr']
 
-gen_bindings(get_file_list(include_path), output_dir, prefix, namespace)
+
+import warnings
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    gen_bindings(get_file_list(include_path), output_dir, prefix, namespace)
