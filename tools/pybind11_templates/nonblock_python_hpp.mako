@@ -73,6 +73,23 @@ fcn_args = fcn['arguments']
 % for fcn in free_functions:
 <%
 fcn_args = fcn['arguments']
+fcn_name = fcn['name']
+matcher = lambda x,name: x['name'] == name
+overloaded = sum([matcher(f,fcn_name) for f in free_functions]) > 1
+## if overloaded:
+## void (block_detail::*)(std::vector<gr::tag_t>&,
+##                                      unsigned int,
+##                                      uint64_t,
+##                                      uint64_t,
+##                                      const pmt::pmt_t&,
+##                                      long))
+##     overloaded_str = 'void (block_detail::*)(std::vector<gr::tag_t>&,
+##                                      unsigned int,
+##                                      uint64_t,
+##                                      uint64_t,
+##                                      const pmt::pmt_t&,
+##                                      long))
+## Need to put the return type in the json
 %>\
 % if len(fcn_args) == 0:
     m.def("${fcn['name']}",&${'::'.join(namespace)}::${fcn['name']});

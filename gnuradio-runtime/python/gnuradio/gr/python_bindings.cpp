@@ -26,6 +26,7 @@ namespace py = pybind11;
 #include "bindings/block_python.hpp"
 #include "bindings/sync_block_python.hpp"
 #include "bindings/sync_decimator_python.hpp"
+#include "bindings/sync_interpolator_python.hpp"
 
 #include "bindings/high_res_timer_python.hpp"
 
@@ -34,6 +35,10 @@ namespace py = pybind11;
 #include "bindings/buffer_python.hpp"
 #include "bindings/constants_python.hpp"
 #include "bindings/feval_python.hpp"
+#include "bindings/random_python.hpp"
+// #include "bindings/runtime_types_python.hpp"
+#include "bindings/logger_python.hpp"
+
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -64,6 +69,7 @@ PYBIND11_MODULE(gr_python, m)
     bind_block(m);
     bind_sync_block(m);
     bind_sync_decimator(m);
+    bind_sync_interpolator(m);
     bind_io_signature(m);
     bind_hier_block2(m);
     bind_top_block(m);    
@@ -74,7 +80,12 @@ PYBIND11_MODULE(gr_python, m)
     bind_buffer(m);
     bind_constants(m);
     bind_feval(m);
+    bind_random(m);
+    // bind_runtime_types(m); // currently empty
+    bind_logger(m);
+    
 
+    // TODO: Move into gr_types.hpp
     // %constant int sizeof_char 	= sizeof(char);
     m.attr("sizeof_char") = sizeof(char);
     // %constant int sizeof_short	= sizeof(short);
