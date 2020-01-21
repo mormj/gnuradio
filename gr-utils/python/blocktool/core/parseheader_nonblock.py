@@ -127,6 +127,28 @@ class NonBlockHeaderParser(BlockTool):
             raise BlockToolException(
                 'Invalid namespace format in the block header file')
 
+        # enums
+        try:
+            self.parsed_data['enums'] = []
+            enums = main_namespace.enumerations(header_file=self.target_file)
+            if enums:
+                for _enum in enums:
+                    current_enum = {'name': _enum.name, 'values':_enum.values}
+                    self.parsed_data['enums'].append(current_enum)
+        except:
+            pass
+
+        # variables
+        try:
+            self.parsed_data['variables'] = []
+            variables = main_namespace.variables(header_file=self.target_file)
+            if variables:
+                for _var in variables:
+                    current_var = {'name': _var.name, 'values':_var.value}
+                    self.parsed_data['vars'].append(current_var)
+        except:
+            pass
+
         # classes
         try:
             self.parsed_data['classes'] = []
@@ -138,6 +160,8 @@ class NonBlockHeaderParser(BlockTool):
             # for _class in main_namespace.declarations:
                 # if isinstance(_class, declarations.class_t):
                     current_class = {'name': _class.name, 'member_functions':[]}
+                    if _class.bases:
+                        current_class['bases'] = _class.bases[0].declaration_path
                     member_functions = []
                     constructors = []                    
                     # constructors
@@ -173,9 +197,10 @@ class NonBlockHeaderParser(BlockTool):
                                                             allow_empty=True,
                                                             header_file=self.target_file)
                         for fcn in functions:
-                            if str(fcn.name) not in [_class.name, '~'+_class.name, 'make']:
+                            if str(fcn.name) not in [_class.name, '~'+_class.name]:
                                 fcn_args = {
                                     "name": str(fcn.name),
+                                    "return_type": str(fcn.return_type),
                                     "arguments": []
                                 }
                                 for argument in fcn.arguments:
@@ -183,13 +208,45 @@ class NonBlockHeaderParser(BlockTool):
                                         "name": str(argument.name),
                                         "dtype": str(argument.decl_type),
                                         "default": argument.default_value
+                                        
                                     }
                                     fcn_args['arguments'].append(args.copy())
                                 member_functions.append(fcn_args.copy())
                         current_class['member_functions'] = member_functions
                     except RuntimeError:
                         pass
+
+                    # enums
+                    try:
+                        class_enums = []
+                        enums = _class.enumerations(header_file=self.target_file)
+                        if enums:
+                            for _enum in enums:
+                                current_enum = {'name': _enum.name, 'values':_enum.values}
+                                class_enums.appen(current_enum)
+                        
+                        current_class['enums'] = class_enums
+                    except:
+                        pass
+
+                    # variables
+                    try:
+                        class_vars = []
+                        query_methods = declarations.access_type_matcher_t('public')
+                        variables = _class.variables(unction=query_methods,
+                            header_file=self.target_file)
+                        if variables:
+                            for _var in variables:
+                                current_var = {'name': _var.name, 'value':_var.value}
+                                class_vars.append(current_var)
+                        current_class['vars'] = class_vars
+
+                    except:
+                        pass
+
                     self.parsed_data['classes'].append(current_class)
+
+
         except:
             pass
 
@@ -205,6 +262,7 @@ class NonBlockHeaderParser(BlockTool):
                 if str(fcn.name) not in ['make']:
                     fcn_args = {
                         "name": str(fcn.name),
+                        "return_type": str(fcn.return_type),
                         "arguments": []
                     }
                     for argument in fcn.arguments:

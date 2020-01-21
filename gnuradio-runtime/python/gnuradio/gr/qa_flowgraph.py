@@ -34,16 +34,19 @@ class test_flowgraph (gr_unittest.TestCase):
         self.tb = None
 
     def test_000(self):
+        print("starting test")
 
         self.tb.start()
+        print("started test")
         self.tb.lock()
 
+        print("after lock")
         rem = blocks.pdu_remove(pmt.intern('foo'))
         dbg = blocks.message_debug()
         self.tb.msg_connect((rem, 'pdus'), (dbg, 'store'))
-
+        print("after msg_connect")
         self.tb.unlock()
-
+        print("after unlock")
         msg = pmt.cons(pmt.PMT_NIL, pmt.init_u8vector(3, (1, 2, 3)))
         rem.to_basic_block()._post(pmt.intern('pdus'), msg)
         time.sleep(0.2)

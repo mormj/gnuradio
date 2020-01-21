@@ -38,7 +38,7 @@ namespace py = pybind11;
 #include "bindings/random_python.hpp"
 // #include "bindings/runtime_types_python.hpp"
 #include "bindings/logger_python.hpp"
-
+#include "bindings/message_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -83,6 +83,7 @@ PYBIND11_MODULE(gr_python, m)
     bind_random(m);
     // bind_runtime_types(m); // currently empty
     bind_logger(m);
+    bind_message(m);
     
 
     // TODO: Move into gr_types.hpp
