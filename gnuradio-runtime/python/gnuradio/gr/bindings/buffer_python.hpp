@@ -31,6 +31,7 @@
 void bind_buffer(py::module& m)
 {
     using buffer    = gr::buffer;
+    using buffer_reader    = gr::buffer_reader;
 
     py::class_<buffer, std::shared_ptr<buffer>>(m, "buffer")
         .def("space_available",&buffer::space_available)
@@ -73,31 +74,32 @@ void bind_buffer(py::module& m)
         )
         ;
 
+
     py::class_<buffer_reader, std::shared_ptr<buffer_reader>>(m, "buffer_reader")
         .def(py::init<gr::buffer_reader const &>(),
            py::arg("arg0") 
         )
-        .def("declare_sample_delay",&buffer::declare_sample_delay,
+        .def("declare_sample_delay",&buffer_reader::declare_sample_delay,
             py::arg("delay") 
         )
-        .def("sample_delay",&buffer::sample_delay)
-        .def("items_available",&buffer::items_available)
-        .def("buffer",&buffer::buffer)
-        .def("max_possible_items_available",&buffer::max_possible_items_available)
-        .def("read_pointer",&buffer::read_pointer)
-        .def("update_read_pointer",&buffer::update_read_pointer,
+        .def("sample_delay",&buffer_reader::sample_delay)
+        .def("items_available",&buffer_reader::items_available)
+        .def("buffer",&buffer_reader::buffer)
+        .def("max_possible_items_available",&buffer_reader::max_possible_items_available)
+        .def("read_pointer",&buffer_reader::read_pointer)
+        .def("update_read_pointer",&buffer_reader::update_read_pointer,
             py::arg("nitems") 
         )
-        .def("set_done",&buffer::set_done,
+        .def("set_done",&buffer_reader::set_done,
             py::arg("done") 
         )
-        .def("done",&buffer::done)
-        .def("mutex",&buffer::mutex)
-        .def("nitems_read",&buffer::nitems_read)
-        .def("reset_nitem_counter",&buffer::reset_nitem_counter)
-        .def("get_sizeof_item",&buffer::get_sizeof_item)
-        .def("link",&buffer::link)
-        .def("get_tags_in_range",&buffer::get_tags_in_range,
+        .def("done",&buffer_reader::done)
+        .def("mutex",&buffer_reader::mutex)
+        .def("nitems_read",&buffer_reader::nitems_read)
+        .def("reset_nitem_counter",&buffer_reader::reset_nitem_counter)
+        .def("get_sizeof_item",&buffer_reader::get_sizeof_item)
+        .def("link",&buffer_reader::link)
+        .def("get_tags_in_range",&buffer_reader::get_tags_in_range,
             py::arg("v"), 
             py::arg("abs_start"), 
             py::arg("abs_end"), 

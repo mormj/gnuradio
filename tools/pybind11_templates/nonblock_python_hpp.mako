@@ -16,10 +16,13 @@ ${license}
 
 void bind_${basename}(py::module& m)
 {
-% if classes:
-    using ${basename}    = ${"::".join(namespace)}::${basename};
-% endif ##classes
 % for cls in classes:
+% if classes:
+    using ${cls['name']}    = ${"::".join(namespace)}::${cls['name']};
+% endif ##classes
+% endfor ##classes
+% for cls in classes:
+
 <%
 try:
         member_functions = cls['member_functions']
@@ -54,9 +57,9 @@ ${arg['dtype']}${'>(),' if loop.index == len(fcn['arguments'])-1 else ',' }\
 fcn_args = fcn['arguments']
 %>\
 % if len(fcn_args) == 0:
-        .def("${fcn['name']}",&${basename}::${fcn['name']})
+        .def("${fcn['name']}",&${cls['name']}::${fcn['name']})
 %else:
-        .def("${fcn['name']}",&${basename}::${fcn['name']},
+        .def("${fcn['name']}",&${cls['name']}::${fcn['name']},
 % for arg in fcn_args:
             py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
 % endfor ## args
