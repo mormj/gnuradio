@@ -33,16 +33,16 @@ void bind_log2_const(py::module& m)
 
 
     m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
-    // m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
+    m.def("log2_const",&gr::blocks::log2_const);
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_LOG2_CONST_PYTHON_HPP */

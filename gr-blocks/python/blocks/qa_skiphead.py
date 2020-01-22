@@ -47,7 +47,7 @@ class test_skiphead(gr_unittest.TestCase):
 
     def test_skip_0(self):
         skip_cnt = 0
-        expected_result = tuple(self.src_data[skip_cnt:])
+        expected_result = self.src_data[skip_cnt:]
         src1 = blocks.vector_source_i(self.src_data)
         op = blocks.skiphead(gr.sizeof_int, skip_cnt)
         dst1 = blocks.vector_sink_i()
@@ -58,7 +58,7 @@ class test_skiphead(gr_unittest.TestCase):
 
     def test_skip_1(self):
         skip_cnt = 1
-        expected_result = tuple(self.src_data[skip_cnt:])
+        expected_result = self.src_data[skip_cnt:]
         src1 = blocks.vector_source_i(self.src_data)
         op = blocks.skiphead(gr.sizeof_int, skip_cnt)
         dst1 = blocks.vector_sink_i()
@@ -69,7 +69,7 @@ class test_skiphead(gr_unittest.TestCase):
 
     def test_skip_1023(self):
         skip_cnt = 1023
-        expected_result = tuple(self.src_data[skip_cnt:])
+        expected_result = self.src_data[skip_cnt:]
         src1 = blocks.vector_source_i(self.src_data)
         op = blocks.skiphead(gr.sizeof_int, skip_cnt)
         dst1 = blocks.vector_sink_i()
@@ -80,7 +80,7 @@ class test_skiphead(gr_unittest.TestCase):
 
     def test_skip_6339(self):
         skip_cnt = 6339
-        expected_result = tuple(self.src_data[skip_cnt:])
+        expected_result = self.src_data[skip_cnt:]
         src1 = blocks.vector_source_i(self.src_data)
         op = blocks.skiphead(gr.sizeof_int, skip_cnt)
         dst1 = blocks.vector_sink_i()
@@ -91,7 +91,7 @@ class test_skiphead(gr_unittest.TestCase):
 
     def test_skip_12678(self):
         skip_cnt = 12678
-        expected_result = tuple(self.src_data[skip_cnt:])
+        expected_result = self.src_data[skip_cnt:]
         src1 = blocks.vector_source_i(self.src_data)
         op = blocks.skiphead(gr.sizeof_int, skip_cnt)
         dst1 = blocks.vector_sink_i()
@@ -102,7 +102,7 @@ class test_skiphead(gr_unittest.TestCase):
 
     def test_skip_all(self):
         skip_cnt = len(self.src_data)
-        expected_result = tuple(self.src_data[skip_cnt:])
+        expected_result = self.src_data[skip_cnt:]
         src1 = blocks.vector_source_i(self.src_data)
         op = blocks.skiphead(gr.sizeof_int, skip_cnt)
         dst1 = blocks.vector_sink_i()
@@ -113,7 +113,7 @@ class test_skiphead(gr_unittest.TestCase):
 
     def test_skip_tags(self):
         skip_cnt = 25
-        expected_result = tuple(self.src_data[skip_cnt:])
+        expected_result = self.src_data[skip_cnt:]
 
         src_tags = tuple([make_tag('foo', 'bar', 1, 'src'),
                           make_tag('baz', 'qux', 50, 'src')])

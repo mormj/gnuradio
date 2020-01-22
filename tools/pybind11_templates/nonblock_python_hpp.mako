@@ -56,7 +56,7 @@ try:
 except:
         make_function = None
 %>
-    py::class_<${cls['name']}, \
+    py::class_<${cls['name']}\
 % if cls['bases']:
 ,${'::'.join(list(filter(lambda x: x != '::',cls['bases'])))},
 % else: 

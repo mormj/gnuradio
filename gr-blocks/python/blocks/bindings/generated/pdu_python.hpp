@@ -31,26 +31,26 @@
 void bind_pdu(py::module& m)
 {
 
-    py::enum_<gr::blocks::pdu::vector_type>(m,"vector_type")
-        .value("byte_t", gr::blocks::pdu::byte_t) // 0
-        .value("float_t", gr::blocks::pdu::float_t) // 1
-        .value("complex_t", gr::blocks::pdu::complex_t) // 2
+    py::enum_<gr::blocks::vector_type>(m,"vector_type")
+        .value("byte_t", gr::blocks::byte_t) // 0
+        .value("float_t", gr::blocks::float_t) // 1
+        .value("complex_t", gr::blocks::complex_t) // 2
     ;
 
-    m.def("pdu_port_id",&gr::blocks::pdu::pdu_port_id);
-    m.def("itemsize",&gr::blocks::pdu::itemsize,
+    m.def("pdu_port_id",&gr::blocks::pdu_port_id);
+    m.def("itemsize",&gr::blocks::itemsize,
         py::arg("type") 
     );
-    m.def("type_matches",&gr::blocks::pdu::type_matches,
+    m.def("type_matches",&gr::blocks::type_matches,
         py::arg("type"), 
         py::arg("v") 
     );
-    m.def("make_pdu_vector",&gr::blocks::pdu::make_pdu_vector,
+    m.def("make_pdu_vector",&gr::blocks::make_pdu_vector,
         py::arg("type"), 
         py::arg("buf"), 
         py::arg("items") 
     );
-    m.def("type_from_pmt",&gr::blocks::pdu::type_from_pmt,
+    m.def("type_from_pmt",&gr::blocks::type_from_pmt,
         py::arg("vector") 
     );
 } 

@@ -22,6 +22,8 @@ void bind_pmt(py::module& m)
         .def("__repr__", &pmt::write_string)
         // virtual bool is_bool() const { return false; }
         .def("is_bool",&pmt::is_bool)
+        //     py::arg("obj") 
+        // )
         // virtual bool is_symbol() const { return false; }
         .def("is_symbol",&pmt::is_symbol)
         // virtual bool is_number() const { return false; }
@@ -94,7 +96,10 @@ void bind_pmt(py::module& m)
         m.attr("get_PMT_F") = pmt::get_PMT_F();
         // #define PMT_EOF get_PMT_EOF()
         m.attr("get_PMT_EOF") = pmt::get_PMT_EOF();
-        
+
+        m.def("is_bool",&pmt::is_true,
+            py::arg("obj") 
+        );        
         m.def("is_true",&pmt::is_true,
             py::arg("obj") 
         );

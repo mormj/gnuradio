@@ -30,7 +30,7 @@
 
 void bind_unpack_k_bits(py::module& m)
 {
-    using unpack_k_bits    = gr::blocks::kernel::unpack_k_bits;
+    using unpack_k_bits    = gr::blocks::unpack_k_bits;
 
 
     py::class_<unpack_k_bits, std::shared_ptr<unpack_k_bits>>(m, "unpack_k_bits")

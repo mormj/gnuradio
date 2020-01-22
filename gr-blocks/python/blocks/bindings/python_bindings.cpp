@@ -149,7 +149,7 @@ namespace py = pybind11;
 // #include "generated/selector_python.hpp"
 // #include "generated/short_to_char_python.hpp"
 // #include "generated/short_to_float_python.hpp"
-// #include "generated/skiphead_python.hpp"
+#include "generated/skiphead_python.hpp"
 // #include "generated/socket_pdu_python.hpp"
 // #include "generated/stream_mux_python.hpp"
 // #include "generated/stream_to_streams_python.hpp"
@@ -326,7 +326,7 @@ PYBIND11_MODULE(blocks_python, m)
     // bind_selector(m);
     // bind_short_to_char(m);
     // bind_short_to_float(m);
-    // bind_skiphead(m);
+    bind_skiphead(m);
     // bind_socket_pdu(m);
     // bind_stream_mux(m);
     // bind_stream_to_streams(m);
