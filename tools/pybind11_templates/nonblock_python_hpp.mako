@@ -13,6 +13,9 @@ ${license}
 #ifndef INCLUDED_${'_'.join(namespace).upper()}_${basename.upper()}_PYTHON_HPP
 #define INCLUDED_${'_'.join(namespace).upper()}_${basename.upper()}_PYTHON_HPP
 
+% if module and classes:
+#include <${prefix_include_root.split('/')[0]}/${classes[0]['bases'][-1]}.h>
+% endif
 #include <${prefix_include_root}/${basename}.h>
 
 void bind_${basename}(py::module& m)
@@ -55,7 +58,9 @@ except:
 %>
     py::class_<${cls['name']}, \
 % if cls['bases']:
- ${cls['bases'][-1]},
+,${'::'.join(list(filter(lambda x: x != '::',cls['bases'])))},
+% else: 
+,
 % endif\
  
         std::shared_ptr<${cls['name']}>>(m, "${cls['name']}")

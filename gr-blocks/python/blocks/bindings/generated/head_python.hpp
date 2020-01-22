@@ -47,7 +47,9 @@ void bind_head(py::module& m)
         .def("set_length",&head::set_length,
             py::arg("nitems") 
         )
-
+        .def("to_basic_block",[](std::shared_ptr<head> p){
+            return p->to_basic_block();
+        })
         ;
 
 

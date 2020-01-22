@@ -60,7 +60,9 @@ void bind_file_source(py::module& m)
         .def("set_begin_tag",&file_source::set_begin_tag,
             py::arg("val") 
         )
-
+        .def("to_basic_block",[](std::shared_ptr<file_source> p){
+            return p->to_basic_block();
+        })
         ;
 
 
