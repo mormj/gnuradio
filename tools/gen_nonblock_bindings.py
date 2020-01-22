@@ -54,7 +54,8 @@ def get_nonblock_python(header_info, base_name, namespace, prefix_include_root):
         header_info=header_info,
         basename = base_name,
         # namespace = namespace
-        prefix_include_root = prefix_include_root
+        prefix_include_root = prefix_include_root,
+        module = True
     )
 
 def write_bindings_generic(module_path, base_name, header_info, output_dir, namespace, prefix_include_root):

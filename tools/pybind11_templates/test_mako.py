@@ -13,8 +13,9 @@ prefix_include_root = 'gnuradio'
 # filename = '/share/tmp/blocktool_pybind/pmt.h/pmt.json'; base_name = 'pmt'
 # filename = '/share/tmp/blocktool_pybind/pmt_pool.h/pmt_pool.json'; base_name = 'pmt_pool'
 # filename = '/share/tmp/blocktool_pybind/gnuradio/logger.json'; base_name = 'logger'
-filename = '/share/tmp/blocktool_pybind/gnuradio/blocks/file_meta_sink.json'; base_name = 'file_meta_sink'
+filename = '/share/tmp/blocktool_pybind/gnuradio/blocks/tcp_server_sink.json'; base_name = 'tcp_server_sink'
 # base_name = 'pmt_pool'
+namespace = ['gr','blocks']
 #with open(path.join(current_path,filename)) as json_file:
 with open(filename) as json_file:
     header_info = json.load(json_file)
@@ -31,6 +32,7 @@ print(tpl.render(
     license=license,
     header_info=header_info,
     basename = base_name,
-    namespace = ['pmt'],
-    prefix_include_root = prefix_include_root
+    namespace = namespace,
+    prefix_include_root = prefix_include_root,
+    module = True
 ))

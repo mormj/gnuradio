@@ -104,6 +104,6 @@ prefix_include_root = 'gnuradio/blocks'  #pmt, gnuradio/digital, etc.
 import warnings
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore", category=DeprecationWarning)
-    file_list = get_file_list(include_path)
+    file_list = sorted(get_file_list(include_path))
     gen_top_level_cpp(file_list, output_dir)
-    # gen_bindings(file_list, output_dir, prefix, namespace, prefix_include_root)
+    gen_bindings(file_list, output_dir, prefix, namespace, prefix_include_root)

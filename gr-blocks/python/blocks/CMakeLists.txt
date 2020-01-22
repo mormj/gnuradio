@@ -32,7 +32,7 @@ GR_PYTHON_INSTALL(
 # Python Bindings
 ########################################################################
 
-pybind11_add_module(blocks_python ${CMAKE_CURRENT_SOURCE_DIR}/python_bindings.cpp)
+pybind11_add_module(blocks_python ${CMAKE_CURRENT_SOURCE_DIR}/bindings/python_bindings.cpp)
 target_include_directories(blocks_python PUBLIC
     ${PYTHON_NUMPY_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../lib

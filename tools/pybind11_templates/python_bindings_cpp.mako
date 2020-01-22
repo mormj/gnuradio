@@ -1,5 +1,6 @@
 <%
 import os
+## file_list = files.sort()
 %>
 ${license}
 
@@ -21,7 +22,7 @@ PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 <%
 basename = os.path.splitext(f)[0]
 %>\
-#include "bindings/${basename}_python.hpp"
+#include "generated/${basename}_python.hpp"
 % endfor
 
 // We need this hack because import_array() returns NULL

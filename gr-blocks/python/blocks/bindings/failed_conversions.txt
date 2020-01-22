@@ -1,1 +1,0 @@
-/share/gnuradio/grnext/src/gnuradio/gr-blocks/include/gnuradio/blocks/api.hInvalid namespace format in the block header file
