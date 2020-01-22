@@ -18,7 +18,10 @@ PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
 ## File Includes
 % for f in files:  
-#include "bindings/${f}"
+<%
+basename = os.path.splitext(f)[0]
+%>\
+#include "bindings/${basename}_python.hpp"
 % endfor
 
 // We need this hack because import_array() returns NULL
