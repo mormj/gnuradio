@@ -36,12 +36,12 @@ namespace py = pybind11;
 
 // #include "generated/abs_blk_python.hpp"
 // #include "generated/add_blk_python.hpp"
-// #include "generated/add_const_bb_python.hpp"
-// #include "generated/add_const_cc_python.hpp"
-// #include "generated/add_const_ff_python.hpp"
-// #include "generated/add_const_ii_python.hpp"
-// #include "generated/add_const_ss_python.hpp"
-// #include "generated/add_const_v_python.hpp"
+#include "generated/add_const_bb_python.hpp"
+#include "generated/add_const_cc_python.hpp"
+#include "generated/add_const_ff_python.hpp"
+#include "generated/add_const_ii_python.hpp"
+#include "generated/add_const_ss_python.hpp"
+#include "generated/add_const_v_python.hpp"
 // #include "generated/and_blk_python.hpp"
 // #include "generated/and_const_python.hpp"
 // #include "generated/annotator_1to1_python.hpp"
@@ -54,28 +54,28 @@ namespace py = pybind11;
 // #include "generated/char_to_float_python.hpp"
 // #include "generated/char_to_short_python.hpp"
 // #include "generated/check_lfsr_32k_s_python.hpp"
-// #include "generated/complex_to_arg_python.hpp"
-// #include "generated/complex_to_float_python.hpp"
-// #include "generated/complex_to_imag_python.hpp"
-// #include "generated/complex_to_interleaved_char_python.hpp"
-// #include "generated/complex_to_interleaved_short_python.hpp"
-// #include "generated/complex_to_mag_python.hpp"
-// #include "generated/complex_to_mag_squared_python.hpp"
-// #include "generated/complex_to_magphase_python.hpp"
-// #include "generated/complex_to_real_python.hpp"
+#include "generated/complex_to_arg_python.hpp"
+#include "generated/complex_to_float_python.hpp"
+#include "generated/complex_to_imag_python.hpp"
+#include "generated/complex_to_interleaved_char_python.hpp"
+#include "generated/complex_to_interleaved_short_python.hpp"
+#include "generated/complex_to_mag_python.hpp"
+#include "generated/complex_to_mag_squared_python.hpp"
+#include "generated/complex_to_magphase_python.hpp"
+#include "generated/complex_to_real_python.hpp"
 // #include "generated/conjugate_cc_python.hpp"
 // // #include "generated/control_loop_python.hpp"
-// #include "generated/copy_python.hpp"
-// #include "generated/count_bits_python.hpp"
+#include "generated/copy_python.hpp"
+#include "generated/count_bits_python.hpp"
 // #include "generated/ctrlport_probe2_b_python.hpp"
 // #include "generated/ctrlport_probe2_c_python.hpp"
 // #include "generated/ctrlport_probe2_f_python.hpp"
 // #include "generated/ctrlport_probe2_i_python.hpp"
 // #include "generated/ctrlport_probe2_s_python.hpp"
 // #include "generated/ctrlport_probe_c_python.hpp"
-// #include "generated/deinterleave_python.hpp"
-// #include "generated/delay_python.hpp"
-// #include "generated/divide_python.hpp"
+#include "generated/deinterleave_python.hpp"
+#include "generated/delay_python.hpp"
+#include "generated/divide_python.hpp"
 // #include "generated/endian_swap_python.hpp"
 // #include "generated/exponentiate_const_cci_python.hpp"
 // #include "generated/file_descriptor_sink_python.hpp"
@@ -159,15 +159,15 @@ namespace py = pybind11;
 // #include "generated/streams_to_vector_python.hpp"
 // #include "generated/stretch_ff_python.hpp"
 // #include "generated/sub_python.hpp"
-// #include "generated/tag_debug_python.hpp"
-// #include "generated/tag_gate_python.hpp"
-// #include "generated/tag_share_python.hpp"
-// #include "generated/tagged_file_sink_python.hpp"
-// #include "generated/tagged_stream_align_python.hpp"
-// #include "generated/tagged_stream_multiply_length_python.hpp"
-// #include "generated/tagged_stream_mux_python.hpp"
-// #include "generated/tagged_stream_to_pdu_python.hpp"
-// #include "generated/tags_strobe_python.hpp"
+#include "generated/tag_debug_python.hpp"
+#include "generated/tag_gate_python.hpp"
+#include "generated/tag_share_python.hpp"
+#include "generated/tagged_file_sink_python.hpp"
+#include "generated/tagged_stream_align_python.hpp"
+#include "generated/tagged_stream_multiply_length_python.hpp"
+#include "generated/tagged_stream_mux_python.hpp"
+#include "generated/tagged_stream_to_pdu_python.hpp"
+#include "generated/tags_strobe_python.hpp"
 // #include "generated/tcp_server_sink_python.hpp"
 // #include "generated/test_tag_variable_rate_ff_python.hpp"
 // #include "generated/threshold_ff_python.hpp"
@@ -213,12 +213,12 @@ PYBIND11_MODULE(blocks_python, m)
     // Register types submodule
     // bind_abs_blk(m);
     // bind_add_blk(m);
-    // bind_add_const_bb(m);
-    // bind_add_const_cc(m);
-    // bind_add_const_ff(m);
-    // bind_add_const_ii(m);
-    // bind_add_const_ss(m);
-    // bind_add_const_v(m);
+    bind_add_const_bb(m);
+    bind_add_const_cc(m);
+    bind_add_const_ff(m);
+    bind_add_const_ii(m);
+    bind_add_const_ss(m);
+    bind_add_const_v(m);
     // bind_and_blk(m);
     // bind_and_const(m);
     // bind_annotator_1to1(m);
@@ -231,28 +231,28 @@ PYBIND11_MODULE(blocks_python, m)
     // bind_char_to_float(m);
     // bind_char_to_short(m);
     // bind_check_lfsr_32k_s(m);
-    // bind_complex_to_arg(m);
-    // bind_complex_to_float(m);
-    // bind_complex_to_imag(m);
-    // bind_complex_to_interleaved_char(m);
-    // bind_complex_to_interleaved_short(m);
-    // bind_complex_to_mag(m);
-    // bind_complex_to_mag_squared(m);
-    // bind_complex_to_magphase(m);
-    // bind_complex_to_real(m);
+    bind_complex_to_arg(m);
+    bind_complex_to_float(m);
+    bind_complex_to_imag(m);
+    bind_complex_to_interleaved_char(m);
+    bind_complex_to_interleaved_short(m);
+    bind_complex_to_mag(m);
+    bind_complex_to_mag_squared(m);
+    bind_complex_to_magphase(m);
+    bind_complex_to_real(m);
     // bind_conjugate_cc(m);
     // // bind_control_loop(m);
-    // bind_copy(m);
-    // bind_count_bits(m);
+    bind_copy(m);
+    bind_count_bits(m);
     // bind_ctrlport_probe2_b(m);
     // bind_ctrlport_probe2_c(m);
     // bind_ctrlport_probe2_f(m);
     // bind_ctrlport_probe2_i(m);
     // bind_ctrlport_probe2_s(m);
     // bind_ctrlport_probe_c(m);
-    // bind_deinterleave(m);
-    // bind_delay(m);
-    // bind_divide(m);
+    bind_deinterleave(m);
+    bind_delay(m);
+    bind_divide(m);
     // bind_endian_swap(m);
     // bind_exponentiate_const_cci(m);
     // bind_file_descriptor_sink(m);
@@ -336,15 +336,15 @@ PYBIND11_MODULE(blocks_python, m)
     // bind_streams_to_vector(m);
     // bind_stretch_ff(m);
     // bind_sub(m);
-    // bind_tag_debug(m);
-    // bind_tag_gate(m);
-    // bind_tag_share(m);
-    // bind_tagged_file_sink(m);
-    // bind_tagged_stream_align(m);
-    // bind_tagged_stream_multiply_length(m);
-    // bind_tagged_stream_mux(m);
-    // bind_tagged_stream_to_pdu(m);
-    // bind_tags_strobe(m);
+    bind_tag_debug(m);
+    bind_tag_gate(m);
+    bind_tag_share(m);
+    bind_tagged_file_sink(m);
+    bind_tagged_stream_align(m);
+    bind_tagged_stream_multiply_length(m);
+    bind_tagged_stream_mux(m);
+    bind_tagged_stream_to_pdu(m);
+    bind_tags_strobe(m);
     // bind_tcp_server_sink(m);
     // bind_test_tag_variable_rate_ff(m);
     // bind_threshold_ff(m);

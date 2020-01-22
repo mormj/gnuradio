@@ -27,6 +27,7 @@ namespace py = pybind11;
 #include "bindings/sync_block_python.hpp"
 #include "bindings/sync_decimator_python.hpp"
 #include "bindings/sync_interpolator_python.hpp"
+#include "bindings/tagged_stream_block_python.hpp"
 
 #include "bindings/high_res_timer_python.hpp"
 
@@ -73,6 +74,7 @@ PYBIND11_MODULE(gr_python, m)
     bind_io_signature(m);
     bind_hier_block2(m);
     bind_top_block(m);    
+    bind_tagged_stream_block(m);
 
     bind_high_res_timer(m);
     bind_block_detail(m);
