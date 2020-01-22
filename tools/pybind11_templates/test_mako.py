@@ -32,7 +32,7 @@ print(tpl.render(
     license=license,
     header_info=header_info,
     basename = base_name,
-    namespace = namespace,
+    # namespace = namespace,
     prefix_include_root = prefix_include_root,
     module = True
 ))
