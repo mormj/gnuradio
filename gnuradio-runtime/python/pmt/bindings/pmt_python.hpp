@@ -91,13 +91,13 @@ void bind_pmt(py::module& m)
         // #define PMT_NIL get_PMT_NIL()
         m.attr("PMT_NIL") = pmt::get_PMT_NIL();
         // #define PMT_T get_PMT_T()
-        m.attr("get_PMT_T") = pmt::get_PMT_T();
+        m.attr("PMT_T") = pmt::get_PMT_T();
         // #define PMT_F get_PMT_F()
-        m.attr("get_PMT_F") = pmt::get_PMT_F();
+        m.attr("PMT_F") = pmt::get_PMT_F();
         // #define PMT_EOF get_PMT_EOF()
-        m.attr("get_PMT_EOF") = pmt::get_PMT_EOF();
+        m.attr("PMT_EOF") = pmt::get_PMT_EOF();
 
-        m.def("is_bool",&pmt::is_true,
+        m.def("is_bool",&pmt::is_bool,
             py::arg("obj") 
         );        
         m.def("is_true",&pmt::is_true,

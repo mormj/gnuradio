@@ -50,7 +50,7 @@ namespace py = pybind11;
 // // #include "generated/api_python.hpp"
 // #include "generated/argmax_python.hpp"
 // #include "generated/bin_statistics_f_python.hpp"
-// #include "generated/burst_tagger_python.hpp"
+#include "generated/burst_tagger_python.hpp"
 // #include "generated/char_to_float_python.hpp"
 // #include "generated/char_to_short_python.hpp"
 // #include "generated/check_lfsr_32k_s_python.hpp"
@@ -152,11 +152,11 @@ namespace py = pybind11;
 #include "generated/skiphead_python.hpp"
 // #include "generated/socket_pdu_python.hpp"
 // #include "generated/stream_mux_python.hpp"
-// #include "generated/stream_to_streams_python.hpp"
-// #include "generated/stream_to_tagged_stream_python.hpp"
-// #include "generated/stream_to_vector_python.hpp"
-// #include "generated/streams_to_stream_python.hpp"
-// #include "generated/streams_to_vector_python.hpp"
+#include "generated/stream_to_streams_python.hpp"
+#include "generated/stream_to_tagged_stream_python.hpp"
+#include "generated/stream_to_vector_python.hpp"
+#include "generated/streams_to_stream_python.hpp"
+#include "generated/streams_to_vector_python.hpp"
 // #include "generated/stretch_ff_python.hpp"
 // #include "generated/sub_python.hpp"
 #include "generated/tag_debug_python.hpp"
@@ -227,7 +227,7 @@ PYBIND11_MODULE(blocks_python, m)
     // // bind_api(m);
     // bind_argmax(m);
     // bind_bin_statistics_f(m);
-    // bind_burst_tagger(m);
+    bind_burst_tagger(m);
     // bind_char_to_float(m);
     // bind_char_to_short(m);
     // bind_check_lfsr_32k_s(m);
@@ -329,11 +329,11 @@ PYBIND11_MODULE(blocks_python, m)
     bind_skiphead(m);
     // bind_socket_pdu(m);
     // bind_stream_mux(m);
-    // bind_stream_to_streams(m);
-    // bind_stream_to_tagged_stream(m);
-    // bind_stream_to_vector(m);
-    // bind_streams_to_stream(m);
-    // bind_streams_to_vector(m);
+    bind_stream_to_streams(m);
+    bind_stream_to_tagged_stream(m);
+    bind_stream_to_vector(m);
+    bind_streams_to_stream(m);
+    bind_streams_to_vector(m);
     // bind_stretch_ff(m);
     // bind_sub(m);
     bind_tag_debug(m);

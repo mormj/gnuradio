@@ -47,7 +47,7 @@ from .gr_python import *
 from .exceptions import *
 from .top_block import *
 from .hier_block2 import *
-# from .tag_utils import *
+from .tag_utils import *
 # from .gateway import basic_block, sync_block, decim_block, interp_block, py_io_signature
 
 # # Force the preference database to be initialized
@@ -68,3 +68,5 @@ from .hier_block2 import *
 #     log_debug.add_console_appender(log_debug_file, "gr::log %d :%p: %m%n")
 # else:
 #     log_debug.add_file_appender(log_debug_file, True, "%r :%p: %c{1} - %m%n")
+
+tag_t_offset_compare = tag_t.offset_compare

@@ -53,11 +53,12 @@ namespace pmt {
 /*!
  * \brief base class of all pmt types
  */
-class PMT_API pmt_base : boost::noncopyable
+class PMT_API pmt_base 
 {
 
 public:
     pmt_base(){};
+    pmt_base(const pmt_base&)=delete;
     virtual ~pmt_base();
 
     virtual bool is_bool() const { return false; }
