@@ -30,7 +30,7 @@
 
 void bind_sample_and_hold(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

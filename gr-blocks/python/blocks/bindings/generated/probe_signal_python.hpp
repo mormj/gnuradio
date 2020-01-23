@@ -30,7 +30,7 @@
 
 void bind_probe_signal(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

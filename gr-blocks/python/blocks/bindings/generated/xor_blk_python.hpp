@@ -30,7 +30,7 @@
 
 void bind_xor_blk(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

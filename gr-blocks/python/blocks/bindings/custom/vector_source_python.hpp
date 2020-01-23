@@ -26,7 +26,12 @@ void bind_vector_source_template(py::module& m, const char *classname)
         //                  bool repeat = false,
         //                  unsigned int vlen = 1,
         //                  const std::vector<tag_t>& tags = std::vector<tag_t>());
-        .def(py::init(&gr::blocks::vector_source<T>::make),py::arg("data"), py::arg("repeat")=false, py::arg("vlen")=1, py::arg("tags")=std::vector<gr::tag_t>())
+        .def(py::init(&gr::blocks::vector_source<T>::make),
+            py::arg("data"), 
+            py::arg("repeat")=false, 
+            py::arg("vlen")=1, 
+            py::arg("tags")=std::vector<gr::tag_t>())
+            
         .def("to_basic_block",[](std::shared_ptr<gr::blocks::vector_source<T>> p){
             return p->to_basic_block();
         })

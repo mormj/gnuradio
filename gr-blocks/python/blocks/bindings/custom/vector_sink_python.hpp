@@ -8,9 +8,6 @@
 #ifndef INCLUDED_BLOCKS_VECTOR_SINK_PYTHON_HPP
 #define INCLUDED_BLOCKS_VECTOR_SINK_PYTHON_HPP
 
-// #pragma once
-
-#include <gnuradio/tags.h>
 #include <gnuradio/blocks/vector_sink.h>
 #include <gnuradio/sync_block.h>
 

@@ -30,7 +30,7 @@
 
 void bind_mute(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

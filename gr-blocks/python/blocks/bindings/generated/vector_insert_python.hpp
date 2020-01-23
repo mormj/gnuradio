@@ -30,7 +30,7 @@
 
 void bind_vector_insert(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

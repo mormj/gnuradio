@@ -30,7 +30,7 @@
 
 void bind_peak_detector(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

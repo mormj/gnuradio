@@ -28,10 +28,28 @@
 
 #include <gnuradio/blocks/multiply.h>
 
+template<typename T>
+void bind_multiply_template(py::module& m, const char *classname)
+{
+    using multiply      = gr::blocks::multiply<T>;
+
+    py::class_<multiply, gr::sync_block, std::shared_ptr<multiply>>(m, classname)
+        .def(py::init(&gr::blocks::multiply<T>::make),
+            py::arg("vlen") = 1
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<multiply> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_multiply(py::module& m)
 {
-
-
+    bind_multiply_template<std::int16_t>(m,"multiply_ss");
+    bind_multiply_template<std::int32_t>(m,"multiply_ii");
+    bind_multiply_template<float>(m,"multiply_ff");
+    bind_multiply_template<gr_complex>(m,"multiply_cc");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_MULTIPLY_PYTHON_HPP */

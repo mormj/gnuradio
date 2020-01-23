@@ -30,7 +30,7 @@
 
 void bind_multiply_matrix(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

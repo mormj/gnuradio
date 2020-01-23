@@ -28,10 +28,27 @@
 
 #include <gnuradio/blocks/abs_blk.h>
 
+template<typename T>
+void bind_abs_template(py::module& m, const char *classname)
+{
+    using abs_blk      = gr::blocks::abs_blk<T>;
+
+    py::class_<abs_blk, gr::sync_block, std::shared_ptr<abs_blk>>(m, classname)
+        .def(py::init(&gr::blocks::abs_blk<T>::make),
+            py::arg("vlen") = 1
+        )
+        
+        .def("to_basic_block",[](std::shared_ptr<abs_blk> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_abs_blk(py::module& m)
 {
-
-
+    bind_abs_template<std::int16_t>(m,"abs_ss");
+    bind_abs_template<std::int32_t>(m,"abs_ii");
+    bind_abs_template<float>(m,"abs_ff");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_ABS_BLK_PYTHON_HPP */

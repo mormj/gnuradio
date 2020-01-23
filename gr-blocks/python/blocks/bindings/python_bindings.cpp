@@ -34,8 +34,8 @@ namespace py = pybind11;
 // #include <boost/shared_ptr.hpp>
 // PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
-// #include "generated/abs_blk_python.hpp"
-// #include "generated/add_blk_python.hpp"
+#include "generated/abs_blk_python.hpp"
+#include "generated/add_blk_python.hpp"
 #include "generated/add_const_bb_python.hpp"
 #include "generated/add_const_cc_python.hpp"
 #include "generated/add_const_ff_python.hpp"
@@ -109,11 +109,11 @@ namespace py = pybind11;
 // #include "generated/message_strobe_random_python.hpp"
 // #include "generated/min_blk_python.hpp"
 // #include "generated/moving_average_python.hpp"
-// #include "generated/multiply_python.hpp"
+#include "generated/multiply_python.hpp"
 // #include "generated/multiply_by_tag_value_cc_python.hpp"
 // #include "generated/multiply_conjugate_cc_python.hpp"
-// #include "generated/multiply_const_python.hpp"
-// #include "generated/multiply_const_v_python.hpp"
+#include "generated/multiply_const_python.hpp"
+#include "generated/multiply_const_v_python.hpp"
 // #include "generated/multiply_matrix_python.hpp"
 // #include "generated/mute_python.hpp"
 // #include "generated/nlog10_ff_python.hpp"
@@ -158,7 +158,7 @@ namespace py = pybind11;
 #include "generated/streams_to_stream_python.hpp"
 #include "generated/streams_to_vector_python.hpp"
 // #include "generated/stretch_ff_python.hpp"
-// #include "generated/sub_python.hpp"
+#include "generated/sub_python.hpp"
 #include "generated/tag_debug_python.hpp"
 #include "generated/tag_gate_python.hpp"
 #include "generated/tag_share_python.hpp"
@@ -187,8 +187,8 @@ namespace py = pybind11;
 // #include "generated/vector_map_python.hpp"
 #include "custom/vector_sink_python.hpp"
 #include "custom/vector_source_python.hpp"
-// #include "generated/vector_to_stream_python.hpp"
-// #include "generated/vector_to_streams_python.hpp"
+#include "generated/vector_to_stream_python.hpp"
+#include "generated/vector_to_streams_python.hpp"
 // #include "generated/wavfile_python.hpp"
 // #include "generated/wavfile_sink_python.hpp"
 // #include "generated/wavfile_source_python.hpp"
@@ -211,8 +211,8 @@ PYBIND11_MODULE(blocks_python, m)
     init_numpy();
 
     // Register types submodule
-    // bind_abs_blk(m);
-    // bind_add_blk(m);
+    bind_abs_blk(m);
+    bind_add_blk(m);
     bind_add_const_bb(m);
     bind_add_const_cc(m);
     bind_add_const_ff(m);
@@ -286,11 +286,11 @@ PYBIND11_MODULE(blocks_python, m)
     // bind_message_strobe_random(m);
     // bind_min_blk(m);
     // bind_moving_average(m);
-    // bind_multiply(m);
+    bind_multiply(m);
     // bind_multiply_by_tag_value_cc(m);
     // bind_multiply_conjugate_cc(m);
-    // bind_multiply_const(m);
-    // bind_multiply_const_v(m);
+    bind_multiply_const(m);
+    bind_multiply_const_v(m);
     // bind_multiply_matrix(m);
     // bind_mute(m);
     // bind_nlog10_ff(m);
@@ -335,7 +335,7 @@ PYBIND11_MODULE(blocks_python, m)
     bind_streams_to_stream(m);
     bind_streams_to_vector(m);
     // bind_stretch_ff(m);
-    // bind_sub(m);
+    bind_sub(m);
     bind_tag_debug(m);
     bind_tag_gate(m);
     bind_tag_share(m);
@@ -364,8 +364,8 @@ PYBIND11_MODULE(blocks_python, m)
     // bind_vector_map(m);
     bind_vector_sink(m);
     bind_vector_source(m);
-    // bind_vector_to_stream(m);
-    // bind_vector_to_streams(m);
+    bind_vector_to_stream(m);
+    bind_vector_to_streams(m);
     // bind_wavfile(m);
     // bind_wavfile_sink(m);
     // bind_wavfile_source(m);

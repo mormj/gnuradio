@@ -30,7 +30,7 @@
 
 void bind_moving_average(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

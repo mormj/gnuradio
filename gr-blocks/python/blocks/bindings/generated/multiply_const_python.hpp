@@ -28,10 +28,30 @@
 
 #include <gnuradio/blocks/multiply_const.h>
 
+template<typename T>
+void bind_multiply_const_template(py::module& m, const char *classname)
+{
+    using multiply_const      = gr::blocks::multiply_const<T>;
+
+    py::class_<multiply_const, gr::sync_block, std::shared_ptr<multiply_const>>(m, classname)
+        .def(py::init(&gr::blocks::multiply_const<T>::make),
+            py::arg("k"),
+            py::arg("vlen") = 1)
+        .def("k",&multiply_const::k)
+        .def("set_k",&multiply_const::set_k, py::arg("k"))
+
+        .def("to_basic_block",[](std::shared_ptr<multiply_const> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_multiply_const(py::module& m)
 {
-
-
+    bind_multiply_const_template<std::int16_t>(m,"multiply_const_ss");
+    bind_multiply_const_template<std::int32_t>(m,"multiply_const_ii");
+    bind_multiply_const_template<float>(m,"multiply_const_ff");
+    bind_multiply_const_template<gr_complex>(m,"multiply_const_cc");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_MULTIPLY_CONST_PYTHON_HPP */

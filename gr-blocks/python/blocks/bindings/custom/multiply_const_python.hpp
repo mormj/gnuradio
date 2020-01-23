@@ -30,10 +30,6 @@ void bind_multiply_const_template(py::module& m, const char *classname)
 
 void bind_multiply_const(py::module& m)
 {
-// typedef multiply_const<std::int16_t> multiply_const_ss;
-// typedef multiply_const<std::int32_t> multiply_const_ii;
-// typedef multiply_const<float> multiply_const_ff;
-// typedef multiply_const<gr_complex> multiply_const_cc;
 bind_multiply_const_template<std::int16_t>(m,"multiply_const_ss");
 bind_multiply_const_template<std::int32_t>(m,"multiply_const_ii");
 bind_multiply_const_template<float>(m,"multiply_const_ff");

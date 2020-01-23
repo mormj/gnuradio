@@ -30,7 +30,7 @@
 
 void bind_max_blk(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 

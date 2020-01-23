@@ -30,7 +30,7 @@
 
 void bind_argmax(py::module& m)
 {
-
+<** needs custom template code **>
 
 } 
 
