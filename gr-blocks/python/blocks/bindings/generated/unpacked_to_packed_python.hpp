@@ -28,10 +28,28 @@
 
 #include <gnuradio/blocks/unpacked_to_packed.h>
 
+template<typename T>
+void bind_unpacked_to_packed_template(py::module& m, const char *classname)
+{
+    using unpacked_to_packed      = gr::blocks::unpacked_to_packed<T>;
+
+    py::class_<unpacked_to_packed, gr::block, std::shared_ptr<unpacked_to_packed>>(m, classname)
+        .def(py::init(&gr::blocks::unpacked_to_packed<T>::make),
+            py::arg("bits_per_chunk"),
+            py::arg("endianness")
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<unpacked_to_packed> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_unpacked_to_packed(py::module& m)
 {
-<** needs custom template code **>
-
+    bind_unpacked_to_packed_template<std::int16_t>(m,"unpacked_to_packed_ss");
+    bind_unpacked_to_packed_template<std::int32_t>(m,"unpacked_to_packed_ii");
+    bind_unpacked_to_packed_template<std::uint8_t>(m,"unpacked_to_packed_bb");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_UNPACKED_TO_PACKED_PYTHON_HPP */

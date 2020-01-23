@@ -119,8 +119,8 @@ namespace py = pybind11;
 // #include "generated/nlog10_ff_python.hpp"
 // #include "generated/nop_python.hpp"
 // #include "generated/not_blk_python.hpp"
-// #include "generated/null_sink_python.hpp"
-// #include "generated/null_source_python.hpp"
+#include "generated/null_sink_python.hpp"
+#include "generated/null_source_python.hpp"
 // #include "generated/or_blk_python.hpp"
 // // #include "generated/pack_k_bits_python.hpp"
 // #include "generated/pack_k_bits_bb_python.hpp"
@@ -168,23 +168,23 @@ namespace py = pybind11;
 #include "generated/tagged_stream_mux_python.hpp"
 #include "generated/tagged_stream_to_pdu_python.hpp"
 #include "generated/tags_strobe_python.hpp"
-// #include "generated/tcp_server_sink_python.hpp"
-// #include "generated/test_tag_variable_rate_ff_python.hpp"
-// #include "generated/threshold_ff_python.hpp"
-// #include "generated/throttle_python.hpp"
-// #include "generated/transcendental_python.hpp"
-// #include "generated/tsb_vector_sink_python.hpp"
-// #include "generated/tuntap_pdu_python.hpp"
-// #include "generated/uchar_to_float_python.hpp"
-// #include "generated/udp_sink_python.hpp"
-// #include "generated/udp_source_python.hpp"
-// #include "generated/unpack_k_bits_python.hpp"
-// #include "generated/unpack_k_bits_bb_python.hpp"
-// #include "generated/unpacked_to_packed_python.hpp"
-// #include "generated/vco_c_python.hpp"
-// #include "generated/vco_f_python.hpp"
-// #include "generated/vector_insert_python.hpp"
-// #include "generated/vector_map_python.hpp"
+#include "generated/tcp_server_sink_python.hpp"
+#include "generated/test_tag_variable_rate_ff_python.hpp"
+#include "generated/threshold_ff_python.hpp"
+#include "generated/throttle_python.hpp"
+#include "generated/transcendental_python.hpp"
+#include "generated/tsb_vector_sink_python.hpp"
+#include "generated/tuntap_pdu_python.hpp"
+#include "generated/uchar_to_float_python.hpp"
+#include "generated/udp_sink_python.hpp"
+#include "generated/udp_source_python.hpp"
+#include "generated/unpack_k_bits_python.hpp"
+#include "generated/unpack_k_bits_bb_python.hpp"
+#include "generated/unpacked_to_packed_python.hpp"
+#include "generated/vco_c_python.hpp"
+#include "generated/vco_f_python.hpp"
+#include "generated/vector_insert_python.hpp"
+#include "generated/vector_map_python.hpp"
 #include "custom/vector_sink_python.hpp"
 #include "custom/vector_source_python.hpp"
 #include "generated/vector_to_stream_python.hpp"
@@ -296,8 +296,8 @@ PYBIND11_MODULE(blocks_python, m)
     // bind_nlog10_ff(m);
     // bind_nop(m);
     // bind_not_blk(m);
-    // bind_null_sink(m);
-    // bind_null_source(m);
+    bind_null_sink(m);
+    bind_null_source(m);
     // bind_or_blk(m);
     // // bind_pack_k_bits(m);
     // bind_pack_k_bits_bb(m);
@@ -345,23 +345,23 @@ PYBIND11_MODULE(blocks_python, m)
     bind_tagged_stream_mux(m);
     bind_tagged_stream_to_pdu(m);
     bind_tags_strobe(m);
-    // bind_tcp_server_sink(m);
-    // bind_test_tag_variable_rate_ff(m);
-    // bind_threshold_ff(m);
-    // bind_throttle(m);
-    // bind_transcendental(m);
-    // bind_tsb_vector_sink(m);
-    // bind_tuntap_pdu(m);
-    // bind_uchar_to_float(m);
-    // bind_udp_sink(m);
-    // bind_udp_source(m);
-    // bind_unpack_k_bits(m);
-    // bind_unpack_k_bits_bb(m);
-    // bind_unpacked_to_packed(m);
-    // bind_vco_c(m);
-    // bind_vco_f(m);
-    // bind_vector_insert(m);
-    // bind_vector_map(m);
+    bind_tcp_server_sink(m);
+    bind_test_tag_variable_rate_ff(m);
+    bind_threshold_ff(m);
+    bind_throttle(m);
+    bind_transcendental(m);
+    bind_tsb_vector_sink(m);
+    bind_tuntap_pdu(m);
+    bind_uchar_to_float(m);
+    bind_udp_sink(m);
+    bind_udp_source(m);
+    bind_unpack_k_bits(m);
+    bind_unpack_k_bits_bb(m);
+    bind_unpacked_to_packed(m);
+    bind_vco_c(m);
+    bind_vco_f(m);
+    bind_vector_insert(m);
+    bind_vector_map(m);
     bind_vector_sink(m);
     bind_vector_source(m);
     bind_vector_to_stream(m);

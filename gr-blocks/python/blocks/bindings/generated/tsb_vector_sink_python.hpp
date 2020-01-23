@@ -28,9 +28,33 @@
 
 #include <gnuradio/blocks/tsb_vector_sink.h>
 
+template<typename T>
+void bind_tsb_vector_sink_template(py::module& m, const char *classname)
+{
+    using tsb_vector_sink      = gr::blocks::tsb_vector_sink<T>;
+
+    py::class_<tsb_vector_sink, gr::tagged_stream_block, std::shared_ptr<tsb_vector_sink>>(m, classname)
+        .def(py::init(&gr::blocks::tsb_vector_sink<T>::make),
+            py::arg("vlen") = (unsigned int) 1,
+            py::arg("tsb_key") = std::string("ts_last")
+        )
+        .def("reset",&tsb_vector_sink::reset)
+        .def("data",&tsb_vector_sink::data)
+        .def("tags",&tsb_vector_sink::tags)
+
+        .def("to_basic_block",[](std::shared_ptr<tsb_vector_sink> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_tsb_vector_sink(py::module& m)
 {
-<** needs custom template code **>
+    bind_tsb_vector_sink_template<std::uint8_t>(m,"tsb_vector_sink_b");
+    bind_tsb_vector_sink_template<std::int16_t>(m,"tsb_vector_sink_s");
+    bind_tsb_vector_sink_template<std::int32_t>(m,"tsb_vector_sink_i");
+    bind_tsb_vector_sink_template<float>(m,"tsb_vector_sink_f");
+    bind_tsb_vector_sink_template<gr_complex>(m,"tsb_vector_sink_c");
 
 } 
 
