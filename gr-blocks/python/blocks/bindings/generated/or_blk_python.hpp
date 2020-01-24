@@ -28,9 +28,27 @@
 
 #include <gnuradio/blocks/or_blk.h>
 
+template<typename T>
+void bind_or_blk_template(py::module& m, const char *classname)
+{
+    using or_blk      = gr::blocks::or_blk<T>;
+
+    py::class_<or_blk, gr::sync_block, std::shared_ptr<or_blk>>(m, classname)
+        .def(py::init(&gr::blocks::or_blk<T>::make),
+            py::arg("vlen") = 1
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<or_blk> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_or_blk(py::module& m)
 {
-<** needs custom template code **>
+    bind_or_blk_template<std::uint8_t>(m,"or_bb");
+    bind_or_blk_template<std::int16_t>(m,"or_ss");
+    bind_or_blk_template<std::int32_t>(m,"or_ii");
 
 } 
 

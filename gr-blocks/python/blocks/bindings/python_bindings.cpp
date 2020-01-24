@@ -120,43 +120,43 @@ namespace py = pybind11;
 #include "generated/not_blk_python.hpp"
 #include "generated/null_sink_python.hpp"
 #include "generated/null_source_python.hpp"
-// #include "generated/or_blk_python.hpp"
-// // #include "generated/pack_k_bits_python.hpp"
-// #include "generated/pack_k_bits_bb_python.hpp"
-// #include "generated/packed_to_unpacked_python.hpp"
-// #include "generated/patterned_interleaver_python.hpp"
-// #include "generated/pdu_python.hpp"
-// #include "generated/pdu_filter_python.hpp"
-// #include "generated/pdu_remove_python.hpp"
-// #include "generated/pdu_set_python.hpp"
-// #include "generated/pdu_to_tagged_stream_python.hpp"
-// #include "generated/peak_detector_python.hpp"
-// #include "generated/peak_detector2_fb_python.hpp"
-// #include "generated/plateau_detector_fb_python.hpp"
-// #include "generated/probe_rate_python.hpp"
-// #include "generated/probe_signal_python.hpp"
-// #include "generated/probe_signal_v_python.hpp"
-// #include "generated/random_pdu_python.hpp"
-// #include "generated/regenerate_bb_python.hpp"
-// #include "generated/repack_bits_bb_python.hpp"
-// #include "generated/repeat_python.hpp"
-// #include "generated/rms_cf_python.hpp"
-// #include "generated/rms_ff_python.hpp"
-// // #include "generated/rotator_python.hpp"
-// #include "generated/rotator_cc_python.hpp"
-// #include "generated/sample_and_hold_python.hpp"
-// #include "generated/selector_python.hpp"
-// #include "generated/short_to_char_python.hpp"
-// #include "generated/short_to_float_python.hpp"
+#include "generated/or_blk_python.hpp"
+// #include "generated/pack_k_bits_python.hpp"
+#include "generated/pack_k_bits_bb_python.hpp"
+#include "generated/packed_to_unpacked_python.hpp"
+#include "generated/patterned_interleaver_python.hpp"
+#include "generated/pdu_python.hpp"
+#include "generated/pdu_filter_python.hpp"
+#include "generated/pdu_remove_python.hpp"
+#include "generated/pdu_set_python.hpp"
+#include "generated/pdu_to_tagged_stream_python.hpp"
+#include "generated/peak_detector_python.hpp"
+#include "generated/peak_detector2_fb_python.hpp"
+#include "generated/plateau_detector_fb_python.hpp"
+#include "generated/probe_rate_python.hpp"
+#include "generated/probe_signal_python.hpp"
+#include "generated/probe_signal_v_python.hpp"
+#include "generated/random_pdu_python.hpp"
+#include "generated/regenerate_bb_python.hpp"
+#include "generated/repack_bits_bb_python.hpp"
+#include "generated/repeat_python.hpp"
+#include "generated/rms_cf_python.hpp"
+#include "generated/rms_ff_python.hpp"
+// #include "generated/rotator_python.hpp"
+#include "generated/rotator_cc_python.hpp"
+#include "generated/sample_and_hold_python.hpp"
+#include "generated/selector_python.hpp"
+#include "generated/short_to_char_python.hpp"
+#include "generated/short_to_float_python.hpp"
 #include "generated/skiphead_python.hpp"
-// #include "generated/socket_pdu_python.hpp"
-// #include "generated/stream_mux_python.hpp"
+#include "generated/socket_pdu_python.hpp"
+#include "generated/stream_mux_python.hpp"
 #include "generated/stream_to_streams_python.hpp"
 #include "generated/stream_to_tagged_stream_python.hpp"
 #include "generated/stream_to_vector_python.hpp"
 #include "generated/streams_to_stream_python.hpp"
 #include "generated/streams_to_vector_python.hpp"
-// #include "generated/stretch_ff_python.hpp"
+#include "generated/stretch_ff_python.hpp"
 #include "generated/sub_python.hpp"
 #include "generated/tag_debug_python.hpp"
 #include "generated/tag_gate_python.hpp"
@@ -188,10 +188,10 @@ namespace py = pybind11;
 #include "custom/vector_source_python.hpp"
 #include "generated/vector_to_stream_python.hpp"
 #include "generated/vector_to_streams_python.hpp"
-// #include "generated/wavfile_python.hpp"
-// #include "generated/wavfile_sink_python.hpp"
-// #include "generated/wavfile_source_python.hpp"
-// #include "generated/xor_blk_python.hpp"
+#include "generated/wavfile_python.hpp"
+#include "generated/wavfile_sink_python.hpp"
+#include "generated/wavfile_source_python.hpp"
+#include "generated/xor_blk_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -226,20 +226,20 @@ PYBIND11_MODULE(blocks_python, m)
     bind_argmax(m);
     bind_bin_statistics_f(m);
     bind_burst_tagger(m);
-    bind_char_to_float(m);
-    bind_char_to_short(m);
-    bind_check_lfsr_32k_s(m);
-    bind_complex_to_arg(m);
-    bind_complex_to_float(m);
-    bind_complex_to_imag(m);
-    bind_complex_to_interleaved_char(m);
-    bind_complex_to_interleaved_short(m);
-    bind_complex_to_mag(m);
-    bind_complex_to_mag_squared(m);
-    bind_complex_to_magphase(m);
-    bind_complex_to_real(m);
-    bind_conjugate_cc(m);
-    // bind_control_loop(m);
+    // bind_char_to_float(m);
+    // bind_char_to_short(m);
+    // bind_check_lfsr_32k_s(m);
+    // bind_complex_to_arg(m);
+    // bind_complex_to_float(m);
+    // bind_complex_to_imag(m);
+    // bind_complex_to_interleaved_char(m);
+    // bind_complex_to_interleaved_short(m);
+    // bind_complex_to_mag(m);
+    // bind_complex_to_mag_squared(m);
+    // bind_complex_to_magphase(m);
+    // bind_complex_to_real(m);
+    // bind_conjugate_cc(m);
+    // // bind_control_loop(m);
     bind_copy(m);
     bind_count_bits(m);
     // bind_ctrlport_probe2_b(m);
@@ -255,47 +255,47 @@ PYBIND11_MODULE(blocks_python, m)
     bind_exponentiate_const_cci(m);
     bind_file_descriptor_sink(m);
     bind_file_descriptor_source(m);
-    bind_file_meta_sink(m);
-    bind_file_meta_source(m);
+    // bind_file_meta_sink(m);
+    // bind_file_meta_source(m);
     bind_file_sink(m);
     // bind_file_sink_base(m);
     bind_file_source(m);
-    bind_float_to_char(m);
-    bind_float_to_complex(m);
-    bind_float_to_int(m);
-    bind_float_to_short(m);
-    bind_float_to_uchar(m);
-    bind_head(m);
-    bind_int_to_float(m);
-    bind_integrate(m);
-    bind_interleave(m);
-    bind_interleaved_char_to_complex(m);
-    bind_interleaved_short_to_complex(m);
-    bind_keep_m_in_n(m);
-    bind_keep_one_in_n(m);
-    // bind_lfsr_15_1_0(m);
-    // bind_lfsr_32k(m);
-    bind_lfsr_32k_source_s(m);
-    // bind_log2_const(m);
-    bind_magphase_to_complex(m);
-    bind_max_blk(m);
-    bind_message_debug(m);
-    bind_message_strobe(m);
-    bind_message_strobe_random(m);
-    bind_min_blk(m);
-    bind_moving_average(m);
-    bind_multiply(m);
-    bind_multiply_by_tag_value_cc(m);
-    bind_multiply_conjugate_cc(m);
-    bind_multiply_const(m);
-    bind_multiply_const_v(m);
-    bind_multiply_matrix(m);
-    bind_mute(m);
-    bind_nlog10_ff(m);
-    bind_nop(m);
-    bind_not_blk(m);
-    bind_null_sink(m);
-    bind_null_source(m);
+    // bind_float_to_char(m);
+    // bind_float_to_complex(m);
+    // bind_float_to_int(m);
+    // bind_float_to_short(m);
+    // bind_float_to_uchar(m);
+    // bind_head(m);
+    // bind_int_to_float(m);
+    // bind_integrate(m);
+    // bind_interleave(m);
+    // bind_interleaved_char_to_complex(m);
+    // bind_interleaved_short_to_complex(m);
+    // bind_keep_m_in_n(m);
+    // bind_keep_one_in_n(m);
+    // // bind_lfsr_15_1_0(m);
+    // // bind_lfsr_32k(m);
+    // bind_lfsr_32k_source_s(m);
+    // // bind_log2_const(m);
+    // bind_magphase_to_complex(m);
+    // bind_max_blk(m);
+    // bind_message_debug(m);
+    // bind_message_strobe(m);
+    // bind_message_strobe_random(m);
+    // bind_min_blk(m);
+    // bind_moving_average(m);
+    // bind_multiply(m);
+    // bind_multiply_by_tag_value_cc(m);
+    // bind_multiply_conjugate_cc(m);
+    // bind_multiply_const(m);
+    // bind_multiply_const_v(m);
+    // bind_multiply_matrix(m);
+    // bind_mute(m);
+    // bind_nlog10_ff(m);
+    // bind_nop(m);
+    // bind_not_blk(m);
+    // bind_null_sink(m);
+    // bind_null_source(m);
     // bind_or_blk(m);
     // // bind_pack_k_bits(m);
     // bind_pack_k_bits_bb(m);

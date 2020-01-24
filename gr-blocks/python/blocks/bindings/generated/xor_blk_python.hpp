@@ -28,10 +28,27 @@
 
 #include <gnuradio/blocks/xor_blk.h>
 
+template<typename T>
+void bind_xor_blk_template(py::module& m, const char *classname)
+{
+    using xor_blk      = gr::blocks::xor_blk<T>;
+
+    py::class_<xor_blk, gr::sync_block, std::shared_ptr<xor_blk>>(m, classname)
+        .def(py::init(&gr::blocks::xor_blk<T>::make),
+            py::arg("vlen") = 1
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<xor_blk> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_xor_blk(py::module& m)
 {
-<** needs custom template code **>
-
+    bind_xor_blk_template<std::uint8_t>(m,"xor_bb");
+    bind_xor_blk_template<std::int16_t>(m,"xor_ss");
+    bind_xor_blk_template<std::int32_t>(m,"xor_ii");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_XOR_BLK_PYTHON_HPP */

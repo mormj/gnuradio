@@ -28,10 +28,27 @@
 
 #include <gnuradio/blocks/probe_signal.h>
 
+template<typename T>
+void bind_probe_signal_template(py::module& m, const char *classname)
+{
+    using probe_signal      = gr::blocks::probe_signal<T>;
+
+    py::class_<probe_signal, gr::sync_block, std::shared_ptr<probe_signal>>(m, classname)
+        .def(py::init(&gr::blocks::probe_signal<T>::make))
+        .def("level",&probe_signal::level)
+        .def("to_basic_block",[](std::shared_ptr<probe_signal> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_probe_signal(py::module& m)
 {
-<** needs custom template code **>
-
+    bind_probe_signal_template<std::uint8_t>(m,"probe_signal_b");
+    bind_probe_signal_template<std::int16_t>(m,"probe_signal_s");
+    bind_probe_signal_template<std::int32_t>(m,"probe_signal_i");
+    bind_probe_signal_template<float>(m,"probe_signal_f");
+    bind_probe_signal_template<gr_complex>(m,"probe_signal_c");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_PROBE_SIGNAL_PYTHON_HPP */
