@@ -121,42 +121,42 @@ namespace py = pybind11;
 #include "generated/null_sink_python.hpp"
 #include "generated/null_source_python.hpp"
 // #include "generated/or_blk_python.hpp"
-// // #include "generated/pack_k_bits_python.hpp"
-// #include "generated/pack_k_bits_bb_python.hpp"
-// #include "generated/packed_to_unpacked_python.hpp"
-// #include "generated/patterned_interleaver_python.hpp"
-// #include "generated/pdu_python.hpp"
-// #include "generated/pdu_filter_python.hpp"
-// #include "generated/pdu_remove_python.hpp"
-// #include "generated/pdu_set_python.hpp"
-// #include "generated/pdu_to_tagged_stream_python.hpp"
-// #include "generated/peak_detector_python.hpp"
-// #include "generated/peak_detector2_fb_python.hpp"
-// #include "generated/plateau_detector_fb_python.hpp"
-// #include "generated/probe_rate_python.hpp"
-// #include "generated/probe_signal_python.hpp"
-// #include "generated/probe_signal_v_python.hpp"
-// #include "generated/random_pdu_python.hpp"
-// #include "generated/regenerate_bb_python.hpp"
-// #include "generated/repack_bits_bb_python.hpp"
-// #include "generated/repeat_python.hpp"
-// #include "generated/rms_cf_python.hpp"
-// #include "generated/rms_ff_python.hpp"
-// // #include "generated/rotator_python.hpp"
-// #include "generated/rotator_cc_python.hpp"
-// #include "generated/sample_and_hold_python.hpp"
-// #include "generated/selector_python.hpp"
-// #include "generated/short_to_char_python.hpp"
-// #include "generated/short_to_float_python.hpp"
+// #include "generated/pack_k_bits_python.hpp"
+#include "generated/pack_k_bits_bb_python.hpp"
+#include "generated/packed_to_unpacked_python.hpp"
+#include "generated/patterned_interleaver_python.hpp"
+#include "generated/pdu_python.hpp"
+#include "generated/pdu_filter_python.hpp"
+#include "generated/pdu_remove_python.hpp"
+#include "generated/pdu_set_python.hpp"
+#include "generated/pdu_to_tagged_stream_python.hpp"
+#include "generated/peak_detector_python.hpp"
+#include "generated/peak_detector2_fb_python.hpp"
+#include "generated/plateau_detector_fb_python.hpp"
+#include "generated/probe_rate_python.hpp"
+#include "generated/probe_signal_python.hpp"
+#include "generated/probe_signal_v_python.hpp"
+#include "generated/random_pdu_python.hpp"
+#include "generated/regenerate_bb_python.hpp"
+#include "generated/repack_bits_bb_python.hpp"
+#include "generated/repeat_python.hpp"
+#include "generated/rms_cf_python.hpp"
+#include "generated/rms_ff_python.hpp"
+// #include "generated/rotator_python.hpp"
+#include "generated/rotator_cc_python.hpp"
+#include "generated/sample_and_hold_python.hpp"
+#include "generated/selector_python.hpp"
+#include "generated/short_to_char_python.hpp"
+#include "generated/short_to_float_python.hpp"
 #include "generated/skiphead_python.hpp"
-// #include "generated/socket_pdu_python.hpp"
-// #include "generated/stream_mux_python.hpp"
+#include "generated/socket_pdu_python.hpp"
+#include "generated/stream_mux_python.hpp"
 #include "generated/stream_to_streams_python.hpp"
 #include "generated/stream_to_tagged_stream_python.hpp"
 #include "generated/stream_to_vector_python.hpp"
 #include "generated/streams_to_stream_python.hpp"
 #include "generated/streams_to_vector_python.hpp"
-// #include "generated/stretch_ff_python.hpp"
+#include "generated/stretch_ff_python.hpp"
 #include "generated/sub_python.hpp"
 #include "generated/tag_debug_python.hpp"
 #include "generated/tag_gate_python.hpp"
@@ -188,10 +188,10 @@ namespace py = pybind11;
 #include "custom/vector_source_python.hpp"
 #include "generated/vector_to_stream_python.hpp"
 #include "generated/vector_to_streams_python.hpp"
-// #include "generated/wavfile_python.hpp"
-// #include "generated/wavfile_sink_python.hpp"
-// #include "generated/wavfile_source_python.hpp"
-// #include "generated/xor_blk_python.hpp"
+#include "generated/wavfile_python.hpp"
+#include "generated/wavfile_sink_python.hpp"
+#include "generated/wavfile_source_python.hpp"
+#include "generated/xor_blk_python.hpp"
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -297,42 +297,42 @@ PYBIND11_MODULE(blocks_python, m)
     bind_null_sink(m);
     bind_null_source(m);
     // bind_or_blk(m);
-    // // bind_pack_k_bits(m);
-    // bind_pack_k_bits_bb(m);
-    // bind_packed_to_unpacked(m);
-    // bind_patterned_interleaver(m);
-    // bind_pdu(m);
-    // bind_pdu_filter(m);
-    // bind_pdu_remove(m);
-    // bind_pdu_set(m);
-    // bind_pdu_to_tagged_stream(m);
-    // bind_peak_detector(m);
-    // bind_peak_detector2_fb(m);
-    // bind_plateau_detector_fb(m);
-    // bind_probe_rate(m);
-    // bind_probe_signal(m);
-    // bind_probe_signal_v(m);
-    // bind_random_pdu(m);
-    // bind_regenerate_bb(m);
-    // bind_repack_bits_bb(m);
-    // bind_repeat(m);
-    // bind_rms_cf(m);
-    // bind_rms_ff(m);
-    // // bind_rotator(m);
-    // bind_rotator_cc(m);
-    // bind_sample_and_hold(m);
-    // bind_selector(m);
-    // bind_short_to_char(m);
-    // bind_short_to_float(m);
+    // bind_pack_k_bits(m);
+    bind_pack_k_bits_bb(m);
+    bind_packed_to_unpacked(m);
+    bind_patterned_interleaver(m);
+    bind_pdu(m);
+    bind_pdu_filter(m);
+    bind_pdu_remove(m);
+    bind_pdu_set(m);
+    bind_pdu_to_tagged_stream(m);
+    bind_peak_detector(m);
+    bind_peak_detector2_fb(m);
+    bind_plateau_detector_fb(m);
+    bind_probe_rate(m);
+    bind_probe_signal(m);
+    bind_probe_signal_v(m);
+    bind_random_pdu(m);
+    bind_regenerate_bb(m);
+    bind_repack_bits_bb(m);
+    bind_repeat(m);
+    bind_rms_cf(m);
+    bind_rms_ff(m);
+    // bind_rotator(m);
+    bind_rotator_cc(m);
+    bind_sample_and_hold(m);
+    bind_selector(m);
+    bind_short_to_char(m);
+    bind_short_to_float(m);
     bind_skiphead(m);
-    // bind_socket_pdu(m);
-    // bind_stream_mux(m);
+    bind_socket_pdu(m);
+    bind_stream_mux(m);
     bind_stream_to_streams(m);
     bind_stream_to_tagged_stream(m);
     bind_stream_to_vector(m);
     bind_streams_to_stream(m);
     bind_streams_to_vector(m);
-    // bind_stretch_ff(m);
+    bind_stretch_ff(m);
     bind_sub(m);
     bind_tag_debug(m);
     bind_tag_gate(m);
@@ -364,9 +364,9 @@ PYBIND11_MODULE(blocks_python, m)
     bind_vector_source(m);
     bind_vector_to_stream(m);
     bind_vector_to_streams(m);
-    // bind_wavfile(m);
-    // bind_wavfile_sink(m);
-    // bind_wavfile_source(m);
-    // bind_xor_blk(m);
+    bind_wavfile(m);
+    bind_wavfile_sink(m);
+    bind_wavfile_source(m);
+    bind_xor_blk(m);
 }
 
