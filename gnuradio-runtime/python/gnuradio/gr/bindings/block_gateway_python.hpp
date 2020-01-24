@@ -31,6 +31,30 @@
 void bind_block_gateway(py::module& m)
 {
     using block_gateway    = gr::block_gateway;
+    using block_gw_message_type = gr::block_gw_message_type;
+
+    py::enum_<gr::block_gw_work_type>(m,"block_gw_work_type")
+        .value("GR_BLOCK_GW_WORK_GENERAL", gr::GR_BLOCK_GW_WORK_GENERAL)
+        .value("GR_BLOCK_GW_WORK_SYNC", gr::GR_BLOCK_GW_WORK_SYNC)
+        .value("GR_BLOCK_GW_WORK_DECIM", gr::GR_BLOCK_GW_WORK_DECIM)
+        .value("GR_BLOCK_GW_WORK_INTERP", gr::GR_BLOCK_GW_WORK_INTERP)
+        .export_values()
+    ;
+
+    py::enum_<gr::block_gw_work_return_type>(m,"block_gw_work_return_type")
+        .value("WORK_CALLED_PRODUCE", gr::WORK_CALLED_PRODUCE)
+        .value("WORK_DONE", gr::WORK_DONE)
+        .export_values()
+    ;
+
+    // py::enum_<gr::tag_propagation_policy_t>(m,"tag_propagation_policy_t")
+    //     .value("TPP_DONT", gr::TPP_DONT)
+    //     .value("TPP_ALL_TO_ALL", gr::TPP_ALL_TO_ALL)
+    //     .value("TPP_ONE_TO_ONE", gr::TPP_ONE_TO_ONE)
+    //     .value("TPP_CUSTOM", gr::TPP_CUSTOM)
+    //     .export_values()
+    // ;
+
 
     py::class_<block_gw_message_type, std::shared_ptr<block_gw_message_type>>(m, "block_gw_message_type")
         .def(py::init<gr::block_gw_message_type const &>(),
@@ -40,10 +64,10 @@ void bind_block_gateway(py::module& m)
         ;
 
     py::class_<block_gateway, std::shared_ptr<block_gateway>>(m, "block_gateway")
-        .def(py::init<gr::block_gateway const &>(),
-           py::arg("arg0") 
-        )
-        .def(py::init<>())
+        // .def(py::init<gr::block_gateway const &>(),
+        //    py::arg("arg0") 
+        // )
+        .def(py::init(&block_gateway::make))
         .def("block_message",&block_gateway::block_message)
         .def("block__unique_id",&block_gateway::block__unique_id)
         .def("block__name",&block_gateway::block__name)
@@ -58,20 +82,20 @@ void bind_block_gateway(py::module& m)
         .def("block__set_output_multiple",&block_gateway::block__set_output_multiple,
             py::arg("multiple") 
         )
-        .def("block__set_min_output_buffer",&block_gateway::block__set_min_output_buffer,
+        .def("block__set_min_output_buffer",(void (block_gateway::*)(int, long))&block_gateway::block__set_min_output_buffer,
             py::arg("port"), 
             py::arg("size") 
         )
-        .def("block__set_min_output_buffer",&block_gateway::block__set_min_output_buffer,
+        .def("block__set_min_output_buffer",(void (block_gateway::*)(long))&block_gateway::block__set_min_output_buffer,
             py::arg("size") 
         )
         .def("block__max_output_buffer",&block_gateway::block__max_output_buffer,
             py::arg("i") 
         )
-        .def("block__set_max_output_buffer",&block_gateway::block__set_max_output_buffer,
+        .def("block__set_max_output_buffer",(void (block_gateway::*)(long))&block_gateway::block__set_max_output_buffer,
             py::arg("max_output_buffer") 
         )
-        .def("block__set_max_output_buffer",&block_gateway::block__set_max_output_buffer,
+        .def("block__set_max_output_buffer",(void (block_gateway::*)(int, long))&block_gateway::block__set_max_output_buffer,
             py::arg("port"), 
             py::arg("max_output_buffer") 
         )
@@ -87,13 +111,13 @@ void bind_block_gateway(py::module& m)
             py::arg("which_output"), 
             py::arg("how_many_items") 
         )
-        .def("block__set_relative_rate",&block_gateway::block__set_relative_rate,
+        .def("block__set_relative_rate",(void (block_gateway::*)(double))&block_gateway::block__set_relative_rate,
             py::arg("relative_rate") 
         )
         .def("block__set_inverse_relative_rate",&block_gateway::block__set_inverse_relative_rate,
             py::arg("inverse_relative_rate") 
         )
-        .def("block__set_relative_rate",&block_gateway::block__set_relative_rate,
+        .def("block__set_relative_rate",(void (block_gateway::*)(uint64_t, uint64_t))&block_gateway::block__set_relative_rate,
             py::arg("interpolation"), 
             py::arg("decimation") 
         )
@@ -110,34 +134,38 @@ void bind_block_gateway(py::module& m)
         .def("block__set_tag_propagation_policy",&block_gateway::block__set_tag_propagation_policy,
             py::arg("p") 
         )
-        .def("block__add_item_tag",&block_gateway::block__add_item_tag,
+        .def("block__add_item_tag",(void (block_gateway::*)(unsigned int, const gr::tag_t&))&block_gateway::block__add_item_tag,
             py::arg("which_output"), 
             py::arg("tag") 
         )
-        .def("block__add_item_tag",&block_gateway::block__add_item_tag,
+        .def("block__add_item_tag",(void (block_gateway::*)(unsigned int which_output,
+                             uint64_t,
+                             const pmt::pmt_t&,
+                             const pmt::pmt_t&,
+                             const pmt::pmt_t&))&block_gateway::block__add_item_tag,
             py::arg("which_output"), 
             py::arg("abs_offset"), 
             py::arg("key"), 
             py::arg("value"), 
             py::arg("srcid") = pmt::get_PMT_F() 
         )
-        .def("block__get_tags_in_range",&block_gateway::block__get_tags_in_range,
+        .def("block__get_tags_in_range",(std::vector<gr::tag_t> (block_gateway::*)(unsigned int, uint64_t, uint64_t))&block_gateway::block__get_tags_in_range,
             py::arg("which_input"), 
             py::arg("abs_start"), 
             py::arg("abs_end") 
         )
-        .def("block__get_tags_in_range",&block_gateway::block__get_tags_in_range,
+        .def("block__get_tags_in_range",(std::vector<gr::tag_t> (block_gateway::*)(unsigned int, uint64_t, uint64_t, const pmt::pmt_t&))&block_gateway::block__get_tags_in_range,
             py::arg("which_input"), 
             py::arg("abs_start"), 
             py::arg("abs_end"), 
             py::arg("key") 
         )
-        .def("block__get_tags_in_window",&block_gateway::block__get_tags_in_window,
+        .def("block__get_tags_in_window",(std::vector<gr::tag_t> (block_gateway::*)(unsigned int, uint64_t, uint64_t))&block_gateway::block__get_tags_in_window,
             py::arg("which_input"), 
             py::arg("rel_start"), 
             py::arg("rel_end") 
         )
-        .def("block__get_tags_in_window",&block_gateway::block__get_tags_in_window,
+        .def("block__get_tags_in_window",(std::vector<gr::tag_t> (block_gateway::*)(unsigned int, uint64_t, uint64_t, const pmt::pmt_t&))&block_gateway::block__get_tags_in_window,
             py::arg("which_input"), 
             py::arg("rel_start"), 
             py::arg("rel_end"), 

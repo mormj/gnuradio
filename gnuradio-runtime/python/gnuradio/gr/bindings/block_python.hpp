@@ -32,6 +32,21 @@ void bind_block(py::module& m)
 {
     using block    = gr::block;
 
+    
+    // py::enum_<gr::block::>(m,"block_work_return_type")
+    //     .value("WORK_CALLED_PRODUCE", gr::block::WORK_CALLED_PRODUCE)
+    //     .value("WORK_DONE", gr::block::WORK_DONE)
+    //     .export_values()
+    // ;
+
+    py::enum_<gr::block::tag_propagation_policy_t>(m,"tag_propagation_policy_t")
+        .value("TPP_DONT", gr::block::TPP_DONT)
+        .value("TPP_ALL_TO_ALL", gr::block::TPP_ALL_TO_ALL)
+        .value("TPP_ONE_TO_ONE", gr::block::TPP_ONE_TO_ONE)
+        .value("TPP_CUSTOM", gr::block::TPP_CUSTOM)
+        .export_values()
+    ;
+
     py::class_<block, std::shared_ptr<block>>(m, "block")
         .def("history",&block::history)
         .def("set_history",&block::set_history,
