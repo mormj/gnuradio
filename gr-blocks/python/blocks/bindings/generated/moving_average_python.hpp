@@ -28,9 +28,44 @@
 
 #include <gnuradio/blocks/moving_average.h>
 
+template<typename T>
+void bind_moving_average_template(py::module& m, const char *classname)
+{
+    using moving_average      = gr::blocks::moving_average<T>;
+
+    py::class_<moving_average, gr::sync_block, std::shared_ptr<moving_average>>(m, classname)
+        .def(py::init(&gr::blocks::moving_average<T>::make),
+            py::arg("length"),
+            py::arg("scale"),
+            py::arg("max_iter") = 4096,
+            py::arg("vlen") = 1
+        )
+        .def("length",&moving_average::length)
+        .def("scale",&moving_average::scale)
+        .def("set_length_and_scale",&moving_average::set_length_and_scale,
+            py::arg("length"),
+            py::arg("scale")
+        )
+        .def("set_length",&moving_average::set_length,
+            py::arg("length")
+        )
+        .def("set_scale",&moving_average::set_scale,
+            py::arg("scale")
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<moving_average> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
+
 void bind_moving_average(py::module& m)
 {
-<** needs custom template code **>
+    bind_moving_average_template<std::int16_t>(m,"moving_average_ss");
+    bind_moving_average_template<std::int32_t>(m,"moving_average_ii");
+    bind_moving_average_template<float>(m,"moving_average_ff");
+    bind_moving_average_template<gr_complex>(m,"moving_average_cc");
 
 } 
 

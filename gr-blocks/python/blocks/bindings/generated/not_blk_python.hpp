@@ -28,10 +28,27 @@
 
 #include <gnuradio/blocks/not_blk.h>
 
+template<typename T>
+void bind_not_template(py::module& m, const char *classname)
+{
+    using not_blk      = gr::blocks::not_blk<T>;
+
+    py::class_<not_blk, gr::sync_block, std::shared_ptr<not_blk>>(m, classname)
+        .def(py::init(&gr::blocks::not_blk<T>::make),
+            py::arg("vlen") = 1
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<not_blk> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_not_blk(py::module& m)
 {
-<** needs custom template code **>
-
+    bind_not_template<std::uint8_t>(m,"not_bb");
+    bind_not_template<std::int16_t>(m,"not_ss");
+    bind_not_template<std::int32_t>(m,"not_ii");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_NOT_BLK_PYTHON_HPP */

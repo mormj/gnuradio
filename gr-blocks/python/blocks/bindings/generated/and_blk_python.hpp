@@ -28,10 +28,27 @@
 
 #include <gnuradio/blocks/and_blk.h>
 
+template<typename T>
+void bind_and_blk_template(py::module& m, const char *classname)
+{
+    using and_blk      = gr::blocks::and_blk<T>;
+
+    py::class_<and_blk, gr::sync_block, std::shared_ptr<and_blk>>(m, classname)
+        .def(py::init(&gr::blocks::and_blk<T>::make),
+            py::arg("vlen") = 1
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<and_blk> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_and_blk(py::module& m)
 {
-<** needs custom template code **>
-
+    bind_and_blk_template<std::uint8_t>(m,"and_blk_bb");
+    bind_and_blk_template<std::int16_t>(m,"and_blk_ss");
+    bind_and_blk_template<std::int32_t>(m,"and_blk_ii");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_AND_BLK_PYTHON_HPP */

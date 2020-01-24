@@ -28,10 +28,32 @@
 
 #include <gnuradio/blocks/multiply_matrix.h>
 
+template<typename T>
+void bind_multiply_matrix_template(py::module& m, const char *classname)
+{
+    using multiply_matrix      = gr::blocks::multiply_matrix<T>;
+
+    py::class_<multiply_matrix, gr::sync_block, std::shared_ptr<multiply_matrix>>(m, classname)
+        .def(py::init(&gr::blocks::multiply_matrix<T>::make),
+            py::arg("A"),
+            py::arg("tag_propagation_policy") = gr::block::TPP_ALL_TO_ALL
+        )
+        .def("get_A",&multiply_matrix::get_A)
+        .def("get_A",&multiply_matrix::set_A,
+            py::arg("new_A")
+        )
+        .def_readwrite("MSG_PORT_NAME_SET_A",&multiply_matrix::MSG_PORT_NAME_SET_A)
+
+        .def("to_basic_block",[](std::shared_ptr<multiply_matrix> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_multiply_matrix(py::module& m)
 {
-<** needs custom template code **>
-
+    bind_multiply_matrix_template<float>(m,"multiply_matrix_ff");
+    bind_multiply_matrix_template<gr_complex>(m,"multiply_matrix_cc");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_MULTIPLY_MATRIX_PYTHON_HPP */

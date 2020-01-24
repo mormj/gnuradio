@@ -28,10 +28,25 @@
 
 #include <gnuradio/blocks/argmax.h>
 
+template<typename T>
+void bind_argmax_template(py::module& m, const char *classname)
+{
+    using argmax      = gr::blocks::argmax<T>;
+
+    py::class_<argmax, gr::sync_block, std::shared_ptr<argmax>>(m, classname)
+        .def(py::init(&gr::blocks::argmax<T>::make))
+
+        .def("to_basic_block",[](std::shared_ptr<argmax> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_argmax(py::module& m)
 {
-<** needs custom template code **>
-
+    bind_argmax_template<std::int16_t>(m,"argmax_ss");
+    bind_argmax_template<std::int32_t>(m,"argmax_is");
+    bind_argmax_template<float>(m,"argmax_fs");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_ARGMAX_PYTHON_HPP */

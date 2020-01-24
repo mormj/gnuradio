@@ -28,9 +28,28 @@
 
 #include <gnuradio/blocks/min_blk.h>
 
+template<typename T>
+void bind_min_blk_template(py::module& m, const char *classname)
+{
+    using min_blk      = gr::blocks::min_blk<T>;
+
+    py::class_<min_blk, gr::sync_block, std::shared_ptr<min_blk>>(m, classname)
+        .def(py::init(&gr::blocks::min_blk<T>::make),
+            py::arg("vlen"),
+            py::arg("vlen_out") = 1
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<min_blk> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_min_blk(py::module& m)
 {
-<** needs custom template code **>
+    bind_min_blk_template<std::int16_t>(m,"min_ss");
+    bind_min_blk_template<std::int32_t>(m,"min_ii");
+    bind_min_blk_template<float>(m,"min_ff");
 
 } 
 

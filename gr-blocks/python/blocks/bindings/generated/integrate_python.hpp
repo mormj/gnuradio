@@ -28,9 +28,30 @@
 
 #include <gnuradio/blocks/integrate.h>
 
+
+template<typename T>
+void bind_integrate_template(py::module& m, const char *classname)
+{
+    using integrate      = gr::blocks::integrate<T>;
+
+    py::class_<integrate, gr::sync_decimator, std::shared_ptr<integrate>>(m, classname)
+        .def(py::init(&gr::blocks::integrate<T>::make),
+            py::arg("decim"),
+            py::arg("vlen") = 1
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<integrate> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_integrate(py::module& m)
 {
-<** needs custom template code **>
+    bind_integrate_template<std::int16_t>(m,"integrate_ss");
+    bind_integrate_template<std::int32_t>(m,"integrate_ii");
+    bind_integrate_template<float>(m,"integrate_ff");
+    bind_integrate_template<gr_complex>(m,"integrate_cc");
 
 } 
 

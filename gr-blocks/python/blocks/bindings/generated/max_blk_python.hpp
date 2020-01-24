@@ -28,10 +28,28 @@
 
 #include <gnuradio/blocks/max_blk.h>
 
+template<typename T>
+void bind_max_blk_template(py::module& m, const char *classname)
+{
+    using max_blk      = gr::blocks::max_blk<T>;
+
+    py::class_<max_blk, gr::sync_block, std::shared_ptr<max_blk>>(m, classname)
+        .def(py::init(&gr::blocks::max_blk<T>::make),
+            py::arg("vlen"),
+            py::arg("vlen_out") = 1
+        )
+
+        .def("to_basic_block",[](std::shared_ptr<max_blk> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_max_blk(py::module& m)
 {
-<** needs custom template code **>
-
+    bind_max_blk_template<std::int16_t>(m,"max_ss");
+    bind_max_blk_template<std::int32_t>(m,"max_ii");
+    bind_max_blk_template<float>(m,"max_ff");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_MAX_BLK_PYTHON_HPP */
