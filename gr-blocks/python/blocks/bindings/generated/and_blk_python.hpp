@@ -46,9 +46,9 @@ void bind_and_blk_template(py::module& m, const char *classname)
 
 void bind_and_blk(py::module& m)
 {
-    bind_and_blk_template<std::uint8_t>(m,"and_blk_bb");
-    bind_and_blk_template<std::int16_t>(m,"and_blk_ss");
-    bind_and_blk_template<std::int32_t>(m,"and_blk_ii");
+    bind_and_blk_template<std::uint8_t>(m,"and_bb");
+    bind_and_blk_template<std::int16_t>(m,"and_ss");
+    bind_and_blk_template<std::int32_t>(m,"and_ii");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_AND_BLK_PYTHON_HPP */
