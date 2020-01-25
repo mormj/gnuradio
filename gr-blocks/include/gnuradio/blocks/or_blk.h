@@ -25,6 +25,7 @@
 
 #include <gnuradio/blocks/api.h>
 #include <gnuradio/sync_block.h>
+#include <cstdint>
 
 namespace gr {
 namespace blocks {
@@ -45,9 +46,9 @@ public:
     static sptr make(size_t vlen = 1);
 };
 
-typedef or_blk<short> or_ss;
-typedef or_blk<int> or_ii;
-typedef or_blk<char> or_bb;
+typedef or_blk<std::uint8_t> or_bb;
+typedef or_blk<std::int16_t> or_ss;
+typedef or_blk<std::int32_t> or_ii;
 } /* namespace blocks */
 } /* namespace gr */
 

@@ -120,7 +120,7 @@ namespace py = pybind11;
 #include "generated/not_blk_python.hpp"
 #include "generated/null_sink_python.hpp"
 #include "generated/null_source_python.hpp"
-// #include "generated/or_blk_python.hpp"
+#include "generated/or_blk_python.hpp"
 // #include "generated/pack_k_bits_python.hpp"
 #include "generated/pack_k_bits_bb_python.hpp"
 #include "generated/packed_to_unpacked_python.hpp"
@@ -296,7 +296,7 @@ PYBIND11_MODULE(blocks_python, m)
     bind_not_blk(m);
     bind_null_sink(m);
     bind_null_source(m);
-    // bind_or_blk(m);
+    bind_or_blk(m);
     // bind_pack_k_bits(m);
     bind_pack_k_bits_bb(m);
     bind_packed_to_unpacked(m);
