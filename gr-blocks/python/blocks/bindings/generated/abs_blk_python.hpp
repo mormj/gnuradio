@@ -27,6 +27,7 @@
 #define INCLUDED_GR_BLOCKS_ABS_BLK_PYTHON_HPP
 
 #include <gnuradio/blocks/abs_blk.h>
+#include <gnuradio/sync_block.h>
 
 template<typename T>
 void bind_abs_template(py::module& m, const char *classname)
