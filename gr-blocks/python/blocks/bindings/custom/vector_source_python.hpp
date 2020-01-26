@@ -43,12 +43,12 @@ void bind_vector_source_template(py::module& m, const char *classname)
 
 
         // // virtual void rewind() = 0;
-        // .def("rewind", &gr::blocks::vector_source<T>::rewind))
-        // virtual void set_data(const std::vector<T>& data,
-        // //                       const std::vector<tag_t>& tags = std::vector<tag_t>()) = 0;
-        // .def("set_data", &gr::blocks::vector_source<T>::set_data))
-        // // virtual void set_repeat(bool repeat) = 0;
-        // .def("set_repeat", &gr::blocks::vector_source<T>::set_repeat))
+        .def("rewind", &gr::blocks::vector_source<T>::rewind)
+        .def("set_data", &gr::blocks::vector_source<T>::set_data,
+            py::arg("data"),
+            py::arg("tags") = std::vector<gr::tag_t>())
+        .def("set_repeat", &gr::blocks::vector_source<T>::set_repeat,
+            py::arg("repeat"))
 
         ;
 } 

@@ -74,7 +74,8 @@ void bind_file_meta_sink(py::module& m)
         })
         ;
 
-
+        m.attr("METADATA_VERSION") = gr::blocks::METADATA_VERSION;
+        m.attr("METADATA_HEADER_SIZE") = gr::blocks::METADATA_HEADER_SIZE;
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_FILE_META_SINK_PYTHON_HPP */
