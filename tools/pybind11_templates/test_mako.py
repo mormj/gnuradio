@@ -13,7 +13,7 @@ prefix_include_root = 'gnuradio'
 # filename = '/share/tmp/blocktool_pybind/pmt.h/pmt.json'; base_name = 'pmt'
 # filename = '/share/tmp/blocktool_pybind/pmt_pool.h/pmt_pool.json'; base_name = 'pmt_pool'
 # filename = '/share/tmp/blocktool_pybind/gnuradio/logger.json'; base_name = 'logger'
-filename = '/share/tmp/blocktool_pybind/gnuradio/blocks/multiply_matrix.json'; base_name = 'multiply_matrix'
+filename = '/share/tmp/blocktool_pybind/gnuradio/blocks/file_sink_base.json'; base_name = 'file_sink_base'
 # base_name = 'pmt_pool'
 namespace = ['gr','blocks']
 #with open(path.join(current_path,filename)) as json_file:

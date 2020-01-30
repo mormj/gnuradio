@@ -57,6 +57,7 @@ void bind_message(py::module& m)
             py::arg("arg2") 
         )
         .def("msg",&message::msg)
+        .def("length",&message::length)
         .def("to_string",&message::to_string)
         ;
 

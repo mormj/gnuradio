@@ -20,5 +20,5 @@
 #
 
 from .core.parseheader import BlockHeaderParser
-from .core.parseheader_nonblock import NonBlockHeaderParser
+from .core.parseheader_generic import NonBlockHeaderParser
 from .core.outputschema import RESULT_SCHEMA

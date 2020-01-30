@@ -24,7 +24,7 @@ GR_PYTHON_INSTALL(FILES
     base.py
     comments.py
     parseheader.py
-    parseheader_nonblock.py
+    parseheader_generic.py
     iosignature.py
     outputschema.py
     Constants.py
