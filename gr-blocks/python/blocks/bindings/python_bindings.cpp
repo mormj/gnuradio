@@ -81,6 +81,7 @@ namespace py = pybind11;
 #include "generated/file_descriptor_source_python.hpp"
 #include "generated/file_meta_sink_python.hpp"
 #include "generated/file_meta_source_python.hpp"
+#include "generated/file_sink_base_python.hpp"
 #include "generated/file_sink_python.hpp"
 // #include "generated/file_sink_base_python.hpp"
 #include "generated/file_source_python.hpp"
@@ -209,6 +210,8 @@ PYBIND11_MODULE(blocks_python, m)
     // (otherwise we will see segmentation faults)
     init_numpy();
 
+    py::module::import("gnuradio.gr");
+
     // Register types submodule
     bind_abs_blk(m);
     bind_add_blk(m);
@@ -257,6 +260,7 @@ PYBIND11_MODULE(blocks_python, m)
     bind_file_descriptor_source(m);
     bind_file_meta_sink(m);
     bind_file_meta_source(m);
+    bind_file_sink_base(m);
     bind_file_sink(m);
     // bind_file_sink_base(m);
     bind_file_source(m);
