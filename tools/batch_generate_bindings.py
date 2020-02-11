@@ -4,9 +4,6 @@ import gen_nonblock_bindings
 import os
 import argparse
 
-
-
-
 def get_file_list(include_path):
     file_list = []
     for root, dirs, files in os.walk(include_path):

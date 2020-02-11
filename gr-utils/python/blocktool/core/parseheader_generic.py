@@ -41,7 +41,7 @@ from ..core import Constants
 LOGGER = logging.getLogger(__name__)
 
 
-class NonBlockHeaderParser(BlockTool):
+class GenericHeaderParser(BlockTool):
     """
     : Single argument required: file_path
     file_path: enter path for the header block in any of GNU Radio module

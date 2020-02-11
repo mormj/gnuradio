@@ -23,7 +23,7 @@ from os import path
 import pathlib
 import re
 from argparse import ArgumentParser
-from gnuradio.blocktool import BlockHeaderParser, NonBlockHeaderParser
+from gnuradio.blocktool import BlockHeaderParser, GenericHeaderParser
 import json
 from mako.template import Template
 from datetime import datetime
@@ -82,7 +82,7 @@ def process_nonblock_header_file(file_to_process, module_path, prefix, output_di
     # include_paths = ','.join((module_include_path,blocks_include_path,gr_include_path))
     prefix_include_path = os.path.abspath(os.path.join(prefix, 'include'))
     include_paths = ','.join((prefix_include_path, module_include_path))
-    parser = NonBlockHeaderParser(
+    parser = GenericHeaderParser(
         include_paths=include_paths, file_path=file_to_process)
     try:
         header_info = parser.get_header_info(namespace)

@@ -98,4 +98,6 @@ if(ENABLE_GR_MODTOOL)
 add_subdirectory(python/modtool)
 endif(ENABLE_GR_MODTOOL)
 
+add_subdirectory(python/bindtool)
+
 endif(ENABLE_GR_UTILS)

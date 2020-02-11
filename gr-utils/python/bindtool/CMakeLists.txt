@@ -1,4 +1,3 @@
-#
 # Copyright 2019 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
@@ -17,8 +16,17 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-#
 
-from .core.parseheader import BlockHeaderParser
-from .core.parseheader_generic import GenericHeaderParser
-from .core.outputschema import RESULT_SCHEMA
+include(GrPython)
+
+GR_PYTHON_INSTALL(FILES
+    __init__.py
+    DESTINATION ${GR_PYTHON_DIR}/gnuradio/bindtool
+)
+
+########################################################################
+# Add subdirectories
+########################################################################
+add_subdirectory(core)
+add_subdirectory(templates)
+
