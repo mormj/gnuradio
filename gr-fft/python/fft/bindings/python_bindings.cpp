@@ -9,9 +9,8 @@
  */
 
 
-
-#include <pybind11/pybind11.h>
 #include <pybind11/complex.h>
+#include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
@@ -26,8 +25,8 @@ namespace py = pybind11;
 
 #include "generated/fft_python.hpp"
 #include "generated/fft_shift_python.hpp"
-#include "generated/goertzel_python.hpp"
 #include "generated/goertzel_fc_python.hpp"
+#include "generated/goertzel_python.hpp"
 // #include "generated/ctrlport_probe_psd_python.hpp"
 #include "generated/fft_vcc_python.hpp"
 #include "generated/fft_vfc_python.hpp"
@@ -50,7 +49,7 @@ PYBIND11_MODULE(fft_python, m)
     // (otherwise we will see segmentation faults)
     init_numpy();
 
-     py::module::import("gnuradio.gr");
+    py::module::import("gnuradio.gr");
 
     // Register types submodule
     bind_fft(m);

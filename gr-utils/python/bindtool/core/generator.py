@@ -154,7 +154,7 @@ class BindingGenerator:
         return file_list
 
     def gen_bindings(self, module_dir, prefix, namespace, prefix_include_root, output_dir):
-        file_list = self.get_file_list(module_dir)
+        file_list = sorted(self.get_file_list(module_dir))
         self.gen_top_level_cpp(file_list, output_dir)
         for fn in file_list:
             self.process_file(fn, prefix, output_dir,
