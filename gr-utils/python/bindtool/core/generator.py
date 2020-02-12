@@ -30,6 +30,22 @@ class BindingGenerator:
             module=True
         )
 
+    def bind_from_json(self, pathname):
+        base_name = os.path.splitext(os.path.basename(pathname))[0]
+        module_dirname = os.path.split(os.path.abspath(os.path.join(os.path.dirname(pathname),'..')))[-1]
+        binding_pathname = '{}_python.hpp'.format(os.path.splitext(pathname)[0])
+        # Make some assumptions about the namespace
+        namespace = ['gr',module_dirname]
+        prefix_include_root = 'gnuradio'
+
+        with open(pathname,'r') as fp:
+            header_info = json.load(fp)
+            pybind_code = self.get_nonblock_python(
+                header_info, base_name, namespace, prefix_include_root)
+            with open(binding_pathname, 'w+') as outfile:
+                outfile.write(pybind_code)
+            return binding_pathname
+            
     def write_bindings_generic(self, module_path, base_name, header_info, output_dir, namespace, prefix_include_root):
         json_pathname = os.path.join(output_dir, '{}.json'.format(base_name))
         binding_pathname = os.path.join(
@@ -84,7 +100,7 @@ class BindingGenerator:
         if 'include'+os.path.sep in pathname:
             rel_path_after_include = os.path.split(
                 pathname.split('include'+os.path.sep)[-1])[0]
-            output_dir = os.path.join(output_dir, rel_path_after_include)
+            output_dir = os.path.join(output_dir, rel_path_after_include, 'generated')
             # output_dir = os.path.join(output_dir,os.path.basename(file))
             if output_dir and not os.path.exists(output_dir):
                 output_dir = os.path.abspath(output_dir)

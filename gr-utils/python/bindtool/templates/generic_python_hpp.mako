@@ -13,9 +13,9 @@ ${license}
 #ifndef INCLUDED_${'_'.join(namespace).upper()}_${basename.upper()}_PYTHON_HPP
 #define INCLUDED_${'_'.join(namespace).upper()}_${basename.upper()}_PYTHON_HPP
 
-% if module and classes:
-#include <${prefix_include_root.split('/')[0]}/${classes[0]['bases'][-1]}.h>
-% endif
+## % if module and classes:
+## #include <${prefix_include_root.split('/')[0]}/${classes[0]['bases'][-1]}.h>
+## % endif
 #include <${prefix_include_root}/${basename}.h>
 
 void bind_${basename}(py::module& m)
@@ -57,7 +57,7 @@ except:
         make_function = None
 %>
     py::class_<${cls['name']}\
-% if cls['bases']:
+% if 'bases' in cls:
 ,${'::'.join(list(filter(lambda x: x != '::',cls['bases'])))},
 % else: 
 ,
