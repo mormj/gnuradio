@@ -10,7 +10,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/share/gnuradio/grnext/ \
  -DENABLE_GR_BLOCKS=ON \
  -DENABLE_GR_DIGITAL=OFF \
  -DENABLE_GR_FEC=OFF \
- -DENABLE_GR_FFT=OFF \
+ -DENABLE_GR_FFT=ON \
  -DENABLE_GR_DTV=OFF \
  -DENABLE_GR_TRELLIS=OFF \
  -DENABLE_GR_FILTER=OFF \
@@ -28,8 +28,10 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/share/gnuradio/grnext/ \
  -DENABLE_GR_ZEROMQ=OFF \
  -DENABLE_GR_MODTOOL=ON \
  -DENABLE_GR_BLOCKTOOL=ON \
- -DCMAKE_BUILD_TYPE=NoOptWithASM 
+ -DCMAKE_BUILD_TYPE=Debug
+#  -DCMAKE_BUILD_TYPE=NoOptWithASM 
 #  -DCMAKE_CXX_FLAGS="-H"
 
 
-/usr/bin/time --verbose make -j8
+# /usr/bin/time --verbose make -j8
+make -j8

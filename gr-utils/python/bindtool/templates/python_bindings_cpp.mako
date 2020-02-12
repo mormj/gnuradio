@@ -35,7 +35,7 @@ void* init_numpy()
     return NULL;
 }
 
-PYBIND11_MODULE(gr_python, m)
+PYBIND11_MODULE(${basename}_python, m)
 {
     // Initialize the numpy C API
     // (otherwise we will see segmentation faults)
