@@ -47,7 +47,7 @@ void bind_block(py::module& m)
         .export_values()
     ;
 
-    py::class_<block, std::shared_ptr<block>>(m, "block")
+    py::class_<block, gr::basic_block, std::shared_ptr<block>>(m, "block")
         .def("history",&block::history)
         .def("set_history",&block::set_history,
             py::arg("history") 

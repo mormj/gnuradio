@@ -29,7 +29,7 @@ def calc_expected_result(src_data, n):
     #print "len(result) =", len(result)
     for i in range(len(src_data)):
         (result[i % n]).append(src_data[i])
-    return [tuple(x) for x in result]
+    return result
 
 
 class test_pipe_fittings(gr_unittest.TestCase):
@@ -71,7 +71,7 @@ class test_pipe_fittings(gr_unittest.TestCase):
 
         n = 8
         src_len = n * 8
-        src_data = tuple(range(src_len))
+        src_data = list(range(src_len))
         expected_results = src_data
 
         src = blocks.vector_source_i(src_data)
@@ -93,7 +93,7 @@ class test_pipe_fittings(gr_unittest.TestCase):
 
         n = 8
         src_len = n * 8
-        src_data = tuple(range(src_len))
+        src_data = list(range(src_len))
         expected_results = src_data
 
         src = blocks.vector_source_i(src_data)
@@ -116,7 +116,7 @@ class test_pipe_fittings(gr_unittest.TestCase):
 
         n = 8
         src_len = n * 8
-        src_data = tuple(range(src_len))
+        src_data = list(range(src_len))
         expected_results = src_data
 
         src = blocks.vector_source_i(src_data)

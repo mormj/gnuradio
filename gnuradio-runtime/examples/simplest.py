@@ -30,7 +30,7 @@ class simplest(gr.top_block):
         ##################################################
         ns = blocks.null_sink(gr.sizeof_float*1)
         # vs = blocks.vector_source_f((1,2,3,4,5), True, 1, [])
-        vs = blocks.vector_source_f((1,2,3,4,5))
+        vs = blocks.vector_source_f((1,2,3,4,5),True)
         # s2v = blocks.stream_to_vector(gr.sizeof_float)
         vsi = blocks.vector_sink_f()
         mc = blocks.multiply_const_ff(3)
@@ -46,7 +46,7 @@ class simplest(gr.top_block):
         ##################################################
         # Connections
         ##################################################
-        self.connect(vs, mc, vsi)
+        self.connect(vs, mc, ns)
 
         self.vsi = vsi
 

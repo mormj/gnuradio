@@ -39,7 +39,7 @@ void bind_multiply_matrix_template(py::module& m, const char *classname)
             py::arg("tag_propagation_policy") = gr::block::TPP_ALL_TO_ALL
         )
         .def("get_A",&multiply_matrix::get_A)
-        .def("get_A",&multiply_matrix::set_A,
+        .def("set_A",&multiply_matrix::set_A,
             py::arg("new_A")
         )
         .def_readwrite("MSG_PORT_NAME_SET_A",&multiply_matrix::MSG_PORT_NAME_SET_A)

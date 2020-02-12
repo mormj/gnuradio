@@ -33,7 +33,7 @@ void bind_tagged_stream_block(py::module& m)
     using tagged_stream_block    = gr::tagged_stream_block;
 
 
-    py::class_<tagged_stream_block, std::shared_ptr<tagged_stream_block>>(m, "tagged_stream_block")
+    py::class_<tagged_stream_block, gr::block, std::shared_ptr<tagged_stream_block>>(m, "tagged_stream_block")
         .def("forecast",&tagged_stream_block::forecast,
             py::arg("noutput_items"), 
             py::arg("ninput_items_required") 

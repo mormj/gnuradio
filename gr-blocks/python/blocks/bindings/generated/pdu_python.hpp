@@ -35,6 +35,7 @@ void bind_pdu(py::module& m)
         .value("byte_t", gr::blocks::pdu::byte_t) // 0
         .value("float_t", gr::blocks::pdu::float_t) // 1
         .value("complex_t", gr::blocks::pdu::complex_t) // 2
+        .export_values()
     ;
 
     m.def("pdu_port_id",&gr::blocks::pdu::pdu_port_id);
