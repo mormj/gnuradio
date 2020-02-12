@@ -46,11 +46,11 @@ void bind_probe_signal_v_template(py::module& m, const char *classname)
 
 void bind_probe_signal_v(py::module& m)
 {
-    bind_probe_signal_v_template<std::uint8_t>(m,"probe_signal_v_vb");
-    bind_probe_signal_v_template<std::int16_t>(m,"probe_signal_v_vs");
-    bind_probe_signal_v_template<std::int32_t>(m,"probe_signal_v_vi");
-    bind_probe_signal_v_template<float>(m,"probe_signal_v_vf");
-    bind_probe_signal_v_template<gr_complex>(m,"probe_signal_v_vc");
+    bind_probe_signal_v_template<std::uint8_t>(m,"probe_signal_vb");
+    bind_probe_signal_v_template<std::int16_t>(m,"probe_signal_vs");
+    bind_probe_signal_v_template<std::int32_t>(m,"probe_signal_vi");
+    bind_probe_signal_v_template<float>(m,"probe_signal_vf");
+    bind_probe_signal_v_template<gr_complex>(m,"probe_signal_vc");
 } 
 
 #endif /* INCLUDED_GR_BLOCKS_PROBE_SIGNAL_V_PYTHON_HPP */

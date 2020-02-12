@@ -108,7 +108,7 @@ class test_fft_filter(gr_unittest.TestCase):
         tb = gr.top_block()
         src_data = (0,1,2,3,4,5,6,7)
         taps = (1,)
-        expected_result = tuple([complex(x) for x in (0,1,2,3,4,5,6,7)])
+        expected_result = [complex(x) for x in (0,1,2,3,4,5,6,7)]
         src = blocks.vector_source_c(src_data)
         op =  filter.fft_filter_ccc(1, taps)
         dst = blocks.vector_sink_c()
@@ -126,7 +126,7 @@ class test_fft_filter(gr_unittest.TestCase):
         src_data = (0,1,2,3,4,5,6,7)
         taps = (2,)
         nthreads = 2
-        expected_result = tuple([2 * complex(x) for x in (0,1,2,3,4,5,6,7)])
+        expected_result = [2 * complex(x) for x in (0,1,2,3,4,5,6,7)]
         src = blocks.vector_source_c(src_data)
         op = filter.fft_filter_ccc(1, taps, nthreads)
         dst = blocks.vector_sink_c()
@@ -141,7 +141,7 @@ class test_fft_filter(gr_unittest.TestCase):
         tb = gr.top_block()
         src_data = (0,1,2,3,4,5,6,7)
         taps = (2,)
-        expected_result = tuple([2 * complex(x) for x in (0,1,2,3,4,5,6,7)])
+        expected_result = [2 * complex(x) for x in (0,1,2,3,4,5,6,7)]
         src = blocks.vector_source_c(src_data)
         op = filter.fft_filter_ccc(1, taps)
         dst = blocks.vector_sink_c()

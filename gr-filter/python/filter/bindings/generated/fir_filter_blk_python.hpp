@@ -16,10 +16,33 @@
 
 #include <gnuradio/filter/fir_filter_blk.h>
 
+template <class IN_T, class OUT_T, class TAP_T>
+void bind_fir_filter_blk_template(py::module& m, const char *classname)
+{
+    using fir_filter_blk = gr::filter::fir_filter_blk<IN_T, OUT_T, TAP_T>;
+
+    py::class_<fir_filter_blk, gr::sync_decimator, std::shared_ptr<fir_filter_blk>>(
+        m, classname)
+        .def(py::init(&gr::filter::fir_filter_blk<IN_T,OUT_T,TAP_T>::make),
+             py::arg("decimation"),
+             py::arg("taps"))
+
+        .def("set_taps", &fir_filter_blk::set_taps, py::arg("taps"))
+        .def("taps", &fir_filter_blk::taps)
+
+        .def("to_basic_block",
+             [](std::shared_ptr<fir_filter_blk> p) { return p->to_basic_block(); });
+}
+
 void bind_fir_filter_blk(py::module& m)
 {
-
-
-} 
+    bind_fir_filter_blk_template<gr_complex, gr_complex, gr_complex>(m, "fir_filter_ccc");
+    bind_fir_filter_blk_template<gr_complex, gr_complex, float>(m, "fir_filter_ccf");
+    bind_fir_filter_blk_template<float, gr_complex, gr_complex>(m, "fir_filter_fcc");
+    bind_fir_filter_blk_template<float, float, float>(m, "fir_filter_fff");
+    bind_fir_filter_blk_template<float, std::int16_t, float>(m, "fir_filter_fsf");
+    bind_fir_filter_blk_template<std::int16_t, gr_complex, gr_complex>(m,
+                                                                       "fir_filter_scc");
+}
 
 #endif /* INCLUDED_GR_FILTER_FIR_FILTER_BLK_PYTHON_HPP */

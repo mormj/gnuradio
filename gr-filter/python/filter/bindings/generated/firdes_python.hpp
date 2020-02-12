@@ -20,7 +20,10 @@ void bind_firdes(py::module& m)
 {
     using firdes = gr::filter::firdes;
 
-    py::enum_<gr::filter::firdes::win_type>(m,"win_type")
+    py::class_<firdes, std::shared_ptr<firdes>> firdes_class(m, "firdes");
+
+
+    py::enum_<gr::filter::firdes::win_type>(firdes_class,"win_type")
         .value("WIN_NONE", gr::filter::firdes::WIN_NONE) // -1
         .value("WIN_HAMMING", gr::filter::firdes::WIN_HAMMING) // 0
         .value("WIN_HANN", gr::filter::firdes::WIN_HANN) // 1
@@ -34,9 +37,8 @@ void bind_firdes(py::module& m)
         .export_values()
     ;
     
-    py::class_<firdes, std::shared_ptr<firdes>>(m, "firdes")
 
-        .def_static(
+        firdes_class.def_static(
             "window", &firdes::window, py::arg("type"), py::arg("ntaps"), py::arg("beta"))
         .def_static("low_pass",
              &firdes::low_pass,

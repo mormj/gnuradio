@@ -10,6 +10,7 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/complex.h>
+#include <pybind11/stl.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/arrayobject.h>
@@ -92,7 +93,7 @@ PYBIND11_MODULE(filter_python, m)
     bind_filter_delay_fc(m);
     bind_filterbank(m);
     bind_filterbank_vcvcf(m);
-    bind_fir_filter(m);
+    // bind_fir_filter(m);
     bind_fir_filter_blk(m);
     bind_fir_filter_with_buffer(m);
     bind_firdes(m);
