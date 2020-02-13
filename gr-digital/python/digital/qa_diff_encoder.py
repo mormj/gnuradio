@@ -25,11 +25,11 @@ import random
 
 from gnuradio import gr, gr_unittest, digital, blocks
 
-def make_random_int_tuple(L, min, max):
+def make_random_int_list(L, min, max):
     result = []
     for x in range(L):
         result.append(random.randint(min, max))
-    return tuple(result)
+    return list(result)
 
 
 class test_diff_encoder(gr_unittest.TestCase):
@@ -44,7 +44,7 @@ class test_diff_encoder(gr_unittest.TestCase):
     def test_diff_encdec_000(self):
         random.seed(0)
         modulus = 2
-        src_data = make_random_int_tuple(1000, 0, modulus-1)
+        src_data = make_random_int_list(1000, 0, modulus-1)
         expected_result = src_data
         src = blocks.vector_source_b(src_data)
         enc = digital.diff_encoder_bb(modulus)
@@ -58,7 +58,7 @@ class test_diff_encoder(gr_unittest.TestCase):
     def test_diff_encdec_001(self):
         random.seed(0)
         modulus = 4
-        src_data = make_random_int_tuple(1000, 0, modulus-1)
+        src_data = make_random_int_list(1000, 0, modulus-1)
         expected_result = src_data
         src = blocks.vector_source_b(src_data)
         enc = digital.diff_encoder_bb(modulus)
@@ -72,7 +72,7 @@ class test_diff_encoder(gr_unittest.TestCase):
     def test_diff_encdec_002(self):
         random.seed(0)
         modulus = 8
-        src_data = make_random_int_tuple(40000, 0, modulus-1)
+        src_data = make_random_int_list(40000, 0, modulus-1)
         expected_result = src_data
         src = blocks.vector_source_b(src_data)
         enc = digital.diff_encoder_bb(modulus)
