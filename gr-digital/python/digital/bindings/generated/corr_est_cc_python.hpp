@@ -21,6 +21,12 @@ void bind_corr_est_cc(py::module& m)
     using corr_est_cc    = gr::digital::corr_est_cc;
 
 
+    py::enum_<gr::digital::tm_type>(m,"tm_type")
+        .value("THRESHOLD_DYNAMIC", gr::digital::THRESHOLD_DYNAMIC) // 0
+        .value("THRESHOLD_ABSOLUTE", gr::digital::THRESHOLD_ABSOLUTE) // 1
+        .export_values()
+    ;
+
     py::class_<corr_est_cc,gr::sync_block,
         std::shared_ptr<corr_est_cc>>(m, "corr_est_cc")
 
@@ -28,7 +34,7 @@ void bind_corr_est_cc(py::module& m)
            py::arg("symbols"), 
            py::arg("sps"), 
            py::arg("mark_delay"), 
-           py::arg("threshold") = 0.90000000000000002, 
+           py::arg("threshold") = 0.9, 
            py::arg("threshold_method") = ::gr::digital::tm_type::THRESHOLD_ABSOLUTE 
         )
         
@@ -50,11 +56,7 @@ void bind_corr_est_cc(py::module& m)
         })
         ;
 
-    py::enum_<gr::digital::tm_type>(m,"tm_type")
-        .value("THRESHOLD_DYNAMIC", gr::digital::THRESHOLD_DYNAMIC) // 0
-        .value("THRESHOLD_ABSOLUTE", gr::digital::THRESHOLD_ABSOLUTE) // 1
-        .export_values()
-    ;
+
 
 } 
 

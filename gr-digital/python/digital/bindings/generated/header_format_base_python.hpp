@@ -21,7 +21,7 @@ void bind_header_format_base(py::module& m)
     using header_format_base    = gr::digital::header_format_base;
 
 
-    py::class_<header_format_base,std::enable_shared_from_this<gr::digital::header_format_base>,
+    py::class_<header_format_base,
         std::shared_ptr<header_format_base>>(m, "header_format_base")
 
         // .def(py::init<>())

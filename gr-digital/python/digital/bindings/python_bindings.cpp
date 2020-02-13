@@ -57,9 +57,9 @@ PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 #include "generated/hdlc_framer_pb_python.hpp"
 #include "generated/header_buffer_python.hpp"
 #include "generated/header_format_base_python.hpp"
+#include "generated/header_format_default_python.hpp"
 #include "generated/header_format_counter_python.hpp"
 #include "generated/header_format_crc_python.hpp"
-#include "generated/header_format_default_python.hpp"
 #include "generated/header_format_ofdm_python.hpp"
 #include "generated/header_payload_demux_python.hpp"
 #include "generated/interpolating_resampler_type_python.hpp"
@@ -156,9 +156,9 @@ PYBIND11_MODULE(digital_python, m)
     bind_hdlc_framer_pb(m);
     bind_header_buffer(m);
     bind_header_format_base(m);
+    bind_header_format_default(m);
     bind_header_format_counter(m);
     bind_header_format_crc(m);
-    bind_header_format_default(m);
     bind_header_format_ofdm(m);
     bind_header_payload_demux(m);
     bind_interpolating_resampler_type(m);

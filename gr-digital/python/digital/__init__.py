@@ -29,12 +29,13 @@ from __future__ import unicode_literals
 
 import os
 
-try:
-    from .digital_swig import *
-except ImportError:
-    dirname, filename = os.path.split(os.path.abspath(__file__))
-    __path__.append(os.path.join(dirname, "..", "..", "swig"))
-    from .digital_swig import *
+# try:
+#     from .digital_swig import *
+# except ImportError:
+#     dirname, filename = os.path.split(os.path.abspath(__file__))
+#     __path__.append(os.path.join(dirname, "..", "..", "swig"))
+#     from .digital_swig import *
+from .digital_python import *
 
 from .psk import *
 from .qam import *
