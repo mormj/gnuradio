@@ -130,7 +130,7 @@ values = en['values']
     py::enum_<${"::".join(namespace)}::${en['name']}>(m,"${en["name"]}")
 % for val in values:
         .value("${val[0]}", ${"::".join(namespace)}::${val[0]}) // ${val[1]}
-% endfor \
+% endfor 
         .export_values()
     ;
 % endfor

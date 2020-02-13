@@ -24,7 +24,6 @@ namespace py = pybind11;
 // PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
 
 #include "generated/fft_python.hpp"
-#include "generated/fft_shift_python.hpp"
 #include "generated/goertzel_fc_python.hpp"
 #include "generated/goertzel_python.hpp"
 // #include "generated/ctrlport_probe_psd_python.hpp"
@@ -53,7 +52,6 @@ PYBIND11_MODULE(fft_python, m)
 
     // Register types submodule
     bind_fft(m);
-    bind_fft_shift(m);
     bind_goertzel(m);
     bind_goertzel_fc(m);
     // bind_ctrlport_probe_psd(m);
