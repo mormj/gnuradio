@@ -25,10 +25,10 @@ from __future__ import unicode_literals
 
 import numpy
 
-from . import runtime_swig as gr
-from .runtime_swig import io_signature, io_signaturev
-from .runtime_swig import block_gw_message_type
-from .runtime_swig import block_gateway
+from . import gr_python as gr
+from .gr_python import io_signature, io_signaturev
+from .gr_python import block_gw_message_type
+from .gr_python import block_gateway
 
 ########################################################################
 # Magic to turn pointers into numpy arrays
@@ -45,42 +45,6 @@ def pointer_to_ndarray(addr, dtype, nitems):
             'version' : 3
         }
     return numpy.asarray(array_like()).view(dtype.base)
-
-########################################################################
-# Handler that does callbacks from C++
-########################################################################
-class gateway_handler(gr.feval_ll):
-
-    #don't put a constructor, it won't work
-
-    def init(self, callback):
-        self._callback = callback
-
-    def eval(self, arg):
-        try: self._callback()
-        except Exception as ex:
-            print("handler caught exception: %s"%ex)
-            import traceback; traceback.print_exc()
-            raise ex
-        return 0
-
-########################################################################
-# Handler that does callbacks from C++
-########################################################################
-class msg_handler(gr.feval_p):
-
-    #don't put a constructor, it won't work
-
-    def init(self, callback):
-        self._callback = callback
-
-    def eval(self, arg):
-        try: self._callback(arg)
-        except Exception as ex:
-            print("handler caught exception: %s"%ex)
-            import traceback; traceback.print_exc()
-            raise ex
-        return 0
 
 ########################################################################
 # io_signature for Python
@@ -143,7 +107,7 @@ class py_io_signature(object):
 ########################################################################
 class gateway_block(object):
 
-    def __init__(self, name, in_sig, out_sig, work_type, factor):
+    def __init__(self, name, in_sig, out_sig):
 
         # Normalize the many Python ways of saying 'nothing' to '()'
         in_sig = in_sig or ()
@@ -159,23 +123,7 @@ class gateway_block(object):
         else:
             self.__out_sig = py_io_signature(len(out_sig), len(out_sig), out_sig)
 
-        #create internal gateway block
-        self.__handler = gateway_handler()
-        self.__handler.init(self.__gr_block_handle)
-        self.__gateway = block_gateway(
-            self.__handler, name,
-            self.__in_sig.gr_io_signature(), self.__out_sig.gr_io_signature(),
-            work_type, factor)
-        self.__message = self.__gateway.block_message()
-
-        #dict to keep references to all message handlers
-        self.__msg_handlers = {}
-
-        #register block functions
-        prefix = 'block__'
-        for attr in [x for x in dir(self.__gateway) if x.startswith(prefix)]:
-            setattr(self, attr.replace(prefix, ''), getattr(self.__gateway, attr))
-        self.pop_msg_queue = lambda: gr.block_gw_pop_msg_queue_safe(self.__gateway)
+        self.__gateway = block_gateway(self, name, self.__in_sig, self.__out_sig)
 
     def to_basic_block(self):
         """
@@ -183,64 +131,6 @@ class gateway_block(object):
         """
         return self.__gateway.to_basic_block()
 
-    def __gr_block_handle(self):
-        """
-        Dispatch tasks according to the action type specified in the message.
-        """
-
-        if self.__message.action == gr.block_gw_message_type.ACTION_GENERAL_WORK:
-            # Actual number of inputs/output from scheduler
-            ninputs = len(self.__message.general_work_args_input_items)
-            noutputs = len(self.__message.general_work_args_output_items)
-            in_types = self.__in_sig.port_types(ninputs)
-            out_types = self.__out_sig.port_types(noutputs)
-            self.__message.general_work_args_return_value = self.general_work(
-
-                input_items=[pointer_to_ndarray(
-                    self.__message.general_work_args_input_items[i],
-                    in_types[i],
-                    self.__message.general_work_args_ninput_items[i]
-                ) for i in range(ninputs)],
-
-                output_items=[pointer_to_ndarray(
-                    self.__message.general_work_args_output_items[i],
-                    out_types[i],
-                    self.__message.general_work_args_noutput_items
-                ) for i in range(noutputs)],
-            )
-
-        elif self.__message.action == gr.block_gw_message_type.ACTION_WORK:
-            # Actual number of inputs/output from scheduler
-            ninputs = len(self.__message.work_args_input_items)
-            noutputs = len(self.__message.work_args_output_items)
-            in_types = self.__in_sig.port_types(ninputs)
-            out_types = self.__out_sig.port_types(noutputs)
-            self.__message.work_args_return_value = self.work(
-
-                input_items=[pointer_to_ndarray(
-                    self.__message.work_args_input_items[i],
-                    in_types[i],
-                    self.__message.work_args_ninput_items
-                ) for i in range(ninputs)],
-
-                output_items=[pointer_to_ndarray(
-                    self.__message.work_args_output_items[i],
-                    out_types[i],
-                    self.__message.work_args_noutput_items
-                ) for i in range(noutputs)],
-            )
-
-        elif self.__message.action == gr.block_gw_message_type.ACTION_FORECAST:
-            self.forecast(
-                noutput_items=self.__message.forecast_args_noutput_items,
-                ninput_items_required=self.__message.forecast_args_ninput_items_required,
-            )
-
-        elif self.__message.action == gr.block_gw_message_type.ACTION_START:
-            self.__message.start_args_return_value = self.start()
-
-        elif self.__message.action == gr.block_gw_message_type.ACTION_STOP:
-            self.__message.stop_args_return_value = self.stop()
 
     def forecast(self, noutput_items, ninput_items_required):
         """
@@ -264,13 +154,6 @@ class gateway_block(object):
     def stop(self):
         return True
 
-    def set_msg_handler(self, which_port, handler_func):
-        handler = msg_handler()
-        handler.init(handler_func)
-        self.__gateway.set_msg_handler_feval(which_port, handler)
-        # Save handler object in class so it's not garbage collected
-        self.__msg_handlers[which_port] = handler
-
     def in_sig(self):
         return self.__in_sig
 
@@ -281,27 +164,6 @@ class gateway_block(object):
 ########################################################################
 # Wrappers for the user to inherit from
 ########################################################################
-class basic_block(gateway_block):
-    """Args:
-    name (str): block name
-
-    in_sig (gr.py_io_signature): input port signature
-
-    out_sig (gr.py_io_signature): output port signature
-
-    For backward compatibility, a sequence of numpy type names is also
-    accepted as an io signature.
-
-    """
-    def __init__(self, name, in_sig, out_sig):
-        gateway_block.__init__(self,
-            name=name,
-            in_sig=in_sig,
-            out_sig=out_sig,
-            work_type=gr.GR_BLOCK_GW_WORK_GENERAL,
-            factor=1, #not relevant factor
-        )
-
 class sync_block(gateway_block):
     """
     Args:
@@ -323,44 +185,3 @@ class sync_block(gateway_block):
             factor=1,
         )
 
-class decim_block(gateway_block):
-    """
-    Args:
-    name (str): block name
-
-    in_sig (gr.py_io_signature): input port signature
-
-    out_sig (gr.py_io_signature): output port signature
-
-    For backward compatibility, a sequence of numpy type names is also
-    accepted as an io signature.
-    """
-    def __init__(self, name, in_sig, out_sig, decim):
-        gateway_block.__init__(self,
-            name=name,
-            in_sig=in_sig,
-            out_sig=out_sig,
-            work_type=gr.GR_BLOCK_GW_WORK_DECIM,
-            factor=decim,
-        )
-
-class interp_block(gateway_block):
-    """
-    Args:
-    name (str): block name
-
-    in_sig (gr.py_io_signature): input port signature
-
-    out_sig (gr.py_io_signature): output port signature
-
-    For backward compatibility, a sequence of numpy type names is also
-    accepted as an io signature.
-    """
-    def __init__(self, name, in_sig, out_sig, interp):
-        gateway_block.__init__(self,
-            name=name,
-            in_sig=in_sig,
-            out_sig=out_sig,
-            work_type=gr.GR_BLOCK_GW_WORK_INTERP,
-            factor=interp,
-        )

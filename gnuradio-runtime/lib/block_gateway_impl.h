@@ -33,12 +33,10 @@ namespace gr {
 class block_gateway_impl : public block_gateway
 {
 public:
-    block_gateway_impl(feval_ll* handler,
+    block_gateway_impl(const py::object& handler,
                        const std::string& name,
                        gr::io_signature::sptr in_sig,
-                       gr::io_signature::sptr out_sig,
-                       const block_gw_work_type work_type,
-                       const unsigned factor);
+                       gr::io_signature::sptr out_sig);
 
     /*******************************************************************
      * Overloads for various scheduler-called functions
@@ -60,13 +58,8 @@ public:
     bool start(void);
     bool stop(void);
 
-    block_gw_message_type& block_message(void);
-
 private:
-    feval_ll* _handler;
-    block_gw_message_type _message;
-    const block_gw_work_type _work_type;
-    unsigned _decim, _interp;
+    py::handle _py_handle;
 };
 
 } /* namespace gr */

@@ -49,6 +49,7 @@ from .top_block import *
 from .hier_block2 import *
 from .tag_utils import *
 # from .gateway import basic_block, sync_block, decim_block, interp_block, py_io_signature
+from .gateway import sync_block  # start with sync_block to prove the point
 
 # # Force the preference database to be initialized
 # prefs = prefs.singleton

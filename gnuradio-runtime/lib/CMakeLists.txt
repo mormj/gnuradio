@@ -35,7 +35,6 @@ string(REPLACE "\\" "\\\\" prefix "${prefix}")
 string(REPLACE "\\" "\\\\" SYSCONFDIR "${SYSCONFDIR}")
 string(REPLACE "\\" "\\\\" GR_PREFSDIR "${GR_PREFSDIR}")
 
-
 #########################################################################
 # Include subdirs rather to populate to the sources lists.
 ########################################################################
@@ -211,8 +210,15 @@ target_link_libraries(gnuradio-runtime PUBLIC
   MPLib::mplib
   )
 
+message(STATUS "((((((((((((((((((((((((((((((((((((((((((((((((")
+message(STATUS ${pybind11_FOUND})
+message(STATUS ${PYBIND11_INCLUDE_DIR})
+message(STATUS "))))))))))))))))))))))))))))))))))))))))))))))))")
+
 target_include_directories(gnuradio-runtime
   PUBLIC
+    ${PYTHON_NUMPY_INCLUDE_DIR} 
+    ${PYBIND11_INCLUDE_DIR}
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../include>
