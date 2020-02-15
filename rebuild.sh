@@ -29,10 +29,10 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/share/gnuradio/grnext/ \
  -DENABLE_GR_ZEROMQ=OFF \
  -DENABLE_GR_MODTOOL=ON \
  -DENABLE_GR_BLOCKTOOL=ON \
- -DCMAKE_BUILD_TYPE=Debug
+ -DCMAKE_BUILD_TYPE=RelWithDebInfo
 #  -DCMAKE_BUILD_TYPE=NoOptWithASM 
 #  -DCMAKE_CXX_FLAGS="-H"
 
 
-# /usr/bin/time --verbose make -j8
-make -j8
+/usr/bin/time --verbose make -j8
+# make -j8
