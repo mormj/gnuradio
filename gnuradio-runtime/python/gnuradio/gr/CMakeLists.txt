@@ -40,7 +40,7 @@ pybind11_add_module(gr_python ${CMAKE_CURRENT_SOURCE_DIR}/python_bindings.cpp)
 target_include_directories(gr_python PUBLIC
     ${PYTHON_NUMPY_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
-    ${PYBIND11_INCLUDE_DIR} 
+    ${pybind11_INCLUDE_DIR} 
 )
 target_link_libraries(gr_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime)
 

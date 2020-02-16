@@ -27,6 +27,7 @@
 #include <gnuradio/block.h>
 
 #include <pybind11/pybind11.h> // must be first
+#include <pybind11/stl.h>
 namespace py = pybind11;
 
 namespace gr {
@@ -55,12 +56,7 @@ public:
     static sptr make(const py::object& py_handle,
                      const std::string& name,
                      gr::io_signature::sptr in_sig,
-                     gr::io_signature::sptr out_sig)
-{
-    return block_gateway::sptr(
-        new block_gateway_impl(py_handle, name, in_sig, out_sig));
-}
-
+                     gr::io_signature::sptr out_sig);
 };
 
 } /* namespace gr */

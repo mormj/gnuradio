@@ -32,13 +32,21 @@ void bind_io_signature(py::module& m)
 {
     using io_signature    = gr::io_signature;
 
+    // py::class_<io_signature, std::shared_ptr<io_signature>>(m, "io_signaturev")
+    //     .def(py::init(&io_signature::makev),
+    //        py::arg("min_streams"),
+    //        py::arg("max_streams"),
+    //        py::arg("sizeof_stream_items")
+    //     )
+    //     ;
+
     py::class_<io_signature, std::shared_ptr<io_signature>>(m, "io_signature")
         .def(py::init(&io_signature::make),
            py::arg("min_streams"),
            py::arg("max_streams"),
            py::arg("sizeof_stream_item")
         )
-        .def("make",&io_signature::make)
+        .def("make",&io_signature::make)  // todo - make static and put back args
         .def("make2",&io_signature::make2)
         .def("make3",&io_signature::make3)
         .def("makev",&io_signature::makev)

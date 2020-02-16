@@ -28,11 +28,10 @@
 void bind_block_gateway(py::module& m)
 {
     using block_gateway    = gr::block_gateway;
-    using block_gw_message_type = gr::block_gw_message_type;
-
     py::class_<block_gateway, gr::block, std::shared_ptr<block_gateway>>(m, "block_gateway")
 
         .def(py::init(&block_gateway::make))
+        ;
 } 
 
 #endif /* INCLUDED_GR_BLOCK_GATEWAY_PYTHON_HPP */

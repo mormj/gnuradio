@@ -26,29 +26,32 @@ from __future__ import unicode_literals
 import numpy
 
 from . import gr_python as gr
-from .gr_python import io_signature, io_signaturev
-from .gr_python import block_gw_message_type
+from .gr_python import io_signature  # , io_signaturev
 from .gr_python import block_gateway
 
 ########################################################################
 # Magic to turn pointers into numpy arrays
 # http://docs.scipy.org/doc/numpy/reference/arrays.interface.html
 ########################################################################
+
+
 def pointer_to_ndarray(addr, dtype, nitems):
     class array_like(object):
         __array_interface__ = {
-            'data' : (int(addr), False),
-            'typestr' : dtype.base.str,
-            'descr' : dtype.base.descr,
-            'shape' : (nitems,) + dtype.shape,
-            'strides' : None,
-            'version' : 3
+            'data': (int(addr), False),
+            'typestr': dtype.base.str,
+            'descr': dtype.base.descr,
+            'shape': (nitems,) + dtype.shape,
+            'strides': None,
+            'version': 3
         }
     return numpy.asarray(array_like()).view(dtype.base)
 
 ########################################################################
 # io_signature for Python
 ########################################################################
+
+
 class py_io_signature(object):
     """
     Describes the type/number of ports for block input or output.
@@ -70,15 +73,15 @@ class py_io_signature(object):
         """
         self.__min_ports = min_ports
         self.__max_ports = max_ports
-        self.__types = tuple( numpy.dtype(t) for t in type_list )
+        self.__types = tuple(numpy.dtype(t) for t in type_list)
 
     def gr_io_signature(self):
         """
         Make/return a gr.io_signature. A non-empty list of sizes is
         required, even if there are no ports.
         """
-        return io_signaturev(self.__min_ports, self.__max_ports,
-                             [t.itemsize for t in self.__types] or [0])
+        return io_signature.makev(self.__min_ports, self.__max_ports,
+                                  [t.itemsize for t in self.__types] or [0])
 
     def port_types(self, nports):
         """
@@ -105,6 +108,8 @@ class py_io_signature(object):
 ########################################################################
 # The guts that make this into a gr block
 ########################################################################
+
+
 class gateway_block(object):
 
     def __init__(self, name, in_sig, out_sig):
@@ -121,16 +126,25 @@ class gateway_block(object):
         if type(out_sig) is py_io_signature:
             self.__out_sig = out_sig
         else:
-            self.__out_sig = py_io_signature(len(out_sig), len(out_sig), out_sig)
+            self.__out_sig = py_io_signature(
+                len(out_sig), len(out_sig), out_sig)
 
-        self.__gateway = block_gateway(self, name, self.__in_sig, self.__out_sig)
+        # self.__gateway = block_gateway(self, name, self.__in_sig, self.__out_sig)
+
+        # Can either convert to pybinded gr.io_signature here, or pass in the list
+        #  of types and convert in c++
+
+        # pb_in_sig = gr.io_signature.makev(len(in_sig), len(in_sig), in_sig)
+        # pb_out_sig = gr.io_signature.makev(len(out_sig), len(out_sig), out_sig)
+
+        self.__gateway = block_gateway(
+            self, name, self.__in_sig.gr_io_signature(), self.__out_sig.gr_io_signature())
 
     def to_basic_block(self):
         """
         Makes this block connectable by hier/top block python
         """
         return self.__gateway.to_basic_block()
-
 
     def forecast(self, noutput_items, ninput_items_required):
         """
@@ -176,12 +190,20 @@ class sync_block(gateway_block):
     For backward compatibility, a sequence of numpy type names is also
     accepted as an io signature.
     """
+
     def __init__(self, name, in_sig, out_sig):
         gateway_block.__init__(self,
-            name=name,
-            in_sig=in_sig,
-            out_sig=out_sig,
-            work_type=gr.GR_BLOCK_GW_WORK_SYNC,
-            factor=1,
-        )
+                               name=name,
+                               in_sig=in_sig,
+                               out_sig=out_sig
+                               )
 
+    def general_work(self, noutput_items,
+                     ninput_items,
+                     input_items,
+                     output_items):
+        print("general_work")
+        
+
+    def test(self):
+        print("test")

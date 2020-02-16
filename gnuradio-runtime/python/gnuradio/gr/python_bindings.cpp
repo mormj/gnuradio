@@ -7,6 +7,7 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/complex.h>
+#include <pybind11/stl.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/arrayobject.h>
@@ -33,7 +34,7 @@ namespace py = pybind11;
 #include "bindings/high_res_timer_python.hpp"
 
 #include "bindings/block_detail_python.hpp"
-// #include "bindings/block_gateway_python.hpp"
+#include "bindings/block_gateway_python.hpp"
 #include "bindings/buffer_python.hpp"
 #include "bindings/constants_python.hpp"
 #include "bindings/feval_python.hpp"
@@ -81,7 +82,7 @@ PYBIND11_MODULE(gr_python, m)
 
     bind_high_res_timer(m);
     bind_block_detail(m);
-    // bind_block_gateway(m);
+    bind_block_gateway(m);
     bind_buffer(m);
     bind_constants(m);
     bind_feval(m);

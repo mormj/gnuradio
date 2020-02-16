@@ -20,6 +20,8 @@
  */
 
 #include "block_gateway_impl.h"
+#include <pybind11/embed.h>
+
 #include <gnuradio/io_signature.h>
 #include <iostream>
 
@@ -38,22 +40,24 @@ void copy_pointers(OUT_T& out, const IN_T& in)
 }
 
 
-block_gateway::sptr block_gateway::make(const py::object& py_object,
+block_gateway::sptr block_gateway::make(const py::object& p,
                                         const std::string& name,
                                         gr::io_signature::sptr in_sig,
                                         gr::io_signature::sptr out_sig)
 {
     return block_gateway::sptr(
-        new block_gateway_impl(py_object, name, in_sig, out_sig));
+        new block_gateway_impl(p, name, in_sig, out_sig));
 }
 
-block_gateway_impl::block_gateway_impl(const py::object& py_object,
+block_gateway_impl::block_gateway_impl(const py::handle& p,
                                        const std::string& name,
                                        gr::io_signature::sptr in_sig,
                                        gr::io_signature::sptr out_sig)
-    : block(name, in_sig, out_sig), _py_handle(py_object)
+    : block(name, in_sig, out_sig)//, _py_handle(py_object)
 {
-    
+    p.attr("test2")();
+    p.attr("test")();
+    _py_handle = p;
 }
 
 void block_gateway_impl::forecast(int noutput_items, gr_vector_int& ninput_items_required)
@@ -66,7 +70,12 @@ int block_gateway_impl::general_work(int noutput_items,
                                      gr_vector_const_void_star& input_items,
                                      gr_vector_void_star& output_items)
 {
-    return _py_handle.attr("general_work")(noutput_items, ninput_items, input_items, output_items);
+    py::gil_scoped_acquire acquire;
+    // py::scoped_interpreter guard{};
+    _py_handle.attr("test")();
+    _py_handle.attr("general_work")(noutput_items, ninput_items, input_items, output_items);
+
+    return 0;
 }
 
 int block_gateway_impl::work(int noutput_items,

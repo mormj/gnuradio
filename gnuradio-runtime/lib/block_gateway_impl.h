@@ -24,6 +24,8 @@
 #define INCLUDED_RUNTIME_BLOCK_GATEWAY_IMPL_H
 
 #include <gnuradio/block_gateway.h>
+#include <pybind11/pybind11.h> 
+namespace py = pybind11;
 
 namespace gr {
 
@@ -33,7 +35,7 @@ namespace gr {
 class block_gateway_impl : public block_gateway
 {
 public:
-    block_gateway_impl(const py::object& handler,
+    block_gateway_impl(const py::handle& p,
                        const std::string& name,
                        gr::io_signature::sptr in_sig,
                        gr::io_signature::sptr out_sig);
