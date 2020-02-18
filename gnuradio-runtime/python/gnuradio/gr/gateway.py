@@ -122,13 +122,13 @@ class gateway_block(object):
         
         # Backward compatibility: array of type strings -> py_io_signature
         if type(in_sig) is py_io_signature:
-            self.in_sig = in_sig
+            self.__in_sig = in_sig
         else:
-            self.in_sig = py_io_signature(len(in_sig), len(in_sig), in_sig)
+            self.__in_sig = py_io_signature(len(in_sig), len(in_sig), in_sig)
         if type(out_sig) is py_io_signature:
-            self.out_sig = out_sig
+            self.__out_sig = out_sig
         else:
-            self.out_sig = py_io_signature(
+            self.__out_sig = py_io_signature(
                 len(out_sig), len(out_sig), out_sig)
 
         # self.__gateway = block_gateway(self, name, self.__in_sig, self.__out_sig)
@@ -139,17 +139,17 @@ class gateway_block(object):
         # pb_in_sig = gr.io_signature.makev(len(in_sig), len(in_sig), in_sig)
         # pb_out_sig = gr.io_signature.makev(len(out_sig), len(out_sig), out_sig)
 
-        self.__gateway = block_gateway(
-            self, name, self.in_sig.gr_io_signature(), self.out_sig.gr_io_signature())
+        self.gateway = block_gateway(
+            self, name, self.__in_sig.gr_io_signature(), self.__out_sig.gr_io_signature())
 
     def to_basic_block(self):
         """
         Makes this block connectable by hier/top block python
         """
-        return self.__gateway.to_basic_block()
+        return self.gateway.to_basic_block()
     
     def fixed_rate_noutput_to_ninput(self, noutput_items):
-        return int((noutput_items * self._decim / self._interp) + self.__gateway.history() - 1)
+        return int((noutput_items * self._decim / self._interp) + self.gateway.history() - 1)
 
     def handle_forecast(self, noutput_items, ninputs):
         """
@@ -167,7 +167,7 @@ class gateway_block(object):
         this is the default implementation
         """
         for i in range(len(ninput_items_required)):
-            ninput_items_required[i] = noutput_items + self.__gateway.history() - 1
+            ninput_items_required[i] = noutput_items + self.gateway.history() - 1
         
     def general_work(self, *args, **kwargs):
         """general work to be overloaded in a derived class"""
@@ -221,11 +221,11 @@ class sync_block(gateway_block):
                      ninput_items,
                      input_items,
                      output_items):
-                     
+
         ninputs = len(input_items)
         noutputs = len(output_items)
-        in_types = self.in_sig.port_types(ninputs)
-        out_types = self.out_sig.port_types(noutputs)
+        in_types = self._gateway_block__in_sig.port_types(ninputs)
+        out_types = self._gateway_block__out_sig.port_types(noutputs)
 
         ctypes.pythonapi.PyCapsule_GetPointer.restype = ctypes.c_void_p
         ctypes.pythonapi.PyCapsule_GetPointer.argtypes = [ctypes.py_object, ctypes.c_char_p]
