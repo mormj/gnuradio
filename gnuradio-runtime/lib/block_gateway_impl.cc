@@ -27,19 +27,6 @@
 
 namespace gr {
 
-/***********************************************************************
- * Helper routines
- **********************************************************************/
-template <typename OUT_T, typename IN_T>
-void copy_pointers(OUT_T& out, const IN_T& in)
-{
-    out.resize(in.size());
-    for (size_t i = 0; i < in.size(); i++) {
-        out[i] = (void*)(in[i]);
-    }
-}
-
-
 block_gateway::sptr block_gateway::make(const py::object& p,
                                         const std::string& name,
                                         gr::io_signature::sptr in_sig,
@@ -53,7 +40,7 @@ block_gateway_impl::block_gateway_impl(const py::handle& p,
                                        const std::string& name,
                                        gr::io_signature::sptr in_sig,
                                        gr::io_signature::sptr out_sig)
-    : block(name, in_sig, out_sig)//, _py_handle(py_object)
+    : block(name, in_sig, out_sig)
 {
     _py_handle = p;
 }
@@ -86,23 +73,31 @@ int block_gateway_impl::work(int noutput_items,
 
 }
 
-int block_gateway_impl::fixed_rate_noutput_to_ninput(int noutput_items)
-{
+// Move these into gateway.py since all the logic is there already
+// int block_gateway_impl::fixed_rate_noutput_to_ninput(int noutput_items)
+// {
     
-}
+// }
 
-int block_gateway_impl::fixed_rate_ninput_to_noutput(int ninput_items)
-{
+// int block_gateway_impl::fixed_rate_ninput_to_noutput(int ninput_items)
+// {
     
-}
+// }
 
 bool block_gateway_impl::start(void)
 {
+    py::gil_scoped_acquire acquire;
 
+    py::object ret = _py_handle.attr("start")();
+    return ret.cast<bool>();
 }
 
 bool block_gateway_impl::stop(void)
 {
+    py::gil_scoped_acquire acquire;
+
+    py::object ret = _py_handle.attr("stop")();
+    return ret.cast<bool>();
 
 }
 
