@@ -112,9 +112,10 @@ class py_io_signature(object):
 
 class gateway_block(object):
 
-    def __init__(self, name, in_sig, out_sig):
+    def __init__(self, name, in_sig, out_sig, block_type):
         self._decim = 1
         self._interp = 1
+        self._block_type = block_type
 
         # Normalize the many Python ways of saying 'nothing' to '()'
         in_sig = in_sig or ()
@@ -130,14 +131,6 @@ class gateway_block(object):
         else:
             self.__out_sig = py_io_signature(
                 len(out_sig), len(out_sig), out_sig)
-
-        # self.__gateway = block_gateway(self, name, self.__in_sig, self.__out_sig)
-
-        # Can either convert to pybinded gr.io_signature here, or pass in the list
-        #  of types and convert in c++
-
-        # pb_in_sig = gr.io_signature.makev(len(in_sig), len(in_sig), in_sig)
-        # pb_out_sig = gr.io_signature.makev(len(out_sig), len(out_sig), out_sig)
 
         self.gateway = block_gateway(
             self, name, self.__in_sig.gr_io_signature(), self.__out_sig.gr_io_signature())
@@ -168,7 +161,42 @@ class gateway_block(object):
         """
         for i in range(len(ninput_items_required)):
             ninput_items_required[i] = noutput_items + self.gateway.history() - 1
+
+    def handle_general_work(self, noutput_items, 
+                     ninput_items,
+                     input_items,
+                     output_items):
+
+        ninputs = len(input_items)
+        noutputs = len(output_items)
+        in_types = self.in_sig().port_types(ninputs)
+        out_types = self.out_sig().port_types(noutputs)
+
         
+        ctypes.pythonapi.PyCapsule_GetPointer.restype = ctypes.c_void_p
+        ctypes.pythonapi.PyCapsule_GetPointer.argtypes = [ctypes.py_object, ctypes.c_char_p]
+
+        if self._block_type != gr.GW_BLOCK_GENERAL:
+            ii=[pointer_to_ndarray(
+                ctypes.pythonapi.PyCapsule_GetPointer(input_items[i],None),
+                in_types[i],
+                self.fixed_rate_noutput_to_ninput(noutput_items)
+            ) for i in range(ninputs)]
+        else:
+            ii=[pointer_to_ndarray(
+                ctypes.pythonapi.PyCapsule_GetPointer(input_items[i],None),
+                in_types[i],
+                ninput_items
+            ) for i in range(ninputs)]
+
+        oo=[pointer_to_ndarray(
+            ctypes.pythonapi.PyCapsule_GetPointer(output_items[i],None),
+            out_types[i],
+            noutput_items
+        ) for i in range(noutputs)]   
+
+        return self.work(ii,oo)
+
     def general_work(self, *args, **kwargs):
         """general work to be overloaded in a derived class"""
         raise NotImplementedError("general work not implemented")
@@ -193,10 +221,7 @@ class gateway_block(object):
 ########################################################################
 # Wrappers for the user to inherit from
 ########################################################################
-class sync_block(gateway_block):
-    _decim = 1
-    _interp = 1
-    
+class basic_block(gateway_block):   
     """
     Args:
     name (str): block name
@@ -212,34 +237,72 @@ class sync_block(gateway_block):
         gateway_block.__init__(self,
                                name=name,
                                in_sig=in_sig,
-                               out_sig=out_sig
+                               out_sig=out_sig,
+                               block_type=gr.GW_BLOCK_GENERAL
                                )
-        _decim = 1
-        _interp = 1
 
-    def handle_general_work(self, noutput_items, # todo: change to handle_general_work
-                     ninput_items,
-                     input_items,
-                     output_items):
+class sync_block(gateway_block):   
+    """
+    Args:
+    name (str): block name
 
-        ninputs = len(input_items)
-        noutputs = len(output_items)
-        in_types = self._gateway_block__in_sig.port_types(ninputs)
-        out_types = self._gateway_block__out_sig.port_types(noutputs)
+    in_sig (gr.py_io_signature): input port signature
 
-        ctypes.pythonapi.PyCapsule_GetPointer.restype = ctypes.c_void_p
-        ctypes.pythonapi.PyCapsule_GetPointer.argtypes = [ctypes.py_object, ctypes.c_char_p]
+    out_sig (gr.py_io_signature): output port signature
 
-        ii=[pointer_to_ndarray(
-            ctypes.pythonapi.PyCapsule_GetPointer(input_items[i],None),
-            in_types[i],
-            self.fixed_rate_noutput_to_ninput(noutput_items)
-        ) for i in range(ninputs)]
+    For backward compatibility, a sequence of numpy type names is also
+    accepted as an io signature.
+    """
+    def __init__(self, name, in_sig, out_sig):
+        gateway_block.__init__(self,
+                               name=name,
+                               in_sig=in_sig,
+                               out_sig=out_sig,
+                               block_type=gr.GW_BLOCK_SYNC
+                               )
+        self._decim = 1
+        self._interp = 1
 
-        oo=[pointer_to_ndarray(
-            ctypes.pythonapi.PyCapsule_GetPointer(output_items[i],None),
-            out_types[i],
-            noutput_items
-        ) for i in range(noutputs)]           
-        return self.work(ii,oo)
+class decim_block(gateway_block):
+    """
+    Args:
+    name (str): block name
 
+    in_sig (gr.py_io_signature): input port signature
+
+    out_sig (gr.py_io_signature): output port signature
+
+    For backward compatibility, a sequence of numpy type names is also
+    accepted as an io signature.
+    """
+    def __init__(self, name, in_sig, out_sig, decim):
+        gateway_block.__init__(self,
+                               name=name,
+                               in_sig=in_sig,
+                               out_sig=out_sig,
+                               block_type=gr.GW_BLOCK_DECIM
+                               )
+        self._decim = decim
+        self._interp = 1
+
+class interp_block(gateway_block):
+    """
+    Args:
+    name (str): block name
+
+    in_sig (gr.py_io_signature): input port signature
+
+    out_sig (gr.py_io_signature): output port signature
+
+    For backward compatibility, a sequence of numpy type names is also
+    accepted as an io signature.
+    """
+    def __init__(self, name, in_sig, out_sig, interp):
+        gateway_block.__init__(self,
+                               name=name,
+                               in_sig=in_sig,
+                               out_sig=out_sig,
+                               block_type=gr.GW_BLOCK_DECIM
+                               )
+        self._decim = 1
+        self._interp = interp

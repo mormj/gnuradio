@@ -32,6 +32,15 @@ void bind_block_gateway(py::module& m)
 
         .def(py::init(&block_gateway::make))
         ;
+
+    py::enum_<gr::gw_block_t>(m,"gw_block_t")
+        .value("GW_BLOCK_GENERAL", gr::GW_BLOCK_GENERAL) 
+        .value("GW_BLOCK_SYNC", gr::GW_BLOCK_SYNC) 
+        .value("GW_BLOCK_DECIM", gr::GW_BLOCK_DECIM) 
+        .value("GW_BLOCK_INTERP", gr::GW_BLOCK_INTERP) 
+        .export_values()
+    ;
+
 } 
 
 #endif /* INCLUDED_GR_BLOCK_GATEWAY_PYTHON_HPP */
