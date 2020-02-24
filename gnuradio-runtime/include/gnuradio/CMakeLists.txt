@@ -35,7 +35,6 @@ install(FILES
   constants.h
   endianness.h
   expj.h
-  feval.h
   flowgraph.h
   fxpt.h
   fxpt_nco.h

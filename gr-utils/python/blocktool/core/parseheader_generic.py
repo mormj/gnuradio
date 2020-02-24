@@ -144,7 +144,7 @@ class GenericHeaderParser(BlockTool):
             variables = main_namespace.variables(header_file=self.target_file)
             if variables:
                 for _var in variables:
-                    current_var = {'name': _var.name, 'values':_var.value}
+                    current_var = {'name': _var.name, 'values':_var.value, 'has_static':_var.has_static}
                     self.parsed_data['vars'].append(current_var)
         except:
             pass
@@ -201,6 +201,7 @@ class GenericHeaderParser(BlockTool):
                                 fcn_args = {
                                     "name": str(fcn.name),
                                     "return_type": str(fcn.return_type),
+                                    "has_static": fcn.has_static,
                                     "arguments": []
                                 }
                                 for argument in fcn.arguments:
@@ -237,7 +238,7 @@ class GenericHeaderParser(BlockTool):
                             header_file=self.target_file)
                         if variables:
                             for _var in variables:
-                                current_var = {'name': _var.name, 'value':_var.value}
+                                current_var = {'name': _var.name, 'value':_var.value, "has_static":_var.has_static}
                                 class_vars.append(current_var)
                         current_class['vars'] = class_vars
 
@@ -263,6 +264,7 @@ class GenericHeaderParser(BlockTool):
                     fcn_args = {
                         "name": str(fcn.name),
                         "return_type": str(fcn.return_type),
+                        "has_static": fcn.has_static,
                         "arguments": []
                     }
                     for argument in fcn.arguments:

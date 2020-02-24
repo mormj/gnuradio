@@ -37,7 +37,7 @@ namespace py = pybind11;
 #include "bindings/block_gateway_python.hpp"
 #include "bindings/buffer_python.hpp"
 #include "bindings/constants_python.hpp"
-#include "bindings/feval_python.hpp"
+// #include "bindings/feval_python.hpp"
 #include "bindings/random_python.hpp"
 // #include "bindings/runtime_types_python.hpp"
 #include "bindings/logger_python.hpp"
@@ -85,7 +85,7 @@ PYBIND11_MODULE(gr_python, m)
     bind_block_gateway(m);
     bind_buffer(m);
     bind_constants(m);
-    bind_feval(m);
+    // bind_feval(m);
     bind_random(m);
     // bind_runtime_types(m); // currently empty
     bind_logger(m);

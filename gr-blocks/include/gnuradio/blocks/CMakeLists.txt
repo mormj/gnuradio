@@ -69,7 +69,7 @@ install(FILES
     annotator_1to1.h
     annotator_alltoall.h
     annotator_raw.h
-    bin_statistics_f.h
+    # bin_statistics_f.h
     burst_tagger.h
     char_to_float.h
     char_to_short.h

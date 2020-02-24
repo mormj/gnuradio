@@ -48,7 +48,7 @@ namespace py = pybind11;
 #include "generated/annotator_alltoall_python.hpp"
 #include "generated/annotator_raw_python.hpp"
 #include "generated/argmax_python.hpp"
-#include "generated/bin_statistics_f_python.hpp"
+// #include "generated/bin_statistics_f_python.hpp"
 #include "generated/burst_tagger_python.hpp"
 #include "generated/char_to_float_python.hpp"
 #include "generated/char_to_short_python.hpp"
@@ -227,7 +227,7 @@ PYBIND11_MODULE(blocks_python, m)
     bind_annotator_alltoall(m);
     bind_annotator_raw(m);
     bind_argmax(m);
-    bind_bin_statistics_f(m);
+    // bind_bin_statistics_f(m);
     bind_burst_tagger(m);
     bind_char_to_float(m);
     bind_char_to_short(m);
