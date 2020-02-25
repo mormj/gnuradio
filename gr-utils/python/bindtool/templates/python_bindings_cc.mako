@@ -5,25 +5,19 @@ import os
 ${license}
 
 #include <pybind11/pybind11.h>
-#include <pybind11/complex.h>
-#include <pybind11/stl.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/arrayobject.h>
 
 namespace py = pybind11;
 
-// Allow boost::shared_ptr<T> to be a holder class of an object (PyBind11
-// supports boost::shared_ptr and std::unique_ptr out of the box)
-#include <boost/shared_ptr.hpp>
-PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
-
 ## File Includes
 % for f in files:  
 <%
 basename = os.path.splitext(f)[0]
 %>\
-#include "generated/${basename}_python.hpp"
+## #include "generated/${basename}_python.hpp"
+void bind_${basename}(py::module&);
 % endfor
 
 // We need this hack because import_array() returns NULL
@@ -36,13 +30,15 @@ void* init_numpy()
     return NULL;
 }
 
-PYBIND11_MODULE(${basename}_python, m)
+PYBIND11_MODULE(${module_name}_python, m)
 {
     // Initialize the numpy C API
     // (otherwise we will see segmentation faults)
     init_numpy();
 
-    // Register types submodule
+    // Allow access to base block methods
+    py::module::import("gnuradio.gr");
+
 % for f in files:
 <%
 basename = os.path.splitext(f)[0]
