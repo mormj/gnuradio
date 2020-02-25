@@ -23,7 +23,7 @@
 #ifndef INCLUDED_WAVELET_WVPS_FF_H
 #define INCLUDED_WAVELET_WVPS_FF_H
 
-#include <gnuradio/sync_decimator.h>
+#include <gnuradio/sync_block.h>
 #include <gnuradio/wavelet/api.h>
 
 class wavelet_wvps_ff;
