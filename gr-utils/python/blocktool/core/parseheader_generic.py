@@ -264,7 +264,6 @@ class GenericHeaderParser(BlockTool):
                     fcn_args = {
                         "name": str(fcn.name),
                         "return_type": str(fcn.return_type),
-                        "has_static": fcn.has_static,
                         "arguments": []
                     }
                     for argument in fcn.arguments:
