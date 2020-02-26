@@ -56,21 +56,6 @@ GR_PYTHON_INSTALL(
 )
 
 ########################################################################
-# Python Bindings
-########################################################################
-
-pybind11_add_module(digital_python ${CMAKE_CURRENT_SOURCE_DIR}/bindings/python_bindings.cpp)
-target_include_directories(digital_python PUBLIC
-    ${PYTHON_NUMPY_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../include
-    ${PYBIND11_INCLUDE_DIR} 
-)
-target_link_libraries(digital_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime gnuradio-digital)
-
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} DESTINATION ${GR_PYTHON_DIR}/gnuradio/ COMPONENT pythonapi)
-
-########################################################################
 # Handle the unit tests
 ########################################################################
 if(ENABLE_TESTING)
@@ -88,3 +73,5 @@ if(ENABLE_TESTING)
     GR_ADD_TEST(${py_qa_test_name} ${QA_PYTHON_EXECUTABLE} -B ${py_qa_test_file})
   endforeach(py_qa_test_file)
 endif(ENABLE_TESTING)
+
+add_subdirectory(bindings)

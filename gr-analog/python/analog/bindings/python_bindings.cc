@@ -15,8 +15,6 @@
 
 namespace py = pybind11;
 
-void bind_agc(py::module&);
-void bind_agc2(py::module&);
 void bind_agc2_cc(py::module&);
 void bind_agc2_ff(py::module&);
 void bind_agc3_cc(py::module&);
@@ -69,8 +67,6 @@ PYBIND11_MODULE(analog_python, m)
     // Allow access to base block methods
     py::module::import("gnuradio.gr");
 
-    bind_agc(m);
-    bind_agc2(m);
     bind_agc2_cc(m);
     bind_agc2_ff(m);
     bind_agc3_cc(m);
