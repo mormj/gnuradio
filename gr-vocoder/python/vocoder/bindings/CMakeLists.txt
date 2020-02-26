@@ -16,10 +16,6 @@ pybind11_add_module(vocoder_python
     ulaw_decode_bs_python.cc
     ulaw_encode_sb_python.cc)
 
-    message(status ${LIBCODEC2_FOUND})
-    message(status ${LIBCODEC2_HAS_FREEDV_API})
-    message(status ${LIBGSM_FOUND})
-
 if(LIBCODEC2_FOUND)
     target_sources(vocoder_python PRIVATE
     codec2_python.cc

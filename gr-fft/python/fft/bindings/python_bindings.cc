@@ -8,29 +8,21 @@
  *
  */
 
-
-#include <pybind11/complex.h>
 #include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/arrayobject.h>
 
 namespace py = pybind11;
 
-// Allow boost::shared_ptr<T> to be a holder class of an object (PyBind11
-// supports boost::shared_ptr and std::unique_ptr out of the box)
-// #include <boost/shared_ptr.hpp>
-// PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
-
-#include "generated/fft_python.hpp"
-#include "generated/goertzel_fc_python.hpp"
-#include "generated/goertzel_python.hpp"
-// #include "generated/ctrlport_probe_psd_python.hpp"
-#include "generated/fft_vcc_python.hpp"
-#include "generated/fft_vfc_python.hpp"
-#include "generated/window_python.hpp"
-
+// void bind_ctrlport_probe_psd(py::module&);
+void bind_fft(py::module&);
+void bind_fft_shift(py::module&);
+void bind_fft_vcc(py::module&);
+void bind_fft_vfc(py::module&);
+void bind_goertzel(py::module&);
+void bind_goertzel_fc(py::module&);
+void bind_window(py::module&);
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -48,14 +40,16 @@ PYBIND11_MODULE(fft_python, m)
     // (otherwise we will see segmentation faults)
     init_numpy();
 
+    // Allow access to base block methods
     py::module::import("gnuradio.gr");
 
-    // Register types submodule
-    bind_fft(m);
-    bind_goertzel(m);
-    bind_goertzel_fc(m);
     // bind_ctrlport_probe_psd(m);
+    bind_fft(m);
+    bind_fft_shift(m);
     bind_fft_vcc(m);
     bind_fft_vfc(m);
+    bind_goertzel(m);
+    bind_goertzel_fc(m);
     bind_window(m);
 }
+
