@@ -68,3 +68,5 @@ foreach(py_qa_test_file ${py_qa_test_files})
 endforeach(py_qa_test_file)
 
 endif(ENABLE_TESTING)
+
+add_subdirectory(bindings)
