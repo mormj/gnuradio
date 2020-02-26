@@ -73,10 +73,6 @@ target_link_libraries(gnuradio-filter PUBLIC
     ${GR_VOLK_LIB}
 )
 
-message(STATUS "%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%")
-get_target_property(OUT gnuradio-filter LINK_LIBRARIES)
-message(STATUS ${OUT})
-
 target_include_directories(gnuradio-filter
   PUBLIC
   $<INSTALL_INTERFACE:include>

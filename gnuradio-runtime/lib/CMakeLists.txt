@@ -211,11 +211,6 @@ target_link_libraries(gnuradio-runtime PUBLIC
   ${PYTHON_LIBRARIES}
   )
 
-message(STATUS "((((((((((((((((((((((((((((((((((((((((((((((((")
-message(STATUS ${pybind11_FOUND})
-message(STATUS ${pybind11_INCLUDE_DIR})
-message(STATUS "))))))))))))))))))))))))))))))))))))))))))))))))")
-
 target_include_directories(gnuradio-runtime
   PUBLIC
     ${PYTHON_INCLUDE_DIR} 

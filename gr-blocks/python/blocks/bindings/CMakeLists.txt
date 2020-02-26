@@ -35,12 +35,12 @@ pybind11_add_module(blocks_python
     control_loop_python.cc
     copy_python.cc
     count_bits_python.cc
-    ctrlport_probe2_b_python.cc
-    ctrlport_probe2_c_python.cc
-    ctrlport_probe2_f_python.cc
-    ctrlport_probe2_i_python.cc
-    ctrlport_probe2_s_python.cc
-    ctrlport_probe_c_python.cc
+    # ctrlport_probe2_b_python.cc
+    # ctrlport_probe2_c_python.cc
+    # ctrlport_probe2_f_python.cc
+    # ctrlport_probe2_i_python.cc
+    # ctrlport_probe2_s_python.cc
+    # ctrlport_probe_c_python.cc
     deinterleave_python.cc
     delay_python.cc
     divide_python.cc
@@ -90,7 +90,7 @@ pybind11_add_module(blocks_python
     null_sink_python.cc
     null_source_python.cc
     or_blk_python.cc
-    pack_k_bits_python.cc
+    # pack_k_bits_python.cc
     pack_k_bits_bb_python.cc
     packed_to_unpacked_python.cc
     patterned_interleaver_python.cc

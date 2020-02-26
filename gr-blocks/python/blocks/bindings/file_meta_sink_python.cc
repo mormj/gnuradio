@@ -21,6 +21,17 @@ void bind_file_meta_sink(py::module& m)
 {
     using file_meta_sink    = gr::blocks::file_meta_sink;
 
+    py::enum_<gr::blocks::gr_file_types>(m,"gr_file_types")
+        .value("GR_FILE_BYTE", gr::blocks::GR_FILE_BYTE) // 0
+        .value("GR_FILE_CHAR", gr::blocks::GR_FILE_CHAR) // 0
+        .value("GR_FILE_SHORT", gr::blocks::GR_FILE_SHORT) // 1
+        .value("GR_FILE_INT", gr::blocks::GR_FILE_INT) // 2
+        .value("GR_FILE_LONG", gr::blocks::GR_FILE_LONG) // 3
+        .value("GR_FILE_LONG_LONG", gr::blocks::GR_FILE_LONG_LONG) // 4
+        .value("GR_FILE_FLOAT", gr::blocks::GR_FILE_FLOAT) // 5
+        .value("GR_FILE_DOUBLE", gr::blocks::GR_FILE_DOUBLE) // 6
+        .export_values()
+    ;
 
     py::class_<file_meta_sink,gr::sync_block,
         std::shared_ptr<file_meta_sink>>(m, "file_meta_sink")
@@ -30,7 +41,7 @@ void bind_file_meta_sink(py::module& m)
            py::arg("filename"), 
            py::arg("samp_rate") = 1, 
            py::arg("relative_rate") = 1, 
-           py::arg("type") = ::gr::blocks::gr_file_types::GR_FILE_FLOAT, 
+           py::arg("type") = ::gr::blocks::GR_FILE_FLOAT, 
            py::arg("complex") = true, 
            py::arg("max_segment_size") = 1000000, 
            py::arg("extra_dict") = pmt::make_dict(), 
@@ -51,16 +62,7 @@ void bind_file_meta_sink(py::module& m)
         })
         ;
 
-    py::enum_<gr::blocks::gr_file_types>(m,"gr_file_types")
-        .value("GR_FILE_BYTE", gr::blocks::GR_FILE_BYTE) // 0
-        .value("GR_FILE_CHAR", gr::blocks::GR_FILE_CHAR) // 0
-        .value("GR_FILE_SHORT", gr::blocks::GR_FILE_SHORT) // 1
-        .value("GR_FILE_INT", gr::blocks::GR_FILE_INT) // 2
-        .value("GR_FILE_LONG", gr::blocks::GR_FILE_LONG) // 3
-        .value("GR_FILE_LONG_LONG", gr::blocks::GR_FILE_LONG_LONG) // 4
-        .value("GR_FILE_FLOAT", gr::blocks::GR_FILE_FLOAT) // 5
-        .value("GR_FILE_DOUBLE", gr::blocks::GR_FILE_DOUBLE) // 6
-        .export_values()
-    ;
-
+        m.attr("METADATA_VERSION") = gr::blocks::METADATA_VERSION;
+        m.attr("METADATA_HEADER_SIZE") = gr::blocks::METADATA_HEADER_SIZE;
 } 
+
