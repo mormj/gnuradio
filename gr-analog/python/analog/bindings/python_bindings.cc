@@ -74,7 +74,6 @@ PYBIND11_MODULE(analog_python, m)
     bind_agc_ff(m);
     bind_cpfsk_bc(m);
     bind_cpm(m);
-    bind_ctcss_squelch_ff(m);
     bind_dpll_bb(m);
     bind_fastnoise_source(m);
     bind_feedforward_agc_cc(m);
@@ -89,8 +88,6 @@ PYBIND11_MODULE(analog_python, m)
     bind_probe_avg_mag_sqrd_c(m);
     bind_probe_avg_mag_sqrd_cf(m);
     bind_probe_avg_mag_sqrd_f(m);
-    bind_pwr_squelch_cc(m);
-    bind_pwr_squelch_ff(m);
     bind_quadrature_demod_cf(m);
     bind_rail_ff(m);
     bind_random_uniform_source(m);
@@ -99,5 +96,8 @@ PYBIND11_MODULE(analog_python, m)
     bind_simple_squelch_cc(m);
     bind_squelch_base_cc(m);
     bind_squelch_base_ff(m);
+    bind_ctcss_squelch_ff(m);
+    bind_pwr_squelch_cc(m);
+    bind_pwr_squelch_ff(m);
 }
 
