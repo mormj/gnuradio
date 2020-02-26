@@ -23,7 +23,7 @@
 from __future__ import division
 from __future__ import unicode_literals
 from gnuradio import gr, filter, blocks
-from . import vocoder_swig
+from . import vocoder_python
 
 
 class cvsd_encode_fb(gr.hier_block2):

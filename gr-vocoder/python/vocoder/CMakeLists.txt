@@ -64,3 +64,5 @@ if(ENABLE_TESTING)
     GR_ADD_TEST(${py_qa_test_name} ${QA_PYTHON_EXECUTABLE} -B ${CMAKE_CURRENT_SOURCE_DIR}/${py_qa_test_file})
   endforeach(py_qa_test_file)
 endif(ENABLE_TESTING)
+
+add_subdirectory(bindings)
