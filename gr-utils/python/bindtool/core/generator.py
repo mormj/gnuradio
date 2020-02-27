@@ -115,9 +115,11 @@ class BindingGenerator:
             pybind_code = self.get_nonblock_python_cc(
                 header_info, base_name, namespace, prefix_include_root)
             with open(binding_pathname_cc, 'w+') as outfile:
+                print("Writing binding code to {}".format(binding_pathname_cc))
                 outfile.write(pybind_code)
-            return binding_pathname
-        except:
+            return binding_pathname_cc
+        except Exception as e:
+            print(e)
             return None
 
     def process_generic_header_file(self, file_to_process, module_path, prefix, output_dir, namespace, prefix_include_root):
