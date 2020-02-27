@@ -54,6 +54,12 @@ try:
         make_function = find_make_function(member_functions)
 except:
         make_function = None
+
+isablock = False
+if 'bases' in cls:
+  bases_with_block = [s for s in cls['bases'] if 'block' in s]
+  if bases_with_block:
+    isablock = True
 %>
     py::class_<${cls['name']}\
 % if 'bases' in cls:
@@ -79,6 +85,10 @@ fcn_args = fcn['arguments']
 % for fcn in constructors:
 <%
 fcn_args = fcn['arguments']
+overloaded = sum([matcher(f,fcn_name) for f in free_functions]) > 1
+overloaded_str = ''
+if overloaded:
+  overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],cls['name'],', '.join([f['dtype'] for f in fcn_args]))
 %>\
 \
 % if len(fcn_args) == 0:
@@ -113,7 +123,7 @@ fcn_args = fcn['arguments']
 % endif
 % endif ## Not a make function
 % endfor ## member_functions
-% if module:
+% if isablock:
         .def("to_basic_block",[](std::shared_ptr<${basename}> p){
             return p->to_basic_block();
         })
@@ -156,11 +166,14 @@ overloaded = sum([matcher(f,fcn_name) for f in free_functions]) > 1
 ##                                      const pmt::pmt_t&,
 ##                                      long))
 ## Need to put the return type in the json
+overloaded_str = ''
+if overloaded:
+  overloaded_str = '({} (*)({}))'.format(fcn['return_type'],', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if len(fcn_args) == 0:
-    m.def("${fcn['name']}",&${'::'.join(namespace)}::${fcn['name']});
+    m.def("${fcn['name']}",${overloaded_str}&${'::'.join(namespace)}::${fcn['name']});
 %else:
-    m.def("${fcn['name']}",&${'::'.join(namespace)}::${fcn['name']},
+    m.def("${fcn['name']}",${overloaded_str}&${'::'.join(namespace)}::${fcn['name']},
 % for arg in fcn_args:
         py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
 % endfor
