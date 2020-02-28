@@ -419,6 +419,17 @@ message(STATUS "  Override with -DENABLE_INTERNAL_VOLK=ON/OFF")
 find_package(LOG4CPP REQUIRED)
 
 ########################################################################
+# PyBind11 Related
+########################################################################
+
+find_package(pybind11 REQUIRED)
+execute_process(
+    COMMAND "${PYTHON_EXECUTABLE}" -c
+    "from __future__ import print_function\ntry:\n import numpy\n import os\n inc_path = numpy.get_include()\n if os.path.exists(os.path.join(inc_path, 'numpy', 'arrayobject.h')):\n  print(inc_path, end='')\nexcept:\n pass"
+    OUTPUT_VARIABLE PYTHON_NUMPY_INCLUDE_DIR)
+
+
+########################################################################
 # Setup Native Capabilities Flag
 ########################################################################
 option(ENABLE_NATIVE "Enable native build optimizations" OFF)
@@ -454,7 +465,6 @@ install(
 list(APPEND GR_TEST_PYTHON_DIRS
     ${CMAKE_BINARY_DIR}/gnuradio-runtime/python
     ${CMAKE_SOURCE_DIR}/gnuradio-runtime/python
-    ${CMAKE_BINARY_DIR}/gnuradio-runtime/swig
 )
 
 
