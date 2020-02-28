@@ -11,6 +11,7 @@ parser.add_argument('--output_dir', default = '/tmp',
                     help='Output directory of generated bindings')
 parser.add_argument('--prefix', help='Prefix of Installed GNU Radio')
 parser.add_argument('--src', help='Directory of gnuradio source tree', default=os.path.dirname(os.path.abspath(__file__))+'/../../../..')
+parser.add_argument('--include', help='Additional Include Dirs, comma separated', default='')
 args = parser.parse_args()
 
 
@@ -19,6 +20,7 @@ print(args)
 
 prefix = args.prefix
 output_dir = args.output_dir
+includes = args.include
 for name in args.names:
     if name not in ['gr','pmt']:
         namespace = ['gr',name]
@@ -38,4 +40,4 @@ for name in args.names:
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=DeprecationWarning)
         bg = BindingGenerator()
-        bg.gen_bindings(module_dir, prefix, namespace, prefix_include_root, output_dir)
+        bg.gen_bindings(module_dir, prefix, namespace, prefix_include_root, output_dir, includes)

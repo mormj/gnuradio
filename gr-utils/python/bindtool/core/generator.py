@@ -12,6 +12,7 @@ class BindingGenerator:
 
     def __init__(self, **kwargs):
         self.header_extensions = ['.h', '.hh', '.hpp']
+        self.addl_include = ''
         pass
 
     def get_nonblock_python_hpp(self, header_info, base_name, namespace, prefix_include_root):
@@ -135,6 +136,9 @@ class BindingGenerator:
         prefix_include_path = os.path.abspath(os.path.join(prefix, 'include'))
         include_paths = ','.join(
             (prefix_include_path, module_include_path, top_include_path))
+        if self.addl_include:
+            include_paths = ','.join((include_paths, self.addl_include))
+
         parser = GenericHeaderParser(
             include_paths=include_paths, file_path=file_to_process)
         try:
@@ -248,7 +252,8 @@ class BindingGenerator:
                     file_list.append(pathname)
         return file_list
 
-    def gen_bindings(self, module_dir, prefix, namespace, prefix_include_root, output_dir):
+    def gen_bindings(self, module_dir, prefix, namespace, prefix_include_root, output_dir, addl_includes=""):
+        self.addl_include = addl_includes
         file_list = sorted(self.get_file_list(module_dir))
         api_pathnames = [s for s in file_list if 'api.h' in s]
         for f in api_pathnames:

@@ -85,6 +85,8 @@ fcn_args = fcn['arguments']
 % for fcn in constructors:
 <%
 fcn_args = fcn['arguments']
+fcn_name = fcn['name']
+matcher = lambda x,name: x['name'] == name
 overloaded = sum([matcher(f,fcn_name) for f in free_functions]) > 1
 overloaded_str = ''
 if overloaded:
