@@ -1,0 +1,1 @@
+{"module_name": "dtv", "namespace": ["gr", "dtv"], "enums": [], "variables": [], "classes": [{"name": "atsc_derandomizer", "member_functions": [{"name": "make", "return_type": "gr::dtv::atsc_derandomizer::sptr", "has_static": "1", "arguments": []}], "bases": ["::", "gr", "sync_block"], "constructors": [{"name": "atsc_derandomizer", "arguments": []}]}], "free_functions": []}
