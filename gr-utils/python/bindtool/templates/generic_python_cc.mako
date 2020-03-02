@@ -85,12 +85,6 @@ fcn_args = fcn['arguments']
 % for fcn in constructors:
 <%
 fcn_args = fcn['arguments']
-fcn_name = fcn['name']
-matcher = lambda x,name: x['name'] == name
-overloaded = sum([matcher(f,fcn_name) for f in free_functions]) > 1
-overloaded_str = ''
-if overloaded:
-  overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],cls['name'],', '.join([f['dtype'] for f in fcn_args]))
 %>\
 \
 % if len(fcn_args) == 0:
@@ -112,12 +106,18 @@ ${arg['dtype']}${'>(),' if loop.index == len(fcn['arguments'])-1 else ',' }\
 % for fcn in member_functions:
 <%
 fcn_args = fcn['arguments']
+fcn_name = fcn['name']
+matcher = lambda x,name: x['name'] == name
+overloaded = sum([matcher(f,fcn_name) for f in member_functions]) > 1
+overloaded_str = ''
+if overloaded:
+  overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],cls['name'],', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if fcn['name'] != 'make':
 % if len(fcn_args) == 0:
-        .def("${fcn['name']}",&${cls['name']}::${fcn['name']})
+        .def("${fcn['name']}",${overloaded_str}&${cls['name']}::${fcn['name']})
 %else:
-        .def("${fcn['name']}",&${cls['name']}::${fcn['name']},
+        .def("${fcn['name']}",${overloaded_str}&${cls['name']}::${fcn['name']},
 % for arg in fcn_args:
             py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
 % endfor ## args
