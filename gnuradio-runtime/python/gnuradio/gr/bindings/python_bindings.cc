@@ -12,6 +12,7 @@
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/arrayobject.h>
+#include <gnuradio/gr_complex.h>
 
 namespace py = pybind11;
 
@@ -192,5 +193,20 @@ PYBIND11_MODULE(gr_python, m)
     // bind_types(m);
     // bind_unittests(m);
     // bind_xoroshiro128p(m);
+
+
+    // TODO: Move into gr_types.hpp
+    // %constant int sizeof_char 	= sizeof(char);
+    m.attr("sizeof_char") = sizeof(char);
+    // %constant int sizeof_short	= sizeof(short);
+    m.attr("sizeof_short") = sizeof(short);
+    // %constant int sizeof_int	= sizeof(int);
+    m.attr("sizeof_int") = sizeof(int);
+    // %constant int sizeof_float	= sizeof(float);
+    m.attr("sizeof_float") = sizeof(float);
+    // %constant int sizeof_double	= sizeof(double);
+    m.attr("sizeof_double") = sizeof(double);
+    // %constant int sizeof_gr_complex	= sizeof(gr_complex);
+    m.attr("sizeof_gr_complex") = sizeof(gr_complex);
 }
 

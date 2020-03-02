@@ -15,12 +15,12 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 try:
-    from .fec_swig import *
+    from .fec_python import *
 except ImportError:
     import os
     dirname, filename = os.path.split(os.path.abspath(__file__))
-    __path__.append(os.path.join(dirname, "..", "..", "swig"))
-    from .fec_swig import *
+    __path__.append(os.path.join(dirname, "bindings"))
+    from .fec_python import *
 
 from .bitflip import *
 from .extended_encoder import extended_encoder

@@ -17,11 +17,9 @@ module should automatically discover the correct one to use.
 from __future__ import unicode_literals
 import os
 
-#try:
-#    from .audio_swig import *
-#except ImportError:
-#    dirname, filename = os.path.split(os.path.abspath(__file__))
-#    __path__.append(os.path.join(dirname, "..", "..", "swig"))
-#    from .audio_swig import *
-
-from .audio_python import *
+try:
+   from .audio_python import *
+except ImportError:
+   dirname, filename = os.path.split(os.path.abspath(__file__))
+   __path__.append(os.path.join(dirname, "bindings"))
+   from .audio_python import *

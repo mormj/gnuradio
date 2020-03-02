@@ -37,7 +37,7 @@ PYBIND11_MODULE(pmt_python, m)
     init_numpy();
 
     // Allow access to base block methods
-    py::module::import("gnuradio.gr");
+    // py::module::import("gnuradio.gr");
 
     bind_pmt(m);
     bind_pmt_pool(m);

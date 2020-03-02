@@ -16,16 +16,14 @@ from __future__ import unicode_literals
 
 import os
 
-# try:
-#     from .blocks_swig import *
-# except ImportError:
-#     dirname, filename = os.path.split(os.path.abspath(__file__))
-#     __path__.append(os.path.join(dirname, "..", "..", "swig"))
-#     from .blocks_swig import *
+try:
+    from .blocks_python import *
+except ImportError:
+    dirname, filename = os.path.split(os.path.abspath(__file__))
+    __path__.append(os.path.join(dirname, "bindings"))
+    from .blocks_python import *
 
 # from .stream_to_vector_decimator import *
-
-from .blocks_python import *
 
 # #alias old add_vXX and multiply_vXX
 # add_vcc = add_cc
