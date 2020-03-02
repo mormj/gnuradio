@@ -65,7 +65,7 @@ Here's a minimal example of how the header file could look:
      class DIGITAL_API crc32_bb : virtual public tagged_stream_block
      {
       public:
-       typedef boost::shared_ptr<crc32_bb> sptr;
+       typedef std::shared_ptr<crc32_bb> sptr;
  
        static sptr make(bool check=false, const std::string& len_tag_key="packet_len");
      }; 
