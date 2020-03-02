@@ -1,5 +1,5 @@
 #
-# Copyright 2011-2012, 2018 Free Software Foundation, Inc.
+# Copyright 2011-2012, 2018, 2020 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
 #
@@ -12,11 +12,12 @@ from __future__ import unicode_literals
 
 
 import numpy
+import ctypes
 
-from . import runtime_swig as gr
-from .runtime_swig import io_signature, io_signaturev
-from .runtime_swig import block_gw_message_type
-from .runtime_swig import block_gateway
+from . import gr_python as gr
+from .gr_python import io_signature  # , io_signaturev
+from .gr_python import block_gateway
+
 
 ########################################################################
 # Magic to turn pointers into numpy arrays
@@ -25,54 +26,20 @@ from .runtime_swig import block_gateway
 def pointer_to_ndarray(addr, dtype, nitems):
     class array_like(object):
         __array_interface__ = {
-            'data' : (int(addr), False),
-            'typestr' : dtype.base.str,
-            'descr' : dtype.base.descr,
-            'shape' : (nitems,) + dtype.shape,
-            'strides' : None,
-            'version' : 3
+            'data': (int(addr), False),
+            'typestr': dtype.base.str,
+            'descr': dtype.base.descr,
+            'shape': (nitems,) + dtype.shape,
+            'strides': None,
+            'version': 3
         }
     return numpy.asarray(array_like()).view(dtype.base)
 
 ########################################################################
-# Handler that does callbacks from C++
-########################################################################
-class gateway_handler(gr.feval_ll):
-
-    #don't put a constructor, it won't work
-
-    def init(self, callback):
-        self._callback = callback
-
-    def eval(self, arg):
-        try: self._callback()
-        except Exception as ex:
-            print("handler caught exception: %s"%ex)
-            import traceback; traceback.print_exc()
-            raise ex
-        return 0
-
-########################################################################
-# Handler that does callbacks from C++
-########################################################################
-class msg_handler(gr.feval_p):
-
-    #don't put a constructor, it won't work
-
-    def init(self, callback):
-        self._callback = callback
-
-    def eval(self, arg):
-        try: self._callback(arg)
-        except Exception as ex:
-            print("handler caught exception: %s"%ex)
-            import traceback; traceback.print_exc()
-            raise ex
-        return 0
-
-########################################################################
 # io_signature for Python
 ########################################################################
+
+
 class py_io_signature(object):
     """
     Describes the type/number of ports for block input or output.
@@ -94,15 +61,15 @@ class py_io_signature(object):
         """
         self.__min_ports = min_ports
         self.__max_ports = max_ports
-        self.__types = tuple( numpy.dtype(t) for t in type_list )
+        self.__types = tuple(numpy.dtype(t) for t in type_list)
 
     def gr_io_signature(self):
         """
         Make/return a gr.io_signature. A non-empty list of sizes is
         required, even if there are no ports.
         """
-        return io_signaturev(self.__min_ports, self.__max_ports,
-                             [t.itemsize for t in self.__types] or [0])
+        return io_signature.makev(self.__min_ports, self.__max_ports,
+                                  [t.itemsize for t in self.__types] or [0])
 
     def port_types(self, nports):
         """
@@ -129,14 +96,19 @@ class py_io_signature(object):
 ########################################################################
 # The guts that make this into a gr block
 ########################################################################
+
+
 class gateway_block(object):
 
-    def __init__(self, name, in_sig, out_sig, work_type, factor):
+    def __init__(self, name, in_sig, out_sig, block_type):
+        self._decim = 1
+        self._interp = 1
+        self._block_type = block_type
 
         # Normalize the many Python ways of saying 'nothing' to '()'
         in_sig = in_sig or ()
         out_sig = out_sig or ()
-
+        
         # Backward compatibility: array of type strings -> py_io_signature
         if type(in_sig) is py_io_signature:
             self.__in_sig = in_sig
@@ -145,90 +117,30 @@ class gateway_block(object):
         if type(out_sig) is py_io_signature:
             self.__out_sig = out_sig
         else:
-            self.__out_sig = py_io_signature(len(out_sig), len(out_sig), out_sig)
+            self.__out_sig = py_io_signature(
+                len(out_sig), len(out_sig), out_sig)
 
-        #create internal gateway block
-        self.__handler = gateway_handler()
-        self.__handler.init(self.__gr_block_handle)
-        self.__gateway = block_gateway(
-            self.__handler, name,
-            self.__in_sig.gr_io_signature(), self.__out_sig.gr_io_signature(),
-            work_type, factor)
-        self.__message = self.__gateway.block_message()
-
-        #dict to keep references to all message handlers
-        self.__msg_handlers = {}
-
-        #register block functions
-        prefix = 'block__'
-        for attr in [x for x in dir(self.__gateway) if x.startswith(prefix)]:
-            setattr(self, attr.replace(prefix, ''), getattr(self.__gateway, attr))
-        self.pop_msg_queue = lambda: gr.block_gw_pop_msg_queue_safe(self.__gateway)
+        self.gateway = block_gateway(
+            self, name, self.__in_sig.gr_io_signature(), self.__out_sig.gr_io_signature())
 
     def to_basic_block(self):
         """
         Makes this block connectable by hier/top block python
         """
-        return self.__gateway.to_basic_block()
+        return self.gateway.to_basic_block()
+    
+    def fixed_rate_noutput_to_ninput(self, noutput_items):
+        return int((noutput_items * self._decim / self._interp) + self.gateway.history() - 1)
 
-    def __gr_block_handle(self):
+    def handle_forecast(self, noutput_items, ninputs):
         """
-        Dispatch tasks according to the action type specified in the message.
+        This is the handler function for forecast calls from 
+        block_gateway in c++ across pybind11 wrappers
         """
-
-        if self.__message.action == gr.block_gw_message_type.ACTION_GENERAL_WORK:
-            # Actual number of inputs/output from scheduler
-            ninputs = len(self.__message.general_work_args_input_items)
-            noutputs = len(self.__message.general_work_args_output_items)
-            in_types = self.__in_sig.port_types(ninputs)
-            out_types = self.__out_sig.port_types(noutputs)
-            self.__message.general_work_args_return_value = self.general_work(
-
-                input_items=[pointer_to_ndarray(
-                    self.__message.general_work_args_input_items[i],
-                    in_types[i],
-                    self.__message.general_work_args_ninput_items[i]
-                ) for i in range(ninputs)],
-
-                output_items=[pointer_to_ndarray(
-                    self.__message.general_work_args_output_items[i],
-                    out_types[i],
-                    self.__message.general_work_args_noutput_items
-                ) for i in range(noutputs)],
-            )
-
-        elif self.__message.action == gr.block_gw_message_type.ACTION_WORK:
-            # Actual number of inputs/output from scheduler
-            ninputs = len(self.__message.work_args_input_items)
-            noutputs = len(self.__message.work_args_output_items)
-            in_types = self.__in_sig.port_types(ninputs)
-            out_types = self.__out_sig.port_types(noutputs)
-            self.__message.work_args_return_value = self.work(
-
-                input_items=[pointer_to_ndarray(
-                    self.__message.work_args_input_items[i],
-                    in_types[i],
-                    self.__message.work_args_ninput_items
-                ) for i in range(ninputs)],
-
-                output_items=[pointer_to_ndarray(
-                    self.__message.work_args_output_items[i],
-                    out_types[i],
-                    self.__message.work_args_noutput_items
-                ) for i in range(noutputs)],
-            )
-
-        elif self.__message.action == gr.block_gw_message_type.ACTION_FORECAST:
-            self.forecast(
-                noutput_items=self.__message.forecast_args_noutput_items,
-                ninput_items_required=self.__message.forecast_args_ninput_items_required,
-            )
-
-        elif self.__message.action == gr.block_gw_message_type.ACTION_START:
-            self.__message.start_args_return_value = self.start()
-
-        elif self.__message.action == gr.block_gw_message_type.ACTION_STOP:
-            self.__message.stop_args_return_value = self.stop()
+        ninput_items_required = [0] * ninputs
+        self.forecast(noutput_items, ninput_items_required)
+        
+        return ninput_items_required
 
     def forecast(self, noutput_items, ninput_items_required):
         """
@@ -236,7 +148,42 @@ class gateway_block(object):
         this is the default implementation
         """
         for i in range(len(ninput_items_required)):
-            ninput_items_required[i] = noutput_items + self.history() - 1
+            ninput_items_required[i] = noutput_items + self.gateway.history() - 1
+
+    def handle_general_work(self, noutput_items, 
+                     ninput_items,
+                     input_items,
+                     output_items):
+
+        ninputs = len(input_items)
+        noutputs = len(output_items)
+        in_types = self.in_sig().port_types(ninputs)
+        out_types = self.out_sig().port_types(noutputs)
+
+        
+        ctypes.pythonapi.PyCapsule_GetPointer.restype = ctypes.c_void_p
+        ctypes.pythonapi.PyCapsule_GetPointer.argtypes = [ctypes.py_object, ctypes.c_char_p]
+
+        if self._block_type != gr.GW_BLOCK_GENERAL:
+            ii=[pointer_to_ndarray(
+                ctypes.pythonapi.PyCapsule_GetPointer(input_items[i],None),
+                in_types[i],
+                self.fixed_rate_noutput_to_ninput(noutput_items)
+            ) for i in range(ninputs)]
+        else:
+            ii=[pointer_to_ndarray(
+                ctypes.pythonapi.PyCapsule_GetPointer(input_items[i],None),
+                in_types[i],
+                ninput_items
+            ) for i in range(ninputs)]
+
+        oo=[pointer_to_ndarray(
+            ctypes.pythonapi.PyCapsule_GetPointer(output_items[i],None),
+            out_types[i],
+            noutput_items
+        ) for i in range(noutputs)]   
+
+        return self.work(ii,oo)
 
     def general_work(self, *args, **kwargs):
         """general work to be overloaded in a derived class"""
@@ -252,13 +199,6 @@ class gateway_block(object):
     def stop(self):
         return True
 
-    def set_msg_handler(self, which_port, handler_func):
-        handler = msg_handler()
-        handler.init(handler_func)
-        self.__gateway.set_msg_handler_feval(which_port, handler)
-        # Save handler object in class so it's not garbage collected
-        self.__msg_handlers[which_port] = handler
-
     def in_sig(self):
         return self.__in_sig
 
@@ -269,28 +209,7 @@ class gateway_block(object):
 ########################################################################
 # Wrappers for the user to inherit from
 ########################################################################
-class basic_block(gateway_block):
-    """Args:
-    name (str): block name
-
-    in_sig (gr.py_io_signature): input port signature
-
-    out_sig (gr.py_io_signature): output port signature
-
-    For backward compatibility, a sequence of numpy type names is also
-    accepted as an io signature.
-
-    """
-    def __init__(self, name, in_sig, out_sig):
-        gateway_block.__init__(self,
-            name=name,
-            in_sig=in_sig,
-            out_sig=out_sig,
-            work_type=gr.GR_BLOCK_GW_WORK_GENERAL,
-            factor=1, #not relevant factor
-        )
-
-class sync_block(gateway_block):
+class basic_block(gateway_block):   
     """
     Args:
     name (str): block name
@@ -304,12 +223,33 @@ class sync_block(gateway_block):
     """
     def __init__(self, name, in_sig, out_sig):
         gateway_block.__init__(self,
-            name=name,
-            in_sig=in_sig,
-            out_sig=out_sig,
-            work_type=gr.GR_BLOCK_GW_WORK_SYNC,
-            factor=1,
-        )
+                               name=name,
+                               in_sig=in_sig,
+                               out_sig=out_sig,
+                               block_type=gr.GW_BLOCK_GENERAL
+                               )
+
+class sync_block(gateway_block):   
+    """
+    Args:
+    name (str): block name
+
+    in_sig (gr.py_io_signature): input port signature
+
+    out_sig (gr.py_io_signature): output port signature
+
+    For backward compatibility, a sequence of numpy type names is also
+    accepted as an io signature.
+    """
+    def __init__(self, name, in_sig, out_sig):
+        gateway_block.__init__(self,
+                               name=name,
+                               in_sig=in_sig,
+                               out_sig=out_sig,
+                               block_type=gr.GW_BLOCK_SYNC
+                               )
+        self._decim = 1
+        self._interp = 1
 
 class decim_block(gateway_block):
     """
@@ -325,12 +265,13 @@ class decim_block(gateway_block):
     """
     def __init__(self, name, in_sig, out_sig, decim):
         gateway_block.__init__(self,
-            name=name,
-            in_sig=in_sig,
-            out_sig=out_sig,
-            work_type=gr.GR_BLOCK_GW_WORK_DECIM,
-            factor=decim,
-        )
+                               name=name,
+                               in_sig=in_sig,
+                               out_sig=out_sig,
+                               block_type=gr.GW_BLOCK_DECIM
+                               )
+        self._decim = decim
+        self._interp = 1
 
 class interp_block(gateway_block):
     """
@@ -346,9 +287,10 @@ class interp_block(gateway_block):
     """
     def __init__(self, name, in_sig, out_sig, interp):
         gateway_block.__init__(self,
-            name=name,
-            in_sig=in_sig,
-            out_sig=out_sig,
-            work_type=gr.GR_BLOCK_GW_WORK_INTERP,
-            factor=interp,
-        )
+                               name=name,
+                               in_sig=in_sig,
+                               out_sig=out_sig,
+                               block_type=gr.GW_BLOCK_DECIM
+                               )
+        self._decim = 1
+        self._interp = interp

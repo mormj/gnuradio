@@ -25,8 +25,6 @@ void bind_pmt(py::module& m)
     using out_of_range    = pmt::out_of_range;
     using notimplemented    = pmt::notimplemented;
     using comparator    = pmt::comparator;
-    using comperator    = pmt::comperator;
-
 
     py::class_<pmt_base,
         std::shared_ptr<pmt_base>>(m, "pmt_base")
@@ -115,16 +113,6 @@ void bind_pmt(py::module& m)
 
         .def(py::init<>())
         .def(py::init<pmt::comparator const &>(),           py::arg("arg0") 
-        )
-
-        ;
-
-
-    py::class_<comperator,
-        std::shared_ptr<comperator>>(m, "comperator")
-
-        .def(py::init<>())
-        .def(py::init<pmt::comperator const &>(),           py::arg("arg0") 
         )
 
         ;
