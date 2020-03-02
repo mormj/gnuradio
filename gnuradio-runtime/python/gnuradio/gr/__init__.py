@@ -38,21 +38,23 @@ from .hier_block2 import *
 from .tag_utils import *
 from .gateway import basic_block, sync_block, decim_block, interp_block, py_io_signature
 
-# Force the preference database to be initialized
-prefs = prefs.singleton
+# # Force the preference database to be initialized
+# prefs = prefs.singleton
 
-log = gr.logger("log")
-log.set_level(prefs().get_string("LOG", "log_level", "notset"))
-log_file = gr.prefs().get_string("LOG", "log_file", "");
-if(log_file == "stderr" or log_file == "stdout"):
-    log.add_console_appender(log_file, "gr::log %d :%p: %m%n")
-else:
-    log.add_file_appender(log_file, True, "%r :%p: %c{1} - %m%n")
+# log = gr.logger("log")
+# log.set_level(prefs().get_string("LOG", "log_level", "notset"))
+# log_file = gr.prefs().get_string("LOG", "log_file", "");
+# if(log_file == "stderr" or log_file == "stdout"):
+#     log.add_console_appender(log_file, "gr::log %d :%p: %m%n")
+# else:
+#     log.add_file_appender(log_file, True, "%r :%p: %c{1} - %m%n")
 
-log_debug = gr.logger("log_debug")
-log_debug.set_level(prefs().get_string("LOG", "debug_level", "notset"))
-log_debug_file = gr.prefs().get_string("LOG", "debug_file", "");
-if(log_debug_file == "stderr" or log_file == "stdout"):
-    log_debug.add_console_appender(log_debug_file, "gr::log %d :%p: %m%n")
-else:
-    log_debug.add_file_appender(log_debug_file, True, "%r :%p: %c{1} - %m%n")
+# log_debug = gr.logger("log_debug")
+# log_debug.set_level(prefs().get_string("LOG", "debug_level", "notset"))
+# log_debug_file = gr.prefs().get_string("LOG", "debug_file", "");
+# if(log_debug_file == "stderr" or log_file == "stdout"):
+#     log_debug.add_console_appender(log_debug_file, "gr::log %d :%p: %m%n")
+# else:
+#     log_debug.add_file_appender(log_debug_file, True, "%r :%p: %c{1} - %m%n")
+
+tag_t_offset_compare = tag_t.offset_compare

@@ -105,12 +105,12 @@ void bind_basic_block(py::module& m)
             py::arg("which_port") 
         )
         .def("get_msg_map",&basic_block::get_msg_map)
-        .def("add_rpc_variable",&basic_block::add_rpc_variable,
-            py::arg("s") 
-        )
-        .def("setup_rpc",&basic_block::setup_rpc)
-        .def("is_rpc_set",&basic_block::is_rpc_set)
-        .def("rpc_set",&basic_block::rpc_set)
+        // .def("add_rpc_variable",&basic_block::add_rpc_variable,
+        //     py::arg("s") 
+        // )
+        // .def("setup_rpc",&basic_block::setup_rpc)
+        // .def("is_rpc_set",&basic_block::is_rpc_set)
+        // .def("rpc_set",&basic_block::rpc_set)
         .def("check_topology",&basic_block::check_topology,
             py::arg("ninputs"), 
             py::arg("noutputs") 

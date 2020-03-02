@@ -41,11 +41,12 @@ namespace pmt {
 /*!
  * \brief base class of all pmt types
  */
-class pmt_base : boost::noncopyable
+class PMT_API pmt_base 
 {
 
 public:
     pmt_base(){};
+    pmt_base(const pmt_base&)=delete;
     virtual ~pmt_base();
 
     virtual bool is_bool() const { return false; }
@@ -89,7 +90,7 @@ public:
     exception(const std::string& msg, pmt_t obj);
 };
 
-class PMT_API wrong_type : public std::invalid_argument
+class PMT_API wrong_type : public exception
 {
 public:
     wrong_type(const std::string& msg, pmt_t obj);

@@ -37,7 +37,7 @@ exception::exception(const std::string& msg, pmt_t obj)
 }
 
 wrong_type::wrong_type(const std::string& msg, pmt_t obj)
-    : invalid_argument(msg + ": wrong_type " + write_string(obj))
+    : exception(msg + ": wrong_type ", obj)
 {
 }
 
@@ -294,6 +294,11 @@ pmt_t from_complex(double re, double im) { return pmt_from_complex(re, im); }
 pmt_t pmt_from_complex(double re, double im)
 {
     return pmt_t(new pmt_complex(std::complex<double>(re, im)));
+}
+
+pmt_t pmt_from_complex(const std::complex<double> &z)
+{
+    return pmt_t(new pmt_complex(z));
 }
 
 pmt_t from_complex(const std::complex<double>& z) { return pmt_t(new pmt_complex(z)); }
