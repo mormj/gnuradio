@@ -7,6 +7,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
+
 #ifndef INCLUDED_RUNTIME_BLOCK_GATEWAY_H
 #define INCLUDED_RUNTIME_BLOCK_GATEWAY_H
 

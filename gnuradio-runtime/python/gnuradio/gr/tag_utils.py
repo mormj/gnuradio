@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 import pmt
 
-from . import runtime_swig as gr
+from . import gr_python as gr
 
 class PythonTag(object):
     " Python container for tags "

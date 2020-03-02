@@ -23,12 +23,14 @@ from __future__ import unicode_literals
 
 import os, sys
 
-try:
-    from .runtime_swig import *
-except ImportError:
-    dirname, filename = os.path.split(os.path.abspath(__file__))
-    __path__.append(os.path.join(dirname, "..", "..", "..", "swig"))
-    from .runtime_swig import *
+# try:
+#     from .runtime_swig import *
+# except ImportError:
+#     dirname, filename = os.path.split(os.path.abspath(__file__))
+#     __path__.append(os.path.join(dirname, "..", "..", "..", "swig"))
+#     from .runtime_swig import *
+
+from .gr_python import *
 
 from .exceptions import *
 from .top_block import *
