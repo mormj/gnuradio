@@ -148,7 +148,7 @@ public:
 
     gr::io_signature::sptr input_signature() const { return d_input_signature; }
     gr::io_signature::sptr output_signature() const { return d_output_signature; }
-    basic_block_sptr to_basic_block(); // Needed for Python type coercion
+    virtual std::shared_ptr<gr::basic_block> to_basic_block(); // Needed for Python type coercion
 
     /*!
      * True if the block has an alias (see set_block_alias).
