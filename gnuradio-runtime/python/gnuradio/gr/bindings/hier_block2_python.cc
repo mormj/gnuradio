@@ -27,6 +27,11 @@ void bind_hier_block2(py::module& m)
     py::class_<hier_block2,gr::basic_block,
         std::shared_ptr<hier_block2>>(m, "hier_block2_pb")
 
+        .def(py::init(&gr::make_hier_block2),
+            py::arg("name"), 
+            py::arg("input_signature"), 
+            py::arg("output_signature") 
+        )
 
         .def("self",&hier_block2::self)
         .def("primitive_connect",(void (hier_block2::*)(gr::basic_block_sptr))&hier_block2::connect,
@@ -108,10 +113,10 @@ void bind_hier_block2(py::module& m)
         .def("message_port_is_hier_out",&hier_block2::message_port_is_hier_out,
             py::arg("port_id") 
         )
-        .def("message_port_register_hier_in",&hier_block2::message_port_register_hier_in,
+        .def("primitive_message_port_register_hier_in",&hier_block2::message_port_register_hier_in,
             py::arg("port_id") 
         )
-        .def("message_port_register_hier_out",&hier_block2::message_port_register_hier_out,
+        .def("primitive_message_port_register_hier_out",&hier_block2::message_port_register_hier_out,
             py::arg("port_id") 
         )
         .def("set_processor_affinity",&hier_block2::set_processor_affinity,
