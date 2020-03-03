@@ -17,8 +17,29 @@ namespace py = pybind11;
 
 #include <gnuradio/blocks/and_const.h>
 
+template<typename T>
+void bind_and_const_template(py::module& m, const char *classname)
+{
+    using and_const      = gr::blocks::and_const<T>;
+
+    py::class_<and_const, gr::sync_block, std::shared_ptr<and_const>>(m, classname)
+        .def(py::init(&gr::blocks::and_const<T>::make),
+            py::arg("k"))
+            
+        .def("k",&and_const::k)
+        .def("set_k",&and_const::set_k, py::arg("k"))
+
+        .def("to_basic_block",[](std::shared_ptr<and_const> p){
+            return p->to_basic_block();
+        })
+        ;
+} 
+
 void bind_and_const(py::module& m)
 {
-
-
+    bind_and_const_template<std::uint8_t>(m,"and_const_bb");
+    bind_and_const_template<std::int16_t>(m,"and_const_ss");
+    bind_and_const_template<std::int32_t>(m,"and_const_ii");
 } 
+
+
