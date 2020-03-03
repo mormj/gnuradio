@@ -205,6 +205,12 @@ class gateway_block(object):
     def out_sig(self):
         return self.__out_sig
 
+    def message_port_register_in(self, port_id):
+        return self.gateway.message_port_register_in(port_id)
+
+    def message_port_register_out(self, port_id):
+        return self.gateway.message_port_register_out(port_id)
+
 
 ########################################################################
 # Wrappers for the user to inherit from

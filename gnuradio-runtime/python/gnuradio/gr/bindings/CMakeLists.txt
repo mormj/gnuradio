@@ -89,8 +89,4 @@ target_include_directories(gr_python PUBLIC
 )
 target_link_libraries(gr_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime)
 
-if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
-    SET_TARGET_PROPERTIES(gr_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
-endif()
-
 install(TARGETS gr_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/gr COMPONENT pythonapi)

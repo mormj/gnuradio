@@ -25,6 +25,10 @@ void bind_block_gateway(py::module& m)
             py::arg("name"),
             py::arg("in_sig"),
             py::arg("out_sig"))
+
+        .def("to_basic_block",[](std::shared_ptr<block_gateway> p){
+            return p->to_basic_block();
+        })
         ;
 
     py::enum_<gr::gw_block_t>(m,"gw_block_t")

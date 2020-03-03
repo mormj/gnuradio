@@ -109,7 +109,7 @@ PYBIND11_MODULE(gr_python, m)
     init_numpy();
 
     // Allow access to base block methods
-    py::module::import("gnuradio.gr");
+    py::module::import("pmt");
 
     
     bind_messages_msg_accepter(m);
@@ -123,7 +123,7 @@ PYBIND11_MODULE(gr_python, m)
     bind_msg_handler(m);
     bind_msg_queue(m);
     
-    
+    bind_io_signature(m);
     // bind_attributes(m);
     bind_basic_block(m);
     bind_block(m);
@@ -141,7 +141,7 @@ PYBIND11_MODULE(gr_python, m)
     // bind_gr_complex(m);
     bind_hier_block2(m);
     bind_high_res_timer(m);
-    bind_io_signature(m);
+    
     bind_logger(m);
     bind_math(m);
     bind_message(m);

@@ -37,9 +37,9 @@ void bind_basic_block(py::module& m)
         .def("input_signature",&basic_block::input_signature)
         .def("output_signature",&basic_block::output_signature)
         .def("to_basic_block",&basic_block::to_basic_block)
-        .def("alias_set",&basic_block::alias_set)
+        // .def("alias_set",&basic_block::alias_set)
         .def("alias",&basic_block::alias)
-        .def("alias_pmt",&basic_block::alias_pmt)
+        // .def("alias_pmt",&basic_block::alias_pmt)
         .def("set_block_alias",&basic_block::set_block_alias,
             py::arg("name") 
         )
@@ -49,62 +49,62 @@ void bind_basic_block(py::module& m)
         .def("message_port_register_out",&basic_block::message_port_register_out,
             py::arg("port_id") 
         )
-        .def("message_port_pub",&basic_block::message_port_pub,
-            py::arg("port_id"), 
-            py::arg("msg") 
-        )
-        .def("message_port_sub",&basic_block::message_port_sub,
-            py::arg("port_id"), 
-            py::arg("target") 
-        )
-        .def("message_port_unsub",&basic_block::message_port_unsub,
-            py::arg("port_id"), 
-            py::arg("target") 
-        )
-        .def("message_port_is_hier",&basic_block::message_port_is_hier,
-            py::arg("port_id") 
-        )
-        .def("message_port_is_hier_in",&basic_block::message_port_is_hier_in,
-            py::arg("port_id") 
-        )
-        .def("message_port_is_hier_out",&basic_block::message_port_is_hier_out,
-            py::arg("port_id") 
-        )
+        // .def("message_port_pub",&basic_block::message_port_pub,
+        //     py::arg("port_id"), 
+        //     py::arg("msg") 
+        // )
+        // .def("message_port_sub",&basic_block::message_port_sub,
+        //     py::arg("port_id"), 
+        //     py::arg("target") 
+        // )
+        // .def("message_port_unsub",&basic_block::message_port_unsub,
+        //     py::arg("port_id"), 
+        //     py::arg("target") 
+        // )
+        // .def("message_port_is_hier",&basic_block::message_port_is_hier,
+        //     py::arg("port_id") 
+        // )
+        // .def("message_port_is_hier_in",&basic_block::message_port_is_hier_in,
+        //     py::arg("port_id") 
+        // )
+        // .def("message_port_is_hier_out",&basic_block::message_port_is_hier_out,
+        //     py::arg("port_id") 
+        // )
         .def("message_ports_in",&basic_block::message_ports_in)
         .def("message_ports_out",&basic_block::message_ports_out)
         .def("_post",&basic_block::_post,
             py::arg("which_port"), 
             py::arg("msg") 
         )
-        .def("empty_p",(bool (basic_block::*)(pmt::pmt_t))&basic_block::empty_p,
-            py::arg("which_port") 
-        )
-        .def("empty_p",(bool (basic_block::*)())&basic_block::empty_p)
-        .def("empty_handled_p",(bool (basic_block::*)(pmt::pmt_t))&basic_block::empty_handled_p,
-            py::arg("which_port") 
-        )
-        .def("empty_handled_p",(bool (basic_block::*)())&basic_block::empty_handled_p)
-        .def("nmsgs",&basic_block::nmsgs,
-            py::arg("which_port") 
-        )
-        .def("insert_tail",&basic_block::insert_tail,
-            py::arg("which_port"), 
-            py::arg("msg") 
-        )
-        .def("delete_head_nowait",&basic_block::delete_head_nowait,
-            py::arg("which_port") 
-        )
-        .def("get_iterator",&basic_block::get_iterator,
-            py::arg("which_port") 
-        )
-        .def("erase_msg",&basic_block::erase_msg,
-            py::arg("which_port"), 
-            py::arg("it") 
-        )
-        .def("has_msg_port",&basic_block::has_msg_port,
-            py::arg("which_port") 
-        )
-        .def("get_msg_map",&basic_block::get_msg_map)
+        // .def("empty_p",(bool (basic_block::*)(pmt::pmt_t))&basic_block::empty_p,
+        //     py::arg("which_port") 
+        // )
+        // .def("empty_p",(bool (basic_block::*)())&basic_block::empty_p)
+        // .def("empty_handled_p",(bool (basic_block::*)(pmt::pmt_t))&basic_block::empty_handled_p,
+        //     py::arg("which_port") 
+        // )
+        // .def("empty_handled_p",(bool (basic_block::*)())&basic_block::empty_handled_p)
+        // .def("nmsgs",&basic_block::nmsgs,
+        //     py::arg("which_port") 
+        // )
+        // .def("insert_tail",&basic_block::insert_tail,
+        //     py::arg("which_port"), 
+        //     py::arg("msg") 
+        // )
+        // .def("delete_head_nowait",&basic_block::delete_head_nowait,
+        //     py::arg("which_port") 
+        // )
+        // .def("get_iterator",&basic_block::get_iterator,
+        //     py::arg("which_port") 
+        // )
+        // .def("erase_msg",&basic_block::erase_msg,
+        //     py::arg("which_port"), 
+        //     py::arg("it") 
+        // )
+        // .def("has_msg_port",&basic_block::has_msg_port,
+        //     py::arg("which_port") 
+        // )
+        // .def("get_msg_map",&basic_block::get_msg_map)
         // .def("add_rpc_variable",&basic_block::add_rpc_variable,
         //     py::arg("s") 
         // )
@@ -115,15 +115,15 @@ void bind_basic_block(py::module& m)
             py::arg("ninputs"), 
             py::arg("noutputs") 
         )
-        .def("set_processor_affinity",&basic_block::set_processor_affinity,
-            py::arg("mask") 
-        )
-        .def("unset_processor_affinity",&basic_block::unset_processor_affinity)
-        .def("processor_affinity",&basic_block::processor_affinity)
-        .def("set_log_level",&basic_block::set_log_level,
-            py::arg("level") 
-        )
-        .def("log_level",&basic_block::log_level)
+        // .def("set_processor_affinity",&basic_block::set_processor_affinity,
+        //     py::arg("mask") 
+        // )
+        // .def("unset_processor_affinity",&basic_block::unset_processor_affinity)
+        // .def("processor_affinity",&basic_block::processor_affinity)
+        // .def("set_log_level",&basic_block::set_log_level,
+        //     py::arg("level") 
+        // )
+        // .def("log_level",&basic_block::log_level)
         ;
 
     m.def("basic_block_ncurrently_allocated",&gr::basic_block_ncurrently_allocated);
