@@ -20,10 +20,10 @@ namespace py = pybind11;
 void bind_pmt(py::module& m)
 {
     using pmt_base    = pmt::pmt_base;
-    using exception    = pmt::exception;
-    using wrong_type    = pmt::wrong_type;
-    using out_of_range    = pmt::out_of_range;
-    using notimplemented    = pmt::notimplemented;
+    // using exception    = pmt::exception;
+    // using wrong_type    = pmt::wrong_type;
+    // using out_of_range    = pmt::out_of_range;
+    // using notimplemented    = pmt::notimplemented;
     using comparator    = pmt::comparator;
 
     py::class_<pmt_base,
