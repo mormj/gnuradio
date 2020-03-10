@@ -123,6 +123,16 @@ class gateway_block(object):
         self.gateway = block_gateway(
             self, name, self.__in_sig.gr_io_signature(), self.__out_sig.gr_io_signature())
 
+    def __getattr__(self, name):
+        """
+        Pass-through member requests to the C++ object.
+        """
+        if not hasattr(self, "gateway"):
+            raise RuntimeError(
+                "{0}: invalid state -- did you forget to call {0}.__init__ in "
+                "a derived class?".format(self.__class__.__name__))
+        return getattr(self.gateway, name)
+
     def to_basic_block(self):
         """
         Makes this block connectable by hier/top block python
@@ -137,18 +147,20 @@ class gateway_block(object):
         This is the handler function for forecast calls from 
         block_gateway in c++ across pybind11 wrappers
         """
-        ninput_items_required = [0] * ninputs
-        self.forecast(noutput_items, ninput_items_required)
+        return self.forecast(noutput_items, ninputs)
         
-        return ninput_items_required
+        # return ninput_items_required
 
-    def forecast(self, noutput_items, ninput_items_required):
+    def forecast(self, noutput_items, ninputs):
         """
         forecast is only called from a general block
         this is the default implementation
         """
-        for i in range(len(ninput_items_required)):
+        ninput_items_required = [0]*ninputs
+        for i in range(ninputs):
             ninput_items_required[i] = noutput_items + self.gateway.history() - 1
+
+        return ninput_items_required
 
     def handle_general_work(self, noutput_items, 
                      ninput_items,
@@ -174,7 +186,7 @@ class gateway_block(object):
             ii=[pointer_to_ndarray(
                 ctypes.pythonapi.PyCapsule_GetPointer(input_items[i],None),
                 in_types[i],
-                ninput_items
+                ninput_items[i]
             ) for i in range(ninputs)]
 
         oo=[pointer_to_ndarray(
@@ -183,7 +195,13 @@ class gateway_block(object):
             noutput_items
         ) for i in range(noutputs)]   
 
-        return self.work(ii,oo)
+        if self._block_type != gr.GW_BLOCK_GENERAL:
+            r = self.work(ii,oo)
+            self.consume_items(r)
+        else:
+            r = self.general_work(ii,oo)
+
+        return r
 
     def general_work(self, *args, **kwargs):
         """general work to be overloaded in a derived class"""
@@ -205,11 +223,24 @@ class gateway_block(object):
     def out_sig(self):
         return self.__out_sig
 
-    def message_port_register_in(self, port_id):
-        return self.gateway.message_port_register_in(port_id)
+    # TODO: Make gateway_block have an is-a instead of has-a relationship
+    #  That way we don't have to wrap all these functions
 
-    def message_port_register_out(self, port_id):
-        return self.gateway.message_port_register_out(port_id)
+    # def message_port_register_in(self, port_id):
+    #     return self.gateway.message_port_register_in(port_id)
+
+    # def message_port_register_out(self, port_id):
+    #     return self.gateway.message_port_register_out(port_id)
+
+    # def consume_each(self, how_many_items):
+    #     return self.gateway.consume_each( how_many_items)
+
+    # def consume(self, which_input, how_many_items):
+    #     return self.gateway.consume(which_input, how_many_items)
+
+    # def produce(self, which_output, how_many_items):
+    #     return self.gateway.produce(which_output, how_many_items)
+
 
 
 ########################################################################
@@ -235,6 +266,9 @@ class basic_block(gateway_block):
                                block_type=gr.GW_BLOCK_GENERAL
                                )
 
+    def consume_items(self, nitems ):
+        pass
+
 class sync_block(gateway_block):   
     """
     Args:
@@ -257,6 +291,11 @@ class sync_block(gateway_block):
         self._decim = 1
         self._interp = 1
 
+    def consume_items(self, nitems ):
+        if (nitems > 0):
+            self.gateway.consume_each(nitems)
+
+
 class decim_block(gateway_block):
     """
     Args:
@@ -278,6 +317,17 @@ class decim_block(gateway_block):
                                )
         self._decim = decim
         self._interp = 1
+        self.gateway.set_relative_rate(self._interp, self._decim)
+        self.gateway.set_output_multiple(self._interp)
+
+    def consume_items(self, nitems ):
+        if (nitems > 0):
+            self.gateway.consume_each(int(nitems * self._decim))
+
+    def forecast(self, noutput_items, ninputs):
+        return [self.fixed_rate_noutput_to_ninput(noutput_items) for ii in range(ninputs)]
+
+
 
 class interp_block(gateway_block):
     """
@@ -300,3 +350,15 @@ class interp_block(gateway_block):
                                )
         self._decim = 1
         self._interp = interp
+        self.gateway.set_relative_rate(self._interp, self._decim)
+        self.gateway.set_output_multiple(self._interp)
+
+
+    def consume_items(self, nitems ):
+        if (nitems > 0):
+            self.gateway.consume_each(int(nitems / self._interp))
+
+    def forecast(self, noutput_items, ninputs):
+        # print("{},{},{}".format(noutput_items, ninputs, [self.fixed_rate_noutput_to_ninput(noutput_items)  for ii in range(ninputs)]))
+
+        return [self.fixed_rate_noutput_to_ninput(noutput_items) for ii in range(ninputs)]

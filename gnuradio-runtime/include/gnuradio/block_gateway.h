@@ -52,6 +52,62 @@ public:
                      const std::string& name,
                      gr::io_signature::sptr in_sig,
                      gr::io_signature::sptr out_sig);
+
+
+    // Protected members of gr::block trampolined here for python blocks to use
+    void _add_item_tag(unsigned int which_output, const tag_t& tag)
+    {
+        return gr::block::add_item_tag(which_output, tag);
+    }
+
+    void _add_item_tag(unsigned int which_output,
+                             uint64_t abs_offset,
+                             const pmt::pmt_t& key,
+                             const pmt::pmt_t& value,
+                             const pmt::pmt_t& srcid = pmt::PMT_F)
+    {
+        return gr::block::add_item_tag(which_output, abs_offset, key, value, srcid);
+    }
+
+
+    std::vector<tag_t> _get_tags_in_range(unsigned int which_input,
+                                                uint64_t abs_start,
+                                                uint64_t abs_end)
+    {
+        std::vector<gr::tag_t> tags;
+        gr::block::get_tags_in_range(tags, which_input, abs_start, abs_end);
+        return tags;
+    }
+
+    std::vector<tag_t> _get_tags_in_range(unsigned int which_input,
+                                                uint64_t abs_start,
+                                                uint64_t abs_end,
+                                                const pmt::pmt_t& key)
+    {
+        std::vector<gr::tag_t> tags;
+        gr::block::get_tags_in_range(tags, which_input, abs_start, abs_end, key);
+        return tags;
+    }
+
+    std::vector<tag_t> _get_tags_in_window(unsigned int which_input,
+                                                 uint64_t rel_start,
+                                                 uint64_t rel_end)
+    {
+        std::vector<gr::tag_t> tags;
+        gr::block::get_tags_in_window(tags, which_input, rel_start, rel_end);
+        return tags;
+    }
+
+    std::vector<tag_t> _get_tags_in_window(unsigned int which_input,
+                                                 uint64_t rel_start,
+                                                 uint64_t rel_end,
+                                                 const pmt::pmt_t& key)
+    {
+        std::vector<gr::tag_t> tags;
+        gr::block::get_tags_in_window(tags, which_input, rel_start, rel_end, key);
+        return tags;
+    }
+
 };
 
 } /* namespace gr */

@@ -54,24 +54,6 @@ int block_gateway_impl::general_work(int noutput_items,
     return ret.cast<int>();;
 }
 
-int block_gateway_impl::work(int noutput_items,
-                             gr_vector_const_void_star& input_items,
-                             gr_vector_void_star& output_items)
-{
-
-}
-
-// Move these into gateway.py since all the logic is there already
-// int block_gateway_impl::fixed_rate_noutput_to_ninput(int noutput_items)
-// {
-    
-// }
-
-// int block_gateway_impl::fixed_rate_ninput_to_noutput(int ninput_items)
-// {
-    
-// }
-
 bool block_gateway_impl::start(void)
 {
     py::gil_scoped_acquire acquire;
