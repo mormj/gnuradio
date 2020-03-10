@@ -911,6 +911,9 @@ void bind_pmt(py::module& m)
         py::arg("x"), 
         py::arg("y") 
     );
+    m.def("length",&pmt::length,
+        py::arg("v")
+    );
     m.def("assq",&pmt::assq,
         py::arg("obj"), 
         py::arg("alist") 
