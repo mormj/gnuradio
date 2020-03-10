@@ -22,16 +22,11 @@ void bind_uchar_to_float(py::module& m)
     using uchar_to_float    = gr::blocks::uchar_to_float;
 
 
-    py::class_<uchar_to_float,gr::sync_block,
+    py::class_<uchar_to_float,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<uchar_to_float>>(m, "uchar_to_float")
 
         .def(py::init(&uchar_to_float::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<uchar_to_float> p){
-            return p->to_basic_block();
-        })
         ;
 
 

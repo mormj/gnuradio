@@ -22,7 +22,7 @@ void bind_moving_average_template(py::module& m, const char *classname)
 {
     using moving_average      = gr::blocks::moving_average<T>;
 
-    py::class_<moving_average, gr::sync_block, std::shared_ptr<moving_average>>(m, classname)
+    py::class_<moving_average, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<moving_average>>(m, classname)
         .def(py::init(&gr::blocks::moving_average<T>::make),
             py::arg("length"),
             py::arg("scale"),
@@ -41,10 +41,6 @@ void bind_moving_average_template(py::module& m, const char *classname)
         .def("set_scale",&moving_average::set_scale,
             py::arg("scale")
         )
-
-        .def("to_basic_block",[](std::shared_ptr<moving_average> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

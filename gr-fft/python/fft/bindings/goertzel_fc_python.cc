@@ -22,7 +22,7 @@ void bind_goertzel_fc(py::module& m)
     using goertzel_fc    = gr::fft::goertzel_fc;
 
 
-    py::class_<goertzel_fc,gr::sync_decimator,
+    py::class_<goertzel_fc,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<goertzel_fc>>(m, "goertzel_fc")
 
         .def(py::init(&goertzel_fc::make),
@@ -40,9 +40,6 @@ void bind_goertzel_fc(py::module& m)
         )
         .def("freq",&goertzel_fc::freq)
         .def("rate",&goertzel_fc::rate)
-        .def("to_basic_block",[](std::shared_ptr<goertzel_fc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

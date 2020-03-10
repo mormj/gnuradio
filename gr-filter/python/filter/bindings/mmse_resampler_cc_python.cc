@@ -22,7 +22,7 @@ void bind_mmse_resampler_cc(py::module& m)
     using mmse_resampler_cc    = gr::filter::mmse_resampler_cc;
 
 
-    py::class_<mmse_resampler_cc,gr::block,
+    py::class_<mmse_resampler_cc,gr::block, gr::basic_block,
         std::shared_ptr<mmse_resampler_cc>>(m, "mmse_resampler_cc")
 
         .def(py::init(&mmse_resampler_cc::make),
@@ -39,9 +39,6 @@ void bind_mmse_resampler_cc(py::module& m)
         .def("set_resamp_ratio",&mmse_resampler_cc::set_resamp_ratio,
             py::arg("resamp_ratio") 
         )
-        .def("to_basic_block",[](std::shared_ptr<mmse_resampler_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

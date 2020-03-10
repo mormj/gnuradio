@@ -22,7 +22,7 @@ void bind_vector_insert_template(py::module& m, const char *classname)
 {
     using vector_insert      = gr::blocks::vector_insert<T>;
 
-    py::class_<vector_insert, gr::block, std::shared_ptr<vector_insert>>(m, classname)
+    py::class_<vector_insert, gr::block, gr::basic_block, std::shared_ptr<vector_insert>>(m, classname)
         .def(py::init(&gr::blocks::vector_insert<T>::make),
             py::arg("data"),
             py::arg("periodicity"),
@@ -32,10 +32,6 @@ void bind_vector_insert_template(py::module& m, const char *classname)
         .def("set_data", &vector_insert::set_data,
             py::arg("set_data")
         )
-
-        .def("to_basic_block",[](std::shared_ptr<vector_insert> p){
-            return p->to_basic_block();
-        })
         ;
 
 } 

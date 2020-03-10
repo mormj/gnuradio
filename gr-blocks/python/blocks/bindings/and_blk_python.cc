@@ -22,14 +22,10 @@ void bind_and_blk_template(py::module& m, const char *classname)
 {
     using and_blk      = gr::blocks::and_blk<T>;
 
-    py::class_<and_blk, gr::sync_block, std::shared_ptr<and_blk>>(m, classname)
+    py::class_<and_blk, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<and_blk>>(m, classname)
         .def(py::init(&gr::blocks::and_blk<T>::make),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<and_blk> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

@@ -22,17 +22,12 @@ void bind_protocol_parser_b(py::module& m)
     using protocol_parser_b    = gr::digital::protocol_parser_b;
 
 
-    py::class_<protocol_parser_b,gr::sync_block,
+    py::class_<protocol_parser_b,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<protocol_parser_b>>(m, "protocol_parser_b")
 
         .def(py::init(&protocol_parser_b::make),
            py::arg("format") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<protocol_parser_b> p){
-            return p->to_basic_block();
-        })
         ;
 
 

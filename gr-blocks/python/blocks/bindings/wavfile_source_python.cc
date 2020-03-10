@@ -22,7 +22,7 @@ void bind_wavfile_source(py::module& m)
     using wavfile_source    = gr::blocks::wavfile_source;
 
 
-    py::class_<wavfile_source,gr::sync_block,
+    py::class_<wavfile_source,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<wavfile_source>>(m, "wavfile_source")
 
         .def(py::init(&wavfile_source::make),
@@ -34,9 +34,6 @@ void bind_wavfile_source(py::module& m)
         .def("sample_rate",&wavfile_source::sample_rate)
         .def("bits_per_sample",&wavfile_source::bits_per_sample)
         .def("channels",&wavfile_source::channels)
-        .def("to_basic_block",[](std::shared_ptr<wavfile_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

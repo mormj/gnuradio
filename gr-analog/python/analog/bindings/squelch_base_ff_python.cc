@@ -22,7 +22,7 @@ void bind_squelch_base_ff(py::module& m)
     using squelch_base_ff    = gr::analog::squelch_base_ff;
 
 
-    py::class_<squelch_base_ff,gr::block,
+    py::class_<squelch_base_ff,gr::block, gr::basic_block,
         std::shared_ptr<squelch_base_ff>>(m, "squelch_base_ff")
 
         .def("ramp",&squelch_base_ff::ramp)
@@ -35,9 +35,6 @@ void bind_squelch_base_ff(py::module& m)
         )
         .def("unmuted",&squelch_base_ff::unmuted)
         .def("squelch_range",&squelch_base_ff::squelch_range)
-        .def("to_basic_block",[](std::shared_ptr<squelch_base_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

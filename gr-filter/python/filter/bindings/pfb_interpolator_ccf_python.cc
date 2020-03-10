@@ -22,7 +22,7 @@ void bind_pfb_interpolator_ccf(py::module& m)
     using pfb_interpolator_ccf    = gr::filter::pfb_interpolator_ccf;
 
 
-    py::class_<pfb_interpolator_ccf,gr::sync_interpolator,
+    py::class_<pfb_interpolator_ccf,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pfb_interpolator_ccf>>(m, "pfb_interpolator_ccf")
 
         .def(py::init(&pfb_interpolator_ccf::make),
@@ -36,9 +36,6 @@ void bind_pfb_interpolator_ccf(py::module& m)
         )
         .def("taps",&pfb_interpolator_ccf::taps)
         .def("print_taps",&pfb_interpolator_ccf::print_taps)
-        .def("to_basic_block",[](std::shared_ptr<pfb_interpolator_ccf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

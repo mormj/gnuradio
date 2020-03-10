@@ -22,7 +22,7 @@ void bind_plateau_detector_fb(py::module& m)
     using plateau_detector_fb    = gr::blocks::plateau_detector_fb;
 
 
-    py::class_<plateau_detector_fb,gr::block,
+    py::class_<plateau_detector_fb,gr::block, gr::basic_block,
         std::shared_ptr<plateau_detector_fb>>(m, "plateau_detector_fb")
 
         .def(py::init(&plateau_detector_fb::make),
@@ -35,9 +35,6 @@ void bind_plateau_detector_fb(py::module& m)
             py::arg("threshold") 
         )
         .def("threshold",&plateau_detector_fb::threshold)
-        .def("to_basic_block",[](std::shared_ptr<plateau_detector_fb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

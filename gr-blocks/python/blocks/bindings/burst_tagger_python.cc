@@ -22,7 +22,7 @@ void bind_burst_tagger(py::module& m)
     using burst_tagger    = gr::blocks::burst_tagger;
 
 
-    py::class_<burst_tagger,gr::sync_block,
+    py::class_<burst_tagger,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<burst_tagger>>(m, "burst_tagger")
 
         .def(py::init(&burst_tagger::make),
@@ -38,9 +38,6 @@ void bind_burst_tagger(py::module& m)
             py::arg("key"), 
             py::arg("value") 
         )
-        .def("to_basic_block",[](std::shared_ptr<burst_tagger> p){
-            return p->to_basic_block();
-        })
         ;
 
 

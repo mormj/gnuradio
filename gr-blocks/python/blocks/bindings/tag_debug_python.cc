@@ -22,7 +22,7 @@ void bind_tag_debug(py::module& m)
     using tag_debug    = gr::blocks::tag_debug;
 
 
-    py::class_<tag_debug,gr::sync_block,
+    py::class_<tag_debug,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<tag_debug>>(m, "tag_debug")
 
         .def(py::init(&tag_debug::make),
@@ -41,9 +41,6 @@ void bind_tag_debug(py::module& m)
             py::arg("key_filter") 
         )
         .def("key_filter",&tag_debug::key_filter)
-        .def("to_basic_block",[](std::shared_ptr<tag_debug> p){
-            return p->to_basic_block();
-        })
         ;
 
 

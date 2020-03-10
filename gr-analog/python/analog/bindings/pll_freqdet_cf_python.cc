@@ -22,7 +22,7 @@ void bind_pll_freqdet_cf(py::module& m)
     using pll_freqdet_cf    = gr::analog::pll_freqdet_cf;
 
 
-    py::class_<pll_freqdet_cf,gr::sync_block,
+    py::class_<pll_freqdet_cf,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pll_freqdet_cf>>(m, "pll_freqdet_cf")
 
         .def(py::init(&pll_freqdet_cf::make),
@@ -64,9 +64,6 @@ void bind_pll_freqdet_cf(py::module& m)
         .def("get_phase",&pll_freqdet_cf::get_phase)
         .def("get_min_freq",&pll_freqdet_cf::get_min_freq)
         .def("get_max_freq",&pll_freqdet_cf::get_max_freq)
-        .def("to_basic_block",[](std::shared_ptr<pll_freqdet_cf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -25,16 +25,13 @@ void bind_vector_source_template(py::module& m, const char *classname)
     // using vector_source      = gr::blocks::vector_source<T>;
 
     
-    py::class_<gr::blocks::vector_source<T>, gr::sync_block, std::shared_ptr<gr::blocks::vector_source<T>>>(m, classname)
+    py::class_<gr::blocks::vector_source<T>, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<gr::blocks::vector_source<T>>>(m, classname)
         .def(py::init(&gr::blocks::vector_source<T>::make),
             py::arg("data"), 
             py::arg("repeat")=false, 
             py::arg("vlen")=1, 
             py::arg("tags")=std::vector<gr::tag_t>())
             
-        .def("to_basic_block",[](std::shared_ptr<gr::blocks::vector_source<T>> p){
-            return p->to_basic_block();
-        })
 
         // With these templated classes, the additional class members cause the compiler error
         //  error: expected ‘;’ before ‘)’ token

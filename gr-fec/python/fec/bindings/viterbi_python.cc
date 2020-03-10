@@ -28,10 +28,6 @@ void bind_viterbi(py::module& m)
         .def(py::init<>())
         .def(py::init<gr::fec::viterbi_state const &>(),           py::arg("arg0") 
         )
-
-        .def("to_basic_block",[](std::shared_ptr<viterbi> p){
-            return p->to_basic_block();
-        })
         ;
 
 

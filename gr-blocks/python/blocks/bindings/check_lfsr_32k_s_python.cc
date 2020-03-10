@@ -22,7 +22,7 @@ void bind_check_lfsr_32k_s(py::module& m)
     using check_lfsr_32k_s    = gr::blocks::check_lfsr_32k_s;
 
 
-    py::class_<check_lfsr_32k_s,gr::sync_block,
+    py::class_<check_lfsr_32k_s,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<check_lfsr_32k_s>>(m, "check_lfsr_32k_s")
 
         .def(py::init(&check_lfsr_32k_s::make)
@@ -32,9 +32,6 @@ void bind_check_lfsr_32k_s(py::module& m)
         .def("ntotal",&check_lfsr_32k_s::ntotal)
         .def("nright",&check_lfsr_32k_s::nright)
         .def("runlength",&check_lfsr_32k_s::runlength)
-        .def("to_basic_block",[](std::shared_ptr<check_lfsr_32k_s> p){
-            return p->to_basic_block();
-        })
         ;
 
 

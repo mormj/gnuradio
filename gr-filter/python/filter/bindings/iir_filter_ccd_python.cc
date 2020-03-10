@@ -22,7 +22,7 @@ void bind_iir_filter_ccd(py::module& m)
     using iir_filter_ccd    = gr::filter::iir_filter_ccd;
 
 
-    py::class_<iir_filter_ccd,gr::sync_block,
+    py::class_<iir_filter_ccd,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<iir_filter_ccd>>(m, "iir_filter_ccd")
 
         .def(py::init(&iir_filter_ccd::make),
@@ -36,9 +36,6 @@ void bind_iir_filter_ccd(py::module& m)
             py::arg("fftaps"), 
             py::arg("fbtaps") 
         )
-        .def("to_basic_block",[](std::shared_ptr<iir_filter_ccd> p){
-            return p->to_basic_block();
-        })
         ;
 
 

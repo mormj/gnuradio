@@ -22,17 +22,12 @@ void bind_atsc_fpll(py::module& m)
     using atsc_fpll    = gr::dtv::atsc_fpll;
 
 
-    py::class_<atsc_fpll,gr::sync_block,
+    py::class_<atsc_fpll,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_fpll>>(m, "atsc_fpll")
 
         .def(py::init(&atsc_fpll::make),
            py::arg("rate") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_fpll> p){
-            return p->to_basic_block();
-        })
         ;
 
 

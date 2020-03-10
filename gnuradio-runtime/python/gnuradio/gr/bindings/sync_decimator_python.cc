@@ -22,7 +22,7 @@ void bind_sync_decimator(py::module& m)
     using sync_decimator    = gr::sync_decimator;
 
 
-    py::class_<sync_decimator,gr::sync_block,
+    py::class_<sync_decimator,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<sync_decimator>>(m, "sync_decimator")
 
 
@@ -46,9 +46,6 @@ void bind_sync_decimator(py::module& m)
         .def("fixed_rate_noutput_to_ninput",&sync_decimator::fixed_rate_noutput_to_ninput,
             py::arg("noutput") 
         )
-        .def("to_basic_block",[](std::shared_ptr<sync_decimator> p){
-            return p->to_basic_block();
-        })
         ;
 
 

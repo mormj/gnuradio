@@ -22,12 +22,8 @@ void bind_argmax_template(py::module& m, const char *classname)
 {
     using argmax      = gr::blocks::argmax<T>;
 
-    py::class_<argmax, gr::sync_block, std::shared_ptr<argmax>>(m, classname)
+    py::class_<argmax, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<argmax>>(m, classname)
         .def(py::init(&gr::blocks::argmax<T>::make))
-
-        .def("to_basic_block",[](std::shared_ptr<argmax> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

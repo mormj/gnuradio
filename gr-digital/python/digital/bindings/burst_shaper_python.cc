@@ -22,7 +22,7 @@ void bind_burst_shaper_template(py::module& m, const char *classname)
 {
     using burst_shaper      = gr::digital::burst_shaper<T>;
 
-    py::class_<burst_shaper, gr::block, std::shared_ptr<burst_shaper>>(m, classname)
+    py::class_<burst_shaper, gr::block, gr::basic_block, std::shared_ptr<burst_shaper>>(m, classname)
         .def(py::init(&gr::digital::burst_shaper<T>::make),
             py::arg("taps"),
             py::arg("pre_padding") = 0,
@@ -35,10 +35,6 @@ void bind_burst_shaper_template(py::module& m, const char *classname)
         .def("post_padding",&burst_shaper::post_padding)
         .def("prefix_length",&burst_shaper::prefix_length)
         .def("suffix_length",&burst_shaper::suffix_length)
-
-        .def("to_basic_block",[](std::shared_ptr<burst_shaper> p){
-            return p->to_basic_block();
-        })
         ;
 
 } 

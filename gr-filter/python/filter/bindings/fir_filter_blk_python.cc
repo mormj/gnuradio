@@ -22,7 +22,7 @@ void bind_fir_filter_blk_template(py::module& m, const char *classname)
 {
     using fir_filter_blk = gr::filter::fir_filter_blk<IN_T, OUT_T, TAP_T>;
 
-    py::class_<fir_filter_blk, gr::sync_decimator, std::shared_ptr<fir_filter_blk>>(
+    py::class_<fir_filter_blk, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<fir_filter_blk>>(
         m, classname)
         .def(py::init(&gr::filter::fir_filter_blk<IN_T,OUT_T,TAP_T>::make),
              py::arg("decimation"),
@@ -30,9 +30,7 @@ void bind_fir_filter_blk_template(py::module& m, const char *classname)
 
         .def("set_taps", &fir_filter_blk::set_taps, py::arg("taps"))
         .def("taps", &fir_filter_blk::taps)
-
-        .def("to_basic_block",
-             [](std::shared_ptr<fir_filter_blk> p) { return p->to_basic_block(); });
+        ;
 }
 
 void bind_fir_filter_blk(py::module& m)

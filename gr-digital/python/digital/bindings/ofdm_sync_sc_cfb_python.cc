@@ -37,9 +37,6 @@ void bind_ofdm_sync_sc_cfb(py::module& m)
             py::arg("threshold") 
         )
         .def("threshold",&ofdm_sync_sc_cfb::threshold)
-        .def("to_basic_block",[](std::shared_ptr<ofdm_sync_sc_cfb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

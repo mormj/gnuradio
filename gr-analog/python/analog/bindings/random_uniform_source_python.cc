@@ -22,16 +22,12 @@ void bind_random_uniform_source_template(py::module& m, const char *classname)
 {
     using random_uniform_source      = gr::analog::random_uniform_source<T>;
 
-    py::class_<random_uniform_source, gr::sync_block, std::shared_ptr<random_uniform_source>>(m, classname)
+    py::class_<random_uniform_source, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<random_uniform_source>>(m, classname)
         .def(py::init(&gr::analog::random_uniform_source<T>::make),
             py::arg("minimum"),
             py::arg("maximum"),
             py::arg("seed")
         )
-
-        .def("to_basic_block",[](std::shared_ptr<random_uniform_source> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

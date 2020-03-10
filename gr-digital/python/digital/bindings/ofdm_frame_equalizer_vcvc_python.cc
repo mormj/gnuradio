@@ -32,11 +32,6 @@ void bind_ofdm_frame_equalizer_vcvc(py::module& m)
            py::arg("propagate_channel_state") = false, 
            py::arg("fixed_frame_len") = 0 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<ofdm_frame_equalizer_vcvc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

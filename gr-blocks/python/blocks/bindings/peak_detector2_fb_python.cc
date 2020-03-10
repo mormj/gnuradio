@@ -22,7 +22,7 @@ void bind_peak_detector2_fb(py::module& m)
     using peak_detector2_fb    = gr::blocks::peak_detector2_fb;
 
 
-    py::class_<peak_detector2_fb,gr::sync_block,
+    py::class_<peak_detector2_fb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<peak_detector2_fb>>(m, "peak_detector2_fb")
 
         .def(py::init(&peak_detector2_fb::make),
@@ -44,9 +44,6 @@ void bind_peak_detector2_fb(py::module& m)
         .def("threshold_factor_rise",&peak_detector2_fb::threshold_factor_rise)
         .def("look_ahead",&peak_detector2_fb::look_ahead)
         .def("alpha",&peak_detector2_fb::alpha)
-        .def("to_basic_block",[](std::shared_ptr<peak_detector2_fb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

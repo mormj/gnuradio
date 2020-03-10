@@ -22,7 +22,7 @@ void bind_file_meta_source(py::module& m)
     using file_meta_source    = gr::blocks::file_meta_source;
 
 
-    py::class_<file_meta_source,gr::sync_block,
+    py::class_<file_meta_source,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<file_meta_source>>(m, "file_meta_source")
 
         .def(py::init(&file_meta_source::make),
@@ -39,9 +39,6 @@ void bind_file_meta_source(py::module& m)
         )
         .def("close",&file_meta_source::close)
         .def("do_update",&file_meta_source::do_update)
-        .def("to_basic_block",[](std::shared_ptr<file_meta_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_depuncture_bb(py::module& m)
     using depuncture_bb    = gr::fec::depuncture_bb;
 
 
-    py::class_<depuncture_bb,gr::block,
+    py::class_<depuncture_bb,gr::block, gr::basic_block,
         std::shared_ptr<depuncture_bb>>(m, "depuncture_bb")
 
         .def(py::init(&depuncture_bb::make),
@@ -31,11 +31,6 @@ void bind_depuncture_bb(py::module& m)
            py::arg("delay") = 0, 
            py::arg("symbol") = 127 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<depuncture_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

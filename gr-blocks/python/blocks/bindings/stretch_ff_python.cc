@@ -22,7 +22,7 @@ void bind_stretch_ff(py::module& m)
     using stretch_ff    = gr::blocks::stretch_ff;
 
 
-    py::class_<stretch_ff,gr::sync_block,
+    py::class_<stretch_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<stretch_ff>>(m, "stretch_ff")
 
         .def(py::init(&stretch_ff::make),
@@ -36,9 +36,6 @@ void bind_stretch_ff(py::module& m)
             py::arg("lo") 
         )
         .def("vlen",&stretch_ff::vlen)
-        .def("to_basic_block",[](std::shared_ptr<stretch_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

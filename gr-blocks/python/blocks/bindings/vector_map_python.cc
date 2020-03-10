@@ -22,7 +22,7 @@ void bind_vector_map(py::module& m)
     using vector_map    = gr::blocks::vector_map;
 
 
-    py::class_<vector_map,gr::sync_block,
+    py::class_<vector_map,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<vector_map>>(m, "vector_map")
 
         .def(py::init(&vector_map::make),
@@ -35,9 +35,6 @@ void bind_vector_map(py::module& m)
         .def("set_mapping",&vector_map::set_mapping,
             py::arg("mapping") 
         )
-        .def("to_basic_block",[](std::shared_ptr<vector_map> p){
-            return p->to_basic_block();
-        })
         ;
 
 

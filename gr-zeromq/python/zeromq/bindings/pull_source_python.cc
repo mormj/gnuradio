@@ -22,7 +22,7 @@ void bind_pull_source(py::module& m)
     using pull_source    = gr::zeromq::pull_source;
 
 
-    py::class_<pull_source,gr::sync_block,
+    py::class_<pull_source,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pull_source>>(m, "pull_source")
 
         .def(py::init(&pull_source::make),
@@ -36,9 +36,6 @@ void bind_pull_source(py::module& m)
         
 
         .def("last_endpoint",&pull_source::last_endpoint)
-        .def("to_basic_block",[](std::shared_ptr<pull_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

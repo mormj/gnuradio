@@ -22,7 +22,7 @@ void bind_pull_msg_source(py::module& m)
     using pull_msg_source    = gr::zeromq::pull_msg_source;
 
 
-    py::class_<pull_msg_source,gr::block,
+    py::class_<pull_msg_source,gr::block, gr::basic_block,
         std::shared_ptr<pull_msg_source>>(m, "pull_msg_source")
 
         .def(py::init(&pull_msg_source::make),
@@ -32,9 +32,6 @@ void bind_pull_msg_source(py::module& m)
         
 
         .def("last_endpoint",&pull_msg_source::last_endpoint)
-        .def("to_basic_block",[](std::shared_ptr<pull_msg_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

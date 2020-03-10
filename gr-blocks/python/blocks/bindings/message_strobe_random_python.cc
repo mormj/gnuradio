@@ -22,7 +22,7 @@ void bind_message_strobe_random(py::module& m)
     using message_strobe_random    = gr::blocks::message_strobe_random;
 
 
-    py::class_<message_strobe_random,gr::block,
+    py::class_<message_strobe_random,gr::block, gr::basic_block,
         std::shared_ptr<message_strobe_random>>(m, "message_strobe_random")
 
         .def(py::init(&message_strobe_random::make),
@@ -49,9 +49,6 @@ void bind_message_strobe_random(py::module& m)
             py::arg("std") 
         )
         .def("std",&message_strobe_random::std)
-        .def("to_basic_block",[](std::shared_ptr<message_strobe_random> p){
-            return p->to_basic_block();
-        })
         ;
 
     py::enum_<gr::blocks::message_strobe_random_distribution_t>(m,"message_strobe_random_distribution_t")

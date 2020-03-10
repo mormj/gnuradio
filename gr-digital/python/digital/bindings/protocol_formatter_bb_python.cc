@@ -34,9 +34,6 @@ void bind_protocol_formatter_bb(py::module& m)
         .def("set_header_format",&protocol_formatter_bb::set_header_format,
             py::arg("format") 
         )
-        .def("to_basic_block",[](std::shared_ptr<protocol_formatter_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

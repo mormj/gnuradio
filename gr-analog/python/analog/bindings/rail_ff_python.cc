@@ -22,7 +22,7 @@ void bind_rail_ff(py::module& m)
     using rail_ff    = gr::analog::rail_ff;
 
 
-    py::class_<rail_ff,gr::sync_block,
+    py::class_<rail_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<rail_ff>>(m, "rail_ff")
 
         .def(py::init(&rail_ff::make),
@@ -39,9 +39,6 @@ void bind_rail_ff(py::module& m)
         .def("set_hi",&rail_ff::set_hi,
             py::arg("hi") 
         )
-        .def("to_basic_block",[](std::shared_ptr<rail_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

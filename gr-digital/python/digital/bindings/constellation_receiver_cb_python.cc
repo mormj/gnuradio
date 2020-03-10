@@ -22,7 +22,7 @@ void bind_constellation_receiver_cb(py::module& m)
     using constellation_receiver_cb    = gr::digital::constellation_receiver_cb;
 
 
-    py::class_<constellation_receiver_cb,gr::block,
+    py::class_<constellation_receiver_cb,gr::block, gr::basic_block,
         std::shared_ptr<constellation_receiver_cb>>(m, "constellation_receiver_cb")
 
         .def(py::init(&constellation_receiver_cb::make),
@@ -36,9 +36,6 @@ void bind_constellation_receiver_cb(py::module& m)
         .def("phase_error_tracking",&constellation_receiver_cb::phase_error_tracking,
             py::arg("phase_error") 
         )
-        .def("to_basic_block",[](std::shared_ptr<constellation_receiver_cb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

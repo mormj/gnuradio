@@ -22,17 +22,12 @@ void bind_null_source(py::module& m)
     using null_source    = gr::blocks::null_source;
 
 
-    py::class_<null_source,gr::sync_block,
+    py::class_<null_source,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<null_source>>(m, "null_source")
 
         .def(py::init(&null_source::make),
            py::arg("sizeof_stream_item") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<null_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

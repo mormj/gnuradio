@@ -22,7 +22,7 @@ void bind_message_debug(py::module& m)
     using message_debug    = gr::blocks::message_debug;
 
 
-    py::class_<message_debug,gr::block,
+    py::class_<message_debug,gr::block, gr::basic_block,
         std::shared_ptr<message_debug>>(m, "message_debug")
 
         .def(py::init(&message_debug::make)
@@ -33,9 +33,6 @@ void bind_message_debug(py::module& m)
         .def("get_message",&message_debug::get_message,
             py::arg("i") 
         )
-        .def("to_basic_block",[](std::shared_ptr<message_debug> p){
-            return p->to_basic_block();
-        })
         ;
 
 

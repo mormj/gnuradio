@@ -22,14 +22,10 @@ void bind_not_template(py::module& m, const char *classname)
 {
     using not_blk      = gr::blocks::not_blk<T>;
 
-    py::class_<not_blk, gr::sync_block, std::shared_ptr<not_blk>>(m, classname)
+    py::class_<not_blk, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<not_blk>>(m, classname)
         .def(py::init(&gr::blocks::not_blk<T>::make),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<not_blk> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

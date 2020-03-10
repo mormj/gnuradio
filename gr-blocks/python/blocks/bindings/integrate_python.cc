@@ -22,15 +22,11 @@ void bind_integrate_template(py::module& m, const char *classname)
 {
     using integrate      = gr::blocks::integrate<T>;
 
-    py::class_<integrate, gr::sync_decimator, std::shared_ptr<integrate>>(m, classname)
+    py::class_<integrate, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<integrate>>(m, classname)
         .def(py::init(&gr::blocks::integrate<T>::make),
             py::arg("decim"),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<integrate> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

@@ -22,7 +22,7 @@ void bind_dvbt_convolutional_deinterleaver(py::module& m)
     using dvbt_convolutional_deinterleaver    = gr::dtv::dvbt_convolutional_deinterleaver;
 
 
-    py::class_<dvbt_convolutional_deinterleaver,gr::block,
+    py::class_<dvbt_convolutional_deinterleaver,gr::block, gr::basic_block,
         std::shared_ptr<dvbt_convolutional_deinterleaver>>(m, "dvbt_convolutional_deinterleaver")
 
         .def(py::init(&dvbt_convolutional_deinterleaver::make),
@@ -30,11 +30,6 @@ void bind_dvbt_convolutional_deinterleaver(py::module& m)
            py::arg("I"), 
            py::arg("M") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt_convolutional_deinterleaver> p){
-            return p->to_basic_block();
-        })
         ;
 
 

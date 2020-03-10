@@ -22,7 +22,7 @@ void bind_probe_density_b(py::module& m)
     using probe_density_b    = gr::digital::probe_density_b;
 
 
-    py::class_<probe_density_b,gr::sync_block,
+    py::class_<probe_density_b,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<probe_density_b>>(m, "probe_density_b")
 
         .def(py::init(&probe_density_b::make),
@@ -34,9 +34,6 @@ void bind_probe_density_b(py::module& m)
         .def("set_alpha",&probe_density_b::set_alpha,
             py::arg("alpha") 
         )
-        .def("to_basic_block",[](std::shared_ptr<probe_density_b> p){
-            return p->to_basic_block();
-        })
         ;
 
 

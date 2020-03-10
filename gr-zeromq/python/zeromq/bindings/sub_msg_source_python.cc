@@ -22,7 +22,7 @@ void bind_sub_msg_source(py::module& m)
     using sub_msg_source    = gr::zeromq::sub_msg_source;
 
 
-    py::class_<sub_msg_source,gr::block,
+    py::class_<sub_msg_source,gr::block, gr::basic_block,
         std::shared_ptr<sub_msg_source>>(m, "sub_msg_source")
 
         .def(py::init(&sub_msg_source::make),
@@ -32,9 +32,6 @@ void bind_sub_msg_source(py::module& m)
         
 
         .def("last_endpoint",&sub_msg_source::last_endpoint)
-        .def("to_basic_block",[](std::shared_ptr<sub_msg_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_selective_fading_model2(py::module& m)
     using selective_fading_model2    = gr::channels::selective_fading_model2;
 
 
-    py::class_<selective_fading_model2,gr::sync_block,
+    py::class_<selective_fading_model2,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<selective_fading_model2>>(m, "selective_fading_model2")
 
         .def(py::init(&selective_fading_model2::make),
@@ -51,9 +51,6 @@ void bind_selective_fading_model2(py::module& m)
         .def("set_step",&selective_fading_model2::set_step,
             py::arg("step") 
         )
-        .def("to_basic_block",[](std::shared_ptr<selective_fading_model2> p){
-            return p->to_basic_block();
-        })
         ;
 
 

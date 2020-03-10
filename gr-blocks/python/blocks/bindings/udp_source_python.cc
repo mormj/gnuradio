@@ -22,7 +22,7 @@ void bind_udp_source(py::module& m)
     using udp_source    = gr::blocks::udp_source;
 
 
-    py::class_<udp_source,gr::sync_block,
+    py::class_<udp_source,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<udp_source>>(m, "udp_source")
 
         .def(py::init(&udp_source::make),
@@ -41,9 +41,6 @@ void bind_udp_source(py::module& m)
         .def("disconnect",&udp_source::disconnect)
         .def("payload_size",&udp_source::payload_size)
         .def("get_port",&udp_source::get_port)
-        .def("to_basic_block",[](std::shared_ptr<udp_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

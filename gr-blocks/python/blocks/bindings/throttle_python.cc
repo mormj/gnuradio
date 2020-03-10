@@ -22,7 +22,7 @@ void bind_throttle(py::module& m)
     using throttle    = gr::blocks::throttle;
 
 
-    py::class_<throttle,gr::sync_block,
+    py::class_<throttle,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<throttle>>(m, "throttle")
 
         .def(py::init(&throttle::make),
@@ -36,9 +36,6 @@ void bind_throttle(py::module& m)
             py::arg("rate") 
         )
         .def("sample_rate",&throttle::sample_rate)
-        .def("to_basic_block",[](std::shared_ptr<throttle> p){
-            return p->to_basic_block();
-        })
         ;
 
 

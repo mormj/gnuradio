@@ -22,14 +22,11 @@ void bind_probe_signal_v_template(py::module& m, const char *classname)
 {
     using probe_signal_v      = gr::blocks::probe_signal_v<T>;
 
-    py::class_<probe_signal_v, gr::sync_block, std::shared_ptr<probe_signal_v>>(m, classname)
+    py::class_<probe_signal_v, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<probe_signal_v>>(m, classname)
         .def(py::init(&gr::blocks::probe_signal_v<T>::make),
             py::arg("size")
         )
         .def("level",&probe_signal_v::level)
-        .def("to_basic_block",[](std::shared_ptr<probe_signal_v> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

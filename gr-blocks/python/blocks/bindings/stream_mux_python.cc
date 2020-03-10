@@ -22,18 +22,13 @@ void bind_stream_mux(py::module& m)
     using stream_mux    = gr::blocks::stream_mux;
 
 
-    py::class_<stream_mux,gr::block,
+    py::class_<stream_mux,gr::block, gr::basic_block,
         std::shared_ptr<stream_mux>>(m, "stream_mux")
 
         .def(py::init(&stream_mux::make),
            py::arg("itemsize"), 
            py::arg("lengths") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<stream_mux> p){
-            return p->to_basic_block();
-        })
         ;
 
 

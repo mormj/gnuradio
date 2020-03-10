@@ -22,18 +22,13 @@ void bind_tagged_file_sink(py::module& m)
     using tagged_file_sink    = gr::blocks::tagged_file_sink;
 
 
-    py::class_<tagged_file_sink,gr::sync_block,
+    py::class_<tagged_file_sink,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<tagged_file_sink>>(m, "tagged_file_sink")
 
         .def(py::init(&tagged_file_sink::make),
            py::arg("itemsize"), 
            py::arg("samp_rate") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<tagged_file_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

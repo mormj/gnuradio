@@ -22,18 +22,13 @@ void bind_interleave(py::module& m)
     using interleave    = gr::blocks::interleave;
 
 
-    py::class_<interleave,gr::block,
+    py::class_<interleave,gr::block, gr::basic_block,
         std::shared_ptr<interleave>>(m, "interleave")
 
         .def(py::init(&interleave::make),
            py::arg("itemsize"), 
            py::arg("blocksize") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<interleave> p){
-            return p->to_basic_block();
-        })
         ;
 
 

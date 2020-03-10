@@ -22,7 +22,7 @@ void bind_dvbt2_modulator_bc(py::module& m)
     using dvbt2_modulator_bc    = gr::dtv::dvbt2_modulator_bc;
 
 
-    py::class_<dvbt2_modulator_bc,gr::block,
+    py::class_<dvbt2_modulator_bc,gr::block, gr::basic_block,
         std::shared_ptr<dvbt2_modulator_bc>>(m, "dvbt2_modulator_bc")
 
         .def(py::init(&dvbt2_modulator_bc::make),
@@ -30,11 +30,6 @@ void bind_dvbt2_modulator_bc(py::module& m)
            py::arg("constellation"), 
            py::arg("rotation") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt2_modulator_bc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

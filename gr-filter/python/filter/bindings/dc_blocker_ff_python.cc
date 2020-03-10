@@ -22,7 +22,7 @@ void bind_dc_blocker_ff(py::module& m)
     using dc_blocker_ff    = gr::filter::dc_blocker_ff;
 
 
-    py::class_<dc_blocker_ff,gr::sync_block,
+    py::class_<dc_blocker_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<dc_blocker_ff>>(m, "dc_blocker_ff")
 
         .def(py::init(&dc_blocker_ff::make),
@@ -32,9 +32,6 @@ void bind_dc_blocker_ff(py::module& m)
         
 
         .def("group_delay",&dc_blocker_ff::group_delay)
-        .def("to_basic_block",[](std::shared_ptr<dc_blocker_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

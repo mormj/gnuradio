@@ -22,7 +22,7 @@ void bind_cvsd_encode_sb(py::module& m)
     using cvsd_encode_sb    = gr::vocoder::cvsd_encode_sb;
 
 
-    py::class_<cvsd_encode_sb,gr::sync_decimator,
+    py::class_<cvsd_encode_sb,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<cvsd_encode_sb>>(m, "cvsd_encode_sb")
 
         .def(py::init(&cvsd_encode_sb::make),
@@ -45,9 +45,6 @@ void bind_cvsd_encode_sb(py::module& m)
         .def("J",&cvsd_encode_sb::J)
         .def("pos_accum_max",&cvsd_encode_sb::pos_accum_max)
         .def("neg_accum_max",&cvsd_encode_sb::neg_accum_max)
-        .def("to_basic_block",[](std::shared_ptr<cvsd_encode_sb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

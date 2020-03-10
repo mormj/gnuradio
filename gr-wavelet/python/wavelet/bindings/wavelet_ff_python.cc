@@ -20,7 +20,7 @@ void bind_wavelet_ff(py::module& m)
     using wavelet_ff    = gr::wavelet::wavelet_ff;
 
 
-    py::class_<wavelet_ff,gr::sync_block,
+    py::class_<wavelet_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<wavelet_ff>>(m, "wavelet_ff")
 
         .def(py::init(&wavelet_ff::make),
@@ -28,11 +28,6 @@ void bind_wavelet_ff(py::module& m)
            py::arg("order") = 20, 
            py::arg("forward") = true 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<wavelet_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

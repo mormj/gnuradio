@@ -22,7 +22,7 @@ void bind_sig_source_template(py::module& m, const char* classname)
 {
     using sig_source = gr::analog::sig_source<T>;
 
-    py::class_<sig_source, gr::sync_block, std::shared_ptr<sig_source>>(m, classname)
+    py::class_<sig_source, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<sig_source>>(m, classname)
         .def(py::init(&gr::analog::sig_source<T>::make),
              py::arg("sampling_freq"),
              py::arg("waveform"), 
@@ -43,9 +43,7 @@ void bind_sig_source_template(py::module& m, const char* classname)
         .def("set_amplitude", &sig_source::set_amplitude, py::arg("amplitude"))
         .def("set_offset", &sig_source::set_offset, py::arg("offset"))
         .def("set_phase", &sig_source::set_phase, py::arg("phase"))
-
-        .def("to_basic_block",
-             [](std::shared_ptr<sig_source> p) { return p->to_basic_block(); });
+        ;
 }
 
 void bind_sig_source(py::module& m)

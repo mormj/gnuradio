@@ -22,7 +22,7 @@ void bind_header_payload_demux(py::module& m)
     using header_payload_demux    = gr::digital::header_payload_demux;
 
 
-    py::class_<header_payload_demux,gr::block,
+    py::class_<header_payload_demux,gr::block, gr::basic_block,
         std::shared_ptr<header_payload_demux>>(m, "header_payload_demux")
 
         .def(py::init(&header_payload_demux::make),
@@ -38,11 +38,6 @@ void bind_header_payload_demux(py::module& m)
            py::arg("special_tags") = std::vector<std::string>(), 
            py::arg("header_padding") = 0 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<header_payload_demux> p){
-            return p->to_basic_block();
-        })
         ;
 
 

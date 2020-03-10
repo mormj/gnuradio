@@ -22,7 +22,7 @@ void bind_exponentiate_const_cci(py::module& m)
     using exponentiate_const_cci    = gr::blocks::exponentiate_const_cci;
 
 
-    py::class_<exponentiate_const_cci,gr::sync_block,
+    py::class_<exponentiate_const_cci,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<exponentiate_const_cci>>(m, "exponentiate_const_cci")
 
         .def(py::init(&exponentiate_const_cci::make),
@@ -34,9 +34,6 @@ void bind_exponentiate_const_cci(py::module& m)
         .def("set_exponent",&exponentiate_const_cci::set_exponent,
             py::arg("exponent") 
         )
-        .def("to_basic_block",[](std::shared_ptr<exponentiate_const_cci> p){
-            return p->to_basic_block();
-        })
         ;
 
 

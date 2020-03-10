@@ -22,7 +22,7 @@ void bind_dvbt2_paprtr_cc(py::module& m)
     using dvbt2_paprtr_cc    = gr::dtv::dvbt2_paprtr_cc;
 
 
-    py::class_<dvbt2_paprtr_cc,gr::sync_block,
+    py::class_<dvbt2_paprtr_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<dvbt2_paprtr_cc>>(m, "dvbt2_paprtr_cc")
 
         .def(py::init(&dvbt2_paprtr_cc::make),
@@ -37,11 +37,6 @@ void bind_dvbt2_paprtr_cc(py::module& m)
            py::arg("iterations"), 
            py::arg("vlength") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt2_paprtr_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

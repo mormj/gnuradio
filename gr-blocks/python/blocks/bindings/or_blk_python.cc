@@ -22,14 +22,10 @@ void bind_or_blk_template(py::module& m, const char *classname)
 {
     using or_blk      = gr::blocks::or_blk<T>;
 
-    py::class_<or_blk, gr::sync_block, std::shared_ptr<or_blk>>(m, classname)
+    py::class_<or_blk, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<or_blk>>(m, classname)
         .def(py::init(&gr::blocks::or_blk<T>::make),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<or_blk> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

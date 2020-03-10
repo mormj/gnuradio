@@ -22,14 +22,10 @@ void bind_xor_blk_template(py::module& m, const char *classname)
 {
     using xor_blk      = gr::blocks::xor_blk<T>;
 
-    py::class_<xor_blk, gr::sync_block, std::shared_ptr<xor_blk>>(m, classname)
+    py::class_<xor_blk, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<xor_blk>>(m, classname)
         .def(py::init(&gr::blocks::xor_blk<T>::make),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<xor_blk> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

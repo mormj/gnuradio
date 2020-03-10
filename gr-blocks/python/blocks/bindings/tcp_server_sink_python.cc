@@ -22,7 +22,7 @@ void bind_tcp_server_sink(py::module& m)
     using tcp_server_sink    = gr::blocks::tcp_server_sink;
 
 
-    py::class_<tcp_server_sink,gr::sync_block,
+    py::class_<tcp_server_sink,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<tcp_server_sink>>(m, "tcp_server_sink")
 
         .def(py::init(&tcp_server_sink::make),
@@ -31,11 +31,6 @@ void bind_tcp_server_sink(py::module& m)
            py::arg("port"), 
            py::arg("noblock") = false 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<tcp_server_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

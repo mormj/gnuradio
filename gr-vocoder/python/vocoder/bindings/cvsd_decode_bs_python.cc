@@ -22,7 +22,7 @@ void bind_cvsd_decode_bs(py::module& m)
     using cvsd_decode_bs    = gr::vocoder::cvsd_decode_bs;
 
 
-    py::class_<cvsd_decode_bs,gr::sync_interpolator,
+    py::class_<cvsd_decode_bs,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<cvsd_decode_bs>>(m, "cvsd_decode_bs")
 
         .def(py::init(&cvsd_decode_bs::make),
@@ -45,9 +45,6 @@ void bind_cvsd_decode_bs(py::module& m)
         .def("J",&cvsd_decode_bs::J)
         .def("pos_accum_max",&cvsd_decode_bs::pos_accum_max)
         .def("neg_accum_max",&cvsd_decode_bs::neg_accum_max)
-        .def("to_basic_block",[](std::shared_ptr<cvsd_decode_bs> p){
-            return p->to_basic_block();
-        })
         ;
 
 

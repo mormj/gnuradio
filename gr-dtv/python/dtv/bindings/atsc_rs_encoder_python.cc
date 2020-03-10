@@ -22,16 +22,11 @@ void bind_atsc_rs_encoder(py::module& m)
     using atsc_rs_encoder    = gr::dtv::atsc_rs_encoder;
 
 
-    py::class_<atsc_rs_encoder,gr::sync_block,
+    py::class_<atsc_rs_encoder,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_rs_encoder>>(m, "atsc_rs_encoder")
 
         .def(py::init(&atsc_rs_encoder::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_rs_encoder> p){
-            return p->to_basic_block();
-        })
         ;
 
 

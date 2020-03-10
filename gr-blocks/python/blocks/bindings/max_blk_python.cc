@@ -22,15 +22,11 @@ void bind_max_blk_template(py::module& m, const char *classname)
 {
     using max_blk      = gr::blocks::max_blk<T>;
 
-    py::class_<max_blk, gr::sync_block, std::shared_ptr<max_blk>>(m, classname)
+    py::class_<max_blk, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<max_blk>>(m, classname)
         .def(py::init(&gr::blocks::max_blk<T>::make),
             py::arg("vlen"),
             py::arg("vlen_out") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<max_blk> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

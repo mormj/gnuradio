@@ -22,7 +22,7 @@ void bind_dvbt2_miso_cc(py::module& m)
     using dvbt2_miso_cc    = gr::dtv::dvbt2_miso_cc;
 
 
-    py::class_<dvbt2_miso_cc,gr::sync_block,
+    py::class_<dvbt2_miso_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<dvbt2_miso_cc>>(m, "dvbt2_miso_cc")
 
         .def(py::init(&dvbt2_miso_cc::make),
@@ -33,11 +33,6 @@ void bind_dvbt2_miso_cc(py::module& m)
            py::arg("numdatasyms"), 
            py::arg("paprmode") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt2_miso_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

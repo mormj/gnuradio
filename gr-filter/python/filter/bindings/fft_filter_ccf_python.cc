@@ -22,7 +22,7 @@ void bind_fft_filter_ccf(py::module& m)
     using fft_filter_ccf    = gr::filter::fft_filter_ccf;
 
 
-    py::class_<fft_filter_ccf,gr::sync_decimator,
+    py::class_<fft_filter_ccf,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<fft_filter_ccf>>(m, "fft_filter_ccf")
 
         .def(py::init(&fft_filter_ccf::make),
@@ -40,9 +40,6 @@ void bind_fft_filter_ccf(py::module& m)
             py::arg("n") 
         )
         .def("nthreads",&fft_filter_ccf::nthreads)
-        .def("to_basic_block",[](std::shared_ptr<fft_filter_ccf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

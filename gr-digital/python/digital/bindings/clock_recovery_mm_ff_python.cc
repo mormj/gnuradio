@@ -22,7 +22,7 @@ void bind_clock_recovery_mm_ff(py::module& m)
     using clock_recovery_mm_ff    = gr::digital::clock_recovery_mm_ff;
 
 
-    py::class_<clock_recovery_mm_ff,gr::block,
+    py::class_<clock_recovery_mm_ff,gr::block, gr::basic_block,
         std::shared_ptr<clock_recovery_mm_ff>>(m, "clock_recovery_mm_ff")
 
         .def(py::init(&clock_recovery_mm_ff::make),
@@ -53,9 +53,6 @@ void bind_clock_recovery_mm_ff(py::module& m)
         .def("set_omega",&clock_recovery_mm_ff::set_omega,
             py::arg("omega") 
         )
-        .def("to_basic_block",[](std::shared_ptr<clock_recovery_mm_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

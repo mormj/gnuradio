@@ -22,7 +22,7 @@ void bind_sync_interpolator(py::module& m)
     using sync_interpolator    = gr::sync_interpolator;
 
 
-    py::class_<sync_interpolator,gr::sync_block,
+    py::class_<sync_interpolator,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<sync_interpolator>>(m, "sync_interpolator")
 
 
@@ -46,9 +46,6 @@ void bind_sync_interpolator(py::module& m)
         .def("fixed_rate_noutput_to_ninput",&sync_interpolator::fixed_rate_noutput_to_ninput,
             py::arg("noutput") 
         )
-        .def("to_basic_block",[](std::shared_ptr<sync_interpolator> p){
-            return p->to_basic_block();
-        })
         ;
 
 

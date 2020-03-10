@@ -22,7 +22,7 @@ void bind_push_sink(py::module& m)
     using push_sink    = gr::zeromq::push_sink;
 
 
-    py::class_<push_sink,gr::sync_block,
+    py::class_<push_sink,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<push_sink>>(m, "push_sink")
 
         .def(py::init(&push_sink::make),
@@ -36,9 +36,6 @@ void bind_push_sink(py::module& m)
         
 
         .def("last_endpoint",&push_sink::last_endpoint)
-        .def("to_basic_block",[](std::shared_ptr<push_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

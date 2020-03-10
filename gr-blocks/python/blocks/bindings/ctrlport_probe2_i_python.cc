@@ -22,7 +22,7 @@ void bind_ctrlport_probe2_i(py::module& m)
     using ctrlport_probe2_i    = gr::blocks::ctrlport_probe2_i;
 
 
-    py::class_<ctrlport_probe2_i,gr::sync_block,
+    py::class_<ctrlport_probe2_i,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<ctrlport_probe2_i>>(m, "ctrlport_probe2_i")
 
         .def(py::init(&ctrlport_probe2_i::make),
@@ -37,9 +37,6 @@ void bind_ctrlport_probe2_i(py::module& m)
         .def("set_length",&ctrlport_probe2_i::set_length,
             py::arg("len") 
         )
-        .def("to_basic_block",[](std::shared_ptr<ctrlport_probe2_i> p){
-            return p->to_basic_block();
-        })
         ;
 
 

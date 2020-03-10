@@ -210,9 +210,6 @@ void bind_block(py::module& m)
         .def("notify_msg_neighbors",&block::notify_msg_neighbors)
         .def("clear_finished",&block::clear_finished)
         .def("identifier",&block::identifier)
-        .def("to_basic_block",[](std::shared_ptr<block> p){
-            return p->to_basic_block();
-        })
         ;
 
     py::enum_<gr::block::work_return_t>(m,"work_return_t")

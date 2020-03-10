@@ -54,9 +54,6 @@ void bind_ctcss_squelch_ff(py::module& m)
             py::arg("gate") 
         )
         .def("unmuted",&ctcss_squelch_ff::unmuted)
-        .def("to_basic_block",[](std::shared_ptr<ctcss_squelch_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

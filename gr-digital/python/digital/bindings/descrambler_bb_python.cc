@@ -22,7 +22,7 @@ void bind_descrambler_bb(py::module& m)
     using descrambler_bb    = gr::digital::descrambler_bb;
 
 
-    py::class_<descrambler_bb,gr::sync_block,
+    py::class_<descrambler_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<descrambler_bb>>(m, "descrambler_bb")
 
         .def(py::init(&descrambler_bb::make),
@@ -30,11 +30,6 @@ void bind_descrambler_bb(py::module& m)
            py::arg("seed"), 
            py::arg("len") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<descrambler_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

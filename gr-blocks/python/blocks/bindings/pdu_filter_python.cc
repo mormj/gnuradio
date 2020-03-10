@@ -22,7 +22,7 @@ void bind_pdu_filter(py::module& m)
     using pdu_filter    = gr::blocks::pdu_filter;
 
 
-    py::class_<pdu_filter,gr::block,
+    py::class_<pdu_filter,gr::block, gr::basic_block,
         std::shared_ptr<pdu_filter>>(m, "pdu_filter")
 
         .def(py::init(&pdu_filter::make),
@@ -41,9 +41,6 @@ void bind_pdu_filter(py::module& m)
         .def("set_inversion",&pdu_filter::set_inversion,
             py::arg("invert") 
         )
-        .def("to_basic_block",[](std::shared_ptr<pdu_filter> p){
-            return p->to_basic_block();
-        })
         ;
 
 

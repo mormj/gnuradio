@@ -22,7 +22,7 @@ void bind_dvbt2_pilotgenerator_cc(py::module& m)
     using dvbt2_pilotgenerator_cc    = gr::dtv::dvbt2_pilotgenerator_cc;
 
 
-    py::class_<dvbt2_pilotgenerator_cc,gr::block,
+    py::class_<dvbt2_pilotgenerator_cc,gr::block, gr::basic_block,
         std::shared_ptr<dvbt2_pilotgenerator_cc>>(m, "dvbt2_pilotgenerator_cc")
 
         .def(py::init(&dvbt2_pilotgenerator_cc::make),
@@ -39,11 +39,6 @@ void bind_dvbt2_pilotgenerator_cc(py::module& m)
            py::arg("bandwidth"), 
            py::arg("vlength") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt2_pilotgenerator_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

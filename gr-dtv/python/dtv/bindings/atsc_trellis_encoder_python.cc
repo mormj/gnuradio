@@ -22,16 +22,11 @@ void bind_atsc_trellis_encoder(py::module& m)
     using atsc_trellis_encoder    = gr::dtv::atsc_trellis_encoder;
 
 
-    py::class_<atsc_trellis_encoder,gr::sync_block,
+    py::class_<atsc_trellis_encoder,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_trellis_encoder>>(m, "atsc_trellis_encoder")
 
         .def(py::init(&atsc_trellis_encoder::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_trellis_encoder> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,15 +22,11 @@ void bind_min_blk_template(py::module& m, const char *classname)
 {
     using min_blk      = gr::blocks::min_blk<T>;
 
-    py::class_<min_blk, gr::sync_block, std::shared_ptr<min_blk>>(m, classname)
+    py::class_<min_blk, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<min_blk>>(m, classname)
         .def(py::init(&gr::blocks::min_blk<T>::make),
             py::arg("vlen"),
             py::arg("vlen_out") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<min_blk> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

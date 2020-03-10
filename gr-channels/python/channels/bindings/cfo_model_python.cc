@@ -22,7 +22,7 @@ void bind_cfo_model(py::module& m)
     using cfo_model    = gr::channels::cfo_model;
 
 
-    py::class_<cfo_model,gr::sync_block,
+    py::class_<cfo_model,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<cfo_model>>(m, "cfo_model")
 
         .def(py::init(&cfo_model::make),
@@ -45,9 +45,6 @@ void bind_cfo_model(py::module& m)
         .def("std_dev",&cfo_model::std_dev)
         .def("max_dev",&cfo_model::max_dev)
         .def("samp_rate",&cfo_model::samp_rate)
-        .def("to_basic_block",[](std::shared_ptr<cfo_model> p){
-            return p->to_basic_block();
-        })
         ;
 
 

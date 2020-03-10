@@ -22,7 +22,7 @@ void bind_filterbank_vcvcf(py::module& m)
     using filterbank_vcvcf    = gr::filter::filterbank_vcvcf;
 
 
-    py::class_<filterbank_vcvcf,gr::block,
+    py::class_<filterbank_vcvcf,gr::block, gr::basic_block,
         std::shared_ptr<filterbank_vcvcf>>(m, "filterbank_vcvcf")
 
         .def(py::init(&filterbank_vcvcf::make),
@@ -35,9 +35,6 @@ void bind_filterbank_vcvcf(py::module& m)
         )
         .def("print_taps",&filterbank_vcvcf::print_taps)
         .def("taps",&filterbank_vcvcf::taps)
-        .def("to_basic_block",[](std::shared_ptr<filterbank_vcvcf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

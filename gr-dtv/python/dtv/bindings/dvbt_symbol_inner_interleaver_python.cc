@@ -22,7 +22,7 @@ void bind_dvbt_symbol_inner_interleaver(py::module& m)
     using dvbt_symbol_inner_interleaver    = gr::dtv::dvbt_symbol_inner_interleaver;
 
 
-    py::class_<dvbt_symbol_inner_interleaver,gr::block,
+    py::class_<dvbt_symbol_inner_interleaver,gr::block, gr::basic_block,
         std::shared_ptr<dvbt_symbol_inner_interleaver>>(m, "dvbt_symbol_inner_interleaver")
 
         .def(py::init(&dvbt_symbol_inner_interleaver::make),
@@ -30,11 +30,6 @@ void bind_dvbt_symbol_inner_interleaver(py::module& m)
            py::arg("transmission"), 
            py::arg("direction") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt_symbol_inner_interleaver> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_scrambler_bb(py::module& m)
     using scrambler_bb    = gr::digital::scrambler_bb;
 
 
-    py::class_<scrambler_bb,gr::sync_block,
+    py::class_<scrambler_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<scrambler_bb>>(m, "scrambler_bb")
 
         .def(py::init(&scrambler_bb::make),
@@ -30,11 +30,6 @@ void bind_scrambler_bb(py::module& m)
            py::arg("seed"), 
            py::arg("len") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<scrambler_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

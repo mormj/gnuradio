@@ -22,14 +22,10 @@ void bind_multiply_template(py::module& m, const char *classname)
 {
     using multiply      = gr::blocks::multiply<T>;
 
-    py::class_<multiply, gr::sync_block, std::shared_ptr<multiply>>(m, classname)
+    py::class_<multiply, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<multiply>>(m, classname)
         .def(py::init(&gr::blocks::multiply<T>::make),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<multiply> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

@@ -22,17 +22,12 @@ void bind_simple_correlator(py::module& m)
     using simple_correlator    = gr::digital::simple_correlator;
 
 
-    py::class_<simple_correlator,gr::block,
+    py::class_<simple_correlator,gr::block, gr::basic_block,
         std::shared_ptr<simple_correlator>>(m, "simple_correlator")
 
         .def(py::init(&simple_correlator::make),
            py::arg("payload_bytesize") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<simple_correlator> p){
-            return p->to_basic_block();
-        })
         ;
 
 

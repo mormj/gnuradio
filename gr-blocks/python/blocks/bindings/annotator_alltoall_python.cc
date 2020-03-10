@@ -22,7 +22,7 @@ void bind_annotator_alltoall(py::module& m)
     using annotator_alltoall    = gr::blocks::annotator_alltoall;
 
 
-    py::class_<annotator_alltoall,gr::sync_block,
+    py::class_<annotator_alltoall,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<annotator_alltoall>>(m, "annotator_alltoall")
 
         .def(py::init(&annotator_alltoall::make),
@@ -32,9 +32,6 @@ void bind_annotator_alltoall(py::module& m)
         
 
         .def("data",&annotator_alltoall::data)
-        .def("to_basic_block",[](std::shared_ptr<annotator_alltoall> p){
-            return p->to_basic_block();
-        })
         ;
 
 

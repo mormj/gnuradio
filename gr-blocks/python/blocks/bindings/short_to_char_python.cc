@@ -22,17 +22,12 @@ void bind_short_to_char(py::module& m)
     using short_to_char    = gr::blocks::short_to_char;
 
 
-    py::class_<short_to_char,gr::sync_block,
+    py::class_<short_to_char,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<short_to_char>>(m, "short_to_char")
 
         .def(py::init(&short_to_char::make),
            py::arg("vlen") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<short_to_char> p){
-            return p->to_basic_block();
-        })
         ;
 
 

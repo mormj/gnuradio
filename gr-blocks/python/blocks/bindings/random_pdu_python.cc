@@ -22,7 +22,7 @@ void bind_random_pdu(py::module& m)
     using random_pdu    = gr::blocks::random_pdu;
 
 
-    py::class_<random_pdu,gr::block,
+    py::class_<random_pdu,gr::block, gr::basic_block,
         std::shared_ptr<random_pdu>>(m, "random_pdu")
 
         .def(py::init(&random_pdu::make),
@@ -31,11 +31,6 @@ void bind_random_pdu(py::module& m)
            py::arg("byte_mask") = 255, 
            py::arg("length_modulo") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<random_pdu> p){
-            return p->to_basic_block();
-        })
         ;
 
 

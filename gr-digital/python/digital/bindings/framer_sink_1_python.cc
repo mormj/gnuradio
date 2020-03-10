@@ -22,17 +22,12 @@ void bind_framer_sink_1(py::module& m)
     using framer_sink_1    = gr::digital::framer_sink_1;
 
 
-    py::class_<framer_sink_1,gr::sync_block,
+    py::class_<framer_sink_1,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<framer_sink_1>>(m, "framer_sink_1")
 
         .def(py::init(&framer_sink_1::make),
            py::arg("target_queue") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<framer_sink_1> p){
-            return p->to_basic_block();
-        })
         ;
 
 

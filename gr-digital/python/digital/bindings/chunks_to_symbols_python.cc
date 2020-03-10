@@ -22,7 +22,7 @@ void bind_chunks_to_symbols_template(py::module& m, const char *classname)
 {
     using chunks_to_symbols      = gr::digital::chunks_to_symbols<IN_T,OUT_T>;
 
-    py::class_<chunks_to_symbols, gr::sync_interpolator, std::shared_ptr<chunks_to_symbols>>(m, classname)
+    py::class_<chunks_to_symbols, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<chunks_to_symbols>>(m, classname)
         .def(py::init(&gr::digital::chunks_to_symbols<IN_T,OUT_T>::make),
             py::arg("symbol_table"),
             py::arg("D") = 1
@@ -31,10 +31,6 @@ void bind_chunks_to_symbols_template(py::module& m, const char *classname)
         .def("set_symbol_table",&chunks_to_symbols::set_symbol_table,py::arg("symbol_table"))
         .def("symbol_table",&chunks_to_symbols::symbol_table)
         .def("D",&chunks_to_symbols::D)
-
-        .def("to_basic_block",[](std::shared_ptr<chunks_to_symbols> p){
-            return p->to_basic_block();
-        })
         ;
 
 } 

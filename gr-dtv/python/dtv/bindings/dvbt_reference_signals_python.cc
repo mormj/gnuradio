@@ -22,7 +22,7 @@ void bind_dvbt_reference_signals(py::module& m)
     using dvbt_reference_signals    = gr::dtv::dvbt_reference_signals;
 
 
-    py::class_<dvbt_reference_signals,gr::block,
+    py::class_<dvbt_reference_signals,gr::block, gr::basic_block,
         std::shared_ptr<dvbt_reference_signals>>(m, "dvbt_reference_signals")
 
         .def(py::init(&dvbt_reference_signals::make),
@@ -38,11 +38,6 @@ void bind_dvbt_reference_signals(py::module& m)
            py::arg("include_cell_id"), 
            py::arg("cell_id") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt_reference_signals> p){
-            return p->to_basic_block();
-        })
         ;
 
 

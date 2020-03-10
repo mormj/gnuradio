@@ -22,7 +22,7 @@ void bind_keep_one_in_n(py::module& m)
     using keep_one_in_n    = gr::blocks::keep_one_in_n;
 
 
-    py::class_<keep_one_in_n,gr::block,
+    py::class_<keep_one_in_n,gr::block, gr::basic_block,
         std::shared_ptr<keep_one_in_n>>(m, "keep_one_in_n")
 
         .def(py::init(&keep_one_in_n::make),
@@ -34,9 +34,6 @@ void bind_keep_one_in_n(py::module& m)
         .def("set_n",&keep_one_in_n::set_n,
             py::arg("n") 
         )
-        .def("to_basic_block",[](std::shared_ptr<keep_one_in_n> p){
-            return p->to_basic_block();
-        })
         ;
 
 

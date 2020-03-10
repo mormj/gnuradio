@@ -22,7 +22,7 @@ void bind_pfb_synthesizer_ccf(py::module& m)
     using pfb_synthesizer_ccf    = gr::filter::pfb_synthesizer_ccf;
 
 
-    py::class_<pfb_synthesizer_ccf,gr::sync_interpolator,
+    py::class_<pfb_synthesizer_ccf,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pfb_synthesizer_ccf>>(m, "pfb_synthesizer_ccf")
 
         .def(py::init(&pfb_synthesizer_ccf::make),
@@ -41,9 +41,6 @@ void bind_pfb_synthesizer_ccf(py::module& m)
             py::arg("map") 
         )
         .def("channel_map",&pfb_synthesizer_ccf::channel_map)
-        .def("to_basic_block",[](std::shared_ptr<pfb_synthesizer_ccf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

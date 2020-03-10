@@ -22,7 +22,7 @@ void bind_correlate_access_code_bb_ts(py::module& m)
     using correlate_access_code_bb_ts    = gr::digital::correlate_access_code_bb_ts;
 
 
-    py::class_<correlate_access_code_bb_ts,gr::block,
+    py::class_<correlate_access_code_bb_ts,gr::block, gr::basic_block,
         std::shared_ptr<correlate_access_code_bb_ts>>(m, "correlate_access_code_bb_ts")
 
         .def(py::init(&correlate_access_code_bb_ts::make),
@@ -36,9 +36,6 @@ void bind_correlate_access_code_bb_ts(py::module& m)
             py::arg("access_code") 
         )
         .def("access_code",&correlate_access_code_bb_ts::access_code)
-        .def("to_basic_block",[](std::shared_ptr<correlate_access_code_bb_ts> p){
-            return p->to_basic_block();
-        })
         ;
 
 

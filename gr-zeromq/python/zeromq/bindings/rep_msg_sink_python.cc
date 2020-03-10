@@ -22,7 +22,7 @@ void bind_rep_msg_sink(py::module& m)
     using rep_msg_sink    = gr::zeromq::rep_msg_sink;
 
 
-    py::class_<rep_msg_sink,gr::block,
+    py::class_<rep_msg_sink,gr::block, gr::basic_block,
         std::shared_ptr<rep_msg_sink>>(m, "rep_msg_sink")
 
         .def(py::init(&rep_msg_sink::make),
@@ -32,9 +32,6 @@ void bind_rep_msg_sink(py::module& m)
         
 
         .def("last_endpoint",&rep_msg_sink::last_endpoint)
-        .def("to_basic_block",[](std::shared_ptr<rep_msg_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

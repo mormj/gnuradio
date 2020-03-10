@@ -22,7 +22,7 @@ void bind_quadrature_demod_cf(py::module& m)
     using quadrature_demod_cf    = gr::analog::quadrature_demod_cf;
 
 
-    py::class_<quadrature_demod_cf,gr::sync_block,
+    py::class_<quadrature_demod_cf,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<quadrature_demod_cf>>(m, "quadrature_demod_cf")
 
         .def(py::init(&quadrature_demod_cf::make),
@@ -34,9 +34,6 @@ void bind_quadrature_demod_cf(py::module& m)
             py::arg("gain") 
         )
         .def("gain",&quadrature_demod_cf::gain)
-        .def("to_basic_block",[](std::shared_ptr<quadrature_demod_cf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

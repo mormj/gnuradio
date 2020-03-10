@@ -56,7 +56,6 @@ void bind_ofdm_serializer_vcc(py::module& m)
              py::arg("carr_offset_key") = "",
              py::arg("input_is_shifted") = true)
 
-        .def("to_basic_block",
-             [](std::shared_ptr<ofdm_serializer_vcc> p) { return p->to_basic_block(); });
+        ;
 }
 

@@ -22,18 +22,13 @@ void bind_hdlc_deframer_bp(py::module& m)
     using hdlc_deframer_bp    = gr::digital::hdlc_deframer_bp;
 
 
-    py::class_<hdlc_deframer_bp,gr::sync_block,
+    py::class_<hdlc_deframer_bp,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<hdlc_deframer_bp>>(m, "hdlc_deframer_bp")
 
         .def(py::init(&hdlc_deframer_bp::make),
            py::arg("length_min"), 
            py::arg("length_max") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<hdlc_deframer_bp> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_add_const_ff(py::module& m)
     using add_const_ff    = gr::blocks::add_const_ff;
 
 
-    py::class_<add_const_ff,gr::sync_block,
+    py::class_<add_const_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<add_const_ff>>(m, "add_const_ff")
 
         .def(py::init(&add_const_ff::make),
@@ -34,9 +34,6 @@ void bind_add_const_ff(py::module& m)
         .def("set_k",&add_const_ff::set_k,
             py::arg("k") 
         )
-        .def("to_basic_block",[](std::shared_ptr<add_const_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

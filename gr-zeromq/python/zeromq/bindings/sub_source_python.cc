@@ -22,7 +22,7 @@ void bind_sub_source(py::module& m)
     using sub_source    = gr::zeromq::sub_source;
 
 
-    py::class_<sub_source,gr::sync_block,
+    py::class_<sub_source,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<sub_source>>(m, "sub_source")
 
         .def(py::init(&sub_source::make),
@@ -36,9 +36,6 @@ void bind_sub_source(py::module& m)
         
 
         .def("last_endpoint",&sub_source::last_endpoint)
-        .def("to_basic_block",[](std::shared_ptr<sub_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_permutation(py::module& m)
     using permutation    = gr::trellis::permutation;
 
 
-    py::class_<permutation,gr::sync_block,
+    py::class_<permutation,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<permutation>>(m, "permutation")
 
         .def(py::init(&permutation::make),
@@ -46,9 +46,6 @@ void bind_permutation(py::module& m)
         .def("set_SYMS_PER_BLOCK",&permutation::set_SYMS_PER_BLOCK,
             py::arg("spb") 
         )
-        .def("to_basic_block",[](std::shared_ptr<permutation> p){
-            return p->to_basic_block();
-        })
         ;
 
 

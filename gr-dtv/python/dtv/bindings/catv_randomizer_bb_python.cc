@@ -22,17 +22,12 @@ void bind_catv_randomizer_bb(py::module& m)
     using catv_randomizer_bb    = gr::dtv::catv_randomizer_bb;
 
 
-    py::class_<catv_randomizer_bb,gr::sync_block,
+    py::class_<catv_randomizer_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<catv_randomizer_bb>>(m, "catv_randomizer_bb")
 
         .def(py::init(&catv_randomizer_bb::make),
            py::arg("constellation") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<catv_randomizer_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

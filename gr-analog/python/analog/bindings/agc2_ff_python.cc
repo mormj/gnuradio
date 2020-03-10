@@ -22,7 +22,7 @@ void bind_agc2_ff(py::module& m)
     using agc2_ff    = gr::analog::agc2_ff;
 
 
-    py::class_<agc2_ff,gr::sync_block,
+    py::class_<agc2_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<agc2_ff>>(m, "agc2_ff")
 
         .def(py::init(&agc2_ff::make),
@@ -53,9 +53,6 @@ void bind_agc2_ff(py::module& m)
         .def("set_max_gain",&agc2_ff::set_max_gain,
             py::arg("max_gain") 
         )
-        .def("to_basic_block",[](std::shared_ptr<agc2_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

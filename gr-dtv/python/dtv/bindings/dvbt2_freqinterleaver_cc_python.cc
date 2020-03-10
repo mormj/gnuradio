@@ -22,7 +22,7 @@ void bind_dvbt2_freqinterleaver_cc(py::module& m)
     using dvbt2_freqinterleaver_cc    = gr::dtv::dvbt2_freqinterleaver_cc;
 
 
-    py::class_<dvbt2_freqinterleaver_cc,gr::sync_block,
+    py::class_<dvbt2_freqinterleaver_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<dvbt2_freqinterleaver_cc>>(m, "dvbt2_freqinterleaver_cc")
 
         .def(py::init(&dvbt2_freqinterleaver_cc::make),
@@ -35,11 +35,6 @@ void bind_dvbt2_freqinterleaver_cc(py::module& m)
            py::arg("version"), 
            py::arg("preamble") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt2_freqinterleaver_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

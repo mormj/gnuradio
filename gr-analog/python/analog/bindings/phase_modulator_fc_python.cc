@@ -22,7 +22,7 @@ void bind_phase_modulator_fc(py::module& m)
     using phase_modulator_fc    = gr::analog::phase_modulator_fc;
 
 
-    py::class_<phase_modulator_fc,gr::sync_block,
+    py::class_<phase_modulator_fc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<phase_modulator_fc>>(m, "phase_modulator_fc")
 
         .def(py::init(&phase_modulator_fc::make),
@@ -38,9 +38,6 @@ void bind_phase_modulator_fc(py::module& m)
         .def("set_phase",&phase_modulator_fc::set_phase,
             py::arg("p") 
         )
-        .def("to_basic_block",[](std::shared_ptr<phase_modulator_fc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

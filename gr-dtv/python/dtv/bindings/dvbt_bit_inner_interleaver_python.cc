@@ -22,7 +22,7 @@ void bind_dvbt_bit_inner_interleaver(py::module& m)
     using dvbt_bit_inner_interleaver    = gr::dtv::dvbt_bit_inner_interleaver;
 
 
-    py::class_<dvbt_bit_inner_interleaver,gr::block,
+    py::class_<dvbt_bit_inner_interleaver,gr::block, gr::basic_block,
         std::shared_ptr<dvbt_bit_inner_interleaver>>(m, "dvbt_bit_inner_interleaver")
 
         .def(py::init(&dvbt_bit_inner_interleaver::make),
@@ -31,11 +31,6 @@ void bind_dvbt_bit_inner_interleaver(py::module& m)
            py::arg("hierarchy"), 
            py::arg("transmission") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt_bit_inner_interleaver> p){
-            return p->to_basic_block();
-        })
         ;
 
 

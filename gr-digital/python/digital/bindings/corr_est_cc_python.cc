@@ -28,7 +28,7 @@ void bind_corr_est_cc(py::module& m)
         .export_values()
     ;
 
-    py::class_<corr_est_cc,gr::sync_block,
+    py::class_<corr_est_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<corr_est_cc>>(m, "corr_est_cc")
 
         .def(py::init(&corr_est_cc::make),
@@ -52,9 +52,6 @@ void bind_corr_est_cc(py::module& m)
         .def("set_threshold",&corr_est_cc::set_threshold,
             py::arg("threshold") 
         )
-        .def("to_basic_block",[](std::shared_ptr<corr_est_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

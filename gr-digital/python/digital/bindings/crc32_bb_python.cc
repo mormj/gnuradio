@@ -30,11 +30,6 @@ void bind_crc32_bb(py::module& m)
            py::arg("lengthtagname") = "packet_len", 
            py::arg("packed") = true 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<crc32_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

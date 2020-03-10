@@ -18,7 +18,7 @@ namespace py = pybind11;
 void bind_block_gateway(py::module& m)
 {
     using block_gateway    = gr::block_gateway;
-    py::class_<block_gateway, gr::block, std::shared_ptr<block_gateway>>(m, "block_gateway")
+    py::class_<block_gateway, gr::block, gr::basic_block, std::shared_ptr<block_gateway>>(m, "block_gateway")
 
         .def(py::init(&block_gateway::make),
             py::arg("p"),
@@ -26,9 +26,7 @@ void bind_block_gateway(py::module& m)
             py::arg("in_sig"),
             py::arg("out_sig"))
 
-        .def("to_basic_block",[](std::shared_ptr<block_gateway> p){
-            return p->to_basic_block();
-        })
+
         ;
 
     py::enum_<gr::gw_block_t>(m,"gw_block_t")

@@ -22,16 +22,11 @@ void bind_gsm_fr_encode_sp(py::module& m)
     using gsm_fr_encode_sp    = gr::vocoder::gsm_fr_encode_sp;
 
 
-    py::class_<gsm_fr_encode_sp,gr::sync_decimator,
+    py::class_<gsm_fr_encode_sp,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<gsm_fr_encode_sp>>(m, "gsm_fr_encode_sp")
 
         .def(py::init(&gsm_fr_encode_sp::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<gsm_fr_encode_sp> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_fmdet_cf(py::module& m)
     using fmdet_cf    = gr::analog::fmdet_cf;
 
 
-    py::class_<fmdet_cf,gr::sync_block,
+    py::class_<fmdet_cf,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<fmdet_cf>>(m, "fmdet_cf")
 
         .def(py::init(&fmdet_cf::make),
@@ -45,9 +45,6 @@ void bind_fmdet_cf(py::module& m)
         .def("freq_low",&fmdet_cf::freq_low)
         .def("scale",&fmdet_cf::scale)
         .def("bias",&fmdet_cf::bias)
-        .def("to_basic_block",[](std::shared_ptr<fmdet_cf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

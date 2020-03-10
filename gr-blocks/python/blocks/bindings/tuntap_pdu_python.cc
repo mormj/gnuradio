@@ -22,7 +22,7 @@ void bind_tuntap_pdu(py::module& m)
     using tuntap_pdu    = gr::blocks::tuntap_pdu;
 
 
-    py::class_<tuntap_pdu,gr::block,
+    py::class_<tuntap_pdu,gr::block, gr::basic_block,
         std::shared_ptr<tuntap_pdu>>(m, "tuntap_pdu")
 
         .def(py::init(&tuntap_pdu::make),
@@ -30,11 +30,6 @@ void bind_tuntap_pdu(py::module& m)
            py::arg("MTU") = 10000, 
            py::arg("istunflag") = false 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<tuntap_pdu> p){
-            return p->to_basic_block();
-        })
         ;
 
 

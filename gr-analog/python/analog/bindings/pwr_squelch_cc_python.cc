@@ -50,9 +50,6 @@ void bind_pwr_squelch_cc(py::module& m)
             py::arg("gate") 
         )
         .def("unmuted",&pwr_squelch_cc::unmuted)
-        .def("to_basic_block",[](std::shared_ptr<pwr_squelch_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

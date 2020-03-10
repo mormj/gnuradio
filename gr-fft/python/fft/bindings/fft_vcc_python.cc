@@ -22,7 +22,7 @@ void bind_fft_vcc(py::module& m)
     using fft_vcc    = gr::fft::fft_vcc;
 
 
-    py::class_<fft_vcc,gr::sync_block,
+    py::class_<fft_vcc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<fft_vcc>>(m, "fft_vcc")
 
         .def(py::init(&fft_vcc::make),
@@ -41,9 +41,6 @@ void bind_fft_vcc(py::module& m)
         .def("set_window",&fft_vcc::set_window,
             py::arg("window") 
         )
-        .def("to_basic_block",[](std::shared_ptr<fft_vcc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

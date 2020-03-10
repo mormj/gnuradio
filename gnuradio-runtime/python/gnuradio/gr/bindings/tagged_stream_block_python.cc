@@ -22,7 +22,7 @@ void bind_tagged_stream_block(py::module& m)
     using tagged_stream_block    = gr::tagged_stream_block;
 
 
-    py::class_<tagged_stream_block,gr::block,
+    py::class_<tagged_stream_block,gr::block, gr::basic_block,
         std::shared_ptr<tagged_stream_block>>(m, "tagged_stream_block")
 
 
@@ -46,9 +46,6 @@ void bind_tagged_stream_block(py::module& m)
             py::arg("input_items"), 
             py::arg("output_items") 
         )
-        .def("to_basic_block",[](std::shared_ptr<tagged_stream_block> p){
-            return p->to_basic_block();
-        })
         ;
 
 

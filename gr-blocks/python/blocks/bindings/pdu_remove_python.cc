@@ -22,7 +22,7 @@ void bind_pdu_remove(py::module& m)
     using pdu_remove    = gr::blocks::pdu_remove;
 
 
-    py::class_<pdu_remove,gr::block,
+    py::class_<pdu_remove,gr::block, gr::basic_block,
         std::shared_ptr<pdu_remove>>(m, "pdu_remove")
 
         .def(py::init(&pdu_remove::make),
@@ -33,9 +33,6 @@ void bind_pdu_remove(py::module& m)
         .def("set_key",&pdu_remove::set_key,
             py::arg("key") 
         )
-        .def("to_basic_block",[](std::shared_ptr<pdu_remove> p){
-            return p->to_basic_block();
-        })
         ;
 
 

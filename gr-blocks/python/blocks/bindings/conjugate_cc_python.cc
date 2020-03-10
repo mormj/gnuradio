@@ -22,16 +22,11 @@ void bind_conjugate_cc(py::module& m)
     using conjugate_cc    = gr::blocks::conjugate_cc;
 
 
-    py::class_<conjugate_cc,gr::sync_block,
+    py::class_<conjugate_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<conjugate_cc>>(m, "conjugate_cc")
 
         .def(py::init(&conjugate_cc::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<conjugate_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

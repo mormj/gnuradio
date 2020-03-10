@@ -61,9 +61,6 @@ void bind_pfb_arb_resampler(py::module& m)
             py::arg("n_to_read"), 
             py::arg("n_read") 
         )
-        .def("to_basic_block",[](std::shared_ptr<pfb_arb_resampler> p){
-            return p->to_basic_block();
-        })
         ;
 
 
@@ -104,9 +101,6 @@ void bind_pfb_arb_resampler(py::module& m)
             py::arg("n_to_read"), 
             py::arg("n_read") 
         )
-        .def("to_basic_block",[](std::shared_ptr<pfb_arb_resampler> p){
-            return p->to_basic_block();
-        })
         ;
 
 
@@ -147,9 +141,6 @@ void bind_pfb_arb_resampler(py::module& m)
             py::arg("n_to_read"), 
             py::arg("n_read") 
         )
-        .def("to_basic_block",[](std::shared_ptr<pfb_arb_resampler> p){
-            return p->to_basic_block();
-        })
         ;
 
 

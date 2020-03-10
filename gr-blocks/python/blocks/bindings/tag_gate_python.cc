@@ -22,7 +22,7 @@ void bind_tag_gate(py::module& m)
     using tag_gate    = gr::blocks::tag_gate;
 
 
-    py::class_<tag_gate,gr::sync_block,
+    py::class_<tag_gate,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<tag_gate>>(m, "tag_gate")
 
         .def(py::init(&tag_gate::make),
@@ -38,9 +38,6 @@ void bind_tag_gate(py::module& m)
             py::arg("single_key") 
         )
         .def("single_key",&tag_gate::single_key)
-        .def("to_basic_block",[](std::shared_ptr<tag_gate> p){
-            return p->to_basic_block();
-        })
         ;
 
 

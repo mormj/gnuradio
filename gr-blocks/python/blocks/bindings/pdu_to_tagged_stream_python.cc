@@ -29,11 +29,6 @@ void bind_pdu_to_tagged_stream(py::module& m)
            py::arg("type"), 
            py::arg("lengthtagname") = "packet_len" 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<pdu_to_tagged_stream> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_dvb_bbheader_bb(py::module& m)
     using dvb_bbheader_bb    = gr::dtv::dvb_bbheader_bb;
 
 
-    py::class_<dvb_bbheader_bb,gr::block,
+    py::class_<dvb_bbheader_bb,gr::block, gr::basic_block,
         std::shared_ptr<dvb_bbheader_bb>>(m, "dvb_bbheader_bb")
 
         .def(py::init(&dvb_bbheader_bb::make),
@@ -35,11 +35,6 @@ void bind_dvb_bbheader_bb(py::module& m)
            py::arg("fecblocks"), 
            py::arg("tsrate") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvb_bbheader_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,16 +22,11 @@ void bind_atsc_interleaver(py::module& m)
     using atsc_interleaver    = gr::dtv::atsc_interleaver;
 
 
-    py::class_<atsc_interleaver,gr::sync_block,
+    py::class_<atsc_interleaver,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_interleaver>>(m, "atsc_interleaver")
 
         .def(py::init(&atsc_interleaver::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_interleaver> p){
-            return p->to_basic_block();
-        })
         ;
 
 

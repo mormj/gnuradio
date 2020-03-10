@@ -22,7 +22,7 @@ void bind_selector(py::module& m)
     using selector    = gr::blocks::selector;
 
 
-    py::class_<selector,gr::block,
+    py::class_<selector,gr::block, gr::basic_block,
         std::shared_ptr<selector>>(m, "selector")
 
         .def(py::init(&selector::make),
@@ -44,9 +44,6 @@ void bind_selector(py::module& m)
             py::arg("output_index") 
         )
         .def("output_index",&selector::output_index)
-        .def("to_basic_block",[](std::shared_ptr<selector> p){
-            return p->to_basic_block();
-        })
         ;
 
 

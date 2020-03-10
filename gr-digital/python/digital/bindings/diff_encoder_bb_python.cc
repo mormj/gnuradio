@@ -22,17 +22,12 @@ void bind_diff_encoder_bb(py::module& m)
     using diff_encoder_bb    = gr::digital::diff_encoder_bb;
 
 
-    py::class_<diff_encoder_bb,gr::sync_block,
+    py::class_<diff_encoder_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<diff_encoder_bb>>(m, "diff_encoder_bb")
 
         .def(py::init(&diff_encoder_bb::make),
            py::arg("modulus") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<diff_encoder_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

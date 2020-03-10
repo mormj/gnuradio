@@ -22,7 +22,7 @@ void bind_async_decoder(py::module& m)
     using async_decoder    = gr::fec::async_decoder;
 
 
-    py::class_<async_decoder,gr::block,
+    py::class_<async_decoder,gr::block, gr::basic_block,
         std::shared_ptr<async_decoder>>(m, "async_decoder")
 
         .def(py::init(&async_decoder::make),
@@ -39,9 +39,6 @@ void bind_async_decoder(py::module& m)
             py::arg("input_items"), 
             py::arg("output_items") 
         )
-        .def("to_basic_block",[](std::shared_ptr<async_decoder> p){
-            return p->to_basic_block();
-        })
         ;
 
 

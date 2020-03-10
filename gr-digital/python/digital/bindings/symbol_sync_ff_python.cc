@@ -22,7 +22,7 @@ void bind_symbol_sync_ff(py::module& m)
     using symbol_sync_ff    = gr::digital::symbol_sync_ff;
 
 
-    py::class_<symbol_sync_ff,gr::block,
+    py::class_<symbol_sync_ff,gr::block, gr::basic_block,
         std::shared_ptr<symbol_sync_ff>>(m, "symbol_sync_ff")
 
         .def(py::init(&symbol_sync_ff::make),
@@ -60,9 +60,6 @@ void bind_symbol_sync_ff(py::module& m)
         .def("set_beta",&symbol_sync_ff::set_beta,
             py::arg("beta") 
         )
-        .def("to_basic_block",[](std::shared_ptr<symbol_sync_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

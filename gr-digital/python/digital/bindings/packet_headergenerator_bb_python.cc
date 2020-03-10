@@ -41,8 +41,6 @@ void bind_packet_headergenerator_bb(py::module& m)
         .def("set_header_formatter",
              &packet_headergenerator_bb::set_header_formatter,
              py::arg("header_formatter"))
-        .def("to_basic_block", [](std::shared_ptr<packet_headergenerator_bb> p) {
-            return p->to_basic_block();
-        });
+        ;
 }
 

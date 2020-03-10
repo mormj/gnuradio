@@ -22,7 +22,7 @@ void bind_keep_m_in_n(py::module& m)
     using keep_m_in_n    = gr::blocks::keep_m_in_n;
 
 
-    py::class_<keep_m_in_n,gr::block,
+    py::class_<keep_m_in_n,gr::block, gr::basic_block,
         std::shared_ptr<keep_m_in_n>>(m, "keep_m_in_n")
 
         .def(py::init(&keep_m_in_n::make),
@@ -42,9 +42,6 @@ void bind_keep_m_in_n(py::module& m)
         .def("set_offset",&keep_m_in_n::set_offset,
             py::arg("offset") 
         )
-        .def("to_basic_block",[](std::shared_ptr<keep_m_in_n> p){
-            return p->to_basic_block();
-        })
         ;
 
 

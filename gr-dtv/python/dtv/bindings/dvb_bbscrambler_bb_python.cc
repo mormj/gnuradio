@@ -22,7 +22,7 @@ void bind_dvb_bbscrambler_bb(py::module& m)
     using dvb_bbscrambler_bb    = gr::dtv::dvb_bbscrambler_bb;
 
 
-    py::class_<dvb_bbscrambler_bb,gr::sync_block,
+    py::class_<dvb_bbscrambler_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<dvb_bbscrambler_bb>>(m, "dvb_bbscrambler_bb")
 
         .def(py::init(&dvb_bbscrambler_bb::make),
@@ -30,11 +30,6 @@ void bind_dvb_bbscrambler_bb(py::module& m)
            py::arg("framesize"), 
            py::arg("rate") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvb_bbscrambler_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

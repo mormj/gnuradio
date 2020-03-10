@@ -22,7 +22,7 @@ void bind_nop(py::module& m)
     using nop    = gr::blocks::nop;
 
 
-    py::class_<nop,gr::block,
+    py::class_<nop,gr::block, gr::basic_block,
         std::shared_ptr<nop>>(m, "nop")
 
         .def(py::init(&nop::make),
@@ -35,9 +35,6 @@ void bind_nop(py::module& m)
         .def("set_ctrlport_test",&nop::set_ctrlport_test,
             py::arg("x") 
         )
-        .def("to_basic_block",[](std::shared_ptr<nop> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_pdu_set(py::module& m)
     using pdu_set    = gr::blocks::pdu_set;
 
 
-    py::class_<pdu_set,gr::block,
+    py::class_<pdu_set,gr::block, gr::basic_block,
         std::shared_ptr<pdu_set>>(m, "pdu_set")
 
         .def(py::init(&pdu_set::make),
@@ -37,9 +37,6 @@ void bind_pdu_set(py::module& m)
         .def("set_val",&pdu_set::set_val,
             py::arg("val") 
         )
-        .def("to_basic_block",[](std::shared_ptr<pdu_set> p){
-            return p->to_basic_block();
-        })
         ;
 
 

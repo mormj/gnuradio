@@ -22,7 +22,7 @@ void bind_siso_combined_f(py::module& m)
     using siso_combined_f    = gr::trellis::siso_combined_f;
 
 
-    py::class_<siso_combined_f,gr::block,
+    py::class_<siso_combined_f,gr::block, gr::basic_block,
         std::shared_ptr<siso_combined_f>>(m, "siso_combined_f")
 
         .def(py::init(&siso_combined_f::make),
@@ -79,9 +79,6 @@ void bind_siso_combined_f(py::module& m)
         .def("set_TYPE",&siso_combined_f::set_TYPE,
             py::arg("type") 
         )
-        .def("to_basic_block",[](std::shared_ptr<siso_combined_f> p){
-            return p->to_basic_block();
-        })
         ;
 
 

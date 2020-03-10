@@ -22,17 +22,12 @@ void bind_protocol_formatter_async(py::module& m)
     using protocol_formatter_async    = gr::digital::protocol_formatter_async;
 
 
-    py::class_<protocol_formatter_async,gr::block,
+    py::class_<protocol_formatter_async,gr::block, gr::basic_block,
         std::shared_ptr<protocol_formatter_async>>(m, "protocol_formatter_async")
 
         .def(py::init(&protocol_formatter_async::make),
            py::arg("format") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<protocol_formatter_async> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_vco_f(py::module& m)
     using vco_f    = gr::blocks::vco_f;
 
 
-    py::class_<vco_f,gr::sync_block,
+    py::class_<vco_f,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<vco_f>>(m, "vco_f")
 
         .def(py::init(&vco_f::make),
@@ -30,11 +30,6 @@ void bind_vco_f(py::module& m)
            py::arg("sensitivity"), 
            py::arg("amplitude") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<vco_f> p){
-            return p->to_basic_block();
-        })
         ;
 
 

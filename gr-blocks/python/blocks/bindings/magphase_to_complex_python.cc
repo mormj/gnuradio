@@ -22,17 +22,12 @@ void bind_magphase_to_complex(py::module& m)
     using magphase_to_complex    = gr::blocks::magphase_to_complex;
 
 
-    py::class_<magphase_to_complex,gr::sync_block,
+    py::class_<magphase_to_complex,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<magphase_to_complex>>(m, "magphase_to_complex")
 
         .def(py::init(&magphase_to_complex::make),
            py::arg("vlen") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<magphase_to_complex> p){
-            return p->to_basic_block();
-        })
         ;
 
 

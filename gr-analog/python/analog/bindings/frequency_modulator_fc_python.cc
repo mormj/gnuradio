@@ -22,7 +22,7 @@ void bind_frequency_modulator_fc(py::module& m)
     using frequency_modulator_fc    = gr::analog::frequency_modulator_fc;
 
 
-    py::class_<frequency_modulator_fc,gr::sync_block,
+    py::class_<frequency_modulator_fc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<frequency_modulator_fc>>(m, "frequency_modulator_fc")
 
         .def(py::init(&frequency_modulator_fc::make),
@@ -34,9 +34,6 @@ void bind_frequency_modulator_fc(py::module& m)
             py::arg("sens") 
         )
         .def("sensitivity",&frequency_modulator_fc::sensitivity)
-        .def("to_basic_block",[](std::shared_ptr<frequency_modulator_fc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

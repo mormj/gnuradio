@@ -22,7 +22,7 @@ void bind_delay(py::module& m)
     using delay    = gr::blocks::delay;
 
 
-    py::class_<delay,gr::block,
+    py::class_<delay,gr::block, gr::basic_block,
         std::shared_ptr<delay>>(m, "delay")
 
         .def(py::init(&delay::make),
@@ -35,9 +35,6 @@ void bind_delay(py::module& m)
         .def("set_dly",&delay::set_dly,
             py::arg("d") 
         )
-        .def("to_basic_block",[](std::shared_ptr<delay> p){
-            return p->to_basic_block();
-        })
         ;
 
 

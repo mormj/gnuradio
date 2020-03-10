@@ -22,12 +22,8 @@ void bind_add_const_v_template(py::module& m, const char *classname)
 {
     using add_const_v      = gr::blocks::add_const_v<T>;
 
-    py::class_<add_const_v, gr::sync_block, std::shared_ptr<add_const_v>>(m, classname)
+    py::class_<add_const_v, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<add_const_v>>(m, classname)
         .def(py::init(&gr::blocks::add_const_v<T>::make))
-
-        .def("to_basic_block",[](std::shared_ptr<add_const_v> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

@@ -22,17 +22,12 @@ void bind_complex_to_float(py::module& m)
     using complex_to_float    = gr::blocks::complex_to_float;
 
 
-    py::class_<complex_to_float,gr::sync_block,
+    py::class_<complex_to_float,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<complex_to_float>>(m, "complex_to_float")
 
         .def(py::init(&complex_to_float::make),
            py::arg("vlen") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<complex_to_float> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_sink(py::module& m)
     using sink    = gr::audio::sink;
 
 
-    py::class_<sink,gr::sync_block,
+    py::class_<sink,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<sink>>(m, "sink")
 
         .def(py::init(&sink::make),
@@ -30,11 +30,6 @@ void bind_sink(py::module& m)
            py::arg("device_name") = "", 
            py::arg("ok_to_block") = true 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

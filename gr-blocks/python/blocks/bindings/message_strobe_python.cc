@@ -22,7 +22,7 @@ void bind_message_strobe(py::module& m)
     using message_strobe    = gr::blocks::message_strobe;
 
 
-    py::class_<message_strobe,gr::block,
+    py::class_<message_strobe,gr::block, gr::basic_block,
         std::shared_ptr<message_strobe>>(m, "message_strobe")
 
         .def(py::init(&message_strobe::make),
@@ -39,9 +39,6 @@ void bind_message_strobe(py::module& m)
             py::arg("period_ms") 
         )
         .def("period",&message_strobe::period)
-        .def("to_basic_block",[](std::shared_ptr<message_strobe> p){
-            return p->to_basic_block();
-        })
         ;
 
 

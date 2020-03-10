@@ -22,7 +22,7 @@ void bind_source(py::module& m)
     using source    = gr::audio::source;
 
 
-    py::class_<source,gr::sync_block,
+    py::class_<source,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<source>>(m, "source")
 
         .def(py::init(&source::make),
@@ -30,11 +30,6 @@ void bind_source(py::module& m)
            py::arg("device_name") = "", 
            py::arg("ok_to_block") = true 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_dpll_bb(py::module& m)
     using dpll_bb    = gr::analog::dpll_bb;
 
 
-    py::class_<dpll_bb,gr::sync_block,
+    py::class_<dpll_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<dpll_bb>>(m, "dpll_bb")
 
         .def(py::init(&dpll_bb::make),
@@ -41,9 +41,6 @@ void bind_dpll_bb(py::module& m)
         .def("freq",&dpll_bb::freq)
         .def("phase",&dpll_bb::phase)
         .def("decision_threshold",&dpll_bb::decision_threshold)
-        .def("to_basic_block",[](std::shared_ptr<dpll_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

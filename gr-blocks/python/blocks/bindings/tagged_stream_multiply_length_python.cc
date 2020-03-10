@@ -22,7 +22,7 @@ void bind_tagged_stream_multiply_length(py::module& m)
     using tagged_stream_multiply_length    = gr::blocks::tagged_stream_multiply_length;
 
 
-    py::class_<tagged_stream_multiply_length,gr::block,
+    py::class_<tagged_stream_multiply_length,gr::block, gr::basic_block,
         std::shared_ptr<tagged_stream_multiply_length>>(m, "tagged_stream_multiply_length")
 
         .def(py::init(&tagged_stream_multiply_length::make),
@@ -35,9 +35,6 @@ void bind_tagged_stream_multiply_length(py::module& m)
         .def("set_scalar",&tagged_stream_multiply_length::set_scalar,
             py::arg("scalar") 
         )
-        .def("to_basic_block",[](std::shared_ptr<tagged_stream_multiply_length> p){
-            return p->to_basic_block();
-        })
         ;
 
 

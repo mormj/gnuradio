@@ -22,7 +22,7 @@ void bind_pub_msg_sink(py::module& m)
     using pub_msg_sink    = gr::zeromq::pub_msg_sink;
 
 
-    py::class_<pub_msg_sink,gr::block,
+    py::class_<pub_msg_sink,gr::block, gr::basic_block,
         std::shared_ptr<pub_msg_sink>>(m, "pub_msg_sink")
 
         .def(py::init(&pub_msg_sink::make),
@@ -32,9 +32,6 @@ void bind_pub_msg_sink(py::module& m)
         
 
         .def("last_endpoint",&pub_msg_sink::last_endpoint)
-        .def("to_basic_block",[](std::shared_ptr<pub_msg_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

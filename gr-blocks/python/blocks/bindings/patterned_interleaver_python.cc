@@ -22,18 +22,13 @@ void bind_patterned_interleaver(py::module& m)
     using patterned_interleaver    = gr::blocks::patterned_interleaver;
 
 
-    py::class_<patterned_interleaver,gr::block,
+    py::class_<patterned_interleaver,gr::block, gr::basic_block,
         std::shared_ptr<patterned_interleaver>>(m, "patterned_interleaver")
 
         .def(py::init(&patterned_interleaver::make),
            py::arg("itemsize"), 
            py::arg("pattern") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<patterned_interleaver> p){
-            return p->to_basic_block();
-        })
         ;
 
 

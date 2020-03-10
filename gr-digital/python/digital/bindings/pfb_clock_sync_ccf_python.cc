@@ -22,7 +22,7 @@ void bind_pfb_clock_sync_ccf(py::module& m)
     using pfb_clock_sync_ccf    = gr::digital::pfb_clock_sync_ccf;
 
 
-    py::class_<pfb_clock_sync_ccf,gr::block,
+    py::class_<pfb_clock_sync_ccf,gr::block, gr::basic_block,
         std::shared_ptr<pfb_clock_sync_ccf>>(m, "pfb_clock_sync_ccf")
 
         .def(py::init(&pfb_clock_sync_ccf::make),
@@ -73,9 +73,6 @@ void bind_pfb_clock_sync_ccf(py::module& m)
         .def("error",&pfb_clock_sync_ccf::error)
         .def("rate",&pfb_clock_sync_ccf::rate)
         .def("phase",&pfb_clock_sync_ccf::phase)
-        .def("to_basic_block",[](std::shared_ptr<pfb_clock_sync_ccf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

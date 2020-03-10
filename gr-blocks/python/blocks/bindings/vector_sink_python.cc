@@ -22,11 +22,8 @@ void bind_vector_sink_template(py::module& m, const char *classname)
 {
     using vector_sink      = gr::blocks::vector_sink<T>;
 
-    py::class_<vector_sink, gr::sync_block, std::shared_ptr<vector_sink>>(m, classname)
+    py::class_<vector_sink, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<vector_sink>>(m, classname)
         .def(py::init(&gr::blocks::vector_sink<T>::make), py::arg("vlen")=1, py::arg("reserve_items")=1024)
-        .def("to_basic_block",[](std::shared_ptr<vector_sink> p){
-            return p->to_basic_block();
-        })
         .def("reset",&vector_sink::reset)
         .def("data",&vector_sink::data)
         .def("tags",&vector_sink::tags)

@@ -22,7 +22,7 @@ void bind_tags_strobe(py::module& m)
     using tags_strobe    = gr::blocks::tags_strobe;
 
 
-    py::class_<tags_strobe,gr::sync_block,
+    py::class_<tags_strobe,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<tags_strobe>>(m, "tags_strobe")
 
         .def(py::init(&tags_strobe::make),
@@ -45,9 +45,6 @@ void bind_tags_strobe(py::module& m)
             py::arg("nsamps") 
         )
         .def("nsamps",&tags_strobe::nsamps)
-        .def("to_basic_block",[](std::shared_ptr<tags_strobe> p){
-            return p->to_basic_block();
-        })
         ;
 
 

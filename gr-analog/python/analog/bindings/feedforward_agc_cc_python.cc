@@ -22,18 +22,13 @@ void bind_feedforward_agc_cc(py::module& m)
     using feedforward_agc_cc    = gr::analog::feedforward_agc_cc;
 
 
-    py::class_<feedforward_agc_cc,gr::sync_block,
+    py::class_<feedforward_agc_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<feedforward_agc_cc>>(m, "feedforward_agc_cc")
 
         .def(py::init(&feedforward_agc_cc::make),
            py::arg("nsamples"), 
            py::arg("reference") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<feedforward_agc_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

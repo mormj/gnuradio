@@ -24,16 +24,12 @@ void bind_fft_shift_template(py::module& m, const char *classname)
 
     // using fft_shift      = gr::blocks::fft_shift<T>;
 
-    // py::class_<fft_shift, gr::sync_block, std::shared_ptr<fft_shift>>(m, classname)
+    // py::class_<fft_shift, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<fft_shift>>(m, classname)
     //     .def(py::init<size_t>,
     //         py::arg("vlen") = 1
     //     )
     //     .def("shift",&fft_shift
     //     )
-
-    //     .def("to_basic_block",[](std::shared_ptr<fft_shift> p){
-    //         return p->to_basic_block();
-    //     })
     //     ;
 
 } 

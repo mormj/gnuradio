@@ -22,7 +22,7 @@ void bind_float_to_short(py::module& m)
     using float_to_short    = gr::blocks::float_to_short;
 
 
-    py::class_<float_to_short,gr::sync_block,
+    py::class_<float_to_short,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<float_to_short>>(m, "float_to_short")
 
         .def(py::init(&float_to_short::make),
@@ -35,9 +35,6 @@ void bind_float_to_short(py::module& m)
         .def("set_scale",&float_to_short::set_scale,
             py::arg("scale") 
         )
-        .def("to_basic_block",[](std::shared_ptr<float_to_short> p){
-            return p->to_basic_block();
-        })
         ;
 
 

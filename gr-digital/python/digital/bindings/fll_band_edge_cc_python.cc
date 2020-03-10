@@ -22,7 +22,7 @@ void bind_fll_band_edge_cc(py::module& m)
     using fll_band_edge_cc    = gr::digital::fll_band_edge_cc;
 
 
-    py::class_<fll_band_edge_cc,gr::sync_block,
+    py::class_<fll_band_edge_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<fll_band_edge_cc>>(m, "fll_band_edge_cc")
 
         .def(py::init(&fll_band_edge_cc::make),
@@ -46,9 +46,6 @@ void bind_fll_band_edge_cc(py::module& m)
         .def("rolloff",&fll_band_edge_cc::rolloff)
         .def("filter_size",&fll_band_edge_cc::filter_size)
         .def("print_taps",&fll_band_edge_cc::print_taps)
-        .def("to_basic_block",[](std::shared_ptr<fll_band_edge_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

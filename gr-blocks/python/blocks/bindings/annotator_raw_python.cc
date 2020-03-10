@@ -22,7 +22,7 @@ void bind_annotator_raw(py::module& m)
     using annotator_raw    = gr::blocks::annotator_raw;
 
 
-    py::class_<annotator_raw,gr::sync_block,
+    py::class_<annotator_raw,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<annotator_raw>>(m, "annotator_raw")
 
         .def(py::init(&annotator_raw::make),
@@ -35,9 +35,6 @@ void bind_annotator_raw(py::module& m)
             py::arg("key"), 
             py::arg("val") 
         )
-        .def("to_basic_block",[](std::shared_ptr<annotator_raw> p){
-            return p->to_basic_block();
-        })
         ;
 
 

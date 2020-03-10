@@ -22,17 +22,12 @@ void bind_dvbt_energy_descramble(py::module& m)
     using dvbt_energy_descramble    = gr::dtv::dvbt_energy_descramble;
 
 
-    py::class_<dvbt_energy_descramble,gr::block,
+    py::class_<dvbt_energy_descramble,gr::block, gr::basic_block,
         std::shared_ptr<dvbt_energy_descramble>>(m, "dvbt_energy_descramble")
 
         .def(py::init(&dvbt_energy_descramble::make),
            py::arg("nblocks") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt_energy_descramble> p){
-            return p->to_basic_block();
-        })
         ;
 
 

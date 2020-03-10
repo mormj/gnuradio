@@ -51,9 +51,6 @@ void bind_channel_model(py::module& m)
         .def("frequency_offset",&channel_model::frequency_offset)
         .def("taps",&channel_model::taps)
         .def("timing_offset",&channel_model::timing_offset)
-        .def("to_basic_block",[](std::shared_ptr<channel_model> p){
-            return p->to_basic_block();
-        })
         ;
 
 

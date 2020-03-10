@@ -46,9 +46,6 @@ void bind_channel_model2(py::module& m)
         .def("noise_voltage",&channel_model2::noise_voltage)
         .def("taps",&channel_model2::taps)
         .def("timing_offset",&channel_model2::timing_offset)
-        .def("to_basic_block",[](std::shared_ptr<channel_model2> p){
-            return p->to_basic_block();
-        })
         ;
 
 

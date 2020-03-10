@@ -30,11 +30,6 @@ void bind_tagged_stream_mux(py::module& m)
            py::arg("lengthtagname"), 
            py::arg("tag_preserve_head_pos") = 0 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<tagged_stream_mux> p){
-            return p->to_basic_block();
-        })
         ;
 
 

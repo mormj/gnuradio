@@ -22,7 +22,7 @@ void bind_fading_model(py::module& m)
     using fading_model    = gr::channels::fading_model;
 
 
-    py::class_<fading_model,gr::sync_block,
+    py::class_<fading_model,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<fading_model>>(m, "fading_model")
 
         .def(py::init(&fading_model::make),
@@ -46,9 +46,6 @@ void bind_fading_model(py::module& m)
         .def("set_step",&fading_model::set_step,
             py::arg("step") 
         )
-        .def("to_basic_block",[](std::shared_ptr<fading_model> p){
-            return p->to_basic_block();
-        })
         ;
 
 

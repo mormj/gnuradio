@@ -22,7 +22,7 @@ void bind_file_descriptor_source(py::module& m)
     using file_descriptor_source    = gr::blocks::file_descriptor_source;
 
 
-    py::class_<file_descriptor_source,gr::sync_block,
+    py::class_<file_descriptor_source,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<file_descriptor_source>>(m, "file_descriptor_source")
 
         .def(py::init(&file_descriptor_source::make),
@@ -30,11 +30,6 @@ void bind_file_descriptor_source(py::module& m)
            py::arg("fd"), 
            py::arg("repeat") = false 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<file_descriptor_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

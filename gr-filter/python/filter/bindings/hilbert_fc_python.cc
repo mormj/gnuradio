@@ -22,7 +22,7 @@ void bind_hilbert_fc(py::module& m)
     using hilbert_fc    = gr::filter::hilbert_fc;
 
 
-    py::class_<hilbert_fc,gr::sync_block,
+    py::class_<hilbert_fc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<hilbert_fc>>(m, "hilbert_fc")
 
         .def(py::init(&hilbert_fc::make),
@@ -30,11 +30,6 @@ void bind_hilbert_fc(py::module& m)
            py::arg("window") = ::gr::filter::firdes::win_type::WIN_HAMMING, 
            py::arg("beta") = 6.7599999999999998 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<hilbert_fc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

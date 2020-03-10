@@ -22,7 +22,7 @@ void bind_pll_refout_cc(py::module& m)
     using pll_refout_cc    = gr::analog::pll_refout_cc;
 
 
-    py::class_<pll_refout_cc,gr::sync_block,
+    py::class_<pll_refout_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pll_refout_cc>>(m, "pll_refout_cc")
 
         .def(py::init(&pll_refout_cc::make),
@@ -30,11 +30,6 @@ void bind_pll_refout_cc(py::module& m)
            py::arg("max_freq"), 
            py::arg("min_freq") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<pll_refout_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_atsc_equalizer(py::module& m)
     using atsc_equalizer    = gr::dtv::atsc_equalizer;
 
 
-    py::class_<atsc_equalizer,gr::block,
+    py::class_<atsc_equalizer,gr::block, gr::basic_block,
         std::shared_ptr<atsc_equalizer>>(m, "atsc_equalizer")
 
         .def(py::init(&atsc_equalizer::make)
@@ -31,9 +31,6 @@ void bind_atsc_equalizer(py::module& m)
 
         .def("taps",&atsc_equalizer::taps)
         .def("data",&atsc_equalizer::data)
-        .def("to_basic_block",[](std::shared_ptr<atsc_equalizer> p){
-            return p->to_basic_block();
-        })
         ;
 
 

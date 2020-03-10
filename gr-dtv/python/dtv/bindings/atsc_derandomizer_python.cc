@@ -22,16 +22,11 @@ void bind_atsc_derandomizer(py::module& m)
     using atsc_derandomizer    = gr::dtv::atsc_derandomizer;
 
 
-    py::class_<atsc_derandomizer,gr::sync_block,
+    py::class_<atsc_derandomizer,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_derandomizer>>(m, "atsc_derandomizer")
 
         .def(py::init(&atsc_derandomizer::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_derandomizer> p){
-            return p->to_basic_block();
-        })
         ;
 
 

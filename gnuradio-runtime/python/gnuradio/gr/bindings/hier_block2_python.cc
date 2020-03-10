@@ -130,9 +130,6 @@ void bind_hier_block2(py::module& m)
         .def("log_level",&hier_block2::log_level)
         .def("all_min_output_buffer_p",&hier_block2::all_min_output_buffer_p)
         .def("all_max_output_buffer_p",&hier_block2::all_max_output_buffer_p)
-        .def("to_basic_block",[](std::shared_ptr<hier_block2> p){
-            return p->to_basic_block();
-        })
         ;
 
 

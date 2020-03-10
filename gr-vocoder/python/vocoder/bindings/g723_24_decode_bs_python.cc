@@ -22,16 +22,11 @@ void bind_g723_24_decode_bs(py::module& m)
     using g723_24_decode_bs    = gr::vocoder::g723_24_decode_bs;
 
 
-    py::class_<g723_24_decode_bs,gr::sync_block,
+    py::class_<g723_24_decode_bs,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<g723_24_decode_bs>>(m, "g723_24_decode_bs")
 
         .def(py::init(&g723_24_decode_bs::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<g723_24_decode_bs> p){
-            return p->to_basic_block();
-        })
         ;
 
 

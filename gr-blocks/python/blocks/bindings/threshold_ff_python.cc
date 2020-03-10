@@ -22,7 +22,7 @@ void bind_threshold_ff(py::module& m)
     using threshold_ff    = gr::blocks::threshold_ff;
 
 
-    py::class_<threshold_ff,gr::sync_block,
+    py::class_<threshold_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<threshold_ff>>(m, "threshold_ff")
 
         .def(py::init(&threshold_ff::make),
@@ -44,9 +44,6 @@ void bind_threshold_ff(py::module& m)
         .def("set_last_state",&threshold_ff::set_last_state,
             py::arg("last_state") 
         )
-        .def("to_basic_block",[](std::shared_ptr<threshold_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

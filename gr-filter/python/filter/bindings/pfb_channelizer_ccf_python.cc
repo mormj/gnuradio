@@ -22,7 +22,7 @@ void bind_pfb_channelizer_ccf(py::module& m)
     using pfb_channelizer_ccf    = gr::filter::pfb_channelizer_ccf;
 
 
-    py::class_<pfb_channelizer_ccf,gr::block,
+    py::class_<pfb_channelizer_ccf,gr::block, gr::basic_block,
         std::shared_ptr<pfb_channelizer_ccf>>(m, "pfb_channelizer_ccf")
 
         .def(py::init(&pfb_channelizer_ccf::make),
@@ -41,9 +41,6 @@ void bind_pfb_channelizer_ccf(py::module& m)
             py::arg("map") 
         )
         .def("channel_map",&pfb_channelizer_ccf::channel_map)
-        .def("to_basic_block",[](std::shared_ptr<pfb_channelizer_ccf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -38,9 +38,6 @@ void bind_repack_bits_bb(py::module& m)
             py::arg("k"), 
             py::arg("l") 
         )
-        .def("to_basic_block",[](std::shared_ptr<repack_bits_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

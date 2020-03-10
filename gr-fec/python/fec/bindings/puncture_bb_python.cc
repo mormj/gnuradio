@@ -22,7 +22,7 @@ void bind_puncture_bb(py::module& m)
     using puncture_bb    = gr::fec::puncture_bb;
 
 
-    py::class_<puncture_bb,gr::block,
+    py::class_<puncture_bb,gr::block, gr::basic_block,
         std::shared_ptr<puncture_bb>>(m, "puncture_bb")
 
         .def(py::init(&puncture_bb::make),
@@ -30,11 +30,6 @@ void bind_puncture_bb(py::module& m)
            py::arg("puncpat"), 
            py::arg("delay") = 0 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<puncture_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

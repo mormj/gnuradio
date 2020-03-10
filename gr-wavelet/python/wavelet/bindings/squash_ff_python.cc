@@ -20,18 +20,13 @@ void bind_squash_ff(py::module& m)
     using squash_ff    = gr::wavelet::squash_ff;
 
 
-    py::class_<squash_ff,gr::sync_block,
+    py::class_<squash_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<squash_ff>>(m, "squash_ff")
 
         .def(py::init(&squash_ff::make),
            py::arg("igrid"), 
            py::arg("ogrid") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<squash_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

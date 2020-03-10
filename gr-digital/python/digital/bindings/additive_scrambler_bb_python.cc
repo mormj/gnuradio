@@ -22,7 +22,7 @@ void bind_additive_scrambler_bb(py::module& m)
     using additive_scrambler_bb    = gr::digital::additive_scrambler_bb;
 
 
-    py::class_<additive_scrambler_bb,gr::sync_block,
+    py::class_<additive_scrambler_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<additive_scrambler_bb>>(m, "additive_scrambler_bb")
 
         .def(py::init(&additive_scrambler_bb::make),
@@ -40,9 +40,6 @@ void bind_additive_scrambler_bb(py::module& m)
         .def("len",&additive_scrambler_bb::len)
         .def("count",&additive_scrambler_bb::count)
         .def("bits_per_byte",&additive_scrambler_bb::bits_per_byte)
-        .def("to_basic_block",[](std::shared_ptr<additive_scrambler_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

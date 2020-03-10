@@ -22,18 +22,13 @@ void bind_tagged_stream_align(py::module& m)
     using tagged_stream_align    = gr::blocks::tagged_stream_align;
 
 
-    py::class_<tagged_stream_align,gr::block,
+    py::class_<tagged_stream_align,gr::block, gr::basic_block,
         std::shared_ptr<tagged_stream_align>>(m, "tagged_stream_align")
 
         .def(py::init(&tagged_stream_align::make),
            py::arg("itemsize"), 
            py::arg("lengthtagname") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<tagged_stream_align> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_char_to_float(py::module& m)
     using char_to_float    = gr::blocks::char_to_float;
 
 
-    py::class_<char_to_float,gr::sync_block,
+    py::class_<char_to_float,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<char_to_float>>(m, "char_to_float")
 
         .def(py::init(&char_to_float::make),
@@ -35,9 +35,6 @@ void bind_char_to_float(py::module& m)
         .def("set_scale",&char_to_float::set_scale,
             py::arg("scale") 
         )
-        .def("to_basic_block",[](std::shared_ptr<char_to_float> p){
-            return p->to_basic_block();
-        })
         ;
 
 

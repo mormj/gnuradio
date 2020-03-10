@@ -30,10 +30,6 @@ void bind_tsb_vector_sink_template(py::module& m, const char *classname)
         .def("reset",&tsb_vector_sink::reset)
         .def("data",&tsb_vector_sink::data)
         .def("tags",&tsb_vector_sink::tags)
-
-        .def("to_basic_block",[](std::shared_ptr<tsb_vector_sink> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

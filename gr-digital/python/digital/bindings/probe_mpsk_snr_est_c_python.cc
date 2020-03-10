@@ -22,7 +22,7 @@ void bind_probe_mpsk_snr_est_c(py::module& m)
     using probe_mpsk_snr_est_c    = gr::digital::probe_mpsk_snr_est_c;
 
 
-    py::class_<probe_mpsk_snr_est_c,gr::sync_block,
+    py::class_<probe_mpsk_snr_est_c,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<probe_mpsk_snr_est_c>>(m, "probe_mpsk_snr_est_c")
 
         .def(py::init(&probe_mpsk_snr_est_c::make),
@@ -47,9 +47,6 @@ void bind_probe_mpsk_snr_est_c(py::module& m)
         .def("set_alpha",&probe_mpsk_snr_est_c::set_alpha,
             py::arg("alpha") 
         )
-        .def("to_basic_block",[](std::shared_ptr<probe_mpsk_snr_est_c> p){
-            return p->to_basic_block();
-        })
         ;
 
 

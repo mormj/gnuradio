@@ -22,7 +22,7 @@ void bind_ofdm_chanest_vcvc(py::module& m)
     using ofdm_chanest_vcvc    = gr::digital::ofdm_chanest_vcvc;
 
 
-    py::class_<ofdm_chanest_vcvc,gr::block,
+    py::class_<ofdm_chanest_vcvc,gr::block, gr::basic_block,
         std::shared_ptr<ofdm_chanest_vcvc>>(m, "ofdm_chanest_vcvc")
 
         .def(py::init(&ofdm_chanest_vcvc::make),
@@ -33,11 +33,6 @@ void bind_ofdm_chanest_vcvc(py::module& m)
            py::arg("max_carr_offset") = -1, 
            py::arg("force_one_sync_symbol") = false 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<ofdm_chanest_vcvc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

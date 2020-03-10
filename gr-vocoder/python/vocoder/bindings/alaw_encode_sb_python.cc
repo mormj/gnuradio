@@ -22,16 +22,11 @@ void bind_alaw_encode_sb(py::module& m)
     using alaw_encode_sb    = gr::vocoder::alaw_encode_sb;
 
 
-    py::class_<alaw_encode_sb,gr::sync_block,
+    py::class_<alaw_encode_sb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<alaw_encode_sb>>(m, "alaw_encode_sb")
 
         .def(py::init(&alaw_encode_sb::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<alaw_encode_sb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

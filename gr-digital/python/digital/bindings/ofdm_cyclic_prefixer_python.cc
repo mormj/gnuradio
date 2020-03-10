@@ -38,10 +38,6 @@ void bind_ofdm_cyclic_prefixer(py::module& m)
            py::arg("rolloff_len") = 0, 
            py::arg("len_tag_key") = "" 
         )
-
-        .def("to_basic_block",[](std::shared_ptr<ofdm_cyclic_prefixer> p){
-            return p->to_basic_block();
-        })
         ;
 
 

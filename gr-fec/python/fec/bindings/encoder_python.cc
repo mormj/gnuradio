@@ -22,7 +22,7 @@ void bind_encoder(py::module& m)
     using encoder    = gr::fec::encoder;
 
 
-    py::class_<encoder,gr::block,
+    py::class_<encoder,gr::block, gr::basic_block,
         std::shared_ptr<encoder>>(m, "encoder")
 
         .def(py::init(&encoder::make),
@@ -48,9 +48,6 @@ void bind_encoder(py::module& m)
             py::arg("noutput_items"), 
             py::arg("ninput_items_required") 
         )
-        .def("to_basic_block",[](std::shared_ptr<encoder> p){
-            return p->to_basic_block();
-        })
         ;
 
 

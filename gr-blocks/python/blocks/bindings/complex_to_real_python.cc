@@ -22,17 +22,12 @@ void bind_complex_to_real(py::module& m)
     using complex_to_real    = gr::blocks::complex_to_real;
 
 
-    py::class_<complex_to_real,gr::sync_block,
+    py::class_<complex_to_real,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<complex_to_real>>(m, "complex_to_real")
 
         .def(py::init(&complex_to_real::make),
            py::arg("vlen") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<complex_to_real> p){
-            return p->to_basic_block();
-        })
         ;
 
 

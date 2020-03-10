@@ -22,7 +22,7 @@ void bind_mmse_interpolator_cc(py::module& m)
     using mmse_interpolator_cc    = gr::filter::mmse_interpolator_cc;
 
 
-    py::class_<mmse_interpolator_cc,gr::block,
+    py::class_<mmse_interpolator_cc,gr::block, gr::basic_block,
         std::shared_ptr<mmse_interpolator_cc>>(m, "mmse_interpolator_cc")
 
         .def(py::init(&mmse_interpolator_cc::make),
@@ -39,9 +39,6 @@ void bind_mmse_interpolator_cc(py::module& m)
         .def("set_interp_ratio",&mmse_interpolator_cc::set_interp_ratio,
             py::arg("interp_ratio") 
         )
-        .def("to_basic_block",[](std::shared_ptr<mmse_interpolator_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

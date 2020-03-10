@@ -22,7 +22,7 @@ void bind_symbol_sync_cc(py::module& m)
     using symbol_sync_cc    = gr::digital::symbol_sync_cc;
 
 
-    py::class_<symbol_sync_cc,gr::block,
+    py::class_<symbol_sync_cc,gr::block, gr::basic_block,
         std::shared_ptr<symbol_sync_cc>>(m, "symbol_sync_cc")
 
         .def(py::init(&symbol_sync_cc::make),
@@ -60,9 +60,6 @@ void bind_symbol_sync_cc(py::module& m)
         .def("set_beta",&symbol_sync_cc::set_beta,
             py::arg("beta") 
         )
-        .def("to_basic_block",[](std::shared_ptr<symbol_sync_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

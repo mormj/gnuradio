@@ -22,16 +22,12 @@ void bind_and_const_template(py::module& m, const char *classname)
 {
     using and_const      = gr::blocks::and_const<T>;
 
-    py::class_<and_const, gr::sync_block, std::shared_ptr<and_const>>(m, classname)
+    py::class_<and_const, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<and_const>>(m, classname)
         .def(py::init(&gr::blocks::and_const<T>::make),
             py::arg("k"))
             
         .def("k",&and_const::k)
         .def("set_k",&and_const::set_k, py::arg("k"))
-
-        .def("to_basic_block",[](std::shared_ptr<and_const> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

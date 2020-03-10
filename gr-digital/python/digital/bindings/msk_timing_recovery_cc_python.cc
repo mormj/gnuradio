@@ -22,7 +22,7 @@ void bind_msk_timing_recovery_cc(py::module& m)
     using msk_timing_recovery_cc    = gr::digital::msk_timing_recovery_cc;
 
 
-    py::class_<msk_timing_recovery_cc,gr::block,
+    py::class_<msk_timing_recovery_cc,gr::block, gr::basic_block,
         std::shared_ptr<msk_timing_recovery_cc>>(m, "msk_timing_recovery_cc")
 
         .def(py::init(&msk_timing_recovery_cc::make),
@@ -45,9 +45,6 @@ void bind_msk_timing_recovery_cc(py::module& m)
             py::arg("sps") 
         )
         .def("get_sps",&msk_timing_recovery_cc::get_sps)
-        .def("to_basic_block",[](std::shared_ptr<msk_timing_recovery_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_dvbt2_interleaver_bb(py::module& m)
     using dvbt2_interleaver_bb    = gr::dtv::dvbt2_interleaver_bb;
 
 
-    py::class_<dvbt2_interleaver_bb,gr::block,
+    py::class_<dvbt2_interleaver_bb,gr::block, gr::basic_block,
         std::shared_ptr<dvbt2_interleaver_bb>>(m, "dvbt2_interleaver_bb")
 
         .def(py::init(&dvbt2_interleaver_bb::make),
@@ -30,11 +30,6 @@ void bind_dvbt2_interleaver_bb(py::module& m)
            py::arg("rate"), 
            py::arg("constellation") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt2_interleaver_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

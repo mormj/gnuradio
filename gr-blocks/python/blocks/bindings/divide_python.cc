@@ -22,14 +22,10 @@ void bind_divide_template(py::module& m, const char *classname)
 {
     using divide      = gr::blocks::divide<T>;
 
-    py::class_<divide, gr::sync_block, std::shared_ptr<divide>>(m, classname)
+    py::class_<divide, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<divide>>(m, classname)
         .def(py::init(&gr::blocks::divide<T>::make),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<divide> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

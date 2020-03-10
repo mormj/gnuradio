@@ -22,7 +22,7 @@ void bind_req_msg_source(py::module& m)
     using req_msg_source    = gr::zeromq::req_msg_source;
 
 
-    py::class_<req_msg_source,gr::block,
+    py::class_<req_msg_source,gr::block, gr::basic_block,
         std::shared_ptr<req_msg_source>>(m, "req_msg_source")
 
         .def(py::init(&req_msg_source::make),
@@ -32,9 +32,6 @@ void bind_req_msg_source(py::module& m)
         
 
         .def("last_endpoint",&req_msg_source::last_endpoint)
-        .def("to_basic_block",[](std::shared_ptr<req_msg_source> p){
-            return p->to_basic_block();
-        })
         ;
 
 

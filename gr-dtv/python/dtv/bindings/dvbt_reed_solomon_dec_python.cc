@@ -22,7 +22,7 @@ void bind_dvbt_reed_solomon_dec(py::module& m)
     using dvbt_reed_solomon_dec    = gr::dtv::dvbt_reed_solomon_dec;
 
 
-    py::class_<dvbt_reed_solomon_dec,gr::block,
+    py::class_<dvbt_reed_solomon_dec,gr::block, gr::basic_block,
         std::shared_ptr<dvbt_reed_solomon_dec>>(m, "dvbt_reed_solomon_dec")
 
         .def(py::init(&dvbt_reed_solomon_dec::make),
@@ -35,11 +35,6 @@ void bind_dvbt_reed_solomon_dec(py::module& m)
            py::arg("s"), 
            py::arg("blocks") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt_reed_solomon_dec> p){
-            return p->to_basic_block();
-        })
         ;
 
 

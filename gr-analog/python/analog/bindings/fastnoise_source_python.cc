@@ -22,7 +22,7 @@ void bind_fastnoise_source_template(py::module& m, const char* classname)
 {
     using fastnoise_source = gr::analog::fastnoise_source<T>;
 
-    py::class_<fastnoise_source, gr::sync_block, std::shared_ptr<fastnoise_source>>(m, classname)
+    py::class_<fastnoise_source, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<fastnoise_source>>(m, classname)
         .def(py::init(&gr::analog::fastnoise_source<T>::make),
              py::arg("type"),
              py::arg("ampl"),
@@ -38,8 +38,7 @@ void bind_fastnoise_source_template(py::module& m, const char* classname)
         .def("type", &fastnoise_source::type)
         .def("amplitude", &fastnoise_source::amplitude)
 
-        .def("to_basic_block",
-             [](std::shared_ptr<fastnoise_source> p) { return p->to_basic_block(); });
+        ;
 }
 
 void bind_fastnoise_source(py::module& m)

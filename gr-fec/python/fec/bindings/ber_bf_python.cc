@@ -22,7 +22,7 @@ void bind_ber_bf(py::module& m)
     using ber_bf    = gr::fec::ber_bf;
 
 
-    py::class_<ber_bf,gr::block,
+    py::class_<ber_bf,gr::block, gr::basic_block,
         std::shared_ptr<ber_bf>>(m, "ber_bf")
 
         .def(py::init(&ber_bf::make),
@@ -33,9 +33,6 @@ void bind_ber_bf(py::module& m)
         
 
         .def("total_errors",&ber_bf::total_errors)
-        .def("to_basic_block",[](std::shared_ptr<ber_bf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

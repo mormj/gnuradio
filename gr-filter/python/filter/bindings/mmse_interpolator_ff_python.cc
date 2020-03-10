@@ -22,7 +22,7 @@ void bind_mmse_interpolator_ff(py::module& m)
     using mmse_interpolator_ff    = gr::filter::mmse_interpolator_ff;
 
 
-    py::class_<mmse_interpolator_ff,gr::block,
+    py::class_<mmse_interpolator_ff,gr::block, gr::basic_block,
         std::shared_ptr<mmse_interpolator_ff>>(m, "mmse_interpolator_ff")
 
         .def(py::init(&mmse_interpolator_ff::make),
@@ -39,9 +39,6 @@ void bind_mmse_interpolator_ff(py::module& m)
         .def("set_interp_ratio",&mmse_interpolator_ff::set_interp_ratio,
             py::arg("interp_ratio") 
         )
-        .def("to_basic_block",[](std::shared_ptr<mmse_interpolator_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -24,7 +24,7 @@ void bind_freq_xlating_fir_filter_template(py::module& m, const char* classname)
         gr::filter::freq_xlating_fir_filter<IN_T, OUT_T, TAP_T>;
 
     py::class_<freq_xlating_fir_filter,
-               gr::sync_decimator,
+               gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
                std::shared_ptr<freq_xlating_fir_filter>>(m, classname)
         .def(py::init(&gr::filter::freq_xlating_fir_filter<IN_T, OUT_T, TAP_T>::make),
              py::arg("decimation"),
@@ -39,10 +39,7 @@ void bind_freq_xlating_fir_filter_template(py::module& m, const char* classname)
 
         .def("set_taps", &freq_xlating_fir_filter::set_taps, py::arg("taps"))
         .def("taps", &freq_xlating_fir_filter::taps)
-
-        .def("to_basic_block", [](std::shared_ptr<freq_xlating_fir_filter> p) {
-            return p->to_basic_block();
-        });
+        ;
 }
 
 

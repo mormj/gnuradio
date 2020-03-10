@@ -39,9 +39,6 @@ void bind_ofdm_carrier_allocator_cvc(py::module& m)
         .def("len_tag_key",&ofdm_carrier_allocator_cvc::len_tag_key)
         .def("fft_len",&ofdm_carrier_allocator_cvc::fft_len)
         .def("occupied_carriers",&ofdm_carrier_allocator_cvc::occupied_carriers)
-        .def("to_basic_block",[](std::shared_ptr<ofdm_carrier_allocator_cvc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

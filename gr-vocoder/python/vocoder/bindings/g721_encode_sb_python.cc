@@ -22,16 +22,11 @@ void bind_g721_encode_sb(py::module& m)
     using g721_encode_sb    = gr::vocoder::g721_encode_sb;
 
 
-    py::class_<g721_encode_sb,gr::sync_block,
+    py::class_<g721_encode_sb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<g721_encode_sb>>(m, "g721_encode_sb")
 
         .def(py::init(&g721_encode_sb::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<g721_encode_sb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

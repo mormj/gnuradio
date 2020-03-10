@@ -22,7 +22,7 @@ void bind_annotator_1to1(py::module& m)
     using annotator_1to1    = gr::blocks::annotator_1to1;
 
 
-    py::class_<annotator_1to1,gr::sync_block,
+    py::class_<annotator_1to1,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<annotator_1to1>>(m, "annotator_1to1")
 
         .def(py::init(&annotator_1to1::make),
@@ -32,9 +32,6 @@ void bind_annotator_1to1(py::module& m)
         
 
         .def("data",&annotator_1to1::data)
-        .def("to_basic_block",[](std::shared_ptr<annotator_1to1> p){
-            return p->to_basic_block();
-        })
         ;
 
 

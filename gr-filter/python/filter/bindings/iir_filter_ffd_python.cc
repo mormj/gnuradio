@@ -22,7 +22,7 @@ void bind_iir_filter_ffd(py::module& m)
     using iir_filter_ffd    = gr::filter::iir_filter_ffd;
 
 
-    py::class_<iir_filter_ffd,gr::sync_block,
+    py::class_<iir_filter_ffd,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<iir_filter_ffd>>(m, "iir_filter_ffd")
 
         .def(py::init(&iir_filter_ffd::make),
@@ -36,9 +36,6 @@ void bind_iir_filter_ffd(py::module& m)
             py::arg("fftaps"), 
             py::arg("fbtaps") 
         )
-        .def("to_basic_block",[](std::shared_ptr<iir_filter_ffd> p){
-            return p->to_basic_block();
-        })
         ;
 
 

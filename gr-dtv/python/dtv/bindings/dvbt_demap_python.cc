@@ -22,7 +22,7 @@ void bind_dvbt_demap(py::module& m)
     using dvbt_demap    = gr::dtv::dvbt_demap;
 
 
-    py::class_<dvbt_demap,gr::block,
+    py::class_<dvbt_demap,gr::block, gr::basic_block,
         std::shared_ptr<dvbt_demap>>(m, "dvbt_demap")
 
         .def(py::init(&dvbt_demap::make),
@@ -32,11 +32,6 @@ void bind_dvbt_demap(py::module& m)
            py::arg("transmission"), 
            py::arg("gain") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt_demap> p){
-            return p->to_basic_block();
-        })
         ;
 
 

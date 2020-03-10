@@ -22,16 +22,11 @@ void bind_atsc_pad(py::module& m)
     using atsc_pad    = gr::dtv::atsc_pad;
 
 
-    py::class_<atsc_pad,gr::sync_decimator,
+    py::class_<atsc_pad,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_pad>>(m, "atsc_pad")
 
         .def(py::init(&atsc_pad::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_pad> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_decoder(py::module& m)
     using decoder    = gr::fec::decoder;
 
 
-    py::class_<decoder,gr::block,
+    py::class_<decoder,gr::block, gr::basic_block,
         std::shared_ptr<decoder>>(m, "decoder")
 
         .def(py::init(&decoder::make),
@@ -48,9 +48,6 @@ void bind_decoder(py::module& m)
             py::arg("noutput_items"), 
             py::arg("ninput_items_required") 
         )
-        .def("to_basic_block",[](std::shared_ptr<decoder> p){
-            return p->to_basic_block();
-        })
         ;
 
 

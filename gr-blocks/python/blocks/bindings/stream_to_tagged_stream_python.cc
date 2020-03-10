@@ -22,7 +22,7 @@ void bind_stream_to_tagged_stream(py::module& m)
     using stream_to_tagged_stream    = gr::blocks::stream_to_tagged_stream;
 
 
-    py::class_<stream_to_tagged_stream,gr::sync_block,
+    py::class_<stream_to_tagged_stream,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<stream_to_tagged_stream>>(m, "stream_to_tagged_stream")
 
         .def(py::init(&stream_to_tagged_stream::make),
@@ -39,9 +39,6 @@ void bind_stream_to_tagged_stream(py::module& m)
         .def("set_packet_len_pmt",&stream_to_tagged_stream::set_packet_len_pmt,
             py::arg("packet_len") 
         )
-        .def("to_basic_block",[](std::shared_ptr<stream_to_tagged_stream> p){
-            return p->to_basic_block();
-        })
         ;
 
 

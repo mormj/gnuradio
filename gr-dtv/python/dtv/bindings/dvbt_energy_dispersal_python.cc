@@ -22,17 +22,12 @@ void bind_dvbt_energy_dispersal(py::module& m)
     using dvbt_energy_dispersal    = gr::dtv::dvbt_energy_dispersal;
 
 
-    py::class_<dvbt_energy_dispersal,gr::block,
+    py::class_<dvbt_energy_dispersal,gr::block, gr::basic_block,
         std::shared_ptr<dvbt_energy_dispersal>>(m, "dvbt_energy_dispersal")
 
         .def(py::init(&dvbt_energy_dispersal::make),
            py::arg("nsize") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbt_energy_dispersal> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,16 +22,11 @@ void bind_atsc_field_sync_mux(py::module& m)
     using atsc_field_sync_mux    = gr::dtv::atsc_field_sync_mux;
 
 
-    py::class_<atsc_field_sync_mux,gr::block,
+    py::class_<atsc_field_sync_mux,gr::block, gr::basic_block,
         std::shared_ptr<atsc_field_sync_mux>>(m, "atsc_field_sync_mux")
 
         .def(py::init(&atsc_field_sync_mux::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_field_sync_mux> p){
-            return p->to_basic_block();
-        })
         ;
 
 

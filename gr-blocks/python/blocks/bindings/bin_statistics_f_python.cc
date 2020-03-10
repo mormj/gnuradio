@@ -22,7 +22,7 @@ void bind_bin_statistics_f(py::module& m)
     using bin_statistics_f    = gr::blocks::bin_statistics_f;
 
 
-    py::class_<bin_statistics_f,gr::sync_block,
+    py::class_<bin_statistics_f,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<bin_statistics_f>>(m, "bin_statistics_f")
 
         .def(py::init(&bin_statistics_f::make),
@@ -32,11 +32,6 @@ void bind_bin_statistics_f(py::module& m)
            py::arg("tune_delay"), 
            py::arg("dwell_delay") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<bin_statistics_f> p){
-            return p->to_basic_block();
-        })
         ;
 
 

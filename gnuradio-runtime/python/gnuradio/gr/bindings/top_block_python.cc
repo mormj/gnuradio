@@ -99,9 +99,6 @@ void bind_top_block(py::module& m)
         )
         .def("to_top_block",&top_block::to_top_block)
         .def("setup_rpc",&top_block::setup_rpc)
-        .def("to_basic_block",[](std::shared_ptr<top_block> p){
-            return p->to_basic_block();
-        })
         ;
 
 

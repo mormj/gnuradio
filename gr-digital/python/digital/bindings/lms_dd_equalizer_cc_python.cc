@@ -22,7 +22,7 @@ void bind_lms_dd_equalizer_cc(py::module& m)
     using lms_dd_equalizer_cc    = gr::digital::lms_dd_equalizer_cc;
 
 
-    py::class_<lms_dd_equalizer_cc,gr::sync_decimator,
+    py::class_<lms_dd_equalizer_cc,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<lms_dd_equalizer_cc>>(m, "lms_dd_equalizer_cc")
 
         .def(py::init(&lms_dd_equalizer_cc::make),
@@ -41,9 +41,6 @@ void bind_lms_dd_equalizer_cc(py::module& m)
         .def("set_gain",&lms_dd_equalizer_cc::set_gain,
             py::arg("mu") 
         )
-        .def("to_basic_block",[](std::shared_ptr<lms_dd_equalizer_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

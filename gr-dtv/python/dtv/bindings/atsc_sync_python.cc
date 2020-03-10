@@ -22,17 +22,12 @@ void bind_atsc_sync(py::module& m)
     using atsc_sync    = gr::dtv::atsc_sync;
 
 
-    py::class_<atsc_sync,gr::block,
+    py::class_<atsc_sync,gr::block, gr::basic_block,
         std::shared_ptr<atsc_sync>>(m, "atsc_sync")
 
         .def(py::init(&atsc_sync::make),
            py::arg("rate") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_sync> p){
-            return p->to_basic_block();
-        })
         ;
 
 

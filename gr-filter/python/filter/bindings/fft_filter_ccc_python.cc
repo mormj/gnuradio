@@ -22,7 +22,7 @@ void bind_fft_filter_ccc(py::module& m)
     using fft_filter_ccc    = gr::filter::fft_filter_ccc;
 
 
-    py::class_<fft_filter_ccc,gr::sync_decimator,
+    py::class_<fft_filter_ccc,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<fft_filter_ccc>>(m, "fft_filter_ccc")
 
         .def(py::init(&fft_filter_ccc::make),
@@ -40,9 +40,6 @@ void bind_fft_filter_ccc(py::module& m)
             py::arg("n") 
         )
         .def("nthreads",&fft_filter_ccc::nthreads)
-        .def("to_basic_block",[](std::shared_ptr<fft_filter_ccc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_regenerate_bb(py::module& m)
     using regenerate_bb    = gr::blocks::regenerate_bb;
 
 
-    py::class_<regenerate_bb,gr::sync_block,
+    py::class_<regenerate_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<regenerate_bb>>(m, "regenerate_bb")
 
         .def(py::init(&regenerate_bb::make),
@@ -39,9 +39,6 @@ void bind_regenerate_bb(py::module& m)
         )
         .def("max_regen",&regenerate_bb::max_regen)
         .def("period",&regenerate_bb::period)
-        .def("to_basic_block",[](std::shared_ptr<regenerate_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

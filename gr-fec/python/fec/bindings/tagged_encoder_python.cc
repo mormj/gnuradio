@@ -43,9 +43,6 @@ void bind_tagged_encoder(py::module& m)
         .def("calculate_output_stream_length",&tagged_encoder::calculate_output_stream_length,
             py::arg("ninput_items") 
         )
-        .def("to_basic_block",[](std::shared_ptr<tagged_encoder> p){
-            return p->to_basic_block();
-        })
         ;
 
 

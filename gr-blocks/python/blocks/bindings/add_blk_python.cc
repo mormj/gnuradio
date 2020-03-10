@@ -22,14 +22,10 @@ void bind_add_template(py::module& m, const char *classname)
 {
     using add_blk      = gr::blocks::add_blk<T>;
 
-    py::class_<add_blk, gr::sync_block, std::shared_ptr<add_blk>>(m, classname)
+    py::class_<add_blk, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<add_blk>>(m, classname)
         .def(py::init(&gr::blocks::add_blk<T>::make),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<add_blk> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

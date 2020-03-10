@@ -22,7 +22,7 @@ void bind_mpsk_snr_est_cc(py::module& m)
     using mpsk_snr_est_cc    = gr::digital::mpsk_snr_est_cc;
 
 
-    py::class_<mpsk_snr_est_cc,gr::sync_block,
+    py::class_<mpsk_snr_est_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<mpsk_snr_est_cc>>(m, "mpsk_snr_est_cc")
 
         .def(py::init(&mpsk_snr_est_cc::make),
@@ -45,9 +45,6 @@ void bind_mpsk_snr_est_cc(py::module& m)
         .def("set_alpha",&mpsk_snr_est_cc::set_alpha,
             py::arg("alpha") 
         )
-        .def("to_basic_block",[](std::shared_ptr<mpsk_snr_est_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

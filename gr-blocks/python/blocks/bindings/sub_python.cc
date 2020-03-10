@@ -22,14 +22,10 @@ void bind_sub_template(py::module& m, const char *classname)
 {
     using sub      = gr::blocks::sub<T>;
 
-    py::class_<sub, gr::sync_block, std::shared_ptr<sub>>(m, classname)
+    py::class_<sub, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<sub>>(m, classname)
         .def(py::init(&gr::blocks::sub<T>::make),
             py::arg("vlen") = 1
         )
-
-        .def("to_basic_block",[](std::shared_ptr<sub> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

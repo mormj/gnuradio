@@ -22,16 +22,11 @@ void bind_atsc_randomizer(py::module& m)
     using atsc_randomizer    = gr::dtv::atsc_randomizer;
 
 
-    py::class_<atsc_randomizer,gr::sync_block,
+    py::class_<atsc_randomizer,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_randomizer>>(m, "atsc_randomizer")
 
         .def(py::init(&atsc_randomizer::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_randomizer> p){
-            return p->to_basic_block();
-        })
         ;
 
 

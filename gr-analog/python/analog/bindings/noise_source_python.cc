@@ -22,7 +22,7 @@ void bind_noise_source_template(py::module& m, const char *classname)
 {
     using noise_source      = gr::analog::noise_source<T>;
 
-    py::class_<noise_source, gr::sync_block, std::shared_ptr<noise_source>>(m, classname)
+    py::class_<noise_source, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<noise_source>>(m, classname)
         .def(py::init(&gr::analog::noise_source<T>::make),
             py::arg("type"),
             py::arg("ampl"),
@@ -34,10 +34,6 @@ void bind_noise_source_template(py::module& m, const char *classname)
         
         .def("type",&noise_source::type)
         .def("amplitude",&noise_source::amplitude)
-
-        .def("to_basic_block",[](std::shared_ptr<noise_source> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

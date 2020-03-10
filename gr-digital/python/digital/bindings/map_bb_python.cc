@@ -22,7 +22,7 @@ void bind_map_bb(py::module& m)
     using map_bb    = gr::digital::map_bb;
 
 
-    py::class_<map_bb,gr::sync_block,
+    py::class_<map_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<map_bb>>(m, "map_bb")
 
         .def(py::init(&map_bb::make),
@@ -34,9 +34,6 @@ void bind_map_bb(py::module& m)
             py::arg("map") 
         )
         .def("map",&map_bb::map)
-        .def("to_basic_block",[](std::shared_ptr<map_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

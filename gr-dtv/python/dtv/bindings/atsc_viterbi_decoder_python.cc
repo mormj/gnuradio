@@ -22,7 +22,7 @@ void bind_atsc_viterbi_decoder(py::module& m)
     using atsc_viterbi_decoder    = gr::dtv::atsc_viterbi_decoder;
 
 
-    py::class_<atsc_viterbi_decoder,gr::sync_block,
+    py::class_<atsc_viterbi_decoder,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_viterbi_decoder>>(m, "atsc_viterbi_decoder")
 
         .def(py::init(&atsc_viterbi_decoder::make)
@@ -30,9 +30,6 @@ void bind_atsc_viterbi_decoder(py::module& m)
         
 
         .def("decoder_metrics",&atsc_viterbi_decoder::decoder_metrics)
-        .def("to_basic_block",[](std::shared_ptr<atsc_viterbi_decoder> p){
-            return p->to_basic_block();
-        })
         ;
 
 

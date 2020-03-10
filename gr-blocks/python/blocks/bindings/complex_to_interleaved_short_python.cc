@@ -22,7 +22,7 @@ void bind_complex_to_interleaved_short(py::module& m)
     using complex_to_interleaved_short    = gr::blocks::complex_to_interleaved_short;
 
 
-    py::class_<complex_to_interleaved_short,gr::sync_interpolator,
+    py::class_<complex_to_interleaved_short,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<complex_to_interleaved_short>>(m, "complex_to_interleaved_short")
 
         .def(py::init(&complex_to_interleaved_short::make),
@@ -33,10 +33,6 @@ void bind_complex_to_interleaved_short(py::module& m)
         .def("set_scale_factor", &complex_to_interleaved_short::set_scale_factor,
            py::arg("new_value")
         )
-
-        .def("to_basic_block",[](std::shared_ptr<complex_to_interleaved_short> p){
-            return p->to_basic_block();
-        })
         ;
 
 

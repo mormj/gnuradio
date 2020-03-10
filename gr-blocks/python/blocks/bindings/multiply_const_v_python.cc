@@ -22,12 +22,8 @@ void bind_multiply_const_v_template(py::module& m, const char *classname)
 {
     using multiply_const_v      = gr::blocks::multiply_const_v<T>;
 
-    py::class_<multiply_const_v, gr::sync_block, std::shared_ptr<multiply_const_v>>(m, classname)
+    py::class_<multiply_const_v, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<multiply_const_v>>(m, classname)
         .def(py::init(&gr::blocks::multiply_const_v<T>::make))
-
-        .def("to_basic_block",[](std::shared_ptr<multiply_const_v> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

@@ -22,16 +22,11 @@ void bind_packed_to_unpacked_template(py::module& m, const char *classname)
 {
     using packed_to_unpacked      = gr::blocks::packed_to_unpacked<T>;
 
-    py::class_<packed_to_unpacked, gr::block, std::shared_ptr<packed_to_unpacked>>(m, classname)
+    py::class_<packed_to_unpacked, gr::block, gr::basic_block, std::shared_ptr<packed_to_unpacked>>(m, classname)
         .def(py::init(&gr::blocks::packed_to_unpacked<T>::make),
             py::arg("bits_per_chunk"),
             py::arg("endianness")
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<packed_to_unpacked> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

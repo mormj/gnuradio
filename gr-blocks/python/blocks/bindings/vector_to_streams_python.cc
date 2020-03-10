@@ -22,18 +22,13 @@ void bind_vector_to_streams(py::module& m)
     using vector_to_streams    = gr::blocks::vector_to_streams;
 
 
-    py::class_<vector_to_streams,gr::sync_block,
+    py::class_<vector_to_streams,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<vector_to_streams>>(m, "vector_to_streams")
 
         .def(py::init(&vector_to_streams::make),
            py::arg("itemsize"), 
            py::arg("nstreams") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<vector_to_streams> p){
-            return p->to_basic_block();
-        })
         ;
 
 

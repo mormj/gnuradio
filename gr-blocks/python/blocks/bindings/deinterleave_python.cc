@@ -22,18 +22,13 @@ void bind_deinterleave(py::module& m)
     using deinterleave    = gr::blocks::deinterleave;
 
 
-    py::class_<deinterleave,gr::block,
+    py::class_<deinterleave,gr::block, gr::basic_block,
         std::shared_ptr<deinterleave>>(m, "deinterleave")
 
         .def(py::init(&deinterleave::make),
            py::arg("itemsize"), 
            py::arg("blocksize") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<deinterleave> p){
-            return p->to_basic_block();
-        })
         ;
 
 

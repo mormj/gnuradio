@@ -22,7 +22,7 @@ void bind_atsc_rs_decoder(py::module& m)
     using atsc_rs_decoder    = gr::dtv::atsc_rs_decoder;
 
 
-    py::class_<atsc_rs_decoder,gr::sync_block,
+    py::class_<atsc_rs_decoder,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<atsc_rs_decoder>>(m, "atsc_rs_decoder")
 
         .def(py::init(&atsc_rs_decoder::make)
@@ -32,9 +32,6 @@ void bind_atsc_rs_decoder(py::module& m)
         .def("num_errors_corrected",&atsc_rs_decoder::num_errors_corrected)
         .def("num_bad_packets",&atsc_rs_decoder::num_bad_packets)
         .def("num_packets",&atsc_rs_decoder::num_packets)
-        .def("to_basic_block",[](std::shared_ptr<atsc_rs_decoder> p){
-            return p->to_basic_block();
-        })
         ;
 
 

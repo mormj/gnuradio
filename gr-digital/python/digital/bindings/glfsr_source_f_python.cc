@@ -22,7 +22,7 @@ void bind_glfsr_source_f(py::module& m)
     using glfsr_source_f    = gr::digital::glfsr_source_f;
 
 
-    py::class_<glfsr_source_f,gr::sync_block,
+    py::class_<glfsr_source_f,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<glfsr_source_f>>(m, "glfsr_source_f")
 
         .def(py::init(&glfsr_source_f::make),
@@ -35,9 +35,6 @@ void bind_glfsr_source_f(py::module& m)
 
         .def("period",&glfsr_source_f::period)
         .def("mask",&glfsr_source_f::mask)
-        .def("to_basic_block",[](std::shared_ptr<glfsr_source_f> p){
-            return p->to_basic_block();
-        })
         ;
 
 

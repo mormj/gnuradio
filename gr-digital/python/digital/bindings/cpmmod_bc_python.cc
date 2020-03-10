@@ -44,9 +44,6 @@ void bind_cpmmod_bc(py::module& m)
         .def("index",&cpmmod_bc::index)
         .def("samples_per_sym",&cpmmod_bc::samples_per_sym)
         .def("beta",&cpmmod_bc::beta)
-        .def("to_basic_block",[](std::shared_ptr<cpmmod_bc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

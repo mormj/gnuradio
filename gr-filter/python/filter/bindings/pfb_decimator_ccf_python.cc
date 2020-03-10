@@ -22,7 +22,7 @@ void bind_pfb_decimator_ccf(py::module& m)
     using pfb_decimator_ccf    = gr::filter::pfb_decimator_ccf;
 
 
-    py::class_<pfb_decimator_ccf,gr::sync_block,
+    py::class_<pfb_decimator_ccf,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pfb_decimator_ccf>>(m, "pfb_decimator_ccf")
 
         .def(py::init(&pfb_decimator_ccf::make),
@@ -42,9 +42,6 @@ void bind_pfb_decimator_ccf(py::module& m)
         .def("set_channel",&pfb_decimator_ccf::set_channel,
             py::arg("channel") 
         )
-        .def("to_basic_block",[](std::shared_ptr<pfb_decimator_ccf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

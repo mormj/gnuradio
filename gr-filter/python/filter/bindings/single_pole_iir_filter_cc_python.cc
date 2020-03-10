@@ -22,7 +22,7 @@ void bind_single_pole_iir_filter_cc(py::module& m)
     using single_pole_iir_filter_cc    = gr::filter::single_pole_iir_filter_cc;
 
 
-    py::class_<single_pole_iir_filter_cc,gr::sync_block,
+    py::class_<single_pole_iir_filter_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<single_pole_iir_filter_cc>>(m, "single_pole_iir_filter_cc")
 
         .def(py::init(&single_pole_iir_filter_cc::make),
@@ -34,9 +34,6 @@ void bind_single_pole_iir_filter_cc(py::module& m)
         .def("set_taps",&single_pole_iir_filter_cc::set_taps,
             py::arg("alpha") 
         )
-        .def("to_basic_block",[](std::shared_ptr<single_pole_iir_filter_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

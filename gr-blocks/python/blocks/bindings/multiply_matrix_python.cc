@@ -22,7 +22,7 @@ void bind_multiply_matrix_template(py::module& m, const char *classname)
 {
     using multiply_matrix      = gr::blocks::multiply_matrix<T>;
 
-    py::class_<multiply_matrix, gr::sync_block, std::shared_ptr<multiply_matrix>>(m, classname)
+    py::class_<multiply_matrix, gr::sync_block, gr::block, gr::basic_block, std::shared_ptr<multiply_matrix>>(m, classname)
         .def(py::init(&gr::blocks::multiply_matrix<T>::make),
             py::arg("A"),
             py::arg("tag_propagation_policy") = gr::block::TPP_ALL_TO_ALL
@@ -32,10 +32,6 @@ void bind_multiply_matrix_template(py::module& m, const char *classname)
             py::arg("new_A")
         )
         .def_readwrite("MSG_PORT_NAME_SET_A",&multiply_matrix::MSG_PORT_NAME_SET_A)
-
-        .def("to_basic_block",[](std::shared_ptr<multiply_matrix> p){
-            return p->to_basic_block();
-        })
         ;
 } 
 

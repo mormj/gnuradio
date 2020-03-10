@@ -22,16 +22,11 @@ void bind_atsc_fs_checker(py::module& m)
     using atsc_fs_checker    = gr::dtv::atsc_fs_checker;
 
 
-    py::class_<atsc_fs_checker,gr::block,
+    py::class_<atsc_fs_checker,gr::block, gr::basic_block,
         std::shared_ptr<atsc_fs_checker>>(m, "atsc_fs_checker")
 
         .def(py::init(&atsc_fs_checker::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<atsc_fs_checker> p){
-            return p->to_basic_block();
-        })
         ;
 
 

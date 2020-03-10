@@ -22,7 +22,7 @@ void bind_rms_cf(py::module& m)
     using rms_cf    = gr::blocks::rms_cf;
 
 
-    py::class_<rms_cf,gr::sync_block,
+    py::class_<rms_cf,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<rms_cf>>(m, "rms_cf")
 
         .def(py::init(&rms_cf::make),
@@ -33,9 +33,6 @@ void bind_rms_cf(py::module& m)
         .def("set_alpha",&rms_cf::set_alpha,
             py::arg("alpha") 
         )
-        .def("to_basic_block",[](std::shared_ptr<rms_cf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

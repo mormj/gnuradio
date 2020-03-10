@@ -22,17 +22,12 @@ void bind_pack_k_bits_bb(py::module& m)
     using pack_k_bits_bb    = gr::blocks::pack_k_bits_bb;
 
 
-    py::class_<pack_k_bits_bb,gr::sync_decimator,
+    py::class_<pack_k_bits_bb,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pack_k_bits_bb>>(m, "pack_k_bits_bb")
 
         .def(py::init(&pack_k_bits_bb::make),
            py::arg("k") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<pack_k_bits_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

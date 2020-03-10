@@ -22,17 +22,12 @@ void bind_filter_delay_fc(py::module& m)
     using filter_delay_fc    = gr::filter::filter_delay_fc;
 
 
-    py::class_<filter_delay_fc,gr::sync_block,
+    py::class_<filter_delay_fc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<filter_delay_fc>>(m, "filter_delay_fc")
 
         .def(py::init(&filter_delay_fc::make),
            py::arg("taps") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<filter_delay_fc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

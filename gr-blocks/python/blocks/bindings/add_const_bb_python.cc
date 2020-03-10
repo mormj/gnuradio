@@ -22,7 +22,7 @@ void bind_add_const_bb(py::module& m)
     using add_const_bb    = gr::blocks::add_const_bb;
 
 
-    py::class_<add_const_bb,gr::sync_block,
+    py::class_<add_const_bb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<add_const_bb>>(m, "add_const_bb")
 
         .def(py::init(&add_const_bb::make),
@@ -34,9 +34,6 @@ void bind_add_const_bb(py::module& m)
         .def("set_k",&add_const_bb::set_k,
             py::arg("k") 
         )
-        .def("to_basic_block",[](std::shared_ptr<add_const_bb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

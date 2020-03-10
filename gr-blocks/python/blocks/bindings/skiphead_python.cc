@@ -22,18 +22,13 @@ void bind_skiphead(py::module& m)
     using skiphead    = gr::blocks::skiphead;
 
 
-    py::class_<skiphead,gr::block,
+    py::class_<skiphead,gr::block, gr::basic_block,
         std::shared_ptr<skiphead>>(m, "skiphead")
 
         .def(py::init(&skiphead::make),
            py::arg("itemsize"), 
            py::arg("nitems_to_skip") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<skiphead> p){
-            return p->to_basic_block();
-        })
         ;
 
 

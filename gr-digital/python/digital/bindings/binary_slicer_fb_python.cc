@@ -22,16 +22,11 @@ void bind_binary_slicer_fb(py::module& m)
     using binary_slicer_fb    = gr::digital::binary_slicer_fb;
 
 
-    py::class_<binary_slicer_fb,gr::sync_block,
+    py::class_<binary_slicer_fb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<binary_slicer_fb>>(m, "binary_slicer_fb")
 
         .def(py::init(&binary_slicer_fb::make)
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<binary_slicer_fb> p){
-            return p->to_basic_block();
-        })
         ;
 
 

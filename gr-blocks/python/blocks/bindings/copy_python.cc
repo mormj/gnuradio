@@ -22,7 +22,7 @@ void bind_copy(py::module& m)
     using copy    = gr::blocks::copy;
 
 
-    py::class_<copy,gr::block,
+    py::class_<copy,gr::block, gr::basic_block,
         std::shared_ptr<copy>>(m, "copy")
 
         .def(py::init(&copy::make),
@@ -34,9 +34,6 @@ void bind_copy(py::module& m)
             py::arg("enable") 
         )
         .def("enabled",&copy::enabled)
-        .def("to_basic_block",[](std::shared_ptr<copy> p){
-            return p->to_basic_block();
-        })
         ;
 
 

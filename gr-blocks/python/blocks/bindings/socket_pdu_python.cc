@@ -22,7 +22,7 @@ void bind_socket_pdu(py::module& m)
     using socket_pdu    = gr::blocks::socket_pdu;
 
 
-    py::class_<socket_pdu,gr::block,
+    py::class_<socket_pdu,gr::block, gr::basic_block,
         std::shared_ptr<socket_pdu>>(m, "socket_pdu")
 
         .def(py::init(&socket_pdu::make),
@@ -32,11 +32,6 @@ void bind_socket_pdu(py::module& m)
            py::arg("MTU") = 10000, 
            py::arg("tcp_no_delay") = false 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<socket_pdu> p){
-            return p->to_basic_block();
-        })
         ;
 
 

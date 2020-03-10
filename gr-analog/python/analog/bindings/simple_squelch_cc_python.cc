@@ -22,7 +22,7 @@ void bind_simple_squelch_cc(py::module& m)
     using simple_squelch_cc    = gr::analog::simple_squelch_cc;
 
 
-    py::class_<simple_squelch_cc,gr::sync_block,
+    py::class_<simple_squelch_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<simple_squelch_cc>>(m, "simple_squelch_cc")
 
         .def(py::init(&simple_squelch_cc::make),
@@ -40,9 +40,6 @@ void bind_simple_squelch_cc(py::module& m)
         )
         .def("threshold",&simple_squelch_cc::threshold)
         .def("squelch_range",&simple_squelch_cc::squelch_range)
-        .def("to_basic_block",[](std::shared_ptr<simple_squelch_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

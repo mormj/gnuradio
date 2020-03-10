@@ -22,7 +22,7 @@ void bind_pfb_clock_sync_fff(py::module& m)
     using pfb_clock_sync_fff    = gr::digital::pfb_clock_sync_fff;
 
 
-    py::class_<pfb_clock_sync_fff,gr::block,
+    py::class_<pfb_clock_sync_fff,gr::block, gr::basic_block,
         std::shared_ptr<pfb_clock_sync_fff>>(m, "pfb_clock_sync_fff")
 
         .def(py::init(&pfb_clock_sync_fff::make),
@@ -70,9 +70,6 @@ void bind_pfb_clock_sync_fff(py::module& m)
         .def("alpha",&pfb_clock_sync_fff::alpha)
         .def("beta",&pfb_clock_sync_fff::beta)
         .def("clock_rate",&pfb_clock_sync_fff::clock_rate)
-        .def("to_basic_block",[](std::shared_ptr<pfb_clock_sync_fff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

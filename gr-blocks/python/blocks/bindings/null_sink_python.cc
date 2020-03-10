@@ -22,17 +22,12 @@ void bind_null_sink(py::module& m)
     using null_sink    = gr::blocks::null_sink;
 
 
-    py::class_<null_sink,gr::sync_block,
+    py::class_<null_sink,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<null_sink>>(m, "null_sink")
 
         .def(py::init(&null_sink::make),
            py::arg("sizeof_stream_item") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<null_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

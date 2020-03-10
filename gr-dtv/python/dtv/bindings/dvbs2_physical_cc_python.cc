@@ -22,7 +22,7 @@ void bind_dvbs2_physical_cc(py::module& m)
     using dvbs2_physical_cc    = gr::dtv::dvbs2_physical_cc;
 
 
-    py::class_<dvbs2_physical_cc,gr::block,
+    py::class_<dvbs2_physical_cc,gr::block, gr::basic_block,
         std::shared_ptr<dvbs2_physical_cc>>(m, "dvbs2_physical_cc")
 
         .def(py::init(&dvbs2_physical_cc::make),
@@ -32,11 +32,6 @@ void bind_dvbs2_physical_cc(py::module& m)
            py::arg("pilots"), 
            py::arg("goldcode") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<dvbs2_physical_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

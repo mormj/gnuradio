@@ -75,9 +75,6 @@ void bind_dynamic_channel_model(py::module& m)
         .def("set_K",&dynamic_channel_model::set_K,
             py::arg("arg0") 
         )
-        .def("to_basic_block",[](std::shared_ptr<dynamic_channel_model> p){
-            return p->to_basic_block();
-        })
         ;
 
 

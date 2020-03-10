@@ -22,18 +22,13 @@ void bind_test_tag_variable_rate_ff(py::module& m)
     using test_tag_variable_rate_ff    = gr::blocks::test_tag_variable_rate_ff;
 
 
-    py::class_<test_tag_variable_rate_ff,gr::block,
+    py::class_<test_tag_variable_rate_ff,gr::block, gr::basic_block,
         std::shared_ptr<test_tag_variable_rate_ff>>(m, "test_tag_variable_rate_ff")
 
         .def(py::init(&test_tag_variable_rate_ff::make),
            py::arg("update_once") = false, 
            py::arg("update_step") = 0.001 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<test_tag_variable_rate_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

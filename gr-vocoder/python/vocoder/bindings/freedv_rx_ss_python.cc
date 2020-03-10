@@ -22,7 +22,7 @@ void bind_freedv_rx_ss(py::module& m)
     using freedv_rx_ss    = gr::vocoder::freedv_rx_ss;
 
 
-    py::class_<freedv_rx_ss,gr::block,
+    py::class_<freedv_rx_ss,gr::block, gr::basic_block,
         std::shared_ptr<freedv_rx_ss>>(m, "freedv_rx_ss")
 
         .def(py::init(&freedv_rx_ss::make),
@@ -39,9 +39,6 @@ void bind_freedv_rx_ss(py::module& m)
         .def("set_squelch_en",&freedv_rx_ss::set_squelch_en,
             py::arg("squelch_enable") 
         )
-        .def("to_basic_block",[](std::shared_ptr<freedv_rx_ss> p){
-            return p->to_basic_block();
-        })
         ;
 
 

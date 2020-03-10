@@ -22,7 +22,7 @@ void bind_probe_rate(py::module& m)
     using probe_rate    = gr::blocks::probe_rate;
 
 
-    py::class_<probe_rate,gr::sync_block,
+    py::class_<probe_rate,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<probe_rate>>(m, "probe_rate")
 
         .def(py::init(&probe_rate::make),
@@ -38,9 +38,6 @@ void bind_probe_rate(py::module& m)
         .def("rate",&probe_rate::rate)
         .def("start",&probe_rate::start)
         .def("stop",&probe_rate::stop)
-        .def("to_basic_block",[](std::shared_ptr<probe_rate> p){
-            return p->to_basic_block();
-        })
         ;
 
 

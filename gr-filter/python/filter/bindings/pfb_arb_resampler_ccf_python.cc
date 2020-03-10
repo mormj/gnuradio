@@ -22,7 +22,7 @@ void bind_pfb_arb_resampler_ccf(py::module& m)
     using pfb_arb_resampler_ccf    = gr::filter::pfb_arb_resampler_ccf;
 
 
-    py::class_<pfb_arb_resampler_ccf,gr::block,
+    py::class_<pfb_arb_resampler_ccf,gr::block, gr::basic_block,
         std::shared_ptr<pfb_arb_resampler_ccf>>(m, "pfb_arb_resampler_ccf")
 
         .def(py::init(&pfb_arb_resampler_ccf::make),
@@ -53,9 +53,6 @@ void bind_pfb_arb_resampler_ccf(py::module& m)
             py::arg("freq"), 
             py::arg("fs") 
         )
-        .def("to_basic_block",[](std::shared_ptr<pfb_arb_resampler_ccf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

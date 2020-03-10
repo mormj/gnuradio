@@ -22,7 +22,7 @@ void bind_wavfile_sink(py::module& m)
     using wavfile_sink    = gr::blocks::wavfile_sink;
 
 
-    py::class_<wavfile_sink,gr::sync_block,
+    py::class_<wavfile_sink,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<wavfile_sink>>(m, "wavfile_sink")
 
         .def(py::init(&wavfile_sink::make),
@@ -43,9 +43,6 @@ void bind_wavfile_sink(py::module& m)
         .def("set_bits_per_sample",&wavfile_sink::set_bits_per_sample,
             py::arg("bits_per_sample") 
         )
-        .def("to_basic_block",[](std::shared_ptr<wavfile_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

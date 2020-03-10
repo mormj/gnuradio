@@ -22,17 +22,12 @@ void bind_multiply_conjugate_cc(py::module& m)
     using multiply_conjugate_cc    = gr::blocks::multiply_conjugate_cc;
 
 
-    py::class_<multiply_conjugate_cc,gr::sync_block,
+    py::class_<multiply_conjugate_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<multiply_conjugate_cc>>(m, "multiply_conjugate_cc")
 
         .def(py::init(&multiply_conjugate_cc::make),
            py::arg("vlen") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<multiply_conjugate_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

@@ -22,7 +22,7 @@ void bind_packet_sink(py::module& m)
     using packet_sink    = gr::digital::packet_sink;
 
 
-    py::class_<packet_sink,gr::sync_block,
+    py::class_<packet_sink,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<packet_sink>>(m, "packet_sink")
 
         .def(py::init(&packet_sink::make),
@@ -33,9 +33,6 @@ void bind_packet_sink(py::module& m)
         
 
         .def("carrier_sensed",&packet_sink::carrier_sensed)
-        .def("to_basic_block",[](std::shared_ptr<packet_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
 

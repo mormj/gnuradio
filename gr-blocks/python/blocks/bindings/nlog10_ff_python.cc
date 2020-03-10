@@ -22,7 +22,7 @@ void bind_nlog10_ff(py::module& m)
     using nlog10_ff    = gr::blocks::nlog10_ff;
 
 
-    py::class_<nlog10_ff,gr::sync_block,
+    py::class_<nlog10_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<nlog10_ff>>(m, "nlog10_ff")
 
         .def(py::init(&nlog10_ff::make),
@@ -30,11 +30,6 @@ void bind_nlog10_ff(py::module& m)
            py::arg("vlen") = 1, 
            py::arg("k") = 0. 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<nlog10_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

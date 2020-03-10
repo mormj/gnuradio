@@ -33,7 +33,7 @@ void bind_file_meta_sink(py::module& m)
         .export_values()
     ;
 
-    py::class_<file_meta_sink,gr::sync_block,
+    py::class_<file_meta_sink,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<file_meta_sink>>(m, "file_meta_sink")
 
         .def(py::init(&file_meta_sink::make),
@@ -57,9 +57,6 @@ void bind_file_meta_sink(py::module& m)
         .def("set_unbuffered",&file_meta_sink::set_unbuffered,
             py::arg("unbuffered") 
         )
-        .def("to_basic_block",[](std::shared_ptr<file_meta_sink> p){
-            return p->to_basic_block();
-        })
         ;
 
         m.attr("METADATA_VERSION") = gr::blocks::METADATA_VERSION;

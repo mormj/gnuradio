@@ -22,17 +22,12 @@ void bind_simple_framer(py::module& m)
     using simple_framer    = gr::digital::simple_framer;
 
 
-    py::class_<simple_framer,gr::block,
+    py::class_<simple_framer,gr::block, gr::basic_block,
         std::shared_ptr<simple_framer>>(m, "simple_framer")
 
         .def(py::init(&simple_framer::make),
            py::arg("payload_bytesize") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<simple_framer> p){
-            return p->to_basic_block();
-        })
         ;
 
 

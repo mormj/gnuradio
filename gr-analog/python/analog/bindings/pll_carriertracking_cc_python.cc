@@ -22,7 +22,7 @@ void bind_pll_carriertracking_cc(py::module& m)
     using pll_carriertracking_cc    = gr::analog::pll_carriertracking_cc;
 
 
-    py::class_<pll_carriertracking_cc,gr::sync_block,
+    py::class_<pll_carriertracking_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pll_carriertracking_cc>>(m, "pll_carriertracking_cc")
 
         .def(py::init(&pll_carriertracking_cc::make),
@@ -71,9 +71,6 @@ void bind_pll_carriertracking_cc(py::module& m)
         .def("get_phase",&pll_carriertracking_cc::get_phase)
         .def("get_min_freq",&pll_carriertracking_cc::get_min_freq)
         .def("get_max_freq",&pll_carriertracking_cc::get_max_freq)
-        .def("to_basic_block",[](std::shared_ptr<pll_carriertracking_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

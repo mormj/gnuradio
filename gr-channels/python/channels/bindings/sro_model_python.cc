@@ -22,7 +22,7 @@ void bind_sro_model(py::module& m)
     using sro_model    = gr::channels::sro_model;
 
 
-    py::class_<sro_model,gr::block,
+    py::class_<sro_model,gr::block, gr::basic_block,
         std::shared_ptr<sro_model>>(m, "sro_model")
 
         .def(py::init(&sro_model::make),
@@ -45,9 +45,6 @@ void bind_sro_model(py::module& m)
         .def("std_dev",&sro_model::std_dev)
         .def("max_dev",&sro_model::max_dev)
         .def("samp_rate",&sro_model::samp_rate)
-        .def("to_basic_block",[](std::shared_ptr<sro_model> p){
-            return p->to_basic_block();
-        })
         ;
 
 

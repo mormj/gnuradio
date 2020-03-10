@@ -22,7 +22,7 @@ void bind_kurtotic_equalizer_cc(py::module& m)
     using kurtotic_equalizer_cc    = gr::digital::kurtotic_equalizer_cc;
 
 
-    py::class_<kurtotic_equalizer_cc,gr::sync_decimator,
+    py::class_<kurtotic_equalizer_cc,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<kurtotic_equalizer_cc>>(m, "kurtotic_equalizer_cc")
 
         .def(py::init(&kurtotic_equalizer_cc::make),
@@ -35,9 +35,6 @@ void bind_kurtotic_equalizer_cc(py::module& m)
         .def("set_gain",&kurtotic_equalizer_cc::set_gain,
             py::arg("mu") 
         )
-        .def("to_basic_block",[](std::shared_ptr<kurtotic_equalizer_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

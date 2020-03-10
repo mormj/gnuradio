@@ -22,7 +22,7 @@ void bind_correlate_access_code_tag_ff(py::module& m)
     using correlate_access_code_tag_ff    = gr::digital::correlate_access_code_tag_ff;
 
 
-    py::class_<correlate_access_code_tag_ff,gr::sync_block,
+    py::class_<correlate_access_code_tag_ff,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<correlate_access_code_tag_ff>>(m, "correlate_access_code_tag_ff")
 
         .def(py::init(&correlate_access_code_tag_ff::make),
@@ -41,9 +41,6 @@ void bind_correlate_access_code_tag_ff(py::module& m)
         .def("set_tagname",&correlate_access_code_tag_ff::set_tagname,
             py::arg("tagname") 
         )
-        .def("to_basic_block",[](std::shared_ptr<correlate_access_code_tag_ff> p){
-            return p->to_basic_block();
-        })
         ;
 
 

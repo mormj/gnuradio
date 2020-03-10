@@ -22,7 +22,7 @@ void bind_agc3_cc(py::module& m)
     using agc3_cc    = gr::analog::agc3_cc;
 
 
-    py::class_<agc3_cc,gr::sync_block,
+    py::class_<agc3_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<agc3_cc>>(m, "agc3_cc")
 
         .def(py::init(&agc3_cc::make),
@@ -54,9 +54,6 @@ void bind_agc3_cc(py::module& m)
         .def("set_max_gain",&agc3_cc::set_max_gain,
             py::arg("max_gain") 
         )
-        .def("to_basic_block",[](std::shared_ptr<agc3_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

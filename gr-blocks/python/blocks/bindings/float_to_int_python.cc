@@ -22,7 +22,7 @@ void bind_float_to_int(py::module& m)
     using float_to_int    = gr::blocks::float_to_int;
 
 
-    py::class_<float_to_int,gr::sync_block,
+    py::class_<float_to_int,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<float_to_int>>(m, "float_to_int")
 
         .def(py::init(&float_to_int::make),
@@ -35,9 +35,6 @@ void bind_float_to_int(py::module& m)
         .def("set_scale",&float_to_int::set_scale,
             py::arg("scale") 
         )
-        .def("to_basic_block",[](std::shared_ptr<float_to_int> p){
-            return p->to_basic_block();
-        })
         ;
 
 

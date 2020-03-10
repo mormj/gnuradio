@@ -22,7 +22,7 @@ void bind_pn_correlator_cc(py::module& m)
     using pn_correlator_cc    = gr::digital::pn_correlator_cc;
 
 
-    py::class_<pn_correlator_cc,gr::sync_decimator,
+    py::class_<pn_correlator_cc,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pn_correlator_cc>>(m, "pn_correlator_cc")
 
         .def(py::init(&pn_correlator_cc::make),
@@ -30,11 +30,6 @@ void bind_pn_correlator_cc(py::module& m)
            py::arg("mask") = 0, 
            py::arg("seed") = 1 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<pn_correlator_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

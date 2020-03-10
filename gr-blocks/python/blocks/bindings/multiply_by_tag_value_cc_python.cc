@@ -22,7 +22,7 @@ void bind_multiply_by_tag_value_cc(py::module& m)
     using multiply_by_tag_value_cc    = gr::blocks::multiply_by_tag_value_cc;
 
 
-    py::class_<multiply_by_tag_value_cc,gr::sync_block,
+    py::class_<multiply_by_tag_value_cc,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<multiply_by_tag_value_cc>>(m, "multiply_by_tag_value_cc")
 
         .def(py::init(&multiply_by_tag_value_cc::make),
@@ -32,9 +32,6 @@ void bind_multiply_by_tag_value_cc(py::module& m)
         
 
         .def("k",&multiply_by_tag_value_cc::k)
-        .def("to_basic_block",[](std::shared_ptr<multiply_by_tag_value_cc> p){
-            return p->to_basic_block();
-        })
         ;
 
 

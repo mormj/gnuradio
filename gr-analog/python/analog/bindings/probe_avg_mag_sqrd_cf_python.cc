@@ -22,7 +22,7 @@ void bind_probe_avg_mag_sqrd_cf(py::module& m)
     using probe_avg_mag_sqrd_cf    = gr::analog::probe_avg_mag_sqrd_cf;
 
 
-    py::class_<probe_avg_mag_sqrd_cf,gr::sync_block,
+    py::class_<probe_avg_mag_sqrd_cf,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<probe_avg_mag_sqrd_cf>>(m, "probe_avg_mag_sqrd_cf")
 
         .def(py::init(&probe_avg_mag_sqrd_cf::make),
@@ -41,9 +41,6 @@ void bind_probe_avg_mag_sqrd_cf(py::module& m)
             py::arg("decibels") 
         )
         .def("reset",&probe_avg_mag_sqrd_cf::reset)
-        .def("to_basic_block",[](std::shared_ptr<probe_avg_mag_sqrd_cf> p){
-            return p->to_basic_block();
-        })
         ;
 
 

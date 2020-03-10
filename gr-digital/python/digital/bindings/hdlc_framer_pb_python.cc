@@ -22,17 +22,12 @@ void bind_hdlc_framer_pb(py::module& m)
     using hdlc_framer_pb    = gr::digital::hdlc_framer_pb;
 
 
-    py::class_<hdlc_framer_pb,gr::sync_block,
+    py::class_<hdlc_framer_pb,gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<hdlc_framer_pb>>(m, "hdlc_framer_pb")
 
         .def(py::init(&hdlc_framer_pb::make),
            py::arg("frame_tag_name") 
         )
-        
-
-        .def("to_basic_block",[](std::shared_ptr<hdlc_framer_pb> p){
-            return p->to_basic_block();
-        })
         ;
 
 
