@@ -30,7 +30,7 @@ void bind_pmt(py::module& m)
         std::shared_ptr<pmt_base>>(m, "pmt_base")
 
         .def(py::init<>())
-
+        .def("__str__", [](const pmt::pmt_t &p){return pmt::write_string(p);} )
         .def("is_bool",&pmt_base::is_bool)
         .def("is_symbol",&pmt_base::is_symbol)
         .def("is_number",&pmt_base::is_number)

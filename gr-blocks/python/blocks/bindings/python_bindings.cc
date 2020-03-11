@@ -240,8 +240,8 @@ PYBIND11_MODULE(blocks_python, m)
     bind_file_descriptor_source(m);
     bind_file_meta_sink(m);
     bind_file_meta_source(m);
-    bind_file_sink(m);
     bind_file_sink_base(m);
+    bind_file_sink(m);
     bind_file_source(m);
     bind_float_to_char(m);
     bind_float_to_complex(m);
