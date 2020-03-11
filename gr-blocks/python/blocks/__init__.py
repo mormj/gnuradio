@@ -23,7 +23,7 @@ except ImportError:
     __path__.append(os.path.join(dirname, "bindings"))
     from .blocks_python import *
 
-# from .stream_to_vector_decimator import *
+from .stream_to_vector_decimator import *
 
 # #alias old add_vXX and multiply_vXX
 # add_vcc = add_cc
