@@ -126,5 +126,5 @@ void bind_basic_block(py::module& m)
         // .def("log_level",&basic_block::log_level)
         ;
 
-    m.def("basic_block_ncurrently_allocated",&gr::basic_block_ncurrently_allocated);
+    m.def("block_ncurrently_allocated",&gr::basic_block_ncurrently_allocated);
 } 

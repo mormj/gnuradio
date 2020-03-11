@@ -52,9 +52,17 @@ void bind_message(py::module& m)
             py::arg("arg2") 
         )
         .def("msg",&message::msg)
+        .def("length",&message::length)
         .def("to_string",&message::to_string)
         ;
 
 
     m.def("message_ncurrently_allocated",&gr::message_ncurrently_allocated);
+
+    m.def("message_from_string",&message::make_from_string,
+            py::arg("s"), 
+            py::arg("type") = 0, 
+            py::arg("arg1") = 0, 
+            py::arg("arg2") = 0 
+        );
 } 
