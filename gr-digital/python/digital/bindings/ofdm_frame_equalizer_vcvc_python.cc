@@ -22,7 +22,7 @@ void bind_ofdm_frame_equalizer_vcvc(py::module& m)
     using ofdm_frame_equalizer_vcvc    = gr::digital::ofdm_frame_equalizer_vcvc;
 
 
-    py::class_<ofdm_frame_equalizer_vcvc,gr::tagged_stream_block,
+    py::class_<ofdm_frame_equalizer_vcvc, gr::tagged_stream_block, gr::block, gr::basic_block,
         std::shared_ptr<ofdm_frame_equalizer_vcvc>>(m, "ofdm_frame_equalizer_vcvc")
 
         .def(py::init(&ofdm_frame_equalizer_vcvc::make),

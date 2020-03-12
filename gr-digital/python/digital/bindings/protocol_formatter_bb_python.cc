@@ -22,7 +22,7 @@ void bind_protocol_formatter_bb(py::module& m)
     using protocol_formatter_bb    = gr::digital::protocol_formatter_bb;
 
 
-    py::class_<protocol_formatter_bb,gr::tagged_stream_block,
+    py::class_<protocol_formatter_bb, gr::tagged_stream_block, gr::block, gr::basic_block,
         std::shared_ptr<protocol_formatter_bb>>(m, "protocol_formatter_bb")
 
         .def(py::init(&protocol_formatter_bb::make),

@@ -22,7 +22,7 @@ void bind_repack_bits_bb(py::module& m)
     using repack_bits_bb    = gr::blocks::repack_bits_bb;
 
 
-    py::class_<repack_bits_bb,gr::tagged_stream_block,
+    py::class_<repack_bits_bb, gr::tagged_stream_block, gr::block, gr::basic_block,
         std::shared_ptr<repack_bits_bb>>(m, "repack_bits_bb")
 
         .def(py::init(&repack_bits_bb::make),

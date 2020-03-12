@@ -22,7 +22,7 @@ void bind_pdu_to_tagged_stream(py::module& m)
     using pdu_to_tagged_stream    = gr::blocks::pdu_to_tagged_stream;
 
 
-    py::class_<pdu_to_tagged_stream,gr::tagged_stream_block,
+    py::class_<pdu_to_tagged_stream, gr::tagged_stream_block, gr::block, gr::basic_block,
         std::shared_ptr<pdu_to_tagged_stream>>(m, "pdu_to_tagged_stream")
 
         .def(py::init(&pdu_to_tagged_stream::make),

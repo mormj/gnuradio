@@ -22,7 +22,7 @@ void bind_ofdm_cyclic_prefixer(py::module& m)
     using ofdm_cyclic_prefixer    = gr::digital::ofdm_cyclic_prefixer;
 
 
-    py::class_<ofdm_cyclic_prefixer,gr::tagged_stream_block,
+    py::class_<ofdm_cyclic_prefixer, gr::tagged_stream_block, gr::block, gr::basic_block,
         std::shared_ptr<ofdm_cyclic_prefixer>>(m, "ofdm_cyclic_prefixer")
 
         .def(py::init((std::shared_ptr<ofdm_cyclic_prefixer>(*)(size_t, size_t, int, const std::string&))&ofdm_cyclic_prefixer::make),

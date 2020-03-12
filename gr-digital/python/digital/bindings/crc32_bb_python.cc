@@ -22,7 +22,7 @@ void bind_crc32_bb(py::module& m)
     using crc32_bb    = gr::digital::crc32_bb;
 
 
-    py::class_<crc32_bb,gr::tagged_stream_block,
+    py::class_<crc32_bb, gr::tagged_stream_block, gr::block, gr::basic_block,
         std::shared_ptr<crc32_bb>>(m, "crc32_bb")
 
         .def(py::init(&crc32_bb::make),

@@ -24,7 +24,7 @@ void bind_hier_block2(py::module& m)
     using hier_block2    = gr::hier_block2;
 
 
-    py::class_<hier_block2,gr::basic_block,
+    py::class_<hier_block2,gr::basic_block,gr::msg_accepter,
         std::shared_ptr<hier_block2>>(m, "hier_block2_pb")
 
         .def(py::init(&gr::make_hier_block2),

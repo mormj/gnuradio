@@ -22,7 +22,7 @@ void bind_tagged_decoder(py::module& m)
     using tagged_decoder    = gr::fec::tagged_decoder;
 
 
-    py::class_<tagged_decoder,gr::tagged_stream_block,
+    py::class_<tagged_decoder, gr::tagged_stream_block, gr::block, gr::basic_block,
         std::shared_ptr<tagged_decoder>>(m, "tagged_decoder")
 
         .def(py::init(&tagged_decoder::make),
