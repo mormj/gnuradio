@@ -49,12 +49,18 @@ class test_message(gr_unittest.TestCase):
     def test_101(self):
         s = b'This is a test'
         msg = gr.message_from_string(s.decode('utf8'))
-        self.assertEquals(s, msg.to_string())
+        # FIXME - the commented line is 3.8 test - did swig used to return raw bytes??
+        # -- The pybind return value makes more sense, so should the QA test change here
+        #self.assertEquals(s, msg.to_string())
+        self.assertEquals(s.decode('utf8'), msg.to_string())
 
     def test_102_unicodechars(self):
         s = u"(╯°□°)╯︵ ┻━┻"
         msg = gr.message_from_string(s)
-        self.assertEquals(s.encode('utf8'), msg.to_string())
+        # FIXME - the commented line is 3.8 test - did swig used to return raw bytes??
+        # -- The pybind return value makes more sense, so should the QA test change here
+        # self.assertEquals(s.encode('utf8'), msg.to_string())
+        self.assertEquals(s, msg.to_string())
 
     def test_200(self):
         self.leak_check(self.body_200)
