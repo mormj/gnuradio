@@ -1,0 +1,73 @@
+#
+# Copyright 2013, 2018, 2019 Free Software Foundation, Inc.
+#
+# This file is part of GNU Radio
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+#
+""" Module to call bindtool and create Python bindings """
+
+
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
+import os
+import logging
+import warnings
+import subprocess
+
+try:
+    from gnuradio.bindtool import BindingGenerator
+except ImportError:
+    have_bindtool = False
+else:
+    have_bindtool = True
+
+from ..tools import ParserCCBlock, CMakeFileEditor, ask_yes_no
+from .base import ModTool, ModToolException
+
+
+
+logger = logging.getLogger(__name__)
+
+class ModToolGenBindings(ModTool):
+    """ Make YAML file for GRC block bindings """
+    name = 'bind'
+    description = 'Generate Python bindings for GR block'
+
+    def __init__(self, blockname=None, **kwargs):
+        ModTool.__init__(self, blockname, **kwargs)
+        self.info['pattern'] = blockname
+
+    def validate(self):
+        """ Validates the arguments """
+        ModTool._validate(self)
+        if not self.info['pattern'] or self.info['pattern'].isspace():
+            raise ModToolException("Incorrect blockname (Regex)!")
+
+    def run(self):
+        """ Go, go, go! """
+        # This portion will be covered by the CLI
+        if not self.cli:
+            self.validate()
+        if not have_bindtool:
+            logger.error(
+                "Bindtool required to generate bindings  ... Aborting")
+            return
+
+        def get_prefix():
+            result = subprocess.run('gnuradio-config-info --prefix', stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
+            return result.stdout.strip()
+
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", category=DeprecationWarning)
+            bg = BindingGenerator()
+            module_dir = self.dir
+            prefix_include_root = 'gnuradio/' + self.info['modname']
+            namespace = ['gr',self.info['modname']]
+            output_dir = os.path.join(self.dir,'python')
+            prefix = get_prefix()
+            includes = ""
+            bg.gen_bindings(module_dir, prefix, namespace, prefix_include_root, output_dir, includes)

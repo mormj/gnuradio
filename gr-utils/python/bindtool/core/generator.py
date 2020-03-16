@@ -133,9 +133,13 @@ class BindingGenerator:
         # blocks_include_path=os.path.abspath(os.path.join(module_path,'..','gr-blocks','include'))
         # gr_include_path=os.path.abspath(os.path.join(module_path,'..','gnuradio-runtime','include'))
         # include_paths = ','.join((module_include_path,blocks_include_path,gr_include_path))
-        prefix_include_path = os.path.abspath(os.path.join(prefix, 'include'))
         include_paths = ','.join(
-            (prefix_include_path, module_include_path, top_include_path))
+            (module_include_path, top_include_path))
+        if prefix:
+            prefix_include_path = os.path.abspath(os.path.join(prefix, 'include'))
+            include_paths = ','.join(
+                (include_paths,prefix_include_path)
+            )
         if self.addl_include:
             include_paths = ','.join((include_paths, self.addl_include))
 
