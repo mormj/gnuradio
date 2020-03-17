@@ -13,13 +13,7 @@ description here (python/__init__.py).
 from __future__ import unicode_literals
 import os
 
-# import swig generated symbols into the howto namespace
-try:
-    # this might fail if the module is python-only
-    from .howto_swig import *
-except ImportError:
-    pass
-
+# import pybind11 generated symbols into the howto namespace
 try:
     from .howto_python import *
 except ImportError:

@@ -486,7 +486,7 @@ ${str_to_python_comment(license)}
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
 % if lang == 'cpp':
-import ${modname}_swig as ${modname}
+import ${modname}_python as ${modname}
 % else:
 from ${blockname} import ${blockname}
 % endif
@@ -555,20 +555,6 @@ outputs:
 #  and should usually not be changed.
 file_format: 1
 '''
-
-# SWIG string
-Templates['swig_block_magic'] = """% if version == '36':
-% if blocktype != 'noblock':
-GR_SWIG_BLOCK_MAGIC(${modname}, ${blockname});
-% endif
-%%include "${modname}_${blockname}.h"
-% else:
-%%include "${include_dir_prefix}/${blockname}.h"
-    % if blocktype != 'noblock':
-GR_SWIG_BLOCK_MAGIC2(${modname}, ${blockname});
-    % endif
-% endif
-"""
 
 ## Old stuff
 # C++ file of a GR block

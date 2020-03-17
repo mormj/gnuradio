@@ -62,24 +62,12 @@ class ModToolRename(ModTool):
         oldname = self.info['oldname']
         newname = self.info['newname']
         logger.info("In module '{}' rename block '{}' to '{}'".format(module, oldname, newname))
-        self._run_swig_rename(self._file['swig'], oldname, newname)
         self._run_grc_rename(self.info['modname'], oldname, newname)
         self._run_python_qa(self.info['modname'], oldname, newname)
         self._run_python(self.info['modname'], oldname, newname)
         self._run_lib(self.info['modname'], oldname, newname)
         self._run_include(self.info['modname'], oldname, newname)
         return
-
-    def _run_swig_rename(self, swigfilename, old, new):
-        """ Rename SWIG includes and block_magic """
-        nsubs = self._run_file_replace(swigfilename, old, new)
-        if nsubs < 1:
-            logger.info("Couldn't find '{}' in file '{}'.".format(old, swigfilename))
-        if nsubs == 2:
-            logger.info("Changing 'noblock' type file")
-        if nsubs > 3:
-            logger.warning("Hm, changed more then expected while editing {}.".format(swigfilename))
-        return False
 
     def _run_lib(self, module, old, new):
         ccfile = './lib/' + old + '_impl.cc'
