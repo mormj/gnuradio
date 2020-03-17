@@ -25,4 +25,4 @@ if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
     SET_TARGET_PROPERTIES(howto_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
 endif()
 
-install(TARGETS howto_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/howto COMPONENT pythonapi)
+install(TARGETS howto_python DESTINATION ${GR_PYTHON_DIR}/howto COMPONENT pythonapi)

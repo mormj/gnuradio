@@ -34,7 +34,7 @@ void* init_numpy()
     return NULL;
 }
 
-PYBIND11_MODULE(fft_python, m)
+PYBIND11_MODULE(howto_python, m)
 {
     // Initialize the numpy C API
     // (otherwise we will see segmentation faults)

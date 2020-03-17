@@ -41,7 +41,7 @@ class CPPFileEditor(object):
         start_line_idx = [cfile_lines.index(s) for s in cfile_lines if start_tag in s][0]
         end_line_idx = [cfile_lines.index(s) for s in cfile_lines if end_tag in s][0]
 
-        self.cfile = '\n'.join((cfile_lines[0:end_line_idx]+[value]+cfile_lines[end_line_idx:]))
+        self.cfile = '\n'.join((cfile_lines[0:end_line_idx]+[self.indent + value]+cfile_lines[end_line_idx:]))
         return 1
 
 

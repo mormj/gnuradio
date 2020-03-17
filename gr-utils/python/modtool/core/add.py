@@ -16,9 +16,10 @@ import os
 import re
 import logging
 
-from ..tools import render_template, append_re_line_sequence, CMakeFileEditor, CPPFileEditor
+from ..tools import render_template, append_re_line_sequence, CMakeFileEditor, CPPFileEditor, code_generator
 from ..templates import Templates
 from .base import ModTool, ModToolException
+from gnuradio.bindtool import BindingGenerator
 
 logger = logging.getLogger(__name__)
 
@@ -222,35 +223,6 @@ class ModToolAdd(ModTool):
             ed.write()
             self.scm.mark_files_updated((self._file['cminclude'], self._file['cmlib']))
 
-    def _run_swig(self):
-        """ Do everything that needs doing in the subdir 'swig'.
-        - Edit main *.i file
-        """
-        if self._get_mainswigfile() is None:
-            logger.warning('Warning: No main swig file found.')
-            return
-        logger.info("Editing {}...".format(self._file['swig']))
-        mod_block_sep = '/'
-        if self.info['version'] == '36':
-            mod_block_sep = '_'
-        swig_block_magic_str = render_template('swig_block_magic', **self.info)
-        with open(self._file['swig'], 'a') as f:
-            f.write(swig_block_magic_str)
-        include_str = '#include "{}{}{}.h"'.format(
-                {True: 'gnuradio/' + self.info['modname'], False: self.info['modname']}[self.info['is_component']],
-                mod_block_sep,
-                self.info['blockname'])
-        with open(self._file['swig'], 'r') as f:
-            oldfile = f.read()
-        if re.search('#include', oldfile):
-            append_re_line_sequence(self._file['swig'], '^#include.*\n', include_str)
-        else: # I.e., if the swig file is empty
-            regexp = re.compile(r'^%\{\n', re.MULTILINE)
-            oldfile = regexp.sub('%%{\n%s\n' % include_str, oldfile, count=1)
-            with open(self._file['swig'], 'w') as f:
-                f.write(oldfile)
-        self.scm.mark_files_updated((self._file['swig'],))
-
     def _run_pybind(self):
         """ Do everything that needs doing in the python bindings subdir.
         - add blockname_python.cc 
@@ -270,6 +242,50 @@ class ModToolAdd(ModTool):
         ed.write()
 
         self.scm.mark_files_updated((self._file['ccpybind']))
+
+        bg = BindingGenerator()
+        block_base = ""
+        if self.info['blocktype'] in ('source', 'sink', 'sync', 'decimator',
+                                        'interpolator', 'general', 'hier', 'tagged_stream'):
+            block_base = code_generator.GRTYPELIST[self.info['blocktype']]
+
+        header_info = {
+            "module_name": self.info['modname'],
+            "namespace": ['gr', self.info['modname']],
+            "enums": [],
+            "variables": [],
+            "classes": [
+                {
+                    "name": self.info['blockname'],
+                    "member_functions": [
+                        {
+                            "name": "make",
+                            "return_type": "::".join(("gr",self.info['modname'],self.info['blockname'],"sptr")),
+                            "has_static": "1",
+                            "arguments": []
+                        }
+                    ],
+                    "bases": [
+                        "::",
+                        "gr",
+                        block_base
+                    ],
+                    "constructors": [
+                        {
+                            "name": self.info['blockname'],
+                            "arguments": []
+                        }
+                    ]
+                }
+            ],
+            "free_functions": []
+        }
+        cc_txt = bg.get_nonblock_python_cc(header_info,self.info['blockname'],['gr',self.info['modname']], self.info['modname'])
+        path_to_file = os.path.join('python','bindings', fname_cc)
+        logger.info("Adding file '{}'...".format(path_to_file))
+        with open(path_to_file, 'w') as f:
+            f.write(cc_txt)
+        self.scm.add_files((path_to_file,))
 
         if not self.skip_cmakefiles:
             ed = CMakeFileEditor(self._file['cmpybind'])
