@@ -15,38 +15,6 @@ class BindingGenerator:
         self.addl_include = ''
         pass
 
-    def get_nonblock_python_hpp(self, header_info, base_name, namespace, prefix_include_root):
-        current_path = os.path.dirname(pathlib.Path(__file__).absolute())
-        tpl = Template(filename=os.path.join(
-            current_path, '..', 'templates', 'license.mako'))
-        license = tpl.render(year=datetime.now().year)
-
-        tpl = Template(filename=os.path.join(current_path, '..',
-                                             'templates', 'generic_python_hpp.mako'))
-        return tpl.render(
-            license=license,
-            header_info=header_info,
-            basename=base_name,
-            prefix_include_root=prefix_include_root,
-            module=True
-        )
-
-    def get_nonblock_python_h(self, header_info, base_name, namespace, prefix_include_root):
-        current_path = os.path.dirname(pathlib.Path(__file__).absolute())
-        tpl = Template(filename=os.path.join(
-            current_path, '..', 'templates', 'license.mako'))
-        license = tpl.render(year=datetime.now().year)
-
-        tpl = Template(filename=os.path.join(current_path, '..',
-                                             'templates', 'generic_python_h.mako'))
-        return tpl.render(
-            license=license,
-            header_info=header_info,
-            basename=base_name,
-            prefix_include_root=prefix_include_root,
-            module=True
-        )
-
     def get_nonblock_python_cc(self, header_info, base_name, namespace, prefix_include_root):
         current_path = os.path.dirname(pathlib.Path(__file__).absolute())
         tpl = Template(filename=os.path.join(
@@ -66,8 +34,7 @@ class BindingGenerator:
     def bind_from_json(self, pathname):
         base_name = os.path.splitext(os.path.basename(pathname))[0]
         module_dirname = os.path.split(os.path.abspath(os.path.join(os.path.dirname(pathname),'..')))[-1]
-        # binding_pathname = '{}_python.hpp'.format(os.path.splitext(pathname)[0])
-        # binding_pathname_h = '{}_python.h'.format(os.path.splitext(pathname)[0])
+
         binding_pathname_cc = '{}_python.cc'.format(os.path.splitext(pathname)[0])
         # Make some assumptions about the namespace
         namespace = ['gr',module_dirname]
@@ -75,16 +42,6 @@ class BindingGenerator:
 
         with open(pathname,'r') as fp:
             header_info = json.load(fp)
-            # pybind_code = self.get_nonblock_python_hpp(
-            #     header_info, base_name, namespace, prefix_include_root)
-            # with open(binding_pathname, 'w+') as outfile:
-            #     outfile.write(pybind_code)
-
-            # pybind_code_h = self.get_nonblock_python_h(
-            #     header_info, base_name, namespace, prefix_include_root)
-            # with open(binding_pathname, 'w+') as outfile:
-            #     outfile.write(pybind_code_h)
-
             pybind_code_cc = self.get_nonblock_python_cc(
                 header_info, base_name, namespace, prefix_include_root)
             with open(binding_pathname_cc, 'w+') as outfile:
@@ -96,23 +53,10 @@ class BindingGenerator:
         with open(json_pathname, 'w') as outfile:
             json.dump(header_info, outfile)
 
-        # binding_pathname = os.path.join(
-        #     output_dir, '{}_python.hpp'.format(base_name))
-        # binding_pathname_h = os.path.join(
-        #     output_dir, '{}_python.h'.format(base_name))
         binding_pathname_cc = os.path.join(
             output_dir, '{}_python.cc'.format(base_name))
 
-
         try:
-            # pybind_code = self.get_nonblock_python_hpp(
-            #     header_info, base_name, namespace, prefix_include_root)
-            # with open(binding_pathname, 'w+') as outfile:
-            #     outfile.write(pybind_code)
-            # pybind_code = self.get_nonblock_python_h(
-            #     header_info, base_name, namespace, prefix_include_root)
-            # with open(binding_pathname_h, 'w+') as outfile:
-            #     outfile.write(pybind_code)
             pybind_code = self.get_nonblock_python_cc(
                 header_info, base_name, namespace, prefix_include_root)
             with open(binding_pathname_cc, 'w+') as outfile:
@@ -130,9 +74,7 @@ class BindingGenerator:
         module_include_path = os.path.abspath(os.path.dirname(module_path))
         top_include_path = os.path.join(
             module_include_path.split('include'+os.path.sep)[0], 'include')
-        # blocks_include_path=os.path.abspath(os.path.join(module_path,'..','gr-blocks','include'))
-        # gr_include_path=os.path.abspath(os.path.join(module_path,'..','gnuradio-runtime','include'))
-        # include_paths = ','.join((module_include_path,blocks_include_path,gr_include_path))
+
         include_paths = ','.join(
             (module_include_path, top_include_path))
         if prefix:
