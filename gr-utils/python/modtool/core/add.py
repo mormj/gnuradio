@@ -16,7 +16,7 @@ import os
 import re
 import logging
 
-from ..tools import render_template, append_re_line_sequence, CMakeFileEditor
+from ..tools import render_template, append_re_line_sequence, CMakeFileEditor, CPPFileEditor
 from ..templates import Templates
 from .base import ModTool, ModToolException
 
@@ -122,20 +122,20 @@ class ModToolAdd(ModTool):
         self.validate()
         self.assign()
 
-        has_swig = (
+        has_pybind = (
                 self.info['lang'] == 'cpp'
-                and not self.skip_subdirs['swig']
+                and not self.skip_subdirs['python']
         )
         has_grc = False
         if self.info['lang'] == 'cpp':
             self._run_lib()
-            has_grc = has_swig
+            has_grc = has_pybind
         else: # Python
             self._run_python()
             if self.info['blocktype'] != 'noblock':
                 has_grc = True
-        if has_swig:
-            self._run_swig()
+        if has_pybind:
+            self._run_pybind()
         if self.add_py_qa:
             self._run_python_qa()
         if has_grc and not self.skip_subdirs['grc']:
@@ -250,6 +250,34 @@ class ModToolAdd(ModTool):
             with open(self._file['swig'], 'w') as f:
                 f.write(oldfile)
         self.scm.mark_files_updated((self._file['swig'],))
+
+    def _run_pybind(self):
+        """ Do everything that needs doing in the python bindings subdir.
+        - add blockname_python.cc 
+        - add reference and call to bind_blockname()
+        - include them into CMakeLists.txt
+        """
+
+        # Generate bindings cc file
+        fname_cc = self.info['blockname'] + '_python.cc'
+
+        # Update python_bindings.cc
+        ed = CPPFileEditor(self._file['ccpybind'])
+        ed.append_value('// BINDING_FUNCTION_PROTOTYPES(', '// ) END BINDING_FUNCTION_PROTOTYPES', 
+            'void bind_' + self.info['blockname'] + '(py::module& m);')
+        ed.append_value('// BINDING_FUNCTION_CALLS(', '// ) END BINDING_FUNCTION_CALLS', 
+            'bind_' + self.info['blockname'] + '(m);')
+        ed.write()
+
+        self.scm.mark_files_updated((self._file['ccpybind']))
+
+        if not self.skip_cmakefiles:
+            ed = CMakeFileEditor(self._file['cmpybind'])
+            cmake_list_var = '[a-z]*_?' + self.info['modname']
+            ed.append_value('pybind11_add_module', fname_cc, to_ignore_start=cmake_list_var)
+            ed.write()
+            self.scm.mark_files_updated((self._file['cmpybind']))
+
 
     def _run_python_qa(self):
         """ Do everything that needs doing in the subdir 'python' to add

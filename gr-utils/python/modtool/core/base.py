@@ -134,6 +134,8 @@ class ModTool(object):
         self._file['cmlib']    = os.path.join('lib',    'CMakeLists.txt')
         self._file['cmgrc']    = os.path.join('grc',    'CMakeLists.txt')
         self._file['cmpython'] = os.path.join(self.info['pydir'], 'CMakeLists.txt')
+        self._file['cmpybind'] = os.path.join(self.info['pydir'], 'bindings', 'CMakeLists.txt')
+        self._file['ccpybind'] = os.path.join(self.info['pydir'], 'bindings', 'python_bindings.cc')
         if self.info['is_component']:
             self.info['includedir'] = os.path.join('include', 'gnuradio', self.info['modname'])
         elif self.info['version'] in ('37', '38'):
@@ -143,7 +145,6 @@ class ModTool(object):
         self._file['cminclude'] = os.path.join(self.info['includedir'], 'CMakeLists.txt')
         self._file['cmswig'] = os.path.join('swig', 'CMakeLists.txt')
         self._file['cmfind'] = os.path.join('cmake', 'Modules', 'howtoConfig.cmake')
-
 
     def _setup_scm(self, mode='active'):
         """ Initialize source control management. """

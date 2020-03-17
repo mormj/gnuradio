@@ -115,6 +115,16 @@ endif(APPLE)
 find_package(Doxygen)
 
 ########################################################################
+# PyBind11 Related
+########################################################################
+
+find_package(pybind11 REQUIRED)
+execute_process(
+    COMMAND "${PYTHON_EXECUTABLE}" -c
+    "from __future__ import print_function\ntry:\n import numpy\n import os\n inc_path = numpy.get_include()\n if os.path.exists(os.path.join(inc_path, 'numpy', 'arrayobject.h')):\n  print(inc_path, end='')\nexcept:\n pass"
+    OUTPUT_VARIABLE PYTHON_NUMPY_INCLUDE_DIR)
+
+########################################################################
 # Setup doxygen option
 ########################################################################
 if(DOXYGEN_FOUND)
@@ -135,7 +145,6 @@ add_custom_target(uninstall
     ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
     )
 
-
 ########################################################################
 # Add subdirectories
 ########################################################################
@@ -153,13 +162,3 @@ add_subdirectory(grc)
 install(FILES cmake/Modules/howtoConfig.cmake
     DESTINATION ${CMAKE_MODULES_DIR}/howto
 )
-
-########################################################################
-# PyBind11 Related
-########################################################################
-
-find_package(pybind11 REQUIRED)
-execute_process(
-    COMMAND "${PYTHON_EXECUTABLE}" -c
-    "from __future__ import print_function\ntry:\n import numpy\n import os\n inc_path = numpy.get_include()\n if os.path.exists(os.path.join(inc_path, 'numpy', 'arrayobject.h')):\n  print(inc_path, end='')\nexcept:\n pass"
-    OUTPUT_VARIABLE PYTHON_NUMPY_INCLUDE_DIR)

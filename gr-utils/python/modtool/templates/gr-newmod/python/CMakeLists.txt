@@ -29,6 +29,5 @@ GR_PYTHON_INSTALL(
 include(GrTest)
 
 set(GR_TEST_TARGET_DEPS gnuradio-howto)
-set(GR_TEST_PYTHON_DIRS ${CMAKE_BINARY_DIR}/swig)
 
 add_subdirectory(bindings)

@@ -10,6 +10,7 @@
 ########################################################################
 
 pybind11_add_module(howto_python
+    example_python.cc
 )
 
 target_include_directories(howto_python PUBLIC
