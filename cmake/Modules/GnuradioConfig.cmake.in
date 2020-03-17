@@ -44,11 +44,6 @@ include("${CMAKE_CURRENT_LIST_DIR}/gnuradio-runtimeConfig.cmake")
 cmake_policy(SET CMP0012 NEW)
 cmake_policy(SET CMP0057 NEW)
 
-#Can't use Python if GNU Radio was built without support for it
-if(${ENABLE_PYTHON})
-  include("${CMAKE_CURRENT_LIST_DIR}/runtime_swigTargets.cmake")
-endif()
-
 # Propagate the enabledness of GRC:
 # Since GRC doesn't contain proper CMake targets (yet?), we need to do this
 # manually
@@ -76,7 +71,6 @@ set(GR_THEMES_DIR           "@GR_THEMES_DIR@")
 set(GR_CONF_DIR             "@GR_CONF_DIR@")
 set(SYSCONFDIR              "@SYSCONFDIR@")
 set(GR_PREFSDIR             "@GR_PREFSDIR@")
-
 
 # We check the requested components in the order given by the list below –
 # ordering matters; we have module interdependencies.
