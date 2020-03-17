@@ -10,8 +10,7 @@
 ########################################################################
 
 pybind11_add_module(howto_python
-    example_python.cc
-)
+    python_bindings.cc)
 
 target_include_directories(howto_python PUBLIC
     ${PYTHON_NUMPY_INCLUDE_DIR}

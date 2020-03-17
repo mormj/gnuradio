@@ -290,7 +290,7 @@ class ModToolAdd(ModTool):
         if not self.skip_cmakefiles:
             ed = CMakeFileEditor(self._file['cmpybind'])
             cmake_list_var = '[a-z]*_?' + self.info['modname']
-            ed.append_value('pybind11_add_module', fname_cc, to_ignore_start=cmake_list_var)
+            ed.append_value('pybind11_add_module', fname_cc, to_ignore_start=cmake_list_var, to_ignore_end='python_bindings.cc')
             ed.write()
             self.scm.mark_files_updated((self._file['cmpybind']))
 

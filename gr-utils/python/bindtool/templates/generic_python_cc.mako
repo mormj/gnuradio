@@ -125,11 +125,6 @@ if overloaded:
 % endif
 % endif ## Not a make function
 % endfor ## member_functions
-% if isablock:
-        .def("to_basic_block",[](std::shared_ptr<${basename}> p){
-            return p->to_basic_block();
-        })
-% endif
         ;
 % endfor ## classes
 
@@ -167,7 +162,6 @@ overloaded = sum([matcher(f,fcn_name) for f in free_functions]) > 1
 ##                                      uint64_t,
 ##                                      const pmt::pmt_t&,
 ##                                      long))
-## Need to put the return type in the json
 overloaded_str = ''
 if overloaded:
   overloaded_str = '({} (*)({}))'.format(fcn['return_type'],', '.join([f['dtype'] for f in fcn_args]))
