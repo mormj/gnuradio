@@ -114,8 +114,8 @@ class ModTool(object):
             self.skip_subdirs['lib'] = True
         if not self.has_subdirs['python']:
             self.skip_subdirs['python'] = True
-        if not self.has_subdirs['pybind']:
-            self.skip_subdirs['pybind'] = True
+        # if not self.has_subdirs['pybind']:
+        #     self.skip_subdirs['pybind'] = True
         if not self.has_subdirs['grc']:
             self.skip_subdirs['grc'] = True
 
