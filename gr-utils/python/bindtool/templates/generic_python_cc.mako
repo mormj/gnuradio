@@ -57,13 +57,23 @@ except:
 
 isablock = False
 if 'bases' in cls:
+  base_str = '::'.join(list(filter(lambda x: x != '::',cls['bases'])))
   bases_with_block = [s for s in cls['bases'] if 'block' in s]
   if bases_with_block:
     isablock = True
+    # The goal is to make gr::sync_block have the entire chain back to basic_block
+    #  if base_str == gr::sync_block, base_str == gr::sync_block,gr::block,gr::basic_block
+    if (base_str.endswith('gr::sync_block') or 
+          base_str.endswith('gr::sync_interpolator') or 
+          base_str.endswith('gr::sync_decimator') or 
+          base_str.endswith('gr::tagged_stream_block')):
+        base_str += ", gr::block"
+    if base_str.endswith('gr::block'):
+        base_str += ", gr::basic_block"
 %>
     py::class_<${cls['name']}\
 % if 'bases' in cls:
-,${'::'.join(list(filter(lambda x: x != '::',cls['bases'])))},
+, ${base_str},
 % else: 
 ,
 % endif\
