@@ -28,7 +28,7 @@ else:
 from ..tools import ParserCCBlock, CMakeFileEditor, ask_yes_no
 from .base import ModTool, ModToolException
 
-
+from gnuradio import gr
 
 logger = logging.getLogger(__name__)
 
@@ -57,17 +57,8 @@ class ModToolGenBindings(ModTool):
                 "Bindtool required to generate bindings  ... Aborting")
             return
 
-        def get_prefix():
-            result = subprocess.run('gnuradio-config-info --prefix', stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
-            return result.stdout.strip()
-
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore", category=DeprecationWarning)
-            bg = BindingGenerator()
             module_dir = self.dir
-            prefix_include_root = 'gnuradio/' + self.info['modname']
-            namespace = ['gr',self.info['modname']]
-            output_dir = os.path.join(self.dir,'python')
-            prefix = get_prefix()
-            includes = ""
-            bg.gen_bindings(module_dir, prefix, namespace, prefix_include_root, output_dir, includes)
+            bg = BindingGenerator(prefix=gr.prefix(), namespace=['gr',self.info['modname']], prefix_include_root=self.info['modname'])
+            bg.gen_bindings(module_dir,  prefix=gr.prefix(), namespace = ['gr',self.info['modname']], prefix_include_root = 'gnuradio/' + self.info['modname'], output_dir = os.path.join(self.dir,'python'))

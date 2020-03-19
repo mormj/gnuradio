@@ -227,7 +227,6 @@ class GenericHeaderParser(BlockTool):
                        properties, methods
         : Can be used as an CLI command or an extenal API
         """
-        gr = self.modname.split('-')[0]
         module = self.modname.split('-')[-1]
         self.parsed_data['module_name'] = module
         generator_path, generator_name = utils.find_xml_generator()

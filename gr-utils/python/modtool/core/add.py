@@ -20,6 +20,7 @@ from ..tools import render_template, append_re_line_sequence, CMakeFileEditor, C
 from ..templates import Templates
 from .base import ModTool, ModToolException
 from gnuradio.bindtool import BindingGenerator
+from gnuradio import gr
 
 logger = logging.getLogger(__name__)
 
@@ -243,7 +244,7 @@ class ModToolAdd(ModTool):
 
         self.scm.mark_files_updated((self._file['ccpybind']))
 
-        bg = BindingGenerator()
+        bg = BindingGenerator(prefix=gr.prefix(), namespace=['gr',self.info['modname']], prefix_include_root=self.info['modname'])
         block_base = ""
         if self.info['blocktype'] in ('source', 'sink', 'sync', 'decimator',
                                         'interpolator', 'general', 'hier', 'tagged_stream'):
@@ -280,7 +281,8 @@ class ModToolAdd(ModTool):
             ],
             "free_functions": []
         }
-        cc_txt = bg.get_nonblock_python_cc(header_info,self.info['blockname'],['gr',self.info['modname']], self.info['modname'])
+        # def gen_pybind_cc(self, header_info, base_name):
+        cc_txt = bg.gen_pybind_cc(header_info,self.info['blockname'])
         path_to_file = os.path.join('python','bindings', fname_cc)
         logger.info("Adding file '{}'...".format(path_to_file))
         with open(path_to_file, 'w') as f:
