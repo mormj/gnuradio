@@ -1,6 +1,3 @@
-
-## TODO: Make this process any header file, non necessarily a block, e.g. pmt.h
-#
 # Copyright 2019 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
@@ -88,6 +85,139 @@ class GenericHeaderParser(BlockTool):
             raise BlockToolException(
                 'Cannot parse a non-header file')
 
+    def parse_function(self, func_decl):
+        fcn_dict = {
+            "name": str(func_decl.name),
+            "return_type": str(func_decl.return_type),
+            "has_static": func_decl.has_static if hasattr(func_decl, 'has_static') else '0',
+            "arguments": []
+        }
+        for argument in func_decl.arguments:
+            args = {
+                "name": str(argument.name),
+                "dtype": str(argument.decl_type),
+                "default": argument.default_value
+            }
+            fcn_dict['arguments'].append(args)
+
+        return fcn_dict
+
+    def parse_class(self, class_decl):
+        class_dict = {'name': class_decl.name, 'member_functions': []}
+        if class_decl.bases:
+            class_dict['bases'] = class_decl.bases[0].declaration_path
+
+        constructors = []
+        # constructors
+        constructors = []
+        query_methods = declarations.access_type_matcher_t('public')
+        if hasattr(class_decl, 'constructors'):
+            cotrs = class_decl.constructors(function=query_methods,
+                                            allow_empty=True, recursive=False,
+                                            header_file=self.target_file,
+                                            name=class_decl.name)
+            for cotr in cotrs:
+                constructors.append(self.parse_function(cotr))
+
+        class_dict['constructors'] = constructors
+
+        # class member functions
+        member_functions = []
+        query_methods = declarations.access_type_matcher_t('public')
+        if hasattr(class_decl, 'member_functions'):
+            functions = class_decl.member_functions(function=query_methods,
+                                                    allow_empty=True, recursive=False,
+                                                    header_file=self.target_file)
+            for fcn in functions:
+                if str(fcn.name) not in [class_decl.name, '~'+class_decl.name]:
+                    member_functions.append(self.parse_function(fcn))
+
+        class_dict['member_functions'] = member_functions
+
+        # enums
+        class_enums = []
+        if hasattr(class_decl, 'variables'):
+            enums = class_decl.enumerations(
+                allow_empty=True, recursive=False, header_file=self.target_file)
+            if enums:
+                for _enum in enums:
+                    current_enum = {'name': _enum.name, 'values': _enum.values}
+                    class_enums.append(current_enum)
+
+        class_dict['enums'] = class_enums
+
+        # variables
+        class_vars = []
+        query_methods = declarations.access_type_matcher_t('public')
+        if hasattr(class_decl, 'variables'):
+            variables = class_decl.variables(allow_empty=True, recursive=False, function=query_methods,
+                                             header_file=self.target_file)
+            if variables:
+                for _var in variables:
+                    current_var = {
+                        'name': _var.name, 'value': _var.value, "has_static": _var.has_static}
+                    class_vars.append(current_var)
+        class_dict['vars'] = class_vars
+
+        return class_dict
+
+    def parse_namespace(self, namespace_decl):
+        namespace_dict = {}
+        # enums
+        namespace_dict['enums'] = []
+        if hasattr(namespace_decl, 'enumerations'):
+            enums = namespace_decl.enumerations(
+                allow_empty=True, recursive=False, header_file=self.target_file)
+            if enums:
+                for _enum in enums:
+                    current_enum = {'name': _enum.name, 'values': _enum.values}
+                    namespace_dict['enums'].append(current_enum)
+
+        # variables
+        namespace_dict['variables'] = []
+        if hasattr(namespace_decl, 'variables'):
+            variables = namespace_decl.variables(
+                allow_empty=True, recursive=False, header_file=self.target_file)
+            if variables:
+                for _var in variables:
+                    current_var = {
+                        'name': _var.name, 'values': _var.value, 'has_static': _var.has_static}
+                    namespace_dict['vars'].append(current_var)
+
+        # classes
+        namespace_dict['classes'] = []
+        if hasattr(namespace_decl, 'classes'):
+            classes = namespace_decl.classes(
+                allow_empty=True, recursive=False, header_file=self.target_file)
+            if classes:
+                for _class in classes:
+                    namespace_dict['classes'].append(self.parse_class(_class))
+
+        # free functions
+        namespace_dict['free_functions'] = []
+        free_functions = []
+        if hasattr(namespace_decl, 'free_functions'):
+            functions = namespace_decl.free_functions(allow_empty=True, recursive=False,
+                                                      header_file=self.target_file)
+            for fcn in functions:
+                if str(fcn.name) not in ['make']:
+                    free_functions.append(self.parse_function(fcn))
+
+            namespace_dict['free_functions'] = free_functions
+
+        # sub namespaces
+        namespace_dict['namespaces'] = []
+
+        if hasattr(namespace_decl, 'namespaces'):
+            sub_namespaces = []
+            sub_namespaces_decl = namespace_decl.namespaces(allow_empty=True)
+            for ns in sub_namespaces_decl:
+                sub_namespaces.append(self.parse_namespace(ns))
+
+            namespace_dict['namespaces'] = sub_namespaces
+
+        return namespace_dict
+
     def get_header_info(self, namespace_to_parse):
         """
         PyGCCXML header code parser
@@ -112,172 +242,21 @@ class GenericHeaderParser(BlockTool):
             [self.target_file], xml_generator_config)
         global_namespace = declarations.get_global_namespace(decls)
 
-
         # namespace
-        try:
-            self.parsed_data['namespace'] = []
-            main_namespace = global_namespace
-            for ns in namespace_to_parse:
-                main_namespace = main_namespace.namespace(ns)
-            if main_namespace is None:
-                raise BlockToolException('namespace cannot be none')
-            self.parsed_data['namespace'] = namespace_to_parse
+        # try:
+        main_namespace = global_namespace
+        for ns in namespace_to_parse:
+            main_namespace = main_namespace.namespace(ns)
+        if main_namespace is None:
+            raise BlockToolException('namespace cannot be none')
+        self.parsed_data['query_namespace'] = namespace_to_parse
 
-        except RuntimeError:
-            raise BlockToolException(
-                'Invalid namespace format in the block header file')
+        self.parsed_data['namespaces'] = self.parse_namespace(main_namespace)
 
-        # enums
-        try:
-            self.parsed_data['enums'] = []
-            enums = main_namespace.enumerations(header_file=self.target_file)
-            if enums:
-                for _enum in enums:
-                    current_enum = {'name': _enum.name, 'values':_enum.values}
-                    self.parsed_data['enums'].append(current_enum)
-        except:
-            pass
+        # except RuntimeError:
+        #     raise BlockToolException(
+        #         'Invalid namespace format in the block header file')
 
-        # variables
-        try:
-            self.parsed_data['variables'] = []
-            variables = main_namespace.variables(header_file=self.target_file)
-            if variables:
-                for _var in variables:
-                    current_var = {'name': _var.name, 'values':_var.value, 'has_static':_var.has_static}
-                    self.parsed_data['vars'].append(current_var)
-        except:
-            pass
-
-        # classes
-        try:
-            self.parsed_data['classes'] = []
-
-            # query_methods = declarations.access_type_matcher_t('public')
-            classes = main_namespace.classes(header_file=self.target_file)
-            if classes:
-                for _class in classes:
-            # for _class in main_namespace.declarations:
-                # if isinstance(_class, declarations.class_t):
-                    current_class = {'name': _class.name, 'member_functions':[]}
-                    if _class.bases:
-                        current_class['bases'] = _class.bases[0].declaration_path
-                    member_functions = []
-                    constructors = []                    
-                    # constructors
-                    try: 
-                        query_methods = declarations.access_type_matcher_t('public')
-                        cotrs = _class.constructors(function=query_methods,
-                                                            allow_empty=True,
-                                                            header_file=self.target_file,
-                                                            name=_class.name)
-                        for cotr in cotrs:
-                            
-                            cotr_args = {
-                                "name": str(cotr.name),
-                                "arguments": []
-                            }
-                            for argument in cotr.arguments:
-                                args = {
-                                    "name": str(argument.name),
-                                    "dtype": str(argument.decl_type),
-                                    "default": argument.default_value
-                                }
-                                cotr_args['arguments'].append(args.copy())
-                            constructors.append(cotr_args.copy())
-                        current_class['constructors'] = constructors
-                    except RuntimeError:
-                        pass
-
-                    # class member functions
-                    try:
-                        
-                        query_methods = declarations.access_type_matcher_t('public')
-                        functions = _class.member_functions(function=query_methods,
-                                                            allow_empty=True,
-                                                            header_file=self.target_file)
-                        for fcn in functions:
-                            if str(fcn.name) not in [_class.name, '~'+_class.name]:
-                                fcn_args = {
-                                    "name": str(fcn.name),
-                                    "return_type": str(fcn.return_type),
-                                    "has_static": fcn.has_static,
-                                    "arguments": []
-                                }
-                                for argument in fcn.arguments:
-                                    args = {
-                                        "name": str(argument.name),
-                                        "dtype": str(argument.decl_type),
-                                        "default": argument.default_value
-                                        
-                                    }
-                                    fcn_args['arguments'].append(args.copy())
-                                member_functions.append(fcn_args.copy())
-                        current_class['member_functions'] = member_functions
-                    except RuntimeError:
-                        pass
-
-                    # enums
-                    try:
-                        class_enums = []
-                        enums = _class.enumerations(header_file=self.target_file)
-                        if enums:
-                            for _enum in enums:
-                                current_enum = {'name': _enum.name, 'values':_enum.values}
-                                class_enums.appen(current_enum)
-                        
-                        current_class['enums'] = class_enums
-                    except:
-                        pass
-
-                    # variables
-                    try:
-                        class_vars = []
-                        query_methods = declarations.access_type_matcher_t('public')
-                        variables = _class.variables(unction=query_methods,
-                            header_file=self.target_file)
-                        if variables:
-                            for _var in variables:
-                                current_var = {'name': _var.name, 'value':_var.value, "has_static":_var.has_static}
-                                class_vars.append(current_var)
-                        current_class['vars'] = class_vars
-
-                    except:
-                        pass
-
-                    self.parsed_data['classes'].append(current_class)
-
-
-        except:
-            pass
-
-                    
-
-        # free functions
-        try:
-            self.parsed_data['free_functions'] = []
-            free_functions = []
-            functions = main_namespace.free_functions(allow_empty=True,
-                                                header_file=self.target_file)
-            for fcn in functions:
-                if str(fcn.name) not in ['make']:
-                    fcn_args = {
-                        "name": str(fcn.name),
-                        "return_type": str(fcn.return_type),
-                        "arguments": []
-                    }
-                    for argument in fcn.arguments:
-                        args = {
-                            "name": str(argument.name),
-                            "dtype": str(argument.decl_type),
-                            "default": argument.default_value
-                        }
-                        fcn_args['arguments'].append(args.copy())
-                    free_functions.append(fcn_args.copy())
-   
-            self.parsed_data['free_functions'] = free_functions
-        except RuntimeError:
-            pass
         # namespace
 
         return self.parsed_data
