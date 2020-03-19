@@ -21,7 +21,7 @@ void bind_${basename}(py::module& m)
 {
 % for cls in classes:
 % if classes:
-    using ${cls['name']}    = ${namespace.name}::${cls['name']};
+    using ${cls['name']}    = ${namespace['name']}::${cls['name']};
 % endif ##classes
 % endfor ##classes
 % for cls in classes:
