@@ -59,6 +59,7 @@ class ModToolGenBindings(ModTool):
 
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore", category=DeprecationWarning)
-            module_dir = self.dir
-            bg = BindingGenerator(prefix=gr.prefix(), namespace=['gr',self.info['modname']], prefix_include_root=self.info['modname'])
-            bg.gen_bindings(module_dir,  prefix=gr.prefix(), namespace = ['gr',self.info['modname']], prefix_include_root = 'gnuradio/' + self.info['modname'], output_dir = os.path.join(self.dir,'python'))
+            file_to_process = os.path.join(self.dir, self.info['includedir'], self.info['blockname'] + '.h')
+            bg = BindingGenerator(prefix=gr.prefix(), namespace=[
+                                  'gr', self.info['modname']], prefix_include_root=self.info['modname'], output_dir=os.path.join(self.dir, 'python'))
+            bg.gen_file_binding(file_to_process)

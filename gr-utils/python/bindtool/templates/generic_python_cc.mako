@@ -1,9 +1,9 @@
 <%
     namespace = header_info['namespace']
     modname = header_info['module_name']
-    classes=header_info['classes']
-    free_functions=header_info['free_functions']
-    free_enums = header_info['enums']
+    classes=namespace['classes']
+    free_functions=namespace['free_functions']
+    free_enums = namespace['enums']
 %>\
 ${license}
 
@@ -21,7 +21,7 @@ void bind_${basename}(py::module& m)
 {
 % for cls in classes:
 % if classes:
-    using ${cls['name']}    = ${"::".join(namespace)}::${cls['name']};
+    using ${cls['name']}    = ${namespace.name}::${cls['name']};
 % endif ##classes
 % endfor ##classes
 % for cls in classes:
@@ -143,9 +143,9 @@ if overloaded:
 <%
 values = en['values']
 %>\
-    py::enum_<${"::".join(namespace)}::${en['name']}>(m,"${en["name"]}")
+    py::enum_<${namespace.name}::${en['name']}>(m,"${en["name"]}")
 % for val in values:
-        .value("${val[0]}", ${"::".join(namespace)}::${val[0]}) // ${val[1]}
+        .value("${val[0]}", ${namespace.name}::${val[0]}) // ${val[1]}
 % endfor 
         .export_values()
     ;
@@ -177,9 +177,9 @@ if overloaded:
   overloaded_str = '({} (*)({}))'.format(fcn['return_type'],', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if len(fcn_args) == 0:
-    m.def("${fcn['name']}",${overloaded_str}&${'::'.join(namespace)}::${fcn['name']});
+    m.def("${fcn['name']}",${overloaded_str}&${namespace.name}::${fcn['name']});
 %else:
-    m.def("${fcn['name']}",${overloaded_str}&${'::'.join(namespace)}::${fcn['name']},
+    m.def("${fcn['name']}",${overloaded_str}&${namespace}::${fcn['name']},
 % for arg in fcn_args:
         py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
 % endfor

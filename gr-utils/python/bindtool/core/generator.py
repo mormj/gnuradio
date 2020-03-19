@@ -10,16 +10,19 @@ from datetime import datetime
 
 class BindingGenerator:
 
-    def __init__(self, prefix, namespace, prefix_include_root, output_dir="", addl_includes=""):
+    def __init__(self, prefix, namespace, prefix_include_root, output_dir="", addl_includes="", match_include_structure=False):
         """Initialize BindingGenerator
         prefix -- path to installed gnuradio prefix (use gr.prefix() if unsure)
         namespace -- desired namespace to parse e.g. ['gr','module_name']
             module_name is stored as the last element of namespace
         prefix_include_root -- relative path to module headers, e.g. "gnuradio/modulename"
-        output_dir -- path where bindings will be placed
 
         Keyword arguments:
+        output_dir -- path where bindings will be placed
         addl_includes -- comma separated list of additional include directories (default "")
+        match_include_structure -- 
+            If set to False, a bindings/ dir will be placed directly under the specified output_dir
+            If set to True, the directory structure under include/ will be mirrored
         """
 
         self.header_extensions = ['.h', '.hh', '.hpp']
@@ -29,6 +32,7 @@ class BindingGenerator:
         self.module_name = namespace[-1]
         self.prefix_include_root = prefix_include_root
         self.output_dir = output_dir
+        self.match_include_structure = match_include_structure
 
         pass
 
@@ -45,9 +49,8 @@ class BindingGenerator:
             header_info=header_info,
             basename=base_name,
             prefix_include_root=self.prefix_include_root,
-            module=True
         )
-            
+
     def write_pybind_cc(self, header_info, base_name, output_dir):
 
         binding_pathname_cc = os.path.join(
@@ -70,7 +73,7 @@ class BindingGenerator:
             json.dump(header_info, outfile)
 
     def read_json(self, pathname):
-        with open(pathname,'r') as fp:
+        with open(pathname, 'r') as fp:
             header_info = json.load(fp)
         return header_info
 
@@ -86,9 +89,10 @@ class BindingGenerator:
         include_paths = ','.join(
             (module_include_path, top_include_path))
         if self.prefix:
-            prefix_include_path = os.path.abspath(os.path.join(self.prefix, 'include'))
+            prefix_include_path = os.path.abspath(
+                os.path.join(self.prefix, 'include'))
             include_paths = ','.join(
-                (include_paths,prefix_include_path)
+                (include_paths, prefix_include_path)
             )
         if self.addl_include:
             include_paths = ','.join((include_paths, self.addl_include))
@@ -111,18 +115,21 @@ class BindingGenerator:
 
         return binding_pathname
 
-
-    def get_output_dir(self,filename):
+    def get_output_dir(self, filename):
         """Get the output directory for a given file"""
         output_dir = self.output_dir
-        if 'include'+os.path.sep in filename:
-            rel_path_after_include = os.path.split(
-                filename.split('include'+os.path.sep)[-1])[0]
-            output_dir = os.path.join(self.output_dir, rel_path_after_include,'bindings')
-            if output_dir and not os.path.exists(output_dir):
-                output_dir = os.path.abspath(output_dir)
-                print('creating output directory {}'.format(output_dir))
-                os.makedirs(output_dir)
+        rel_path_after_include = ""
+        if self.match_include_structure:
+            if 'include'+os.path.sep in filename:
+                rel_path_after_include = os.path.split(
+                    filename.split('include'+os.path.sep)[-1])[0]
+
+        output_dir = os.path.join(
+            self.output_dir, rel_path_after_include, 'bindings')
+        if output_dir and not os.path.exists(output_dir):
+            output_dir = os.path.abspath(output_dir)
+            print('creating output directory {}'.format(output_dir))
+            os.makedirs(output_dir)
 
         return output_dir
 
@@ -192,7 +199,6 @@ class BindingGenerator:
                     pathname = os.path.abspath(os.path.join(root, file))
                     file_list.append(pathname)
         return sorted(file_list)
-
 
     def gen_bindings(self, module_dir):
         """Generate bindings for an entire GR module

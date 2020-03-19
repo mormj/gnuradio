@@ -164,6 +164,7 @@ class GenericHeaderParser(BlockTool):
     def parse_namespace(self, namespace_decl):
         namespace_dict = {}
         # enums
+        namespace_dict['name'] = namespace_decl.name
         namespace_dict['enums'] = []
         if hasattr(namespace_decl, 'enumerations'):
             enums = namespace_decl.enumerations(
@@ -248,9 +249,9 @@ class GenericHeaderParser(BlockTool):
             main_namespace = main_namespace.namespace(ns)
         if main_namespace is None:
             raise BlockToolException('namespace cannot be none')
-        self.parsed_data['query_namespace'] = namespace_to_parse
+        self.parsed_data['target_namespace'] = namespace_to_parse
 
-        self.parsed_data['namespaces'] = self.parse_namespace(main_namespace)
+        self.parsed_data['namespace'] = self.parse_namespace(main_namespace)
 
         # except RuntimeError:
         #     raise BlockToolException(
