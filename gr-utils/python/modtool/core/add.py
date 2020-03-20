@@ -252,34 +252,37 @@ class ModToolAdd(ModTool):
 
         header_info = {
             "module_name": self.info['modname'],
-            "namespace": ['gr', self.info['modname']],
-            "enums": [],
-            "variables": [],
-            "classes": [
-                {
-                    "name": self.info['blockname'],
-                    "member_functions": [
-                        {
-                            "name": "make",
-                            "return_type": "::".join(("gr",self.info['modname'],self.info['blockname'],"sptr")),
-                            "has_static": "1",
-                            "arguments": []
-                        }
-                    ],
-                    "bases": [
-                        "::",
-                        "gr",
-                        block_base
-                    ],
-                    "constructors": [
-                        {
-                            "name": self.info['blockname'],
-                            "arguments": []
-                        }
-                    ]
-                }
-            ],
-            "free_functions": []
+            "namespace": {
+                "name": "::".join(['gr', self.info['modname']]),
+                "enums": [],
+                "variables": [],
+                "classes": [
+                    {
+                        "name": self.info['blockname'],
+                        "member_functions": [
+                            {
+                                "name": "make",
+                                "return_type": "::".join(("gr",self.info['modname'],self.info['blockname'],"sptr")),
+                                "has_static": "1",
+                                "arguments": []
+                            }
+                        ],
+                        "bases": [
+                            "::",
+                            "gr",
+                            block_base
+                        ],
+                        "constructors": [
+                            {
+                                "name": self.info['blockname'],
+                                "arguments": []
+                            }
+                        ]
+                    }
+                ],
+                "free_functions": [],
+                "namespaces": []
+            }
         }
         # def gen_pybind_cc(self, header_info, base_name):
         cc_txt = bg.gen_pybind_cc(header_info,self.info['blockname'])
