@@ -27,6 +27,12 @@ void bind_${basename}(py::module& m)
 ${render_namespace(namespace=namespace,modname=modname,modvar='m')}
 }
 
+<%def name='render_constructor()' >
+</%def>
+
+<%def name='render_function()' >
+</%def>
+
 <%def name='render_namespace(namespace, modname, modvar)'>
 <%
     classes=namespace['classes']
@@ -95,7 +101,7 @@ if 'bases' in cls:
 ,
 % endif\
  
-        std::shared_ptr<${cls['name']}>>(${modvar}, "${cls['name']}")
+        std::shared_ptr<${cls['name']}>>(${modvar}, "${cls['name']}", D(${cls['name']}))
 
 % if make_function: ## override constructors with make function
 <%
@@ -104,8 +110,9 @@ fcn_args = fcn['arguments']
 %>\
         .def(py::init(&${cls['name']}::${make_function['name']})${',' if fcn_args else ''}
 % for arg in fcn_args:
-           py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
-% endfor
+           py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
+% endfor 
+           D(${cls['name']},${make_function['name']})
         )
         
 % else:
@@ -123,8 +130,9 @@ ${arg['dtype']}${'>(),' if loop.index == len(fcn['arguments'])-1 else ',' }\
 % endfor ## args
 \
 % for arg in fcn_args:
-           py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
-% endfor
+           py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
+% endfor 
+        ##    D(${cls['name']},${cls['name']}
         )
 % endif
 % endfor ## constructors
@@ -142,12 +150,13 @@ if overloaded:
 %>\
 % if fcn['name'] != 'make':
 % if len(fcn_args) == 0:
-        .def("${fcn['name']}",${overloaded_str}&${cls['name']}::${fcn['name']})
+        .def("${fcn['name']}",${overloaded_str}&${cls['name']}::${fcn['name']},D(${cls['name']},${fcn['name']}))
 %else:
         .def("${fcn['name']}",${overloaded_str}&${cls['name']}::${fcn['name']},
 % for arg in fcn_args:
-            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
-% endfor ## args
+            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
+% endfor ## args 
+            D(${cls['name']},${fcn['name']})
         )
 % endif
 % endif ## Not a make function
@@ -181,12 +190,13 @@ if overloaded:
   overloaded_str = '({} (*)({}))'.format(fcn['return_type'],', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if len(fcn_args) == 0:
-    ${modvar}.def("${fcn['name']}",${overloaded_str}&${namespace['name']}::${fcn['name']});
+    ${modvar}.def("${fcn['name']}",${overloaded_str}&${namespace['name']}::${fcn['name']},D(${cls['name']},${fcn['name']}));
 %else:
     ${modvar}.def("${fcn['name']}",${overloaded_str}&${namespace}::${fcn['name']},
 % for arg in fcn_args:
-        py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
+        py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}, 
 % endfor
+        D(${cls['name']},${fcn['name']})
     );
 % endif
 % endfor
@@ -197,7 +207,7 @@ if overloaded:
   submod_name = sns['name'].split('::')[-1]
   next_modvar = modvar + '_' + submod_name
 %>
-py::module ${next_modvar} = ${modvar}.def_submodule("${submod_name}");
+        py::module ${next_modvar} = ${modvar}.def_submodule("${submod_name}");
 ${render_namespace(namespace=sns,modname=modname,modvar=next_modvar)}
 % endfor
 
