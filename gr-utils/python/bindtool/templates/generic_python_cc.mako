@@ -24,14 +24,17 @@ namespace py = pybind11;
 
 void bind_${basename}(py::module& m)
 {
-${render_namespace(namespace=namespace,modname=modname)}
+${render_namespace(namespace=namespace,modname=modname,modvar='m')}
 }
 
-<%def name='render_namespace(namespace, modname)'>
+<%def name='render_namespace(namespace, modname, modvar)'>
 <%
     classes=namespace['classes']
     free_functions=namespace['free_functions']
     free_enums = namespace['enums']
+    subnamespaces = []
+    if 'namespaces' in namespace:
+      subnamespaces = namespace['namespaces']
 %>\
 % for cls in classes:
 % if classes:
@@ -92,7 +95,7 @@ if 'bases' in cls:
 ,
 % endif\
  
-        std::shared_ptr<${cls['name']}>>(m, "${cls['name']}")
+        std::shared_ptr<${cls['name']}>>(${modvar}, "${cls['name']}")
 
 % if make_function: ## override constructors with make function
 <%
@@ -157,7 +160,7 @@ if overloaded:
 <%
 values = en['values']
 %>\
-    py::enum_<${namespace['name']}::${en['name']}>(m,"${en["name"]}")
+    py::enum_<${namespace['name']}::${en['name']}>(${modvar},"${en["name"]}")
 % for val in values:
         .value("${val[0]}", ${namespace['name']}::${val[0]}) // ${val[1]}
 % endfor 
@@ -178,9 +181,9 @@ if overloaded:
   overloaded_str = '({} (*)({}))'.format(fcn['return_type'],', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if len(fcn_args) == 0:
-    m.def("${fcn['name']}",${overloaded_str}&${namespace['name']}::${fcn['name']});
+    ${modvar}.def("${fcn['name']}",${overloaded_str}&${namespace['name']}::${fcn['name']});
 %else:
-    m.def("${fcn['name']}",${overloaded_str}&${namespace}::${fcn['name']},
+    ${modvar}.def("${fcn['name']}",${overloaded_str}&${namespace}::${fcn['name']},
 % for arg in fcn_args:
         py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}${'' if loop.index == len(fcn['arguments'])-1 else ',' } 
 % endfor
@@ -188,5 +191,14 @@ if overloaded:
 % endif
 % endfor
 % endif ## free_functions
+\
+% for sns in subnamespaces:
+<%  
+  submod_name = sns['name'].split('::')[-1]
+  next_modvar = modvar + '_' + submod_name
+%>
+py::module ${next_modvar} = ${modvar}.def_submodule("${submod_name}");
+${render_namespace(namespace=sns,modname=modname,modvar=next_modvar)}
+% endfor
+
 </%def>
- 
