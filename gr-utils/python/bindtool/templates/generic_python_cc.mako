@@ -30,7 +30,25 @@ ${render_namespace(namespace=namespace,modname=modname,modvar='m')}
 <%def name='render_constructor()' >
 </%def>
 
-<%def name='render_function()' >
+<%def name='render_function(fcn,fcn_list,cls_name,filter_val)' >
+<%
+fcn_args = fcn['arguments']
+fcn_name = fcn['name']
+has_static = fcn['has_static'] if 'has_static' in fcn else False
+matcher = lambda x,name: x['name'] == name
+overloaded = sum([matcher(f,fcn_name) for f in fcn_list]) > 1
+overloaded_str = ''
+if overloaded:
+  overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],cls_name,', '.join([f['dtype'] for f in fcn_args]))
+%>\
+% if fcn['name'] != filter_val:
+        .def("${fcn['name']}",${overloaded_str}&${cls_name}::${fcn['name']},
+% for arg in fcn_args:
+            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
+% endfor ## args 
+            D(${cls_name},${fcn['name']})
+        ) 
+% endif ## Not a filtered function name
 </%def>
 
 <%def name='render_namespace(namespace, modname, modvar)'>
@@ -139,27 +157,7 @@ ${arg['dtype']}${'>(),' if loop.index == len(fcn['arguments'])-1 else ',' }\
 % endif ## make
 
 % for fcn in member_functions:
-<%
-fcn_args = fcn['arguments']
-fcn_name = fcn['name']
-matcher = lambda x,name: x['name'] == name
-overloaded = sum([matcher(f,fcn_name) for f in member_functions]) > 1
-overloaded_str = ''
-if overloaded:
-  overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],cls['name'],', '.join([f['dtype'] for f in fcn_args]))
-%>\
-% if fcn['name'] != 'make':
-% if len(fcn_args) == 0:
-        .def("${fcn['name']}",${overloaded_str}&${cls['name']}::${fcn['name']},D(${cls['name']},${fcn['name']}))
-%else:
-        .def("${fcn['name']}",${overloaded_str}&${cls['name']}::${fcn['name']},
-% for arg in fcn_args:
-            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
-% endfor ## args 
-            D(${cls['name']},${fcn['name']})
-        )
-% endif
-% endif ## Not a make function
+${render_function(fcn=fcn,fcn_list=member_functions,cls_name=cls['name'],filter_val='make')}
 % endfor ## member_functions
         ;
 % endfor ## classes
@@ -180,26 +178,8 @@ values = en['values']
 
 % if free_functions:
 % for fcn in free_functions:
-<%
-fcn_args = fcn['arguments']
-fcn_name = fcn['name']
-matcher = lambda x,name: x['name'] == name
-overloaded = sum([matcher(f,fcn_name) for f in free_functions]) > 1
-overloaded_str = ''
-if overloaded:
-  overloaded_str = '({} (*)({}))'.format(fcn['return_type'],', '.join([f['dtype'] for f in fcn_args]))
-%>\
-% if len(fcn_args) == 0:
-    ${modvar}.def("${fcn['name']}",${overloaded_str}&${namespace['name']}::${fcn['name']},D(${cls['name']},${fcn['name']}));
-%else:
-    ${modvar}.def("${fcn['name']}",${overloaded_str}&${namespace}::${fcn['name']},
-% for arg in fcn_args:
-        py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''}, 
-% endfor
-        D(${cls['name']},${fcn['name']})
-    );
-% endif
-% endfor
+${render_function(fcn=fcn,fcn_list=free_functions,cls_name="",filter_val="")}
+% endfor ## free_functions
 % endif ## free_functions
 \
 % for sns in subnamespaces:
