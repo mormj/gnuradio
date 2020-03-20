@@ -9,9 +9,6 @@
 <%
     namespace = header_info['namespace']
     modname = header_info['module_name']
-    classes=namespace['classes']
-    free_functions=namespace['free_functions']
-    free_enums = namespace['enums']
 %>\
 ${license}
 
@@ -160,9 +157,9 @@ if overloaded:
 <%
 values = en['values']
 %>\
-    py::enum_<${namespace.name}::${en['name']}>(m,"${en["name"]}")
+    py::enum_<${namespace['name']}::${en['name']}>(m,"${en["name"]}")
 % for val in values:
-        .value("${val[0]}", ${namespace.name}::${val[0]}) // ${val[1]}
+        .value("${val[0]}", ${namespace['name']}::${val[0]}) // ${val[1]}
 % endfor 
         .export_values()
     ;
@@ -176,25 +173,12 @@ fcn_args = fcn['arguments']
 fcn_name = fcn['name']
 matcher = lambda x,name: x['name'] == name
 overloaded = sum([matcher(f,fcn_name) for f in free_functions]) > 1
-## if overloaded:
-## void (block_detail::*)(std::vector<gr::tag_t>&,
-##                                      unsigned int,
-##                                      uint64_t,
-##                                      uint64_t,
-##                                      const pmt::pmt_t&,
-##                                      long))
-##     overloaded_str = 'void (block_detail::*)(std::vector<gr::tag_t>&,
-##                                      unsigned int,
-##                                      uint64_t,
-##                                      uint64_t,
-##                                      const pmt::pmt_t&,
-##                                      long))
 overloaded_str = ''
 if overloaded:
   overloaded_str = '({} (*)({}))'.format(fcn['return_type'],', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if len(fcn_args) == 0:
-    m.def("${fcn['name']}",${overloaded_str}&${namespace.name}::${fcn['name']});
+    m.def("${fcn['name']}",${overloaded_str}&${namespace['name']}::${fcn['name']});
 %else:
     m.def("${fcn['name']}",${overloaded_str}&${namespace}::${fcn['name']},
 % for arg in fcn_args:
