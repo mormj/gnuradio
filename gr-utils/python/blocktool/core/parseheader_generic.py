@@ -164,7 +164,7 @@ class GenericHeaderParser(BlockTool):
     def parse_namespace(self, namespace_decl):
         namespace_dict = {}
         # enums
-        namespace_dict['name'] = namespace_decl.name
+        namespace_dict['name'] = namespace_decl.decl_string
         namespace_dict['enums'] = []
         if hasattr(namespace_decl, 'enumerations'):
             enums = namespace_decl.enumerations(

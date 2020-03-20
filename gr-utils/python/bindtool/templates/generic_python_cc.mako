@@ -19,6 +19,15 @@ namespace py = pybind11;
 
 void bind_${basename}(py::module& m)
 {
+${render_namespace(namespace=namespace,modname=modname)}
+}
+
+<%def name='render_namespace(namespace, modname)'>
+<%
+    classes=namespace['classes']
+    free_functions=namespace['free_functions']
+    free_enums = namespace['enums']
+%>\
 % for cls in classes:
 % if classes:
     using ${cls['name']}    = ${namespace['name']}::${cls['name']};
@@ -187,4 +196,5 @@ if overloaded:
 % endif
 % endfor
 % endif ## free_functions
-} 
+</%def>
+ 
