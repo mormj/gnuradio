@@ -233,6 +233,7 @@ class ModToolAdd(ModTool):
 
         # Generate bindings cc file
         fname_cc = self.info['blockname'] + '_python.cc'
+        fname_pydoc_h = self.info['blockname'] + '_pydoc.h'
 
         # Update python_bindings.cc
         ed = CPPFileEditor(self._file['ccpybind'])
@@ -285,6 +286,13 @@ class ModToolAdd(ModTool):
             }
         }
         # def gen_pybind_cc(self, header_info, base_name):
+        pydoc_txt = bg.gen_pydoc_h(header_info,self.info['blockname'])
+        path_to_file = os.path.join('python','bindings', fname_pydoc_h)
+        logger.info("Adding file '{}'...".format(path_to_file))
+        with open(path_to_file, 'w') as f:
+            f.write(pydoc_txt)
+        self.scm.add_files((path_to_file,))
+
         cc_txt = bg.gen_pybind_cc(header_info,self.info['blockname'])
         path_to_file = os.path.join('python','bindings', fname_cc)
         logger.info("Adding file '{}'...".format(path_to_file))

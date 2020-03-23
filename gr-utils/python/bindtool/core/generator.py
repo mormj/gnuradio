@@ -45,6 +45,22 @@ class BindingGenerator:
 
         pass
 
+    def gen_pydoc_h(self, header_info, base_name):
+        current_path = os.path.dirname(pathlib.Path(__file__).absolute())
+        tpl = Template(filename=os.path.join(
+            current_path, '..', 'templates', 'license.mako'))
+        license = tpl.render(year=datetime.now().year)
+
+        tpl = Template(filename=os.path.join(current_path, '..',
+                                             'templates', 'pydoc_h.mako'))
+        return tpl.render(
+            license=license,
+            header_info=header_info,
+            basename=base_name,
+            prefix_include_root=self.prefix_include_root,
+        )
+
+
     def gen_pybind_cc(self, header_info, base_name):
         current_path = os.path.dirname(pathlib.Path(__file__).absolute())
         tpl = Template(filename=os.path.join(
@@ -59,6 +75,23 @@ class BindingGenerator:
             basename=base_name,
             prefix_include_root=self.prefix_include_root,
         )
+
+    def write_pydoc_h(self, header_info, base_name, output_dir):
+
+        doc_pathname = os.path.join(
+            output_dir, '{}_pydoc.h'.format(base_name))
+
+        try:
+            pybind_code = self.gen_pydoc_h(
+                header_info, base_name)
+            with open(doc_pathname, 'w+') as outfile:
+                print("Writing binding code to {}".format(doc_pathname))
+                outfile.write(pybind_code)
+            return doc_pathname
+        except Exception as e:
+            print(e)
+            return None
+
 
     def write_pybind_cc(self, header_info, base_name, output_dir):
 
@@ -110,8 +143,10 @@ class BindingGenerator:
             include_paths=include_paths, file_path=file_to_process)
         try:
             header_info = parser.get_header_info(self.namespace)
+            # TODO: Scrape the docstrings
             self.write_json(header_info, base_name, output_dir)
             self.write_pybind_cc(header_info, base_name, output_dir)
+            self.write_pydoc_h(header_info, base_name, output_dir)
 
         except Exception as e:
             print(e)
