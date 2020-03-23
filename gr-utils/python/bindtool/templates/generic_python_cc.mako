@@ -25,13 +25,13 @@ namespace py = pybind11;
 
 void bind_${basename}(py::module& m)
 {
-${render_namespace(namespace=namespace,modname=modname,modvar='m')}
+${render_namespace(namespace=namespace,modname=[modname],modvar='m')}
 }
 
 <%def name='render_constructor()' >
 </%def>
 
-<%def name='render_function(fcn,fcn_list,cls_name,filter_val)' >
+<%def name='render_function(fcn,fcn_list,cls_name,filter_val,isfree=False,modvar="",doc_prefix="")' >
 <%
 fcn_args = fcn['arguments']
 fcn_name = fcn['name']
@@ -43,23 +43,43 @@ if overloaded:
   overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],cls_name,', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if fcn['name'] != filter_val:
-        ${".def_static" if has_static else ".def"}("${fcn['name']}",${overloaded_str}&${cls_name}::${fcn['name']},
+        ${modvar if isfree else ""}${".def_static" if has_static and not isfree else ".def"}("${fcn['name']}",${overloaded_str}&${cls_name}::${fcn['name']},
 % for arg in fcn_args:
             py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
 % endfor ## args 
-            D(${cls_name},${fcn['name']})
-        ) 
+            D(${doc_prefix}${cls_name},${fcn['name']})
+        )${';' if isfree else ""}
+% endif ## Not a filtered function name
+</%def>
+
+<%def name='render_free_function(fcn,fcn_list,namespace_name,filter_val,modvar="",doc_prefix="")' >
+<%
+fcn_args = fcn['arguments']
+fcn_name = fcn['name']
+has_static = fcn['has_static'] if 'has_static' in fcn else False
+matcher = lambda x,name: x['name'] == name
+overloaded = sum([matcher(f,fcn_name) for f in fcn_list]) > 1
+overloaded_str = ''
+if overloaded:
+  overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],'',', '.join([f['dtype'] for f in fcn_args]))
+%>\
+% if fcn['name'] != filter_val:
+        ${modvar}.def("${fcn['name']}",${overloaded_str}&${namespace_name}::${fcn['name']},
+% for arg in fcn_args:
+            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
+% endfor ## args 
+            D(${doc_prefix}${fcn['name']})
+        );
 % endif ## Not a filtered function name
 </%def>
 
 <%def name='render_namespace(namespace, modname, modvar)'>
 <%
-    classes=namespace['classes']
-    free_functions=namespace['free_functions']
-    free_enums = namespace['enums']
-    subnamespaces = []
-    if 'namespaces' in namespace:
-      subnamespaces = namespace['namespaces']
+    classes=namespace['classes'] if 'classes' in namespace else []
+    free_functions=namespace['free_functions'] if 'free_functions' in namespace else []
+    free_enums = namespace['enums'] if 'enums' in namespace else []
+    subnamespaces = namespace['namespaces'] if 'namespaces' in namespace else []
+    doc_prefix = '' if len(modname) == 1 else ','.join(modname[1:])+','
 %>\
 % for cls in classes:
 % if classes:
@@ -69,23 +89,10 @@ if overloaded:
 % for cls in classes:
 
 <%
-try:
-        member_functions = cls['member_functions']
-except:
-        member_functions = []
-try:
-        constructors = cls['constructors']
-except:
-        constructors = []
-try:
-        class_enums = cls['enums']
-except: 
-        class_enums = []
-try:
-        class_variables = cls['variables']
-except:
-        class_variables = []
-
+member_functions = cls['member_functions'] if 'member_functions' in cls else []
+constructors = cls['constructors'] if 'constructors' in cls else []
+class_enums = cls['enums'] if 'enums' in cls else []
+class_variables = cls['variables'] if 'variables' in cls else []
 try:
         def find_make_function(member_fcns):
             for mf in member_fcns:
@@ -120,7 +127,7 @@ if 'bases' in cls:
 ,
 % endif\
  
-        std::shared_ptr<${cls['name']}>>(${modvar}, "${cls['name']}", D(${cls['name']}))
+        std::shared_ptr<${cls['name']}>>(${modvar}, "${cls['name']}", D(${doc_prefix}${cls['name']}))
 
 % if make_function: ## override constructors with make function
 <%
@@ -131,7 +138,7 @@ fcn_args = fcn['arguments']
 % for arg in fcn_args:
            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
 % endfor 
-           D(${cls['name']},${make_function['name']})
+           D(${doc_prefix}${cls['name']},${make_function['name']})
         )
         
 % else:
@@ -141,7 +148,7 @@ fcn_args = fcn['arguments']
 %>\
 \
 % if len(fcn_args) == 0:
-        .def(py::init<>())
+        .def(py::init<>(),D(${doc_prefix}${cls['name']},${cls['name']},${loop.index}))
 %else:
         .def(py::init<\
 % for arg in fcn_args:
@@ -151,14 +158,14 @@ ${arg['dtype']}${'>(),' if loop.index == len(fcn['arguments'])-1 else ',' }\
 % for arg in fcn_args:
            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
 % endfor 
-        ##    D(${cls['name']},${cls['name']}
+           D(${doc_prefix}${cls['name']},${cls['name']},${loop.index})
         )
 % endif
 % endfor ## constructors
 % endif ## make
 
 % for fcn in member_functions:
-${render_function(fcn=fcn,fcn_list=member_functions,cls_name=cls['name'],filter_val='make')}
+${render_function(fcn=fcn,fcn_list=member_functions,cls_name=cls['name'],filter_val='make',doc_prefix=doc_prefix)}
 % endfor ## member_functions
         ;
 % endfor ## classes
@@ -179,7 +186,7 @@ values = en['values']
 
 % if free_functions:
 % for fcn in free_functions:
-${render_function(fcn=fcn,fcn_list=free_functions,cls_name="",filter_val="")}
+${render_free_function(fcn=fcn,fcn_list=free_functions,namespace_name=namespace['name'],filter_val="",modvar=modvar,doc_prefix=doc_prefix)}
 % endfor ## free_functions
 % endif ## free_functions
 \
@@ -189,7 +196,7 @@ ${render_function(fcn=fcn,fcn_list=free_functions,cls_name="",filter_val="")}
   next_modvar = modvar + '_' + submod_name
 %>
         py::module ${next_modvar} = ${modvar}.def_submodule("${submod_name}");
-${render_namespace(namespace=sns,modname=modname,modvar=next_modvar)}
+${render_namespace(namespace=sns,modname=modname+[submod_name],modvar=next_modvar)}
 % endfor
 
 </%def>
