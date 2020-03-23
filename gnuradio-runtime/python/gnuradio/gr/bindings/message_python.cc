@@ -53,7 +53,16 @@ void bind_message(py::module& m)
         )
         .def("msg",&message::msg)
         .def("length",&message::length)
-        .def("to_string",&message::to_string)
+        // .def("to_string",&message::to_string)
+        // pybind11 needs explicit conversion to handle non-utf8 strings
+        .def("to_string",
+            [](std::shared_ptr<message> msg) {
+                std::string s = msg->to_string();
+                return py::bytes(s);  // Return the data without transcoding
+            }
+        )
+
+
         ;
 
 
