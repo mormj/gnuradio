@@ -42,7 +42,7 @@ if overloaded:
   overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],cls_name,', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if fcn['name'] != filter_val:
-        .def("${fcn['name']}",${overloaded_str}&${cls_name}::${fcn['name']},
+        ${".def_static" if has_static else ".def"}("${fcn['name']}",${overloaded_str}&${cls_name}::${fcn['name']},
 % for arg in fcn_args:
             py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
 % endfor ## args 
