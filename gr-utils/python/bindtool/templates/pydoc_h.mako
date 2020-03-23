@@ -6,6 +6,7 @@
 ## SPDX-License-Identifier: GPL-3.0-or-later
 ##
 ##
+${license}
 <%
     namespace = header_info['namespace']
     modname = header_info['module_name']
@@ -13,6 +14,10 @@
 \
 #include "pydoc_macros.h"
 \
+/*
+  This file contains docstrings for the Python bindings.
+  Do not edit! These were automatically extracted during the build process
+ */
 ${render_namespace(namespace=namespace, modname=[modname])}
 
 <%def name='render_docstring_const(modname,names,docstring="")'>
