@@ -1034,9 +1034,16 @@ void bind_pmt(py::module& m)
         py::arg("source") 
     );
     m.def("dump_sizeof",&pmt::dump_sizeof);
-    m.def("serialize_str",&pmt::serialize_str,
+
+    // pybind11 needs explicit conversion to handle non-utf8 strings
+    m.def("serialize_str",
+        [](pmt::pmt_t obj) {
+            std::string s = serialize_str(obj);
+            return py::bytes(s);  // Return the data without transcoding
+        },
         py::arg("obj") 
     );
+
     m.def("deserialize_str",&pmt::deserialize_str,
         py::arg("str") 
     );
