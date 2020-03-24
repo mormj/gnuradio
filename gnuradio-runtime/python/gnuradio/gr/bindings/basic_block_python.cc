@@ -111,10 +111,12 @@ void bind_basic_block(py::module& m)
         // .def("setup_rpc",&basic_block::setup_rpc)
         // .def("is_rpc_set",&basic_block::is_rpc_set)
         // .def("rpc_set",&basic_block::rpc_set)
+
         .def("check_topology",&basic_block::check_topology,
             py::arg("ninputs"), 
             py::arg("noutputs") 
         )
+        
         // .def("set_processor_affinity",&basic_block::set_processor_affinity,
         //     py::arg("mask") 
         // )
