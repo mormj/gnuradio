@@ -17,7 +17,8 @@ python3 ${PROJECT_SOURCE_DIR}/docs/doxygen/update_pydoc.py
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}/howto_docstrings.json
-  COMMENT "Adding docstrings into pybind headers ...")
+  COMMENT "Adding docstrings into pybind headers ..."
+  DEPENDS doxygen-target)
 
 
 ########################################################################
