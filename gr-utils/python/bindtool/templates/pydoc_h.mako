@@ -20,8 +20,19 @@ ${license}
  */
 ${render_namespace(namespace=namespace, modname=[modname])}
 
-<%def name='render_docstring_const(modname,names,docstring="")'>
-static const char *__doc_${'_'.join(modname+names)} =
+<%def name='render_docstring_const(modname,names,info,docstring="",info_all=None)'>
+<%
+  suffix = ''
+  if info_all:
+    matcher = lambda x,name: x['name'] == name
+    matched_list = [f for f in info_all if matcher(f,info['name'])]
+    overloaded = len(matched_list) > 1
+    suffix = ''
+    if overloaded:
+      index_into_list = matched_list.index(info)
+      suffix = '_'+str(index_into_list)
+%>
+static const char *__doc_${'_'.join(modname+names)}${suffix} =
 R"doc(${docstring})doc";
 </%def> \
 <%def name='render_namespace(namespace, modname)'>
@@ -40,20 +51,20 @@ R"doc(${docstring})doc";
         class_variables = cls['variables'] if 'variables' in cls else []
 %>
 \
-${render_docstring_const(modname,[cls['name']],cls['docstring'] if 'docstring' in cls else "")}
+${render_docstring_const(modname,[cls['name']],cls,cls['docstring'] if 'docstring' in cls else "")}
 \
 % for cotr in constructors:
-${render_docstring_const(modname,[cls['name'],cotr['name'],str(loop.index)],cotr['docstring'] if 'docstring' in cotr else "")}
+${render_docstring_const(modname,[cls['name'],cotr['name']],cotr,cotr['docstring'] if 'docstring' in cotr else "",constructors)}
 % endfor ## constructors
 \
 % for fcn in member_functions:
-${render_docstring_const(modname,[cls['name'],fcn['name']],fcn['docstring'] if 'docstring' in fcn else "")}
+${render_docstring_const(modname,[cls['name'],fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",member_functions)}
 % endfor ## member_functions
 % endfor ## classes
 \
 % if free_functions:
 % for fcn in free_functions:
-${render_docstring_const(modname,[fcn['name']],fcn['docstring'] if 'docstring' in fcn else "")}
+${render_docstring_const(modname,[fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",free_functions)}
 % endfor ## free_functions
 % endif ## free_functions
 \

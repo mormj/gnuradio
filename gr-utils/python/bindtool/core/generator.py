@@ -209,7 +209,7 @@ class BindingGenerator:
         """Produce the CMakeLists.txt for the bindings"""
         current_path = os.path.dirname(pathlib.Path(__file__).absolute())
         file = file_list[0]
-        output_dir = self.output_dir(file)
+        output_dir = self.get_output_dir(file)
 
         tpl = Template(filename=os.path.join(
             current_path, '..', 'templates', 'license.mako'))

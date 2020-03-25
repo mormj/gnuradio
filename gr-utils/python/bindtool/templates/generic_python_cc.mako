@@ -38,9 +38,13 @@ fcn_args = fcn['arguments']
 fcn_name = fcn['name']
 has_static = fcn['has_static'] if 'has_static' in fcn else False
 matcher = lambda x,name: x['name'] == name
-overloaded = sum([matcher(f,fcn_name) for f in fcn_list]) > 1
+matched_list = [f for f in fcn_list if matcher(f,fcn_name)]
+overloaded = len(matched_list) > 1
 overloaded_str = ''
+index_str = ''
 if overloaded:
+  index_into_list = matched_list.index(fcn)
+  index_str = ','+str(index_into_list)
   overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],cls_name,', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if fcn['name'] != filter_val:
@@ -48,7 +52,7 @@ if overloaded:
 % for arg in fcn_args:
             py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
 % endfor ## args 
-            D(${doc_prefix}${cls_name},${fcn['name']})
+            D(${doc_prefix}${cls_name},${fcn['name']}${index_str})
         )${';' if isfree else ""}
 % endif ## Not a filtered function name
 </%def>
@@ -59,9 +63,13 @@ fcn_args = fcn['arguments']
 fcn_name = fcn['name']
 has_static = fcn['has_static'] if 'has_static' in fcn else False
 matcher = lambda x,name: x['name'] == name
-overloaded = sum([matcher(f,fcn_name) for f in fcn_list]) > 1
+matched_list = [f for f in fcn_list if matcher(f,fcn_name)]
+overloaded = len(matched_list) > 1
 overloaded_str = ''
+index_str = ''
 if overloaded:
+  index_into_list = matched_list.index(fcn)
+  index_str = ','+str(index_into_list)
   overloaded_str = '({} ({}::*)({}))'.format(fcn['return_type'],'',', '.join([f['dtype'] for f in fcn_args]))
 %>\
 % if fcn['name'] != filter_val:
@@ -69,7 +77,7 @@ if overloaded:
 % for arg in fcn_args:
             py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
 % endfor ## args 
-            D(${doc_prefix}${fcn['name']})
+            D(${doc_prefix}${fcn['name']}${index_str})
         );
 % endif ## Not a filtered function name
 </%def>
