@@ -233,7 +233,7 @@ class ModToolAdd(ModTool):
 
         # Generate bindings cc file
         fname_cc = self.info['blockname'] + '_python.cc'
-        fname_pydoc_h = self.info['blockname'] + '_pydoc.h'
+        fname_pydoc_h = self.info['blockname'] + '_pydoc_template.h'
 
         # Update python_bindings.cc
         ed = CPPFileEditor(self._file['ccpybind'])

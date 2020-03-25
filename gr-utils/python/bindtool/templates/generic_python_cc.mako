@@ -21,6 +21,7 @@ ${license}
 namespace py = pybind11;
 
 #include <${prefix_include_root}/${basename}.h>
+// pydoc.h is automatically generated in the build directory
 #include <${basename}_pydoc.h>
 
 void bind_${basename}(py::module& m)

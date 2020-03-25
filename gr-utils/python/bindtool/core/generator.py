@@ -79,7 +79,7 @@ class BindingGenerator:
     def write_pydoc_h(self, header_info, base_name, output_dir):
 
         doc_pathname = os.path.join(
-            output_dir, '{}_pydoc.h'.format(base_name))
+            output_dir, '{}_pydoc_template.h'.format(base_name))
 
         try:
             pybind_code = self.gen_pydoc_h(
