@@ -21,7 +21,7 @@ ${license}
 namespace py = pybind11;
 
 #include <${prefix_include_root}/${basename}.h>
-#include "${basename}_pydoc.h"
+#include <${basename}_pydoc.h>
 
 void bind_${basename}(py::module& m)
 {

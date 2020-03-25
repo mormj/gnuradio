@@ -257,7 +257,7 @@ def get_docstrings_dict(di, custom_output=None):
 
     return output
 
-def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict)
+def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, output_dir):
     for pydoc_file in pydoc_files:
         file_in = open(pydoc_file,'r').read()
         for key, value in docstrings_dict.items():  
@@ -268,17 +268,20 @@ def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict)
             regexp = r'(__doc_{} =\sR\"doc\()[^)]*(\)doc\")'.format(doc_key)
             regexp = re.compile(regexp, re.MULTILINE)
             (file_in, nsubs) = regexp.subn(r'\1'+value+r'\2', file_in, count=1)
-            x = 7
-        with open(pydoc_file,'w') as file_out:
+
+        output_pathname = os.path.join(output_dir, os.path.basename(pydoc_file).replace('_template.h','.h'))
+        with open(output_pathname,'w') as file_out:
             file_out.write(file_in)
 
 if __name__ == "__main__":
     # Parse command line options and set up doxyxml.
     err_msg = "Execute using: python update_pydoc.py xml_path [outputfilename]"
-    if len(sys.argv) != 3:
+    if len(sys.argv) < 4:
         raise Exception(err_msg)
     xml_path = sys.argv[1]
-    dbg_output_filename = sys.argv[2] if len(sys.argv >= 3) else None
+    bindings_dir = sys.argv[2]
+    output_dir = sys.argv[3]
+    dbg_output_filename = sys.argv[4] if len(sys.argv) >= 5 else None
     di = DoxyIndex(xml_path)
 
     # Generate the docstrings interface file.
@@ -291,7 +294,7 @@ if __name__ == "__main__":
     # Go through the python/bindings directory and fill in doc()doc with the docstring
     # This file lives at ./docs/doxygen/
     # Pydocs live at ../../python/bindings/
-    bindings_path = os.path.join(os.path.dirname(__file__),'..','..','python','bindings')
-    pydoc_files = glob.glob(os.path.join(bindings_path,'*_pydoc.h'))
+    # bindings_path = os.path.join(os.path.dirname(__file__),'..','..','python','bindings')
+    pydoc_files = glob.glob(os.path.join(bindings_dir,'*_pydoc_template.h'))
 
-    sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict)
+    sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, output_dir)
