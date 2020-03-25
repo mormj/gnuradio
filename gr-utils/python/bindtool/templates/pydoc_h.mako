@@ -15,13 +15,14 @@ ${license}
 #include "pydoc_macros.h"
 \
 /*
-  This file contains docstrings for the Python bindings.
-  Do not edit! These were automatically extracted during the build process
+  This file contains placeholders for docstrings for the Python bindings.
+  Do not edit! These were automatically extracted during the binding process
+  and will be overwritten during the build process
  */
-${render_namespace(namespace=namespace, modname=[modname])}
-
+${render_namespace(namespace=namespace, modname=[modname])} \
+\
 <%def name='render_docstring_const(modname,names,info,docstring="",info_all=None)'>
-<%
+<% 
   suffix = ''
   if info_all:
     matcher = lambda x,name: x['name'] == name
@@ -31,9 +32,8 @@ ${render_namespace(namespace=namespace, modname=[modname])}
     if overloaded:
       index_into_list = matched_list.index(info)
       suffix = '_'+str(index_into_list)
-%>
-static const char *__doc_${'_'.join(modname+names)}${suffix} =
-R"doc(${docstring})doc";
+%> \
+static const char *__doc_${'_'.join(modname+names)}${suffix} = R"doc(${docstring})doc";
 </%def> \
 <%def name='render_namespace(namespace, modname)'>
 <%
@@ -41,7 +41,7 @@ R"doc(${docstring})doc";
     free_functions=namespace['free_functions'] if 'free_functions' in namespace else []
     free_enums = namespace['enums'] if 'enums' in namespace else []
     subnamespaces = namespace['namespaces'] if 'namespaces' in namespace else []
-%>\
+%>
 \
 % for cls in classes:
 <%
@@ -49,7 +49,7 @@ R"doc(${docstring})doc";
         constructors = cls['constructors'] if 'constructors' in cls else []
         class_enums = cls['enums'] if 'enums' in cls else []
         class_variables = cls['variables'] if 'variables' in cls else []
-%>
+%> \
 \
 ${render_docstring_const(modname,[cls['name']],cls,cls['docstring'] if 'docstring' in cls else "")}
 \
@@ -60,7 +60,7 @@ ${render_docstring_const(modname,[cls['name'],cotr['name']],cotr,cotr['docstring
 % for fcn in member_functions:
 ${render_docstring_const(modname,[cls['name'],fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",member_functions)}
 % endfor ## member_functions
-% endfor ## classes
+% endfor ## classes 
 \
 % if free_functions:
 % for fcn in free_functions:
