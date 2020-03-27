@@ -49,14 +49,14 @@ void bind_basic_block(py::module& m)
         .def("message_port_register_out",&basic_block::message_port_register_out,
             py::arg("port_id") 
         )
-        // .def("message_port_pub",&basic_block::message_port_pub,
-        //     py::arg("port_id"), 
-        //     py::arg("msg") 
-        // )
-        // .def("message_port_sub",&basic_block::message_port_sub,
-        //     py::arg("port_id"), 
-        //     py::arg("target") 
-        // )
+        .def("message_port_pub",&basic_block::message_port_pub,
+            py::arg("port_id"), 
+            py::arg("msg") 
+        )
+        .def("message_port_sub",&basic_block::message_port_sub,
+            py::arg("port_id"), 
+            py::arg("target") 
+        )
         // .def("message_port_unsub",&basic_block::message_port_unsub,
         //     py::arg("port_id"), 
         //     py::arg("target") 

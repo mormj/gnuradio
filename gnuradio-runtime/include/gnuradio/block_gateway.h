@@ -13,6 +13,7 @@
 
 #include <gnuradio/api.h>
 #include <gnuradio/block.h>
+#include <string>
 
 #include <pybind11/pybind11.h> // must be first
 #include <pybind11/stl.h>
@@ -107,6 +108,12 @@ public:
         gr::block::get_tags_in_window(tags, which_input, rel_start, rel_end, key);
         return tags;
     }
+
+    virtual void set_msg_handler_pybind(pmt::pmt_t which_port, std::string& handler_name) = 0;
+
+protected:
+    virtual bool has_msg_handler(pmt::pmt_t which_port) = 0;
+    virtual void dispatch_msg(pmt::pmt_t which_port, pmt::pmt_t msg) = 0;
 
 };
 

@@ -123,6 +123,8 @@ class gateway_block(object):
         self.gateway = block_gateway(
             self, name, self.__in_sig.gr_io_signature(), self.__out_sig.gr_io_signature())
 
+        self.msg_handlers = {}
+
     def __getattr__(self, name):
         """
         Pass-through member requests to the C++ object.
@@ -222,6 +224,11 @@ class gateway_block(object):
 
     def out_sig(self):
         return self.__out_sig
+
+    def set_msg_handler(self, which_port, handler_function):
+        self.gateway.set_msg_handler_pybind(which_port, handler_function.__name__)
+        # Save handler object in class so it's not garbage collected
+        self.msg_handlers[which_port] = handler_function
 
     # TODO: Make gateway_block have an is-a instead of has-a relationship
     #  That way we don't have to wrap all these functions

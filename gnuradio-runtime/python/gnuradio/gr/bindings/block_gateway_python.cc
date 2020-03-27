@@ -80,7 +80,12 @@ void bind_block_gateway(py::module& m)
             py::arg("key")
             )            
 
-        ;
+        .def("set_msg_handler_pybind", &block_gateway::set_msg_handler_pybind,
+            py::arg("which_port"),
+            py::arg("handler_name")
+            )            
+
+        ;        
     py::enum_<gr::gw_block_t>(m,"gw_block_t")
         .value("GW_BLOCK_GENERAL", gr::GW_BLOCK_GENERAL) 
         .value("GW_BLOCK_SYNC", gr::GW_BLOCK_SYNC) 
