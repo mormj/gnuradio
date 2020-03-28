@@ -1229,77 +1229,77 @@ void bind_pmt(py::module& m)
           py::arg("v"),
           D(c64vector_elements, 1));
 
-
-    m.def("pmt_u8vector_elements",
-          &::pmt::pmt_u8vector_elements,
-          py::arg("v"),
-          D(pmt_u8vector_elements));
-
-
-    m.def("pmt_s8vector_elements",
-          &::pmt::pmt_s8vector_elements,
-          py::arg("v"),
-          D(pmt_s8vector_elements));
+// The following functions are not implemented in pmt.cc
+//     m.def("pmt_u8vector_elements",
+//           &::pmt::pmt_u8vector_elements,
+//           py::arg("v"),
+//           D(pmt_u8vector_elements));
 
 
-    m.def("pmt_u16vector_elements",
-          &::pmt::pmt_u16vector_elements,
-          py::arg("v"),
-          D(pmt_u16vector_elements));
+//     m.def("pmt_s8vector_elements",
+//           &::pmt::pmt_s8vector_elements,
+//           py::arg("v"),
+//           D(pmt_s8vector_elements));
 
 
-    m.def("pmt_s16vector_elements",
-          &::pmt::pmt_s16vector_elements,
-          py::arg("v"),
-          D(pmt_s16vector_elements));
+//     m.def("pmt_u16vector_elements",
+//           &::pmt::pmt_u16vector_elements,
+//           py::arg("v"),
+//           D(pmt_u16vector_elements));
 
 
-    m.def("pmt_u32vector_elements",
-          &::pmt::pmt_u32vector_elements,
-          py::arg("v"),
-          D(pmt_u32vector_elements));
+//     m.def("pmt_s16vector_elements",
+//           &::pmt::pmt_s16vector_elements,
+//           py::arg("v"),
+//           D(pmt_s16vector_elements));
 
 
-    m.def("pmt_s32vector_elements",
-          &::pmt::pmt_s32vector_elements,
-          py::arg("v"),
-          D(pmt_s32vector_elements));
+//     m.def("pmt_u32vector_elements",
+//           &::pmt::pmt_u32vector_elements,
+//           py::arg("v"),
+//           D(pmt_u32vector_elements));
 
 
-    m.def("pmt_u64vector_elements",
-          &::pmt::pmt_u64vector_elements,
-          py::arg("v"),
-          D(pmt_u64vector_elements));
+//     m.def("pmt_s32vector_elements",
+//           &::pmt::pmt_s32vector_elements,
+//           py::arg("v"),
+//           D(pmt_s32vector_elements));
 
 
-    m.def("pmt_s64vector_elements",
-          &::pmt::pmt_s64vector_elements,
-          py::arg("v"),
-          D(pmt_s64vector_elements));
+//     m.def("pmt_u64vector_elements",
+//           &::pmt::pmt_u64vector_elements,
+//           py::arg("v"),
+//           D(pmt_u64vector_elements));
 
 
-    m.def("pmt_f32vector_elements",
-          &::pmt::pmt_f32vector_elements,
-          py::arg("v"),
-          D(pmt_f32vector_elements));
+//     m.def("pmt_s64vector_elements",
+//           &::pmt::pmt_s64vector_elements,
+//           py::arg("v"),
+//           D(pmt_s64vector_elements));
 
 
-    m.def("pmt_f64vector_elements",
-          &::pmt::pmt_f64vector_elements,
-          py::arg("v"),
-          D(pmt_f64vector_elements));
+//     m.def("pmt_f32vector_elements",
+//           &::pmt::pmt_f32vector_elements,
+//           py::arg("v"),
+//           D(pmt_f32vector_elements));
 
 
-    m.def("pmt_c32vector_elements",
-          &::pmt::pmt_c32vector_elements,
-          py::arg("v"),
-          D(pmt_c32vector_elements));
+//     m.def("pmt_f64vector_elements",
+//           &::pmt::pmt_f64vector_elements,
+//           py::arg("v"),
+//           D(pmt_f64vector_elements));
 
 
-    m.def("pmt_c64vector_elements",
-          &::pmt::pmt_c64vector_elements,
-          py::arg("v"),
-          D(pmt_c64vector_elements));
+//     m.def("pmt_c32vector_elements",
+//           &::pmt::pmt_c32vector_elements,
+//           py::arg("v"),
+//           D(pmt_c32vector_elements));
+
+
+//     m.def("pmt_c64vector_elements",
+//           &::pmt::pmt_c64vector_elements,
+//           py::arg("v"),
+//           D(pmt_c64vector_elements));
 
 
     m.def("uniform_vector_writable_elements",
@@ -1457,19 +1457,19 @@ void bind_pmt(py::module& m)
     m.def("any_set", &::pmt::any_set, py::arg("obj"), py::arg("any"), D(any_set));
 
 
-    m.def("is_msg_accepter", &::pmt::is_msg_accepter, py::arg("obj"), D(is_msg_accepter));
+//     m.def("is_msg_accepter", &::pmt::is_msg_accepter, py::arg("obj"), D(is_msg_accepter));
 
 
-    m.def("make_msg_accepter",
-          &::pmt::make_msg_accepter,
-          py::arg("ma"),
-          D(make_msg_accepter));
+//     m.def("make_msg_accepter",
+//           &::pmt::make_msg_accepter,
+//           py::arg("ma"),
+//           D(make_msg_accepter));
 
 
-    m.def("msg_accepter_ref",
-          &::pmt::msg_accepter_ref,
-          py::arg("obj"),
-          D(msg_accepter_ref));
+//     m.def("msg_accepter_ref",
+//           &::pmt::msg_accepter_ref,
+//           py::arg("obj"),
+//           D(msg_accepter_ref));
 
 
     m.def("eq", &::pmt::eq, py::arg("x"), py::arg("y"), D(eq));

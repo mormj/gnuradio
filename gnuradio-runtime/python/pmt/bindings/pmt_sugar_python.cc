@@ -56,10 +56,10 @@ void bind_pmt_sugar(py::module& m)
         "mp", (pmt::pmt_t(*)(std::complex<float>)) & ::pmt::mp, py::arg("z"), D(mp, 8));
 
 
-    m.def("mp",
-          (pmt::pmt_t(*)(std::shared_ptr<gr::messages::msg_accepter>)) & ::pmt::mp,
-          py::arg("ma"),
-          D(mp, 9));
+//     m.def("mp",
+//           (pmt::pmt_t(*)(std::shared_ptr<gr::messages::msg_accepter>)) & ::pmt::mp,
+//           py::arg("ma"),
+//           D(mp, 9));
 
 
     m.def("mp",
