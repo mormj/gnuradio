@@ -17,7 +17,6 @@ pybind11_add_module(blocks_python
     annotator_alltoall_python.cc
     annotator_raw_python.cc
     argmax_python.cc
-    # bin_statistics_f_python.cc
     burst_tagger_python.cc
     char_to_float_python.cc
     char_to_short_python.cc

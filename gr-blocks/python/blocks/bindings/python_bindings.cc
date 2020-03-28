@@ -29,7 +29,6 @@ void bind_annotator_1to1(py::module&);
 void bind_annotator_alltoall(py::module&);
 void bind_annotator_raw(py::module&);
 void bind_argmax(py::module&);
-// void bind_bin_statistics_f(py::module&);
 void bind_burst_tagger(py::module&);
 void bind_char_to_float(py::module&);
 void bind_char_to_short(py::module&);
@@ -207,7 +206,6 @@ PYBIND11_MODULE(blocks_python, m)
     bind_annotator_alltoall(m);
     bind_annotator_raw(m);
     bind_argmax(m);
-    // bind_bin_statistics_f(m);
     bind_burst_tagger(m);
     bind_char_to_float(m);
     bind_char_to_short(m);
