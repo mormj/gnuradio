@@ -41,7 +41,6 @@ messages/msg_queue_python.cc
     msg_queue_python.cc
     nco_python.cc
     prefs_python.cc
-    # py_feval_python.cc
     # pycallback_object_python.cc
     random_python.cc
     realtime_python.cc

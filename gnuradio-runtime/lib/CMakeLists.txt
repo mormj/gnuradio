@@ -47,7 +47,6 @@ add_library(gnuradio-runtime
   block_gateway_impl.cc
   block_registry.cc
   buffer.cc
-  feval.cc
   flat_flowgraph.cc
   flowgraph.cc
   hier_block2.cc
