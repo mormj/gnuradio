@@ -163,17 +163,26 @@ pybind11_add_module(blocks_python
     xor_blk_python.cc
     python_bindings.cc)
 
-add_custom_command( 
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/docstring_status
-    COMMAND python3 ${CMAKE_SOURCE_DIR}/docs/doxygen/update_pydoc.py "sub"
-    "--json_path" ${CMAKE_BINARY_DIR}/docs/doxygen/gnuradio_docstrings.json
-    "--bindings_dir" ${CMAKE_CURRENT_SOURCE_DIR}/docstrings
-    "--output_dir" ${CMAKE_CURRENT_BINARY_DIR}
-    "--filter" "gr::blocks"
-    COMMENT "Adding docstrings into gr::blocks pybind headers ..."
-    DEPENDS gnuradio_docstrings gnuradio-blocks)
-
-add_custom_target(blocks_docstrings ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/docstring_status)
+# TODO - replace this with a macro in the cmake/Modules directory
+if(ENABLE_DOXYGEN)
+    add_custom_command( 
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/docstring_status
+        COMMAND python3 ${CMAKE_SOURCE_DIR}/docs/doxygen/update_pydoc.py "sub"
+        "--json_path" ${CMAKE_BINARY_DIR}/docs/doxygen/gnuradio_docstrings.json
+        "--bindings_dir" ${CMAKE_CURRENT_SOURCE_DIR}
+        "--output_dir" ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Adding docstrings into gr-blocks pybind headers ..."
+        DEPENDS gnuradio_docstrings)
+    add_custom_target(blocks_docstrings ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/docstring_status)
+else(ENABLE_DOXYGEN)
+    add_custom_command( 
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/docstring_status
+        COMMAND python3 ${CMAKE_SOURCE_DIR}/docs/doxygen/update_pydoc.py "copy"
+        "--bindings_dir" ${CMAKE_CURRENT_SOURCE_DIR}/docstrings
+        "--output_dir" ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Copying gr-blocks docstring templates as pybind headers ...")
+    add_custom_target(blocks_docstrings ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/docstring_status)
+endif(ENABLE_DOXYGEN)
 
 target_include_directories(blocks_python PUBLIC
     ${CMAKE_CURRENT_BINARY_DIR}
@@ -183,10 +192,7 @@ target_include_directories(blocks_python PUBLIC
     ${PYBIND11_INCLUDE_DIR}
 )
 target_link_libraries(blocks_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime gnuradio-blocks)
+target_compile_options(blocks_python PRIVATE -Wno-unused-variable) # disable 
 add_dependencies(blocks_python blocks_docstrings)
-
-if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
-    SET_TARGET_PROPERTIES(blocks_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
-endif()
 
 install(TARGETS blocks_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/blocks COMPONENT pythonapi)

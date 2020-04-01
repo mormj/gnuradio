@@ -300,25 +300,33 @@ def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, output_dir, filter_st
             with open(output_pathname,'w') as file_out:
                 file_out.write(file_in)
 
+def copy_docstring_templates(pydoc_files, output_dir):
+    with open(os.path.join(output_dir,'docstring_status'),'w') as status_file:
+        for pydoc_file in pydoc_files:
+            file_in = open(pydoc_file,'r').read()
+            output_pathname = os.path.join(output_dir, os.path.basename(pydoc_file).replace('_template.h','.h'))
+            print('output docstrings to {}'.format(output_pathname))
+            with open(output_pathname,'w') as file_out:
+                file_out.write(file_in)
+        status_file.write("DONE")
+
 def argParse():
     """Parses commandline args."""
     desc='Scrape the doxygen generated xml for docstrings to insert into python bindings'
     parser = ArgumentParser(description=desc)
     
-    parser.add_argument("function", help="Operation to perform on docstrings", choices=["scrape","sub"])
+    parser.add_argument("function", help="Operation to perform on docstrings", choices=["scrape","sub","copy"])
 
     parser.add_argument("--xml_path")
     parser.add_argument("--bindings_dir")
     parser.add_argument("--output_dir")
-    parser.add_argument("--json_path", required=True)
+    parser.add_argument("--json_path")
     parser.add_argument("--filter", default=None)
 
     return parser.parse_args()
 
 if __name__ == "__main__":
     # Parse command line options and set up doxyxml.
-    print( sys.argv)
-
     args = argParse()
     if args.function.lower() == 'scrape':
         di = DoxyIndex(args.xml_path)
@@ -326,11 +334,12 @@ if __name__ == "__main__":
         with open(args.json_path, 'w') as fp:
             json.dump(docstrings_dict, fp)
     elif args.function.lower() == 'sub':
-        print ("subbing ....")
-        print (args.bindings_dir)
         with open(args.json_path, 'r') as fp:
             docstrings_dict = json.load(fp)
         pydoc_files = glob.glob(os.path.join(args.bindings_dir,'*_pydoc_template.h'))
         sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, args.output_dir, args.filter)
+    elif args.function.lower() == 'copy':
+        pydoc_files = glob.glob(os.path.join(args.bindings_dir,'*_pydoc_template.h'))
+        copy_docstring_templates(pydoc_files, args.output_dir)
 
             
