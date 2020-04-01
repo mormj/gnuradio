@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/tags.h>
+// pydoc.h is automatically generated in the build directory
+#include <tags_pydoc.h>
 
 void bind_tags(py::module& m)
 {
@@ -23,15 +25,17 @@ void bind_tags(py::module& m)
 
 
     py::class_<tag_t,
-        std::shared_ptr<tag_t>>(m, "tag_t")
+        std::shared_ptr<tag_t>>(m, "tag_t", D(tag_t))
 
-        .def(py::init<>())
-        .def(py::init<gr::tag_t const &>(),           py::arg("rhs") 
+        .def(py::init<>(),D(tag_t,tag_t,0))
+        .def(py::init<gr::tag_t const &>(),           py::arg("rhs"),
+           D(tag_t,tag_t,1)
         )
 
         .def_static("offset_compare",&tag_t::offset_compare,
-            py::arg("x"), 
-            py::arg("y") 
+            py::arg("x"),
+            py::arg("y"),
+            D(tag_t,offset_compare)
         )
 
         .def_readwrite("offset", &tag_t::offset)

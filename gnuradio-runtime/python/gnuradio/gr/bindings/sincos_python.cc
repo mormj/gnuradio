@@ -16,19 +16,25 @@
 namespace py = pybind11;
 
 #include <gnuradio/sincos.h>
+// pydoc.h is automatically generated in the build directory
+#include <sincos_pydoc.h>
 
 void bind_sincos(py::module& m)
 {
 
+        m.def("sincos",&::gr::sincos,
+            py::arg("x"),
+            py::arg("sinx"),
+            py::arg("cosx"),
+            D(sincos)
+        );
 
-    m.def("sincos",&gr::sincos,
-        py::arg("x"), 
-        py::arg("sin"), 
-        py::arg("cos") 
-    );
-    m.def("sincosf",&gr::sincosf,
-        py::arg("x"), 
-        py::arg("sin"), 
-        py::arg("cos") 
-    );
+
+        m.def("sincosf",&::gr::sincosf,
+            py::arg("x"),
+            py::arg("sinx"),
+            py::arg("cosx"),
+            D(sincosf)
+        );
+
 } 

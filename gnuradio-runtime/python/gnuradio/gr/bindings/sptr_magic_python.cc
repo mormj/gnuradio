@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/sptr_magic.h>
+// pydoc.h is automatically generated in the build directory
+#include <sptr_magic_pydoc.h>
 
 void bind_sptr_magic(py::module& m)
 {

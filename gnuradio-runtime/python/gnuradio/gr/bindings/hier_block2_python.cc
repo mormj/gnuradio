@@ -16,120 +16,226 @@
 namespace py = pybind11;
 
 #include <gnuradio/hier_block2.h>
-#include <gnuradio/runtime_types.h>
-#include <gnuradio/flowgraph.h>
+// pydoc.h is automatically generated in the build directory
+#include <hier_block2_pydoc.h>
 
 void bind_hier_block2(py::module& m)
 {
     using hier_block2    = gr::hier_block2;
 
 
-    py::class_<hier_block2,gr::basic_block,gr::msg_accepter,
-        std::shared_ptr<hier_block2>>(m, "hier_block2_pb")
 
-        .def(py::init(&gr::make_hier_block2),
-            py::arg("name"), 
-            py::arg("input_signature"), 
-            py::arg("output_signature") 
+    py::class_<hier_block2, gr::basic_block,
+        std::shared_ptr<hier_block2>>(m, "hier_block2", D(hier_block2))
+
+
+
+        .def("self",&hier_block2::self,
+            D(hier_block2,self)
         )
 
-        .def("self",&hier_block2::self)
-        .def("primitive_connect",(void (hier_block2::*)(gr::basic_block_sptr))&hier_block2::connect,
-            py::arg("block") 
+
+        .def("connect",(void (hier_block2::*)(gr::basic_block_sptr))&hier_block2::connect,
+            py::arg("block"),
+            D(hier_block2,connect,0)
         )
-        .def("primitive_connect",(void (hier_block2::*)(gr::basic_block_sptr, int, gr::basic_block_sptr, int))&hier_block2::connect,
-            py::arg("src"), 
-            py::arg("src_port"), 
-            py::arg("dst"), 
-            py::arg("dst_port") 
+
+
+        .def("connect",(void (hier_block2::*)(gr::basic_block_sptr, int, gr::basic_block_sptr, int))&hier_block2::connect,
+            py::arg("src"),
+            py::arg("src_port"),
+            py::arg("dst"),
+            py::arg("dst_port"),
+            D(hier_block2,connect,1)
         )
-        .def("primitive_msg_connect",(void (hier_block2::*)(gr::basic_block_sptr, pmt::pmt_t, gr::basic_block_sptr, pmt::pmt_t))&hier_block2::msg_connect,
-            py::arg("src"), 
-            py::arg("srcport"), 
-            py::arg("dst"), 
-            py::arg("dstport") 
+
+
+        .def("msg_connect",(void (hier_block2::*)(gr::basic_block_sptr, pmt::pmt_t, gr::basic_block_sptr, pmt::pmt_t))&hier_block2::msg_connect,
+            py::arg("src"),
+            py::arg("srcport"),
+            py::arg("dst"),
+            py::arg("dstport"),
+            D(hier_block2,msg_connect,0)
         )
-        .def("primitive_msg_connect",(void (hier_block2::*)(gr::basic_block_sptr, std::string, gr::basic_block_sptr, std::string))&hier_block2::msg_connect,
-            py::arg("src"), 
-            py::arg("srcport"), 
-            py::arg("dst"), 
-            py::arg("dstport") 
+
+
+        .def("msg_connect",(void (hier_block2::*)(gr::basic_block_sptr, std::string, gr::basic_block_sptr, std::string))&hier_block2::msg_connect,
+            py::arg("src"),
+            py::arg("srcport"),
+            py::arg("dst"),
+            py::arg("dstport"),
+            D(hier_block2,msg_connect,1)
         )
-        .def("primitive_msg_disconnect",(void (hier_block2::*)(gr::basic_block_sptr, pmt::pmt_t, gr::basic_block_sptr, pmt::pmt_t))&hier_block2::msg_disconnect,
-            py::arg("src"), 
-            py::arg("srcport"), 
-            py::arg("dst"), 
-            py::arg("dstport") 
+
+
+        .def("msg_disconnect",(void (hier_block2::*)(gr::basic_block_sptr, pmt::pmt_t, gr::basic_block_sptr, pmt::pmt_t))&hier_block2::msg_disconnect,
+            py::arg("src"),
+            py::arg("srcport"),
+            py::arg("dst"),
+            py::arg("dstport"),
+            D(hier_block2,msg_disconnect,0)
         )
-        .def("primitive_msg_disconnect",(void (hier_block2::*)(gr::basic_block_sptr, std::string, gr::basic_block_sptr, std::string))&hier_block2::msg_disconnect,
-            py::arg("src"), 
-            py::arg("srcport"), 
-            py::arg("dst"), 
-            py::arg("dstport") 
+
+
+        .def("msg_disconnect",(void (hier_block2::*)(gr::basic_block_sptr, std::string, gr::basic_block_sptr, std::string))&hier_block2::msg_disconnect,
+            py::arg("src"),
+            py::arg("srcport"),
+            py::arg("dst"),
+            py::arg("dstport"),
+            D(hier_block2,msg_disconnect,1)
         )
-        .def("primitive_disconnect",(void (hier_block2::*)(gr::basic_block_sptr))&hier_block2::disconnect,
-            py::arg("block") 
+
+
+        .def("disconnect",(void (hier_block2::*)(gr::basic_block_sptr))&hier_block2::disconnect,
+            py::arg("block"),
+            D(hier_block2,disconnect,0)
         )
-        .def("primitive_disconnect",(void (hier_block2::*)(gr::basic_block_sptr, int, gr::basic_block_sptr, int))&hier_block2::disconnect,
-            py::arg("src"), 
-            py::arg("src_port"), 
-            py::arg("dst"), 
-            py::arg("dst_port") 
+
+
+        .def("disconnect",(void (hier_block2::*)(gr::basic_block_sptr, int, gr::basic_block_sptr, int))&hier_block2::disconnect,
+            py::arg("src"),
+            py::arg("src_port"),
+            py::arg("dst"),
+            py::arg("dst_port"),
+            D(hier_block2,disconnect,1)
         )
-        .def("disconnect_all",&hier_block2::disconnect_all)
-        .def("lock",&hier_block2::lock)
-        .def("unlock",&hier_block2::unlock)
+
+
+        .def("disconnect_all",&hier_block2::disconnect_all,
+            D(hier_block2,disconnect_all)
+        )
+
+
+        .def("lock",&hier_block2::lock,
+            D(hier_block2,lock)
+        )
+
+
+        .def("unlock",&hier_block2::unlock,
+            D(hier_block2,unlock)
+        )
+
+
         .def("max_output_buffer",&hier_block2::max_output_buffer,
-            py::arg("port") = 0 
+            py::arg("port") = 0,
+            D(hier_block2,max_output_buffer)
         )
+
+
         .def("set_max_output_buffer",(void (hier_block2::*)(int))&hier_block2::set_max_output_buffer,
-            py::arg("max_output_buffer") 
+            py::arg("max_output_buffer"),
+            D(hier_block2,set_max_output_buffer,0)
         )
+
+
         .def("set_max_output_buffer",(void (hier_block2::*)(size_t, int))&hier_block2::set_max_output_buffer,
-            py::arg("port"), 
-            py::arg("max_output_buffer") 
+            py::arg("port"),
+            py::arg("max_output_buffer"),
+            D(hier_block2,set_max_output_buffer,1)
         )
+
+
         .def("min_output_buffer",&hier_block2::min_output_buffer,
-            py::arg("port") = 0 
+            py::arg("port") = 0,
+            D(hier_block2,min_output_buffer)
         )
+
+
         .def("set_min_output_buffer",(void (hier_block2::*)(int))&hier_block2::set_min_output_buffer,
-            py::arg("min_output_buffer") 
+            py::arg("min_output_buffer"),
+            D(hier_block2,set_min_output_buffer,0)
         )
+
+
         .def("set_min_output_buffer",(void (hier_block2::*)(size_t, int))&hier_block2::set_min_output_buffer,
-            py::arg("port"), 
-            py::arg("min_output_buffer") 
+            py::arg("port"),
+            py::arg("min_output_buffer"),
+            D(hier_block2,set_min_output_buffer,1)
         )
-        // .def("flatten",&hier_block2::flatten)
-        .def("to_hier_block2",&hier_block2::to_hier_block2)
+
+
+        //.def("flatten",&hier_block2::flatten,
+        //    D(hier_block2,flatten)
+        //)
+
+
+        .def("to_hier_block2",&hier_block2::to_hier_block2,
+            D(hier_block2,to_hier_block2)
+        )
+
+
         .def("has_msg_port",&hier_block2::has_msg_port,
-            py::arg("which_port") 
+            py::arg("which_port"),
+            D(hier_block2,has_msg_port)
         )
+
+
         .def("message_port_is_hier",&hier_block2::message_port_is_hier,
-            py::arg("port_id") 
+            py::arg("port_id"),
+            D(hier_block2,message_port_is_hier)
         )
+
+
         .def("message_port_is_hier_in",&hier_block2::message_port_is_hier_in,
-            py::arg("port_id") 
+            py::arg("port_id"),
+            D(hier_block2,message_port_is_hier_in)
         )
+
+
         .def("message_port_is_hier_out",&hier_block2::message_port_is_hier_out,
-            py::arg("port_id") 
+            py::arg("port_id"),
+            D(hier_block2,message_port_is_hier_out)
         )
-        .def("primitive_message_port_register_hier_in",&hier_block2::message_port_register_hier_in,
-            py::arg("port_id") 
+
+
+        .def("message_port_register_hier_in",&hier_block2::message_port_register_hier_in,
+            py::arg("port_id"),
+            D(hier_block2,message_port_register_hier_in)
         )
-        .def("primitive_message_port_register_hier_out",&hier_block2::message_port_register_hier_out,
-            py::arg("port_id") 
+
+
+        .def("message_port_register_hier_out",&hier_block2::message_port_register_hier_out,
+            py::arg("port_id"),
+            D(hier_block2,message_port_register_hier_out)
         )
+
+
         .def("set_processor_affinity",&hier_block2::set_processor_affinity,
-            py::arg("mask") 
+            py::arg("mask"),
+            D(hier_block2,set_processor_affinity)
         )
-        .def("unset_processor_affinity",&hier_block2::unset_processor_affinity)
-        .def("processor_affinity",&hier_block2::processor_affinity)
+
+
+        .def("unset_processor_affinity",&hier_block2::unset_processor_affinity,
+            D(hier_block2,unset_processor_affinity)
+        )
+
+
+        .def("processor_affinity",&hier_block2::processor_affinity,
+            D(hier_block2,processor_affinity)
+        )
+
+
         .def("set_log_level",&hier_block2::set_log_level,
-            py::arg("level") 
+            py::arg("level"),
+            D(hier_block2,set_log_level)
         )
-        .def("log_level",&hier_block2::log_level)
-        .def("all_min_output_buffer_p",&hier_block2::all_min_output_buffer_p)
-        .def("all_max_output_buffer_p",&hier_block2::all_max_output_buffer_p)
+
+
+        .def("log_level",&hier_block2::log_level,
+            D(hier_block2,log_level)
+        )
+
+
+        .def("all_min_output_buffer_p",&hier_block2::all_min_output_buffer_p,
+            D(hier_block2,all_min_output_buffer_p)
+        )
+
+
+        .def("all_max_output_buffer_p",&hier_block2::all_max_output_buffer_p,
+            D(hier_block2,all_max_output_buffer_p)
+        )
+
         ;
 
 

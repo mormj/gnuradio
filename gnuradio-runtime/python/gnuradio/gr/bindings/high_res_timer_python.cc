@@ -16,13 +16,41 @@
 namespace py = pybind11;
 
 #include <gnuradio/high_res_timer.h>
+// pydoc.h is automatically generated in the build directory
+#include <high_res_timer_pydoc.h>
 
 void bind_high_res_timer(py::module& m)
 {
 
 
-    m.def("high_res_timer_now",&gr::high_res_timer_now);
-    m.def("high_res_timer_now_perfmon",&gr::high_res_timer_now_perfmon);
-    m.def("high_res_timer_tps",&gr::high_res_timer_tps);
-    m.def("high_res_timer_epoch",&gr::high_res_timer_epoch);
-} 
+
+
+        m.def("high_res_timer_now",&::gr::high_res_timer_now,
+            D(high_res_timer_now)
+        );
+
+
+        m.def("high_res_timer_now_perfmon",&::gr::high_res_timer_now_perfmon,
+            D(high_res_timer_now_perfmon)
+        );
+
+
+        m.def("high_res_timer_tps",&::gr::high_res_timer_tps,
+            D(high_res_timer_tps)
+        );
+
+
+        m.def("high_res_timer_epoch",&::gr::high_res_timer_epoch,
+            D(high_res_timer_epoch)
+        );
+
+
+
+}
+
+
+
+
+
+
+

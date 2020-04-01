@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/expj.h>
+// pydoc.h is automatically generated in the build directory
+#include <expj_pydoc.h>
 
 void bind_expj(py::module& m)
 {

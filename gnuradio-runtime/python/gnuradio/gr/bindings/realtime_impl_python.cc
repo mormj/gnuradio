@@ -19,20 +19,26 @@ namespace py = pybind11;
 
 void bind_realtime_impl(py::module& m)
 {
-    using rt_sched_param    = gr::rt_sched_param;
+
+py::module m_impl = m.def_submodule("impl");
+
+    using rt_sched_param    = ::gr::impl::rt_sched_param;
 
 
     py::class_<rt_sched_param,
-        std::shared_ptr<rt_sched_param>>(m, "rt_sched_param")
+        std::shared_ptr<rt_sched_param>>(m_impl, "rt_sched_param", D(impl,rt_sched_param))
 
-        .def(py::init<>())
-        .def(py::init<int,gr::rt_sched_policy>(),           py::arg("priority_"), 
-           py::arg("policy_") = ::gr::rt_sched_policy::RT_SCHED_RR 
+        .def(py::init<>(),D(impl,rt_sched_param,rt_sched_param,0))
+        .def(py::init<int,gr::rt_sched_policy>(),           py::arg("priority_"),
+           py::arg("policy_") = ::gr::rt_sched_policy::RT_SCHED_RR,
+           D(impl,rt_sched_param,rt_sched_param,1)
         )
-        .def(py::init<gr::impl::rt_sched_param const &>(),           py::arg("arg0") 
+        .def(py::init<gr::impl::rt_sched_param const &>(),           py::arg("arg0"),
+           D(impl,rt_sched_param,rt_sched_param,2)
         )
 
         ;
+
 
     py::enum_<gr::rt_status_t>(m,"rt_status_t")
         .value("RT_OK", gr::RT_OK) // 0
@@ -47,10 +53,24 @@ void bind_realtime_impl(py::module& m)
         .export_values()
     ;
 
-    m.def("rt_priority_min",&gr::rt_priority_min);
-    m.def("rt_priority_max",&gr::rt_priority_max);
-    m.def("rt_priority_default",&gr::rt_priority_default);
-    m.def("enable_realtime_scheduling",&gr::enable_realtime_scheduling,
-        py::arg("arg0") = gr::impl::rt_sched_param() 
-    );
+
+        m_impl.def("rt_priority_min",&::gr::impl::rt_priority_min,
+            D(impl,rt_priority_min)
+        );
+
+
+        m_impl.def("rt_priority_max",&::gr::impl::rt_priority_max,
+            D(impl,rt_priority_max)
+        );
+
+
+        m_impl.def("rt_priority_default",&::gr::impl::rt_priority_default,
+            D(impl,rt_priority_default)
+        );
+
+
+        m_impl.def("enable_realtime_scheduling",&::gr::impl::enable_realtime_scheduling,
+            py::arg("arg0") = gr::impl::rt_sched_param(),
+            D(impl,enable_realtime_scheduling)
+        );
 } 

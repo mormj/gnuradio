@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/endianness.h>
+// pydoc.h is automatically generated in the build directory
+#include <endianness_pydoc.h>
 
 void bind_endianness(py::module& m)
 {

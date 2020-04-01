@@ -16,37 +16,52 @@
 namespace py = pybind11;
 
 #include <gnuradio/tagged_stream_block.h>
+// pydoc.h is automatically generated in the build directory
+#include <tagged_stream_block_pydoc.h>
 
 void bind_tagged_stream_block(py::module& m)
 {
     using tagged_stream_block    = gr::tagged_stream_block;
 
 
-    py::class_<tagged_stream_block,gr::block, gr::basic_block,
-        std::shared_ptr<tagged_stream_block>>(m, "tagged_stream_block")
+    py::class_<tagged_stream_block, gr::block, gr::basic_block,
+        std::shared_ptr<tagged_stream_block>>(m, "tagged_stream_block", D(tagged_stream_block))
+
 
 
         .def("forecast",&tagged_stream_block::forecast,
-            py::arg("noutput_items"), 
-            py::arg("ninput_items_required") 
+            py::arg("noutput_items"),
+            py::arg("ninput_items_required"),
+            D(tagged_stream_block,forecast)
         )
+
+
         .def("check_topology",&tagged_stream_block::check_topology,
-            py::arg("ninputs"), 
-            py::arg("arg1") 
+            py::arg("ninputs"),
+            py::arg("arg1"),
+            D(tagged_stream_block,check_topology)
         )
+
+
         .def("general_work",&tagged_stream_block::general_work,
-            py::arg("noutput_items"), 
-            py::arg("ninput_items"), 
-            py::arg("input_items"), 
-            py::arg("output_items") 
+            py::arg("noutput_items"),
+            py::arg("ninput_items"),
+            py::arg("input_items"),
+            py::arg("output_items"),
+            D(tagged_stream_block,general_work)
         )
+
+
         .def("work",&tagged_stream_block::work,
-            py::arg("noutput_items"), 
-            py::arg("ninput_items"), 
-            py::arg("input_items"), 
-            py::arg("output_items") 
+            py::arg("noutput_items"),
+            py::arg("ninput_items"),
+            py::arg("input_items"),
+            py::arg("output_items"),
+            D(tagged_stream_block,work)
         )
+
         ;
+
 
 
 } 

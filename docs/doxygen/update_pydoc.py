@@ -269,8 +269,8 @@ def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, output_dir):
                 file_in_tmp = file_in 
                 try:
                     doc_key = key.split("::")
-                    if 'gr' in doc_key:
-                        doc_key.remove('gr') 
+                    # if 'gr' in doc_key:
+                    #     doc_key.remove('gr') 
                     doc_key = '_'.join(doc_key)
                     regexp = r'(__doc_{} =\sR\"doc\()[^)]*(\)doc\")'.format(doc_key)
                     regexp = re.compile(regexp, re.MULTILINE)

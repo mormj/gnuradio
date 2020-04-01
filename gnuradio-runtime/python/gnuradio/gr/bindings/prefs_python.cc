@@ -19,67 +19,112 @@ namespace py = pybind11;
 
 void bind_prefs(py::module& m)
 {
-    using prefs    = gr::prefs;
+    using prefs    = ::gr::prefs;
 
 
     py::class_<prefs,
-        std::shared_ptr<prefs>>(m, "prefs")
+        std::shared_ptr<prefs>>(m, "prefs", D(prefs))
 
-        .def(py::init<>())
+        .def(py::init<>(),D(prefs,prefs,0))
 
-        .def("singleton",&prefs::singleton)
+
+        .def_static("singleton",&prefs::singleton,
+            D(prefs,singleton)
+        )
+
+
         .def("add_config_file",&prefs::add_config_file,
-            py::arg("configfile") 
+            py::arg("configfile"),
+            D(prefs,add_config_file)
         )
-        .def("to_string",&prefs::to_string)
-        .def("save",&prefs::save)
+
+
+        .def("to_string",&prefs::to_string,
+            D(prefs,to_string)
+        )
+
+
+        .def("save",&prefs::save,
+            D(prefs,save)
+        )
+
+
         .def("has_section",&prefs::has_section,
-            py::arg("section") 
+            py::arg("section"),
+            D(prefs,has_section)
         )
+
+
         .def("has_option",&prefs::has_option,
-            py::arg("section"), 
-            py::arg("option") 
+            py::arg("section"),
+            py::arg("option"),
+            D(prefs,has_option)
         )
+
+
         .def("get_string",&prefs::get_string,
-            py::arg("section"), 
-            py::arg("option"), 
-            py::arg("default_val") 
+            py::arg("section"),
+            py::arg("option"),
+            py::arg("default_val"),
+            D(prefs,get_string)
         )
+
+
         .def("set_string",&prefs::set_string,
-            py::arg("section"), 
-            py::arg("option"), 
-            py::arg("val") 
+            py::arg("section"),
+            py::arg("option"),
+            py::arg("val"),
+            D(prefs,set_string)
         )
+
+
         .def("get_bool",&prefs::get_bool,
-            py::arg("section"), 
-            py::arg("option"), 
-            py::arg("default_val") 
+            py::arg("section"),
+            py::arg("option"),
+            py::arg("default_val"),
+            D(prefs,get_bool)
         )
+
+
         .def("set_bool",&prefs::set_bool,
-            py::arg("section"), 
-            py::arg("option"), 
-            py::arg("val") 
+            py::arg("section"),
+            py::arg("option"),
+            py::arg("val"),
+            D(prefs,set_bool)
         )
+
+
         .def("get_long",&prefs::get_long,
-            py::arg("section"), 
-            py::arg("option"), 
-            py::arg("default_val") 
+            py::arg("section"),
+            py::arg("option"),
+            py::arg("default_val"),
+            D(prefs,get_long)
         )
+
+
         .def("set_long",&prefs::set_long,
-            py::arg("section"), 
-            py::arg("option"), 
-            py::arg("val") 
+            py::arg("section"),
+            py::arg("option"),
+            py::arg("val"),
+            D(prefs,set_long)
         )
+
+
         .def("get_double",&prefs::get_double,
-            py::arg("section"), 
-            py::arg("option"), 
-            py::arg("default_val") 
+            py::arg("section"),
+            py::arg("option"),
+            py::arg("default_val"),
+            D(prefs,get_double)
         )
+
+
         .def("set_double",&prefs::set_double,
-            py::arg("section"), 
-            py::arg("option"), 
-            py::arg("val") 
+            py::arg("section"),
+            py::arg("option"),
+            py::arg("val"),
+            D(prefs,set_double)
         )
+
         ;
 
 

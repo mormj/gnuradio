@@ -1,6 +1,7 @@
 ########################################################################
 # Python Bindings
 ########################################################################
+configure_file(${CMAKE_SOURCE_DIR}/docs/doxygen/pydoc_macros.h ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 pybind11_add_module(gr_python
 messages/msg_accepter_msgq_python.cc
@@ -80,12 +81,26 @@ messages/msg_queue_python.cc
     # xoroshiro128p_python.cc
     python_bindings.cc)
 
+    add_custom_command( 
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/docstring_status
+        COMMAND python3 ${CMAKE_SOURCE_DIR}/docs/doxygen/update_pydoc.py "sub"
+        "--json_path" ${CMAKE_BINARY_DIR}/docs/doxygen/gnuradio_docstrings.json
+        "--bindings_dir" ${CMAKE_CURRENT_SOURCE_DIR}/pydoc
+        "--output_dir" ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Adding docstrings into GR pybind headers ..."
+        DEPENDS gnuradio_docstrings)
+    
+    add_custom_target(gr_docstrings ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/docstring_status)
+    
+
 target_include_directories(gr_python PUBLIC
+    ${CMAKE_CURRENT_BINARY_DIR}
     ${PYTHON_NUMPY_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
     ${PYBIND11_INCLUDE_DIR}
 )
 target_link_libraries(gr_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime)
+add_dependencies(gr_python gr_docstrings)
 
 install(TARGETS gr_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/gr COMPONENT pythonapi)

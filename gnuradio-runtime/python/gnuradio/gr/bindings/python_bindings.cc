@@ -124,9 +124,10 @@ PYBIND11_MODULE(gr_python, m)
     
     bind_io_signature(m);
     // bind_attributes(m);
+    bind_block_detail(m);
     bind_basic_block(m);
     bind_block(m);
-    bind_block_detail(m);
+    
     bind_block_gateway(m);
     // bind_block_registry(m);
     bind_buffer(m);

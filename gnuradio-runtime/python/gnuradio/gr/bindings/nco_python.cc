@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/nco.h>
+// pydoc.h is automatically generated in the build directory
+#include <nco_pydoc.h>
 
 void bind_nco(py::module& m)
 {

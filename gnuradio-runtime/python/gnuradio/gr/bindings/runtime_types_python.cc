@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/runtime_types.h>
+// pydoc.h is automatically generated in the build directory
+#include <runtime_types_pydoc.h>
 
 void bind_runtime_types(py::module& m)
 {

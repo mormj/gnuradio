@@ -152,7 +152,7 @@ class GenericHeaderParser(BlockTool):
             if variables:
                 for _var in variables:
                     current_var = {
-                        'name': _var.name, 'value': _var.value, "has_static": _var.has_static}
+                        'name': _var.name, 'value': _var.value, "has_static": _var.has_static if hasattr(_var, 'has_static') else '0'}
                     class_vars.append(current_var)
         class_dict['vars'] = class_vars
 
@@ -179,8 +179,8 @@ class GenericHeaderParser(BlockTool):
             if variables:
                 for _var in variables:
                     current_var = {
-                        'name': _var.name, 'values': _var.value, 'has_static': _var.has_static}
-                    namespace_dict['vars'].append(current_var)
+                        'name': _var.name, 'values': _var.value, 'has_static': _var.has_static if hasattr(_var, 'has_static') else '0'}
+                    namespace_dict['variables'].append(current_var)
 
         # classes
         namespace_dict['classes'] = []

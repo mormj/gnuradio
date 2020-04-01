@@ -13,6 +13,7 @@ ${license}
 %>\
 \
 #include "pydoc_macros.h"
+#define D(...) DOC(${modname}, __VA_ARGS__ )
 \
 /*
   This file contains placeholders for docstrings for the Python bindings.
