@@ -116,6 +116,8 @@ def make_entry(obj, name=None, templ="{description}", description=None, params=[
     """
     if name is None:
         name=obj.name()
+        if hasattr(obj,'_parse_data') and hasattr(obj._parse_data,'definition'):
+            name=obj._parse_data.definition.split(' ')[-1]
     if "operator " in name:
         return ''
     if description is None:
@@ -267,14 +269,15 @@ def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, output_dir):
                 file_in_tmp = file_in 
                 try:
                     doc_key = key.split("::")
-                    if 'gr' in doc_key:
-                        doc_key.remove('gr') 
+                    # if 'gr' in doc_key:
+                    #     doc_key.remove('gr') 
                     doc_key = '_'.join(doc_key)
                     regexp = r'(__doc_{} =\sR\"doc\()[^)]*(\)doc\")'.format(doc_key)
                     regexp = re.compile(regexp, re.MULTILINE)
                 
                     (file_in, nsubs) = regexp.subn(r'\1'+value+r'\2', file_in, count=1)
-                    status_file.write("PASS: " + pydoc_file + "\n")
+                    if nsubs == 1:
+                        status_file.write("PASS: " + pydoc_file + "\n")
                 except: # be permissive, TODO log, but just leave the docstring blank
                     status_file.write("FAIL: " + pydoc_file + "\n")
                     file_in = file_in_tmp

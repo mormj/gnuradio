@@ -13,6 +13,7 @@ ${license}
 %>\
 \
 #include "pydoc_macros.h"
+#define D(...) DOC(${modname}, __VA_ARGS__ )
 \
 /*
   This file contains placeholders for docstrings for the Python bindings.
@@ -51,20 +52,20 @@ static const char *__doc_${'_'.join(modname+names)}${suffix} = R"doc(${docstring
         class_variables = cls['variables'] if 'variables' in cls else []
 %> \
 \
-${render_docstring_const(modname,[cls['name']],cls,cls['docstring'] if 'docstring' in cls else "")}
+${render_docstring_const(modname,[namespace['name'].split('::'),cls['name']],cls,cls['docstring'] if 'docstring' in cls else "")}
 \
 % for cotr in constructors:
-${render_docstring_const(modname,[cls['name'],cotr['name']],cotr,cotr['docstring'] if 'docstring' in cotr else "",constructors)}
+${render_docstring_const(modname,[namespace['name'].split('::'),cls['name'],cotr['name']],cotr,cotr['docstring'] if 'docstring' in cotr else "",constructors)}
 % endfor ## constructors
 \
 % for fcn in member_functions:
-${render_docstring_const(modname,[cls['name'],fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",member_functions)}
+${render_docstring_const(modname,[namespace['name'].split('::'),cls['name'],fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",member_functions)}
 % endfor ## member_functions
 % endfor ## classes 
 \
 % if free_functions:
 % for fcn in free_functions:
-${render_docstring_const(modname,[fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",free_functions)}
+${render_docstring_const(modname,[namespace['name'].split('::'),fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",free_functions)}
 % endfor ## free_functions
 % endif ## free_functions
 \

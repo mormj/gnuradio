@@ -48,7 +48,7 @@ add_custom_command(
   "--xml_path" ${CMAKE_BINARY_DIR}/docs/doxygen/xml
   "--json_path" ${CMAKE_CURRENT_BINARY_DIR}/gnuradio_docstrings.json
   COMMENT "Scraping generated documentation for docstrings ..."
-  DEPENDS doxygen_target)
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/update_pydoc.py doxygen_target)
 
 add_custom_target(
     gnuradio_docstrings ALL

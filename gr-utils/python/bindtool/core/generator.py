@@ -79,7 +79,7 @@ class BindingGenerator:
     def write_pydoc_h(self, header_info, base_name, output_dir):
 
         doc_pathname = os.path.join(
-            output_dir, '{}_pydoc_template.h'.format(base_name))
+            output_dir, 'docstrings', '{}_pydoc_template.h'.format(base_name))
 
         try:
             pybind_code = self.gen_pydoc_h(
@@ -170,10 +170,16 @@ class BindingGenerator:
 
         output_dir = os.path.join(
             self.output_dir, rel_path_after_include, 'bindings')
-        if output_dir and not os.path.exists(output_dir):
+        doc_dir = os.path.join(output_dir,'docstrings')
+        if output_dir and not os.path.exists(output_dir) and not os.path.exists(doc_dir):
             output_dir = os.path.abspath(output_dir)
             print('creating output directory {}'.format(output_dir))
             os.makedirs(output_dir)
+
+        if doc_dir and not os.path.exists(doc_dir):
+            doc_dir = os.path.abspath(doc_dir)
+            print('creating docstrings directory {}'.format(doc_dir))
+            os.makedirs(doc_dir)
 
         return output_dir
 
