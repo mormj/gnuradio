@@ -16,25 +16,30 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/add_const_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <add_const_bb_pydoc.h>
 
 void bind_add_const_bb(py::module& m)
 {
     using add_const_bb    = gr::blocks::add_const_bb;
 
 
-    py::class_<add_const_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<add_const_bb>>(m, "add_const_bb")
+    py::class_<add_const_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<add_const_bb>>(m, "add_const_bb", D(add_const_bb))
 
         .def(py::init(&add_const_bb::make),
-           py::arg("k") 
+           py::arg("k"),
+           D(add_const_bb,make)
         )
-        
 
-        .def("k",&add_const_bb::k)
+        .def("k",&add_const_bb::k,
+            D(add_const_bb,k)
+        )
+
         .def("set_k",&add_const_bb::set_k,
-            py::arg("k") 
+            py::arg("k"),
+            D(add_const_bb,set_k)
         )
         ;
-
 
 } 

@@ -1,6 +1,7 @@
 ########################################################################
 # Python Bindings
 ########################################################################
+configure_file(${CMAKE_SOURCE_DIR}/docs/doxygen/pydoc_macros.h ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 pybind11_add_module(blocks_python
     abs_blk_python.cc
@@ -162,13 +163,27 @@ pybind11_add_module(blocks_python
     xor_blk_python.cc
     python_bindings.cc)
 
+add_custom_command( 
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/docstring_status
+    COMMAND python3 ${CMAKE_SOURCE_DIR}/docs/doxygen/update_pydoc.py "sub"
+    "--json_path" ${CMAKE_BINARY_DIR}/docs/doxygen/gnuradio_docstrings.json
+    "--bindings_dir" ${CMAKE_CURRENT_SOURCE_DIR}/docstrings
+    "--output_dir" ${CMAKE_CURRENT_BINARY_DIR}
+    "--filter" "gr::blocks"
+    COMMENT "Adding docstrings into gr::blocks pybind headers ..."
+    DEPENDS gnuradio_docstrings gnuradio-blocks)
+
+add_custom_target(blocks_docstrings ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/docstring_status)
+
 target_include_directories(blocks_python PUBLIC
+    ${CMAKE_CURRENT_BINARY_DIR}
     ${PYTHON_NUMPY_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
     ${PYBIND11_INCLUDE_DIR}
 )
 target_link_libraries(blocks_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime gnuradio-blocks)
+add_dependencies(blocks_python blocks_docstrings)
 
 if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
     SET_TARGET_PROPERTIES(blocks_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
