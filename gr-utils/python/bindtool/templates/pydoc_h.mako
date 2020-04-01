@@ -24,6 +24,7 @@ ${render_namespace(namespace=namespace, modname=[modname])} \
 \
 <%def name='render_docstring_const(modname,names,info,docstring="",info_all=None)'>
 <% 
+  names = list(filter(None, names))
   suffix = ''
   if info_all:
     matcher = lambda x,name: x['name'] == name
@@ -34,7 +35,7 @@ ${render_namespace(namespace=namespace, modname=[modname])} \
       index_into_list = matched_list.index(info)
       suffix = '_'+str(index_into_list)
 %> \
-static const char *__doc_${'_'.join(modname+names)}${suffix} = R"doc(${docstring})doc";
+static const char *__doc_${'_'.join(names)}${suffix} = R"doc(${docstring})doc";
 </%def> \
 <%def name='render_namespace(namespace, modname)'>
 <%
@@ -52,20 +53,20 @@ static const char *__doc_${'_'.join(modname+names)}${suffix} = R"doc(${docstring
         class_variables = cls['variables'] if 'variables' in cls else []
 %> \
 \
-${render_docstring_const(modname,[namespace['name'].split('::'),cls['name']],cls,cls['docstring'] if 'docstring' in cls else "")}
+${render_docstring_const(modname,namespace['name'].split('::')+[cls['name']],cls,cls['docstring'] if 'docstring' in cls else "")}
 \
 % for cotr in constructors:
-${render_docstring_const(modname,[namespace['name'].split('::'),cls['name'],cotr['name']],cotr,cotr['docstring'] if 'docstring' in cotr else "",constructors)}
+${render_docstring_const(modname,namespace['name'].split('::')+[cls['name'],cotr['name']],cotr,cotr['docstring'] if 'docstring' in cotr else "",constructors)}
 % endfor ## constructors
 \
 % for fcn in member_functions:
-${render_docstring_const(modname,[namespace['name'].split('::'),cls['name'],fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",member_functions)}
+${render_docstring_const(modname,namespace['name'].split('::')+[cls['name'],fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",member_functions)}
 % endfor ## member_functions
 % endfor ## classes 
 \
 % if free_functions:
 % for fcn in free_functions:
-${render_docstring_const(modname,[namespace['name'].split('::'),fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",free_functions)}
+${render_docstring_const(modname,namespace['name'].split('::')+[fcn['name']],fcn,fcn['docstring'] if 'docstring' in fcn else "",free_functions)}
 % endfor ## free_functions
 % endif ## free_functions
 \
