@@ -260,12 +260,23 @@ def get_docstrings_dict(di, custom_output=None):
 
     return output
 
-def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, output_dir):
+def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, output_dir, filter_str=None):
+    if filter_str:
+        docstrings_dict = {k: v for k, v in docstrings_dict.items() if k.startswith(filter_str)}
+
     with open(os.path.join(output_dir,'docstring_status'),'w') as status_file:
     
         for pydoc_file in pydoc_files:
+            if filter_str:
+                filter_str2 = "::".join((filter_str,os.path.split(pydoc_file)[-1].split('_pydoc_template.h')[0]))
+                docstrings_dict2 = {k: v for k, v in docstrings_dict.items() if k.startswith(filter_str2)}
+            else:
+                docstrings_dict2 = docstrings_dict
+
+
+
             file_in = open(pydoc_file,'r').read()
-            for key, value in docstrings_dict.items(): 
+            for key, value in docstrings_dict2.items(): 
                 file_in_tmp = file_in 
                 try:
                     doc_key = key.split("::")
@@ -278,6 +289,8 @@ def sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, output_dir):
                     (file_in, nsubs) = regexp.subn(r'\1'+value+r'\2', file_in, count=1)
                     if nsubs == 1:
                         status_file.write("PASS: " + pydoc_file + "\n")
+                except KeyboardInterrupt:
+                    raise KeyboardInterrupt
                 except: # be permissive, TODO log, but just leave the docstring blank
                     status_file.write("FAIL: " + pydoc_file + "\n")
                     file_in = file_in_tmp
@@ -298,6 +311,7 @@ def argParse():
     parser.add_argument("--bindings_dir")
     parser.add_argument("--output_dir")
     parser.add_argument("--json_path", required=True)
+    parser.add_argument("--filter", default=None)
 
     return parser.parse_args()
 
@@ -317,6 +331,6 @@ if __name__ == "__main__":
         with open(args.json_path, 'r') as fp:
             docstrings_dict = json.load(fp)
         pydoc_files = glob.glob(os.path.join(args.bindings_dir,'*_pydoc_template.h'))
-        sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, args.output_dir)
+        sub_docstring_in_pydoc_h(pydoc_files, docstrings_dict, args.output_dir, args.filter)
 
             
