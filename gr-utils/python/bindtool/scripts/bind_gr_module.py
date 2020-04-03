@@ -39,5 +39,5 @@ for name in args.names:
     import warnings
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=DeprecationWarning)
-        bg = BindingGenerator(prefix, namespace, prefix_include_root, output_dir, match_include_structure=True)
+        bg = BindingGenerator(prefix, namespace, prefix_include_root, output_dir, addl_includes=includes, match_include_structure=True)
         bg.gen_bindings(module_dir)
