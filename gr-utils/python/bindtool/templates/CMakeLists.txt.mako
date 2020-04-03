@@ -5,9 +5,9 @@ ${'########################################################################'}
 ${'########################################################################'}
 <%
 import os
-## file_list = files.sort()
+file_list = module_name + '_python_files'
 %>
-list(APPEND ${module_name}_python_files
+list(APPEND ${file_list}
 ## File Includes
 % for f in files:  
 <%
@@ -19,6 +19,6 @@ basename = os.path.splitext(f)[0]
 
 GR_PYBIND_MAKE(${module_name} 
    ../../.. 
-   "\$\{${module_name}_python_files\}")
+   "${'${'+file_list+'}'}")
 
 install(TARGETS ${module_name}_python DESTINATION ${'${GR_PYTHON_DIR}'}/gnuradio/${module_name} COMPONENT pythonapi)
