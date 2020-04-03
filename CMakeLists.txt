@@ -46,7 +46,7 @@ include(GrVersion) #setup version info
 
 # Minimum dependency versions for central dependencies:
 set(GR_BOOST_MIN_VERSION "1.53")
-set(GR_SWIG_MIN_VERSION "3.0.8")
+set(GR_PYBIND11_MIN_VERSION "2.4.3")
 set(GR_CMAKE_MIN_VERSION "3.5.1")
 set(GR_MAKO_MIN_VERSION "0.4.2")
 set(GR_PYTHON_MIN_VERSION "3.6.5")
@@ -329,23 +329,16 @@ include(GrBoost)
 # Enable python component
 ########################################################################
 include(GrPython)
-GR_PYTHON_CHECK_MODULE("six - python 2 and 3 compatibility library" six "True" SIX_FOUND)
-find_package(SWIG)
-
-if(SWIG_FOUND)
-    SET(SWIG_VERSION_CHECK FALSE)
-    if("${SWIG_VERSION}" VERSION_EQUAL ${GR_SWIG_MIN_VERSION} OR
-       "${SWIG_VERSION}" VERSION_GREATER ${GR_SWIG_MIN_VERSION})
-        SET(SWIG_VERSION_CHECK TRUE)
-    endif()
-endif(SWIG_FOUND)
+find_package(pybind11 REQUIRED)
+execute_process(
+    COMMAND "${PYTHON_EXECUTABLE}" -c
+    "from __future__ import print_function\ntry:\n import numpy\n import os\n inc_path = numpy.get_include()\n if os.path.exists(os.path.join(inc_path, 'numpy', 'arrayobject.h')):\n  print(inc_path, end='')\nexcept:\n pass"
+    OUTPUT_VARIABLE PYTHON_NUMPY_INCLUDE_DIR)
 
 include(GrComponent)
 GR_REGISTER_COMPONENT("python-support" ENABLE_PYTHON
     PYTHONLIBS_FOUND
-    SWIG_FOUND
-    SWIG_VERSION_CHECK
-    SIX_FOUND
+    pybind11_FOUND
 )
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Coverage")
@@ -417,16 +410,6 @@ message(STATUS "  Override with -DENABLE_INTERNAL_VOLK=ON/OFF")
 
 # Handle logging
 find_package(LOG4CPP REQUIRED)
-
-########################################################################
-# PyBind11 Related
-########################################################################
-
-find_package(pybind11 REQUIRED)
-execute_process(
-    COMMAND "${PYTHON_EXECUTABLE}" -c
-    "from __future__ import print_function\ntry:\n import numpy\n import os\n inc_path = numpy.get_include()\n if os.path.exists(os.path.join(inc_path, 'numpy', 'arrayobject.h')):\n  print(inc_path, end='')\nexcept:\n pass"
-    OUTPUT_VARIABLE PYTHON_NUMPY_INCLUDE_DIR)
 
 
 ########################################################################
