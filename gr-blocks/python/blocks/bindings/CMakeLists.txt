@@ -163,6 +163,8 @@ list(APPEND blocks_python_files
     xor_blk_python.cc
     python_bindings.cc)
 
-GR_PYBIND_MAKE(blocks ../../.. ${blocks_python_files})
+GR_PYBIND_MAKE(blocks 
+  ../../.. 
+  "${blocks_python_files}")
 
 install(TARGETS blocks_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/blocks COMPONENT pythonapi)

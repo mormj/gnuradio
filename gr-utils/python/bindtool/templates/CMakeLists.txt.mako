@@ -1,3 +1,5 @@
+include(GrPybind)
+
 ${'########################################################################'}
 # Python Bindings
 ${'########################################################################'}
@@ -5,7 +7,7 @@ ${'########################################################################'}
 import os
 ## file_list = files.sort()
 %>
-pybind11_add_module(${module_name}_python
+list(APPEND ${module_name}_python_files
 ## File Includes
 % for f in files:  
 <%
@@ -15,16 +17,8 @@ basename = os.path.splitext(f)[0]
 % endfor
     python_bindings.cc)
 
-target_include_directories(${module_name}_python PUBLIC
-${'    ${PYTHON_NUMPY_INCLUDE_DIR}'}
-${'    ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib'}
-${'    ${CMAKE_CURRENT_SOURCE_DIR}/../../../include'}
-${'    ${PYBIND11_INCLUDE_DIR}'}
-)
-target_link_libraries(${module_name}_python PUBLIC ${'${Boost_LIBRARIES} ${PYTHON_LIBRARIES}'} gnuradio-runtime gnuradio-${module_name})
-
-if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
-    SET_TARGET_PROPERTIES(${module_name}_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
-endif()
+GR_PYBIND_MAKE(${module_name} 
+   ../../.. 
+   "\$\{${module_name}_python_files\}")
 
 install(TARGETS ${module_name}_python DESTINATION ${'${GR_PYTHON_DIR}'}/gnuradio/${module_name} COMPONENT pythonapi)
