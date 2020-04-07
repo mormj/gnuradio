@@ -233,8 +233,9 @@ class GenericHeaderParser(BlockTool):
             xml_generator=generator_name,
             include_paths=self.include_paths,
             compiler='gcc',
-            define_symbols=['BOOST_ATOMIC_DETAIL_EXTRA_BACKEND_GENERIC'],
-            cflags='-std=c++11')
+            undefine_symbols=['__PIE__'],
+            define_symbols=['BOOST_ATOMIC_DETAIL_EXTRA_BACKEND_GENERIC', '__PIC__'],
+            cflags='-std=c++11 -fPIC')
         decls = parser.parse(
             [self.target_file], xml_generator_config)
         global_namespace = declarations.get_global_namespace(decls)
