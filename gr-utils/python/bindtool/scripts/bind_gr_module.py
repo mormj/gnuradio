@@ -18,9 +18,15 @@ args = parser.parse_args()
 
 # NOTES:
 # To generate QTGUI requires adding the QT headers as --include, e.g.
-# bind_gr_module.py --prefix /share/gnuradio/grpybind --output_dir /share/tmp/take5 
+# bind_gr_module.py --prefix /share/gnuradio/grpybind --output_dir /share/tmp/take5
 #   --include /usr/include/x86_64-linux-gnu/qt5/QtGui,/usr/include/x86_64-linux-gnu/qt5,
 #   /usr/include/x86_64-linux-gnu/qt5/QtCore,/usr/include/x86_64-linux-gnu/qt5/QtWidgets,/usr/include/qwt qtgui
+
+# To generate UHD requires adding the UHD headers, e.g.
+# python3 /share/gnuradio/grpybind/src/gnuradio/gr-utils/python/bindtool/scripts/bind_gr_module.py 
+#   --prefix /share/gnuradio/grpybind 
+#   --include $UHD_PATH,$UHD_PATH/utils,$UHD_PATH/types,$UHD_PATH/transport,$UHD_PATH/usrp_clock,$UHD_PATH/rfnoc 
+#   --output_dir /share/tmp/take5 uhd
 
 
 print(pathlib.Path(__file__).parent.absolute())
