@@ -16,30 +16,42 @@
 namespace py = pybind11;
 
 #include <gnuradio/fft/fft_vcc.h>
+// pydoc.h is automatically generated in the build directory
+#include <fft_vcc_pydoc.h>
 
 void bind_fft_vcc(py::module& m)
 {
-    using fft_vcc    = gr::fft::fft_vcc;
+
+    using fft_vcc    = ::gr::fft::fft_vcc;
 
 
-    py::class_<fft_vcc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<fft_vcc>>(m, "fft_vcc")
+    py::class_<fft_vcc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<fft_vcc>>(m, "fft_vcc", D(fft_vcc))
 
         .def(py::init(&fft_vcc::make),
-           py::arg("fft_size"), 
-           py::arg("forward"), 
-           py::arg("window"), 
-           py::arg("shift") = false, 
-           py::arg("nthreads") = 1 
+           py::arg("fft_size"),
+           py::arg("forward"),
+           py::arg("window"),
+           py::arg("shift") = false,
+           py::arg("nthreads") = 1,
+           D(fft_vcc,make)
         )
         
 
         .def("set_nthreads",&fft_vcc::set_nthreads,
-            py::arg("n") 
+            py::arg("n"),
+            D(fft_vcc,set_nthreads)
         )
-        .def("nthreads",&fft_vcc::nthreads)
+
+
+        .def("nthreads",&fft_vcc::nthreads,
+            D(fft_vcc,nthreads)
+        )
+
+
         .def("set_window",&fft_vcc::set_window,
-            py::arg("window") 
+            py::arg("window"),
+            D(fft_vcc,set_window)
         )
         ;
 

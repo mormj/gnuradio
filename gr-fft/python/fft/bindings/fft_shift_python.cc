@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/fft/fft_shift.h>
+// pydoc.h is automatically generated in the build directory
+#include <fft_shift_pydoc.h>
 
 template<typename T>
 void bind_fft_shift_template(py::module& m, const char *classname)

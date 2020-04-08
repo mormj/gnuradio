@@ -16,30 +16,45 @@
 namespace py = pybind11;
 
 #include <gnuradio/fft/goertzel_fc.h>
+// pydoc.h is automatically generated in the build directory
+#include <goertzel_fc_pydoc.h>
 
 void bind_goertzel_fc(py::module& m)
 {
     using goertzel_fc    = gr::fft::goertzel_fc;
 
 
-    py::class_<goertzel_fc,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<goertzel_fc>>(m, "goertzel_fc")
+
+    py::class_<goertzel_fc, gr::sync_decimator,
+        std::shared_ptr<goertzel_fc>>(m, "goertzel_fc", D(goertzel_fc))
 
         .def(py::init(&goertzel_fc::make),
-           py::arg("rate"), 
-           py::arg("len"), 
-           py::arg("freq") 
+           py::arg("rate"),
+           py::arg("len"),
+           py::arg("freq"),
+           D(goertzel_fc,make)
         )
         
 
         .def("set_freq",&goertzel_fc::set_freq,
-            py::arg("freq") 
+            py::arg("freq"),
+            D(goertzel_fc,set_freq)
         )
         .def("set_rate",&goertzel_fc::set_rate,
-            py::arg("rate") 
+            py::arg("rate"),
+            D(goertzel_fc,set_rate)
         )
-        .def("freq",&goertzel_fc::freq)
-        .def("rate",&goertzel_fc::rate)
+
+
+        .def("freq",&goertzel_fc::freq,
+            D(goertzel_fc,freq)
+        )
+
+
+        .def("rate",&goertzel_fc::rate,
+            D(goertzel_fc,rate)
+        )
+
         ;
 
 

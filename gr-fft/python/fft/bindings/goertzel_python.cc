@@ -16,35 +16,52 @@
 namespace py = pybind11;
 
 #include <gnuradio/fft/goertzel.h>
+// pydoc.h is automatically generated in the build directory
+#include <goertzel_pydoc.h>
 
 void bind_goertzel(py::module& m)
 {
-    using goertzel    = gr::fft::goertzel;
+
+    using goertzel    = ::gr::fft::goertzel;
 
 
     py::class_<goertzel,
-        std::shared_ptr<goertzel>>(m, "goertzel")
+        std::shared_ptr<goertzel>>(m, "goertzel", D(goertzel))
 
-        .def(py::init<int,int,float>(),           py::arg("rate"), 
-           py::arg("len"), 
-           py::arg("freq") 
+        .def(py::init<int,int,float>(),           py::arg("rate"),
+           py::arg("len"),
+           py::arg("freq"),
+           D(goertzel,goertzel,0)
         )
-        .def(py::init<gr::fft::goertzel const &>(),           py::arg("arg0") 
+        .def(py::init<gr::fft::goertzel const &>(),           py::arg("arg0"),
+           D(goertzel,goertzel,1)
         )
 
         .def("set_params",&goertzel::set_params,
-            py::arg("rate"), 
-            py::arg("len"), 
-            py::arg("freq") 
+            py::arg("rate"),
+            py::arg("len"),
+            py::arg("freq"),
+            D(goertzel,set_params)
         )
         .def("batch",&goertzel::batch,
-            py::arg("in") 
+            py::arg("in"),
+            D(goertzel,batch)
         )
         .def("input",&goertzel::input,
-            py::arg("in") 
+            py::arg("in"),
+            D(goertzel,input)
         )
-        .def("output",&goertzel::output)
-        .def("ready",&goertzel::ready)
+
+
+        .def("output",&goertzel::output,
+            D(goertzel,output)
+        )
+
+
+        .def("ready",&goertzel::ready,
+            D(goertzel,ready)
+        )
+
         ;
 
 
