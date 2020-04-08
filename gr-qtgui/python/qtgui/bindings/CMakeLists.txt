@@ -56,6 +56,7 @@ list(APPEND qtgui_python_files
 
 GR_PYBIND_MAKE(qtgui 
    ../../.. 
+   gr::qtgui
    "${qtgui_python_files}")
 
 install(TARGETS qtgui_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/qtgui COMPONENT pythonapi)

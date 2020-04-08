@@ -19,6 +19,7 @@ basename = os.path.splitext(f)[0]
 
 GR_PYBIND_MAKE(${module_name} 
    ../../.. 
+   gr::${module_name}
    "${'${'+file_list+'}'}")
 
 install(TARGETS ${module_name}_python DESTINATION ${'${GR_PYTHON_DIR}'}/gnuradio/${module_name} COMPONENT pythonapi)

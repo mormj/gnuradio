@@ -13,6 +13,7 @@ list(APPEND uhd_python_files
 
 GR_PYBIND_MAKE(uhd 
    ../../.. 
+   gr::uhd
    "${uhd_python_files}")
 
 install(TARGETS uhd_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/uhd COMPONENT pythonapi)
