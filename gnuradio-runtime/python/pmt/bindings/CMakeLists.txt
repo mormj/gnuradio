@@ -12,6 +12,7 @@ list(APPEND pmt_python_files
 
 GR_PYBIND_MAKE(pmt 
    ../../.. 
+   pmt
    "${pmt_python_files}")
 
 install(TARGETS pmt_python DESTINATION ${GR_PYTHON_DIR}/pmt COMPONENT pythonapi)

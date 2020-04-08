@@ -1,6 +1,6 @@
 include(GrPython)
 
-macro(GR_PYBIND_MAKE name updir files) 
+macro(GR_PYBIND_MAKE name updir filter files) 
 
 configure_file(${CMAKE_SOURCE_DIR}/docs/doxygen/pydoc_macros.h ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
@@ -11,10 +11,11 @@ if(ENABLE_DOXYGEN)
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/docstring_status
         COMMAND python3 ${CMAKE_SOURCE_DIR}/docs/doxygen/update_pydoc.py "sub"
         "--json_path" ${CMAKE_BINARY_DIR}/docs/doxygen/gnuradio_docstrings.json
-        "--bindings_dir" ${CMAKE_CURRENT_SOURCE_DIR}
+        "--bindings_dir" ${CMAKE_CURRENT_SOURCE_DIR}/docstrings
         "--output_dir" ${CMAKE_CURRENT_BINARY_DIR}
+        "--filter" ${filter}
         COMMENT "Adding docstrings into ${name} pybind headers ..."
-        DEPENDS gnuradio_docstrings)
+        DEPENDS gnuradio_docstrings gnuradio-${name})
     add_custom_target(${name}_docstrings ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/docstring_status)
 else(ENABLE_DOXYGEN)
     add_custom_command( 
