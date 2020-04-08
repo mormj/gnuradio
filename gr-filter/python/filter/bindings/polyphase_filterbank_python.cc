@@ -16,28 +16,60 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/polyphase_filterbank.h>
+// pydoc.h is automatically generated in the build directory
+#include <polyphase_filterbank_pydoc.h>
 
 void bind_polyphase_filterbank(py::module& m)
 {
-    using polyphase_filterbank    = gr::filter::kernel::polyphase_filterbank;
+
+
+
+
+        py::module m_kernel = m.def_submodule("kernel");
+
+    using polyphase_filterbank    = ::gr::filter::kernel::polyphase_filterbank;
 
 
     py::class_<polyphase_filterbank,
-        std::shared_ptr<polyphase_filterbank>>(m, "polyphase_filterbank")
+        std::shared_ptr<polyphase_filterbank>>(m_kernel, "polyphase_filterbank", D(kernel,polyphase_filterbank))
 
-        .def(py::init<unsigned int,std::vector<float, std::allocator<float> > const &,bool>(),           py::arg("nfilts"), 
-           py::arg("taps"), 
-           py::arg("fft_forward") = false 
+        .def(py::init<unsigned int,std::vector<float, std::allocator<float> > const &,bool>(),           py::arg("nfilts"),
+           py::arg("taps"),
+           py::arg("fft_forward") = false,
+           D(kernel,polyphase_filterbank,polyphase_filterbank,0)
         )
-        .def(py::init<gr::filter::kernel::polyphase_filterbank const &>(),           py::arg("arg0") 
+        .def(py::init<gr::filter::kernel::polyphase_filterbank const &>(),           py::arg("arg0"),
+           D(kernel,polyphase_filterbank,polyphase_filterbank,1)
         )
+
 
         .def("set_taps",&polyphase_filterbank::set_taps,
-            py::arg("taps") 
+            py::arg("taps"),
+            D(kernel,polyphase_filterbank,set_taps)
         )
-        .def("print_taps",&polyphase_filterbank::print_taps)
-        .def("taps",&polyphase_filterbank::taps)
+
+
+        .def("print_taps",&polyphase_filterbank::print_taps,
+            D(kernel,polyphase_filterbank,print_taps)
+        )
+
+
+        .def("taps",&polyphase_filterbank::taps,
+            D(kernel,polyphase_filterbank,taps)
+        )
+
         ;
 
 
-} 
+
+
+
+
+}
+
+
+
+
+
+
+

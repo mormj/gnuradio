@@ -16,26 +16,57 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/mmse_fir_interpolator_ff.h>
+// pydoc.h is automatically generated in the build directory
+#include <mmse_fir_interpolator_ff_pydoc.h>
 
 void bind_mmse_fir_interpolator_ff(py::module& m)
 {
-    using mmse_fir_interpolator_ff    = gr::filter::mmse_fir_interpolator_ff;
+
+    using mmse_fir_interpolator_ff    = ::gr::filter::mmse_fir_interpolator_ff;
 
 
     py::class_<mmse_fir_interpolator_ff,
-        std::shared_ptr<mmse_fir_interpolator_ff>>(m, "mmse_fir_interpolator_ff")
+        std::shared_ptr<mmse_fir_interpolator_ff>>(m, "mmse_fir_interpolator_ff", D(mmse_fir_interpolator_ff))
 
-        .def(py::init<>())
-        .def(py::init<gr::filter::mmse_fir_interpolator_ff const &>(),           py::arg("arg0") 
+        .def(py::init<>(),D(mmse_fir_interpolator_ff,mmse_fir_interpolator_ff,0))
+        .def(py::init<gr::filter::mmse_fir_interpolator_ff const &>(),           py::arg("arg0"),
+           D(mmse_fir_interpolator_ff,mmse_fir_interpolator_ff,1)
         )
 
-        .def("ntaps",&mmse_fir_interpolator_ff::ntaps)
-        .def("nsteps",&mmse_fir_interpolator_ff::nsteps)
+
+        .def("ntaps",&mmse_fir_interpolator_ff::ntaps,
+            D(mmse_fir_interpolator_ff,ntaps)
+        )
+
+
+        .def("nsteps",&mmse_fir_interpolator_ff::nsteps,
+            D(mmse_fir_interpolator_ff,nsteps)
+        )
+
+
         .def("interpolate",&mmse_fir_interpolator_ff::interpolate,
-            py::arg("input"), 
-            py::arg("mu") 
+            py::arg("input"),
+            py::arg("mu"),
+            D(mmse_fir_interpolator_ff,interpolate)
         )
+
         ;
 
 
-} 
+
+        py::module m_kernel = m.def_submodule("kernel");
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+

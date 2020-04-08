@@ -16,22 +16,29 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/dc_blocker_ff.h>
+// pydoc.h is automatically generated in the build directory
+#include <dc_blocker_ff_pydoc.h>
 
 void bind_dc_blocker_ff(py::module& m)
 {
     using dc_blocker_ff    = gr::filter::dc_blocker_ff;
 
 
-    py::class_<dc_blocker_ff,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<dc_blocker_ff>>(m, "dc_blocker_ff")
+
+    py::class_<dc_blocker_ff, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<dc_blocker_ff>>(m, "dc_blocker_ff", D(dc_blocker_ff))
 
         .def(py::init(&dc_blocker_ff::make),
-           py::arg("D"), 
-           py::arg("long_form") = true 
+           py::arg("D"),
+           py::arg("long_form") = true,
+           D(dc_blocker_ff,make)
         )
         
 
-        .def("group_delay",&dc_blocker_ff::group_delay)
+        .def("group_delay",&dc_blocker_ff::group_delay,
+            D(dc_blocker_ff,group_delay)
+        )
+
         ;
 
 

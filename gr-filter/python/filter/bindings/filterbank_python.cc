@@ -16,25 +16,40 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/filterbank.h>
+// pydoc.h is automatically generated in the build directory
+#include <filterbank_pydoc.h>
 
 void bind_filterbank(py::module& m)
 {
+    py::module m_kernel = m.def_submodule("kernel");
     using filterbank    = gr::filter::kernel::filterbank;
 
 
     py::class_<filterbank,
-        std::shared_ptr<filterbank>>(m, "filterbank")
+        std::shared_ptr<filterbank>>(m_kernel, "filterbank", D(kernel,filterbank))
 
-        .def(py::init<std::vector<std::vector<float, std::allocator<float> >, std::allocator<std::vector<float, std::allocator<float> > > > const &>(),           py::arg("taps") 
+        .def(py::init<std::vector<std::vector<float, std::allocator<float> >, std::allocator<std::vector<float, std::allocator<float> > > > const &>(),           py::arg("taps"),
+           D(kernel,filterbank,filterbank,0)
         )
-        .def(py::init<gr::filter::kernel::filterbank const &>(),           py::arg("arg0") 
+        .def(py::init<gr::filter::kernel::filterbank const &>(),           py::arg("arg0"),
+           D(kernel,filterbank,filterbank,1)
         )
 
         .def("set_taps",&filterbank::set_taps,
-            py::arg("taps") 
+            py::arg("taps"),
+            D(kernel,filterbank,set_taps)
         )
-        .def("print_taps",&filterbank::print_taps)
-        .def("taps",&filterbank::taps)
+
+
+        .def("print_taps",&filterbank::print_taps,
+            D(kernel,filterbank,print_taps)
+        )
+
+
+        .def("taps",&filterbank::taps,
+            D(kernel,filterbank,taps)
+        )
+
         ;
 
 

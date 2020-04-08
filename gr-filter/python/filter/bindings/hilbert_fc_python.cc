@@ -16,19 +16,23 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/hilbert_fc.h>
+// pydoc.h is automatically generated in the build directory
+#include <hilbert_fc_pydoc.h>
 
 void bind_hilbert_fc(py::module& m)
 {
     using hilbert_fc    = gr::filter::hilbert_fc;
 
 
-    py::class_<hilbert_fc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<hilbert_fc>>(m, "hilbert_fc")
+
+    py::class_<hilbert_fc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<hilbert_fc>>(m, "hilbert_fc", D(hilbert_fc))
 
         .def(py::init(&hilbert_fc::make),
            py::arg("ntaps"), 
            py::arg("window") = ::gr::filter::firdes::win_type::WIN_HAMMING, 
-           py::arg("beta") = 6.7599999999999998 
+           py::arg("beta") = 6.7599999999999998,
+           D(hilbert_fc,make)
         )
         ;
 

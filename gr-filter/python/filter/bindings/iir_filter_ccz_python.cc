@@ -16,27 +16,45 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/iir_filter_ccz.h>
+// pydoc.h is automatically generated in the build directory
+#include <iir_filter_ccz_pydoc.h>
 
 void bind_iir_filter_ccz(py::module& m)
 {
-    using iir_filter_ccz    = gr::filter::iir_filter_ccz;
+
+    using iir_filter_ccz    = ::gr::filter::iir_filter_ccz;
 
 
-    py::class_<iir_filter_ccz,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<iir_filter_ccz>>(m, "iir_filter_ccz")
+    py::class_<iir_filter_ccz, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<iir_filter_ccz>>(m, "iir_filter_ccz", D(iir_filter_ccz))
 
         .def(py::init(&iir_filter_ccz::make),
-           py::arg("fftaps"), 
-           py::arg("fbtaps"), 
-           py::arg("oldstyle") = true 
+           py::arg("fftaps"),
+           py::arg("fbtaps"),
+           py::arg("oldstyle") = true,
+           D(iir_filter_ccz,make)
         )
         
 
+
+
+
         .def("set_taps",&iir_filter_ccz::set_taps,
-            py::arg("fftaps"), 
-            py::arg("fbtaps") 
+            py::arg("fftaps"),
+            py::arg("fbtaps"),
+            D(iir_filter_ccz,set_taps)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

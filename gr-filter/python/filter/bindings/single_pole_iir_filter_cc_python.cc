@@ -16,25 +16,43 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/single_pole_iir_filter_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <single_pole_iir_filter_cc_pydoc.h>
 
 void bind_single_pole_iir_filter_cc(py::module& m)
 {
-    using single_pole_iir_filter_cc    = gr::filter::single_pole_iir_filter_cc;
+
+    using single_pole_iir_filter_cc    = ::gr::filter::single_pole_iir_filter_cc;
 
 
-    py::class_<single_pole_iir_filter_cc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<single_pole_iir_filter_cc>>(m, "single_pole_iir_filter_cc")
+    py::class_<single_pole_iir_filter_cc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<single_pole_iir_filter_cc>>(m, "single_pole_iir_filter_cc", D(single_pole_iir_filter_cc))
 
         .def(py::init(&single_pole_iir_filter_cc::make),
-           py::arg("alpha"), 
-           py::arg("vlen") = 1 
+           py::arg("alpha"),
+           py::arg("vlen") = 1,
+           D(single_pole_iir_filter_cc,make)
         )
         
 
+
+
+
         .def("set_taps",&single_pole_iir_filter_cc::set_taps,
-            py::arg("alpha") 
+            py::arg("alpha"),
+            D(single_pole_iir_filter_cc,set_taps)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

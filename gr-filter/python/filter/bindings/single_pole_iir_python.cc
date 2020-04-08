@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/single_pole_iir.h>
+// pydoc.h is automatically generated in the build directory
+#include <single_pole_iir_pydoc.h>
 
 void bind_single_pole_iir(py::module& m)
 {

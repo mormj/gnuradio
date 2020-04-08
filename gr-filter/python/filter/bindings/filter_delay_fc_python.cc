@@ -16,17 +16,21 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/filter_delay_fc.h>
+// pydoc.h is automatically generated in the build directory
+#include <filter_delay_fc_pydoc.h>
 
 void bind_filter_delay_fc(py::module& m)
 {
     using filter_delay_fc    = gr::filter::filter_delay_fc;
 
 
-    py::class_<filter_delay_fc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<filter_delay_fc>>(m, "filter_delay_fc")
+
+    py::class_<filter_delay_fc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<filter_delay_fc>>(m, "filter_delay_fc", D(filter_delay_fc))
 
         .def(py::init(&filter_delay_fc::make),
-           py::arg("taps") 
+           py::arg("taps"),
+           D(filter_delay_fc,make)
         )
         ;
 

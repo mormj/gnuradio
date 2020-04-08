@@ -16,30 +16,59 @@
 namespace py = pybind11;
 
 #include <gnuradio/filter/mmse_resampler_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <mmse_resampler_cc_pydoc.h>
 
 void bind_mmse_resampler_cc(py::module& m)
 {
-    using mmse_resampler_cc    = gr::filter::mmse_resampler_cc;
+
+    using mmse_resampler_cc    = ::gr::filter::mmse_resampler_cc;
 
 
-    py::class_<mmse_resampler_cc,gr::block, gr::basic_block,
-        std::shared_ptr<mmse_resampler_cc>>(m, "mmse_resampler_cc")
+    py::class_<mmse_resampler_cc, gr::block, gr::basic_block,
+        std::shared_ptr<mmse_resampler_cc>>(m, "mmse_resampler_cc", D(mmse_resampler_cc))
 
         .def(py::init(&mmse_resampler_cc::make),
-           py::arg("phase_shift"), 
-           py::arg("resamp_ratio") 
+           py::arg("phase_shift"),
+           py::arg("resamp_ratio"),
+           D(mmse_resampler_cc,make)
         )
         
 
-        .def("mu",&mmse_resampler_cc::mu)
-        .def("resamp_ratio",&mmse_resampler_cc::resamp_ratio)
+
+
+
+        .def("mu",&mmse_resampler_cc::mu,
+            D(mmse_resampler_cc,mu)
+        )
+
+
+        .def("resamp_ratio",&mmse_resampler_cc::resamp_ratio,
+            D(mmse_resampler_cc,resamp_ratio)
+        )
+
+
         .def("set_mu",&mmse_resampler_cc::set_mu,
-            py::arg("mu") 
+            py::arg("mu"),
+            D(mmse_resampler_cc,set_mu)
         )
+
+
         .def("set_resamp_ratio",&mmse_resampler_cc::set_resamp_ratio,
-            py::arg("resamp_ratio") 
+            py::arg("resamp_ratio"),
+            D(mmse_resampler_cc,set_resamp_ratio)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+
