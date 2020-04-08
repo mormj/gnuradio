@@ -1,8 +1,12 @@
+include(GrPybind)
+
 ########################################################################
 # Python Bindings
 ########################################################################
 
-pybind11_add_module(analog_python
+list(APPEND analog_python_files
+    agc_python.cc
+    # agc2_python.cc
     agc2_cc_python.cc
     agc2_ff_python.cc
     agc3_cc_python.cc
@@ -37,16 +41,9 @@ pybind11_add_module(analog_python
     squelch_base_ff_python.cc
     python_bindings.cc)
 
-target_include_directories(analog_python PUBLIC
-    ${PYTHON_NUMPY_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
-    ${PYBIND11_INCLUDE_DIR}
-)
-target_link_libraries(analog_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime gnuradio-analog)
-
-if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
-    SET_TARGET_PROPERTIES(analog_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
-endif()
+GR_PYBIND_MAKE(analog 
+   ../../.. 
+   gr::analog
+   "${analog_python_files}")
 
 install(TARGETS analog_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/analog COMPONENT pythonapi)

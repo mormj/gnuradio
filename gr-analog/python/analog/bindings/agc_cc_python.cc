@@ -16,39 +16,89 @@
 namespace py = pybind11;
 
 #include <gnuradio/analog/agc_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <agc_cc_pydoc.h>
 
 void bind_agc_cc(py::module& m)
 {
-    using agc_cc    = gr::analog::agc_cc;
+
+    using agc_cc    = ::gr::analog::agc_cc;
 
 
-    py::class_<agc_cc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<agc_cc>>(m, "agc_cc")
+    py::class_<agc_cc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<agc_cc>>(m, "agc_cc", D(agc_cc))
 
         .def(py::init(&agc_cc::make),
-           py::arg("rate") = 1.0E-4, 
-           py::arg("reference") = 1., 
-           py::arg("gain") = 1. 
+           py::arg("rate") = 1.0E-4,
+           py::arg("reference") = 1.,
+           py::arg("gain") = 1.,
+           D(agc_cc,make)
         )
         
 
-        .def("rate",&agc_cc::rate)
-        .def("reference",&agc_cc::reference)
-        .def("gain",&agc_cc::gain)
-        .def("max_gain",&agc_cc::max_gain)
+
+
+
+        .def("rate",&agc_cc::rate,
+            D(agc_cc,rate)
+        )
+
+
+        .def("reference",&agc_cc::reference,
+            D(agc_cc,reference)
+        )
+
+
+        .def("gain",&agc_cc::gain,
+            D(agc_cc,gain)
+        )
+
+
+        .def("max_gain",&agc_cc::max_gain,
+            D(agc_cc,max_gain)
+        )
+
+
         .def("set_rate",&agc_cc::set_rate,
-            py::arg("rate") 
+            py::arg("rate"),
+            D(agc_cc,set_rate)
         )
+
+
         .def("set_reference",&agc_cc::set_reference,
-            py::arg("reference") 
+            py::arg("reference"),
+            D(agc_cc,set_reference)
         )
+
+
         .def("set_gain",&agc_cc::set_gain,
-            py::arg("gain") 
+            py::arg("gain"),
+            D(agc_cc,set_gain)
         )
+
+
         .def("set_max_gain",&agc_cc::set_max_gain,
-            py::arg("max_gain") 
+            py::arg("max_gain"),
+            D(agc_cc,set_max_gain)
         )
+
         ;
 
 
-} 
+
+        py::module m_kernel = m.def_submodule("kernel");
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+

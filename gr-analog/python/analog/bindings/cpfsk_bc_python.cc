@@ -16,29 +16,59 @@
 namespace py = pybind11;
 
 #include <gnuradio/analog/cpfsk_bc.h>
+// pydoc.h is automatically generated in the build directory
+#include <cpfsk_bc_pydoc.h>
 
 void bind_cpfsk_bc(py::module& m)
 {
-    using cpfsk_bc    = gr::analog::cpfsk_bc;
+
+    using cpfsk_bc    = ::gr::analog::cpfsk_bc;
 
 
-    py::class_<cpfsk_bc,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<cpfsk_bc>>(m, "cpfsk_bc")
+    py::class_<cpfsk_bc, gr::sync_interpolator,
+        std::shared_ptr<cpfsk_bc>>(m, "cpfsk_bc", D(cpfsk_bc))
 
         .def(py::init(&cpfsk_bc::make),
-           py::arg("k"), 
-           py::arg("ampl"), 
-           py::arg("samples_per_sym") 
+           py::arg("k"),
+           py::arg("ampl"),
+           py::arg("samples_per_sym"),
+           D(cpfsk_bc,make)
         )
         
 
+
+
+
         .def("set_amplitude",&cpfsk_bc::set_amplitude,
-            py::arg("amplitude") 
+            py::arg("amplitude"),
+            D(cpfsk_bc,set_amplitude)
         )
-        .def("amplitude",&cpfsk_bc::amplitude)
-        .def("freq",&cpfsk_bc::freq)
-        .def("phase",&cpfsk_bc::phase)
+
+
+        .def("amplitude",&cpfsk_bc::amplitude,
+            D(cpfsk_bc,amplitude)
+        )
+
+
+        .def("freq",&cpfsk_bc::freq,
+            D(cpfsk_bc,freq)
+        )
+
+
+        .def("phase",&cpfsk_bc::phase,
+            D(cpfsk_bc,phase)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

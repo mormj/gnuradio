@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/analog/feedforward_agc_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <feedforward_agc_cc_pydoc.h>
 
 void bind_feedforward_agc_cc(py::module& m)
 {
-    using feedforward_agc_cc    = gr::analog::feedforward_agc_cc;
+
+    using feedforward_agc_cc    = ::gr::analog::feedforward_agc_cc;
 
 
-    py::class_<feedforward_agc_cc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<feedforward_agc_cc>>(m, "feedforward_agc_cc")
+    py::class_<feedforward_agc_cc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<feedforward_agc_cc>>(m, "feedforward_agc_cc", D(feedforward_agc_cc))
 
         .def(py::init(&feedforward_agc_cc::make),
-           py::arg("nsamples"), 
-           py::arg("reference") 
+           py::arg("nsamples"),
+           py::arg("reference"),
+           D(feedforward_agc_cc,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

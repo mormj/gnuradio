@@ -16,44 +16,101 @@
 namespace py = pybind11;
 
 #include <gnuradio/analog/agc2_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <agc2_cc_pydoc.h>
 
 void bind_agc2_cc(py::module& m)
 {
-    using agc2_cc    = gr::analog::agc2_cc;
+
+    using agc2_cc    = ::gr::analog::agc2_cc;
 
 
-    py::class_<agc2_cc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<agc2_cc>>(m, "agc2_cc")
+    py::class_<agc2_cc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<agc2_cc>>(m, "agc2_cc", D(agc2_cc))
 
         .def(py::init(&agc2_cc::make),
-           py::arg("attack_rate") = 0.10000000000000001, 
-           py::arg("decay_rate") = 0.01, 
-           py::arg("reference") = 1., 
-           py::arg("gain") = 1. 
+           py::arg("attack_rate") = 0.10000000000000001,
+           py::arg("decay_rate") = 0.01,
+           py::arg("reference") = 1.,
+           py::arg("gain") = 1.,
+           D(agc2_cc,make)
         )
         
 
-        .def("attack_rate",&agc2_cc::attack_rate)
-        .def("decay_rate",&agc2_cc::decay_rate)
-        .def("reference",&agc2_cc::reference)
-        .def("gain",&agc2_cc::gain)
-        .def("max_gain",&agc2_cc::max_gain)
+
+
+
+        .def("attack_rate",&agc2_cc::attack_rate,
+            D(agc2_cc,attack_rate)
+        )
+
+
+        .def("decay_rate",&agc2_cc::decay_rate,
+            D(agc2_cc,decay_rate)
+        )
+
+
+        .def("reference",&agc2_cc::reference,
+            D(agc2_cc,reference)
+        )
+
+
+        .def("gain",&agc2_cc::gain,
+            D(agc2_cc,gain)
+        )
+
+
+        .def("max_gain",&agc2_cc::max_gain,
+            D(agc2_cc,max_gain)
+        )
+
+
         .def("set_attack_rate",&agc2_cc::set_attack_rate,
-            py::arg("rate") 
+            py::arg("rate"),
+            D(agc2_cc,set_attack_rate)
         )
+
+
         .def("set_decay_rate",&agc2_cc::set_decay_rate,
-            py::arg("rate") 
+            py::arg("rate"),
+            D(agc2_cc,set_decay_rate)
         )
+
+
         .def("set_reference",&agc2_cc::set_reference,
-            py::arg("reference") 
+            py::arg("reference"),
+            D(agc2_cc,set_reference)
         )
+
+
         .def("set_gain",&agc2_cc::set_gain,
-            py::arg("gain") 
+            py::arg("gain"),
+            D(agc2_cc,set_gain)
         )
+
+
         .def("set_max_gain",&agc2_cc::set_max_gain,
-            py::arg("max_gain") 
+            py::arg("max_gain"),
+            D(agc2_cc,set_max_gain)
         )
+
         ;
 
 
-} 
+
+        py::module m_kernel = m.def_submodule("kernel");
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+

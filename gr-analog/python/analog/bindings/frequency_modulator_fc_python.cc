@@ -16,25 +16,47 @@
 namespace py = pybind11;
 
 #include <gnuradio/analog/frequency_modulator_fc.h>
+// pydoc.h is automatically generated in the build directory
+#include <frequency_modulator_fc_pydoc.h>
 
 void bind_frequency_modulator_fc(py::module& m)
 {
-    using frequency_modulator_fc    = gr::analog::frequency_modulator_fc;
+
+    using frequency_modulator_fc    = ::gr::analog::frequency_modulator_fc;
 
 
-    py::class_<frequency_modulator_fc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<frequency_modulator_fc>>(m, "frequency_modulator_fc")
+    py::class_<frequency_modulator_fc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<frequency_modulator_fc>>(m, "frequency_modulator_fc", D(frequency_modulator_fc))
 
         .def(py::init(&frequency_modulator_fc::make),
-           py::arg("sensitivity") 
+           py::arg("sensitivity"),
+           D(frequency_modulator_fc,make)
         )
         
 
+
+
+
         .def("set_sensitivity",&frequency_modulator_fc::set_sensitivity,
-            py::arg("sens") 
+            py::arg("sens"),
+            D(frequency_modulator_fc,set_sensitivity)
         )
-        .def("sensitivity",&frequency_modulator_fc::sensitivity)
+
+
+        .def("sensitivity",&frequency_modulator_fc::sensitivity,
+            D(frequency_modulator_fc,sensitivity)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

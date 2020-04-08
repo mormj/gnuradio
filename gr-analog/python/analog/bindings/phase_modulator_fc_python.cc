@@ -16,29 +16,58 @@
 namespace py = pybind11;
 
 #include <gnuradio/analog/phase_modulator_fc.h>
+// pydoc.h is automatically generated in the build directory
+#include <phase_modulator_fc_pydoc.h>
 
 void bind_phase_modulator_fc(py::module& m)
 {
-    using phase_modulator_fc    = gr::analog::phase_modulator_fc;
+
+    using phase_modulator_fc    = ::gr::analog::phase_modulator_fc;
 
 
-    py::class_<phase_modulator_fc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<phase_modulator_fc>>(m, "phase_modulator_fc")
+    py::class_<phase_modulator_fc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<phase_modulator_fc>>(m, "phase_modulator_fc", D(phase_modulator_fc))
 
         .def(py::init(&phase_modulator_fc::make),
-           py::arg("sensitivity") 
+           py::arg("sensitivity"),
+           D(phase_modulator_fc,make)
         )
         
 
-        .def("sensitivity",&phase_modulator_fc::sensitivity)
-        .def("phase",&phase_modulator_fc::phase)
+
+
+
+        .def("sensitivity",&phase_modulator_fc::sensitivity,
+            D(phase_modulator_fc,sensitivity)
+        )
+
+
+        .def("phase",&phase_modulator_fc::phase,
+            D(phase_modulator_fc,phase)
+        )
+
+
         .def("set_sensitivity",&phase_modulator_fc::set_sensitivity,
-            py::arg("s") 
+            py::arg("s"),
+            D(phase_modulator_fc,set_sensitivity)
         )
+
+
         .def("set_phase",&phase_modulator_fc::set_phase,
-            py::arg("p") 
+            py::arg("p"),
+            D(phase_modulator_fc,set_phase)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

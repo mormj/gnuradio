@@ -16,41 +16,88 @@
 namespace py = pybind11;
 
 #include <gnuradio/analog/pwr_squelch_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <pwr_squelch_cc_pydoc.h>
 
 void bind_pwr_squelch_cc(py::module& m)
 {
-    using pwr_squelch_cc    = gr::analog::pwr_squelch_cc;
+
+    using pwr_squelch_cc    = ::gr::analog::pwr_squelch_cc;
 
 
-    py::class_<pwr_squelch_cc,gr::analog::squelch_base_cc,
-        std::shared_ptr<pwr_squelch_cc>>(m, "pwr_squelch_cc")
+    py::class_<pwr_squelch_cc, gr::analog::squelch_base_cc,
+        std::shared_ptr<pwr_squelch_cc>>(m, "pwr_squelch_cc", D(pwr_squelch_cc))
 
         .def(py::init(&pwr_squelch_cc::make),
-           py::arg("db"), 
-           py::arg("alpha") = 1.0E-4, 
-           py::arg("ramp") = 0, 
-           py::arg("gate") = false 
+           py::arg("db"),
+           py::arg("alpha") = 1.0E-4,
+           py::arg("ramp") = 0,
+           py::arg("gate") = false,
+           D(pwr_squelch_cc,make)
         )
         
 
-        .def("squelch_range",&pwr_squelch_cc::squelch_range)
-        .def("threshold",&pwr_squelch_cc::threshold)
+
+
+
+        .def("squelch_range",&pwr_squelch_cc::squelch_range,
+            D(pwr_squelch_cc,squelch_range)
+        )
+
+
+        .def("threshold",&pwr_squelch_cc::threshold,
+            D(pwr_squelch_cc,threshold)
+        )
+
+
         .def("set_threshold",&pwr_squelch_cc::set_threshold,
-            py::arg("db") 
+            py::arg("db"),
+            D(pwr_squelch_cc,set_threshold)
         )
+
+
         .def("set_alpha",&pwr_squelch_cc::set_alpha,
-            py::arg("alpha") 
+            py::arg("alpha"),
+            D(pwr_squelch_cc,set_alpha)
         )
-        .def("ramp",&pwr_squelch_cc::ramp)
+
+
+        .def("ramp",&pwr_squelch_cc::ramp,
+            D(pwr_squelch_cc,ramp)
+        )
+
+
         .def("set_ramp",&pwr_squelch_cc::set_ramp,
-            py::arg("ramp") 
+            py::arg("ramp"),
+            D(pwr_squelch_cc,set_ramp)
         )
-        .def("gate",&pwr_squelch_cc::gate)
+
+
+        .def("gate",&pwr_squelch_cc::gate,
+            D(pwr_squelch_cc,gate)
+        )
+
+
         .def("set_gate",&pwr_squelch_cc::set_gate,
-            py::arg("gate") 
+            py::arg("gate"),
+            D(pwr_squelch_cc,set_gate)
         )
-        .def("unmuted",&pwr_squelch_cc::unmuted)
+
+
+        .def("unmuted",&pwr_squelch_cc::unmuted,
+            D(pwr_squelch_cc,unmuted)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+
