@@ -16,42 +16,54 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/tpc_decoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <tpc_decoder_pydoc.h>
 
 void bind_tpc_decoder(py::module& m)
 {
-    using tpc_decoder    = gr::fec::tpc_decoder;
+
+    using tpc_decoder    = ::gr::fec::tpc_decoder;
 
 
-    py::class_<tpc_decoder,gr::fec::generic_decoder,
-        std::shared_ptr<tpc_decoder>>(m, "tpc_decoder")
+    py::class_<tpc_decoder, gr::fec::generic_decoder,
+        std::shared_ptr<tpc_decoder>>(m, "tpc_decoder", D(tpc_decoder))
 
-        // .def(py::init(&tpc_decoder::make),
-        //    py::arg("row_poly"), 
-        //    py::arg("col_poly"), 
-        //    py::arg("krow"), 
-        //    py::arg("kcol"), 
-        //    py::arg("bval"), 
-        //    py::arg("qval"), 
-        //    py::arg("max_iter"), 
-        //    py::arg("decoder_type") 
-        // )
         .def_static("make",&tpc_decoder::make,
-           py::arg("row_poly"), 
-           py::arg("col_poly"), 
-           py::arg("krow"), 
-           py::arg("kcol"), 
-           py::arg("bval"), 
-           py::arg("qval"), 
-           py::arg("max_iter"), 
-           py::arg("decoder_type") 
+           py::arg("row_poly"),
+           py::arg("col_poly"),
+           py::arg("krow"),
+           py::arg("kcol"),
+           py::arg("bval"),
+           py::arg("qval"),
+           py::arg("max_iter"),
+           py::arg("decoder_type"),
+           D(tpc_decoder,make)
         )
         
 
-        .def("rate",&tpc_decoder::rate)
-        .def("set_frame_size",&tpc_decoder::set_frame_size,
-            py::arg("frame_size") 
+
+
+
+        .def("rate",&tpc_decoder::rate,
+            D(tpc_decoder,rate)
         )
+
+
+        .def("set_frame_size",&tpc_decoder::set_frame_size,
+            py::arg("frame_size"),
+            D(tpc_decoder,set_frame_size)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

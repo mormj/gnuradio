@@ -16,30 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/async_decoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <async_decoder_pydoc.h>
 
 void bind_async_decoder(py::module& m)
 {
-    using async_decoder    = gr::fec::async_decoder;
+
+    using async_decoder    = ::gr::fec::async_decoder;
 
 
-    py::class_<async_decoder,gr::block, gr::basic_block,
-        std::shared_ptr<async_decoder>>(m, "async_decoder")
+    py::class_<async_decoder, gr::block, gr::basic_block,
+        std::shared_ptr<async_decoder>>(m, "async_decoder", D(async_decoder))
 
         .def(py::init(&async_decoder::make),
-           py::arg("my_decoder"), 
-           py::arg("packed") = false, 
-           py::arg("rev_pack") = true, 
-           py::arg("mtu") = 1500 
+           py::arg("my_decoder"),
+           py::arg("packed") = false,
+           py::arg("rev_pack") = true,
+           py::arg("mtu") = 1500,
+           D(async_decoder,make)
         )
         
 
+
+
+
         .def("general_work",&async_decoder::general_work,
-            py::arg("noutput_items"), 
-            py::arg("ninput_items"), 
-            py::arg("input_items"), 
-            py::arg("output_items") 
+            py::arg("noutput_items"),
+            py::arg("ninput_items"),
+            py::arg("input_items"),
+            py::arg("output_items"),
+            D(async_decoder,general_work)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

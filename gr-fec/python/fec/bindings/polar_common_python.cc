@@ -16,23 +16,45 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/polar_common.h>
+// pydoc.h is automatically generated in the build directory
+#include <polar_common_pydoc.h>
 
 void bind_polar_common(py::module& m)
 {
-    using polar_common    = gr::fec::code::polar_common;
+
+
+
+
+        py::module m_code = m.def_submodule("code");
+
+    using polar_common    = ::gr::fec::code::polar_common;
 
 
     py::class_<polar_common,
-        std::shared_ptr<polar_common>>(m, "polar_common")
+        std::shared_ptr<polar_common>>(m_code, "polar_common", D(code,polar_common))
 
-        .def(py::init<int,int,std::vector<int, std::allocator<int> >,std::vector<char, std::allocator<char> >>(),           py::arg("block_size"), 
-           py::arg("num_info_bits"), 
-           py::arg("frozen_bit_positions"), 
-           py::arg("frozen_bit_values") 
+        .def(py::init<int,int,std::vector<int, std::allocator<int> >,std::vector<char, std::allocator<char> >>(),           py::arg("block_size"),
+           py::arg("num_info_bits"),
+           py::arg("frozen_bit_positions"),
+           py::arg("frozen_bit_values"),
+           D(code,polar_common,polar_common,0)
         )
-        .def(py::init<gr::fec::code::polar_common const &>(),           py::arg("arg0") 
+        .def(py::init<gr::fec::code::polar_common const &>(),           py::arg("arg0"),
+           D(code,polar_common,polar_common,1)
         )
+
         ;
 
 
-} 
+
+
+
+
+}
+
+
+
+
+
+
+

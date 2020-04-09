@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/decode_ccsds_27_fb.h>
+// pydoc.h is automatically generated in the build directory
+#include <decode_ccsds_27_fb_pydoc.h>
 
 void bind_decode_ccsds_27_fb(py::module& m)
 {
-    using decode_ccsds_27_fb    = gr::fec::decode_ccsds_27_fb;
+
+    using decode_ccsds_27_fb    = ::gr::fec::decode_ccsds_27_fb;
 
 
-    py::class_<decode_ccsds_27_fb,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<decode_ccsds_27_fb>>(m, "decode_ccsds_27_fb")
+    py::class_<decode_ccsds_27_fb, gr::sync_decimator,
+        std::shared_ptr<decode_ccsds_27_fb>>(m, "decode_ccsds_27_fb", D(decode_ccsds_27_fb))
 
-        .def(py::init(&decode_ccsds_27_fb::make)
+        .def(py::init(&decode_ccsds_27_fb::make),
+           D(decode_ccsds_27_fb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

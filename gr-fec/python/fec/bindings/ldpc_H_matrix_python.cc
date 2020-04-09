@@ -16,35 +16,75 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/ldpc_H_matrix.h>
+// pydoc.h is automatically generated in the build directory
+#include <ldpc_H_matrix_pydoc.h>
 
 void bind_ldpc_H_matrix(py::module& m)
 {
-    using ldpc_H_matrix    = gr::fec::code::ldpc_H_matrix;
 
 
-    py::class_<ldpc_H_matrix,gr::fec::code::fec_mtrx,
-        std::shared_ptr<ldpc_H_matrix>>(m, "ldpc_H_matrix")
+
+
+        py::module m_code = m.def_submodule("code");
+
+    using ldpc_H_matrix    = ::gr::fec::code::ldpc_H_matrix;
+
+
+    py::class_<ldpc_H_matrix, gr::fec::code::fec_mtrx,
+        std::shared_ptr<ldpc_H_matrix>>(m_code, "ldpc_H_matrix", D(code,ldpc_H_matrix))
 
         .def(py::init(&ldpc_H_matrix::make),
-           py::arg("filename"), 
-           py::arg("gap") 
+           py::arg("filename"),
+           py::arg("gap"),
+           D(code,ldpc_H_matrix,make)
         )
         
 
+
+
+
         .def("encode",&ldpc_H_matrix::encode,
-            py::arg("outbuffer"), 
-            py::arg("inbuffer") 
+            py::arg("outbuffer"),
+            py::arg("inbuffer"),
+            D(code,ldpc_H_matrix,encode)
         )
+
+
         .def("decode",&ldpc_H_matrix::decode,
-            py::arg("outbuffer"), 
-            py::arg("inbuffer"), 
-            py::arg("frame_size"), 
-            py::arg("max_iterations") 
+            py::arg("outbuffer"),
+            py::arg("inbuffer"),
+            py::arg("frame_size"),
+            py::arg("max_iterations"),
+            D(code,ldpc_H_matrix,decode)
         )
-        .def("n",&ldpc_H_matrix::n)
-        .def("k",&ldpc_H_matrix::k)
-        .def("get_base_sptr",&ldpc_H_matrix::get_base_sptr)
+
+
+        .def("n",&ldpc_H_matrix::n,
+            D(code,ldpc_H_matrix,n)
+        )
+
+
+        .def("k",&ldpc_H_matrix::k,
+            D(code,ldpc_H_matrix,k)
+        )
+
+
+        .def("get_base_sptr",&ldpc_H_matrix::get_base_sptr,
+            D(code,ldpc_H_matrix,get_base_sptr)
+        )
+
         ;
 
 
-} 
+
+
+
+
+}
+
+
+
+
+
+
+

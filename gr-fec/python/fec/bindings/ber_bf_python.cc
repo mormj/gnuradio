@@ -16,24 +16,43 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/ber_bf.h>
+// pydoc.h is automatically generated in the build directory
+#include <ber_bf_pydoc.h>
 
 void bind_ber_bf(py::module& m)
 {
-    using ber_bf    = gr::fec::ber_bf;
+
+    using ber_bf    = ::gr::fec::ber_bf;
 
 
-    py::class_<ber_bf,gr::block, gr::basic_block,
-        std::shared_ptr<ber_bf>>(m, "ber_bf")
+    py::class_<ber_bf, gr::block, gr::basic_block,
+        std::shared_ptr<ber_bf>>(m, "ber_bf", D(ber_bf))
 
         .def(py::init(&ber_bf::make),
-           py::arg("test_mode") = false, 
-           py::arg("berminerrors") = 100, 
-           py::arg("ber_limit") = -7. 
+           py::arg("test_mode") = false,
+           py::arg("berminerrors") = 100,
+           py::arg("ber_limit") = -7.,
+           D(ber_bf,make)
         )
         
 
-        .def("total_errors",&ber_bf::total_errors)
+
+        .def("total_errors",&ber_bf::total_errors,
+            D(ber_bf,total_errors)
+        )
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

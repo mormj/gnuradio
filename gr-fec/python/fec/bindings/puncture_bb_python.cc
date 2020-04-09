@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/puncture_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <puncture_bb_pydoc.h>
 
 void bind_puncture_bb(py::module& m)
 {
-    using puncture_bb    = gr::fec::puncture_bb;
+
+    using puncture_bb    = ::gr::fec::puncture_bb;
 
 
-    py::class_<puncture_bb,gr::block, gr::basic_block,
-        std::shared_ptr<puncture_bb>>(m, "puncture_bb")
+    py::class_<puncture_bb, gr::block, gr::basic_block,
+        std::shared_ptr<puncture_bb>>(m, "puncture_bb", D(puncture_bb))
 
         .def(py::init(&puncture_bb::make),
-           py::arg("puncsize"), 
-           py::arg("puncpat"), 
-           py::arg("delay") = 0 
+           py::arg("puncsize"),
+           py::arg("puncpat"),
+           py::arg("delay") = 0,
+           D(puncture_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

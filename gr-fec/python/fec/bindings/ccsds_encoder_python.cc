@@ -16,31 +16,56 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/ccsds_encoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <ccsds_encoder_pydoc.h>
 
 void bind_ccsds_encoder(py::module& m)
 {
-    using ccsds_encoder    = gr::fec::code::ccsds_encoder;
 
 
-    py::class_<ccsds_encoder,gr::fec::generic_encoder,
-        std::shared_ptr<ccsds_encoder>>(m, "ccsds_encoder")
 
-        // .def(py::init(&ccsds_encoder::make),
-        //    py::arg("frame_size"), 
-        //    py::arg("start_state") = 0, 
-        //    py::arg("mode") = ::_cc_mode_t::CC_STREAMING 
-        // )
+
+        py::module m_code = m.def_submodule("code");
+
+    using ccsds_encoder    = ::gr::fec::code::ccsds_encoder;
+
+
+    py::class_<ccsds_encoder, gr::fec::generic_encoder,
+        std::shared_ptr<ccsds_encoder>>(m_code, "ccsds_encoder", D(code,ccsds_encoder))
+
         .def_static("make",&ccsds_encoder::make,
-           py::arg("frame_size"), 
-           py::arg("start_state") = 0, 
-           py::arg("mode") = ::_cc_mode_t::CC_STREAMING 
+           py::arg("frame_size"),
+           py::arg("start_state") = 0,
+           py::arg("mode") = ::_cc_mode_t::CC_STREAMING,
+           D(code,ccsds_encoder,make)
         )
+        
+
+
+
 
         .def("set_frame_size",&ccsds_encoder::set_frame_size,
-            py::arg("frame_size") 
+            py::arg("frame_size"),
+            D(code,ccsds_encoder,set_frame_size)
         )
-        .def("rate",&ccsds_encoder::rate)
+
+
+        .def("rate",&ccsds_encoder::rate,
+            D(code,ccsds_encoder,rate)
+        )
+
         ;
 
 
-} 
+
+
+
+
+}
+
+
+
+
+
+
+

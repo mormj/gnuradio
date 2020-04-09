@@ -16,33 +16,56 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/dummy_encoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <dummy_encoder_pydoc.h>
 
 void bind_dummy_encoder(py::module& m)
 {
-    using dummy_encoder    = gr::fec::code::dummy_encoder;
 
 
-    py::class_<dummy_encoder,gr::fec::generic_encoder,
-        std::shared_ptr<dummy_encoder>>(m, "dummy_encoder")
 
-        // .def(py::init(&dummy_encoder::make),
-        //    py::arg("frame_size"), 
-        //    py::arg("pack") = false, 
-        //    py::arg("packed_bits") = false 
-        // )
-        
+
+        py::module m_code = m.def_submodule("code");
+
+    using dummy_encoder    = ::gr::fec::code::dummy_encoder;
+
+
+    py::class_<dummy_encoder, gr::fec::generic_encoder,
+        std::shared_ptr<dummy_encoder>>(m_code, "dummy_encoder", D(code,dummy_encoder))
+
         .def_static("make",&dummy_encoder::make,
-           py::arg("frame_size"), 
-           py::arg("pack") = false, 
-           py::arg("packed_bits") = false 
+           py::arg("frame_size"),
+           py::arg("pack") = false,
+           py::arg("packed_bits") = false,
+           D(code,dummy_encoder,make)
         )
         
+
+
+
 
         .def("set_frame_size",&dummy_encoder::set_frame_size,
-            py::arg("frame_size") 
+            py::arg("frame_size"),
+            D(code,dummy_encoder,set_frame_size)
         )
-        .def("rate",&dummy_encoder::rate)
+
+
+        .def("rate",&dummy_encoder::rate,
+            D(code,dummy_encoder,rate)
+        )
+
         ;
 
 
-} 
+
+
+
+
+}
+
+
+
+
+
+
+

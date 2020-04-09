@@ -16,37 +16,73 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/polar_encoder_systematic.h>
+// pydoc.h is automatically generated in the build directory
+#include <polar_encoder_systematic_pydoc.h>
 
 void bind_polar_encoder_systematic(py::module& m)
 {
-    using polar_encoder_systematic    = gr::fec::code::polar_encoder_systematic;
 
 
-    py::class_<polar_encoder_systematic,gr::fec::generic_encoder,
-        std::shared_ptr<polar_encoder_systematic>>(m, "polar_encoder_systematic")
 
-        // .def(py::init(&polar_encoder_systematic::make),
-        //    py::arg("block_size"), 
-        //    py::arg("num_info_bits"), 
-        //    py::arg("frozen_bit_positions") 
-        // )
+
+        py::module m_code = m.def_submodule("code");
+
+    using polar_encoder_systematic    = ::gr::fec::code::polar_encoder_systematic;
+
+
+    py::class_<polar_encoder_systematic, gr::fec::generic_encoder,
+        std::shared_ptr<polar_encoder_systematic>>(m_code, "polar_encoder_systematic", D(code,polar_encoder_systematic))
+
         .def_static("make",&polar_encoder_systematic::make,
-           py::arg("block_size"), 
-           py::arg("num_info_bits"), 
-           py::arg("frozen_bit_positions") 
+           py::arg("block_size"),
+           py::arg("num_info_bits"),
+           py::arg("frozen_bit_positions"),
+           D(code,polar_encoder_systematic,make)
         )
+        
+
+
+
 
         .def("generic_work",&polar_encoder_systematic::generic_work,
-            py::arg("in_buffer"), 
-            py::arg("out_buffer") 
+            py::arg("in_buffer"),
+            py::arg("out_buffer"),
+            D(code,polar_encoder_systematic,generic_work)
         )
-        .def("rate",&polar_encoder_systematic::rate)
-        .def("get_input_size",&polar_encoder_systematic::get_input_size)
-        .def("get_output_size",&polar_encoder_systematic::get_output_size)
+
+
+        .def("rate",&polar_encoder_systematic::rate,
+            D(code,polar_encoder_systematic,rate)
+        )
+
+
+        .def("get_input_size",&polar_encoder_systematic::get_input_size,
+            D(code,polar_encoder_systematic,get_input_size)
+        )
+
+
+        .def("get_output_size",&polar_encoder_systematic::get_output_size,
+            D(code,polar_encoder_systematic,get_output_size)
+        )
+
+
         .def("set_frame_size",&polar_encoder_systematic::set_frame_size,
-            py::arg("frame_size") 
+            py::arg("frame_size"),
+            D(code,polar_encoder_systematic,set_frame_size)
         )
+
         ;
 
 
-} 
+
+
+
+
+}
+
+
+
+
+
+
+

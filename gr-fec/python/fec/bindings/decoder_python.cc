@@ -16,39 +16,66 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/decoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <decoder_pydoc.h>
 
 void bind_decoder(py::module& m)
 {
-    using decoder    = gr::fec::decoder;
+
+    using decoder    = ::gr::fec::decoder;
 
 
-    py::class_<decoder,gr::block, gr::basic_block,
-        std::shared_ptr<decoder>>(m, "decoder")
+    py::class_<decoder, gr::block, gr::basic_block,
+        std::shared_ptr<decoder>>(m, "decoder", D(decoder))
 
         .def(py::init(&decoder::make),
-           py::arg("my_decoder"), 
-           py::arg("input_item_size"), 
-           py::arg("output_item_size") 
+           py::arg("my_decoder"),
+           py::arg("input_item_size"),
+           py::arg("output_item_size"),
+           D(decoder,make)
         )
         
 
+
+
+
         .def("general_work",&decoder::general_work,
-            py::arg("noutput_items"), 
-            py::arg("ninput_items"), 
-            py::arg("input_items"), 
-            py::arg("output_items") 
+            py::arg("noutput_items"),
+            py::arg("ninput_items"),
+            py::arg("input_items"),
+            py::arg("output_items"),
+            D(decoder,general_work)
         )
+
+
         .def("fixed_rate_ninput_to_noutput",&decoder::fixed_rate_ninput_to_noutput,
-            py::arg("ninput") 
+            py::arg("ninput"),
+            D(decoder,fixed_rate_ninput_to_noutput)
         )
+
+
         .def("fixed_rate_noutput_to_ninput",&decoder::fixed_rate_noutput_to_ninput,
-            py::arg("noutput") 
+            py::arg("noutput"),
+            D(decoder,fixed_rate_noutput_to_ninput)
         )
+
+
         .def("forecast",&decoder::forecast,
-            py::arg("noutput_items"), 
-            py::arg("ninput_items_required") 
+            py::arg("noutput_items"),
+            py::arg("ninput_items_required"),
+            D(decoder,forecast)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

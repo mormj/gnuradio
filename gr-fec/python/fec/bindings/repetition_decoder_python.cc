@@ -16,32 +16,56 @@
 namespace py = pybind11;
 
 #include <gnuradio/fec/repetition_decoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <repetition_decoder_pydoc.h>
 
 void bind_repetition_decoder(py::module& m)
 {
-    using repetition_decoder    = gr::fec::code::repetition_decoder;
 
 
-    py::class_<repetition_decoder,gr::fec::generic_decoder,
-        std::shared_ptr<repetition_decoder>>(m, "repetition_decoder")
 
-        // .def(py::init(&repetition_decoder::make),
-        //    py::arg("frame_size"), 
-        //    py::arg("rep"), 
-        //    py::arg("ap_prob") = 0.5 
-        // )
+
+        py::module m_code = m.def_submodule("code");
+
+    using repetition_decoder    = ::gr::fec::code::repetition_decoder;
+
+
+    py::class_<repetition_decoder, gr::fec::generic_decoder,
+        std::shared_ptr<repetition_decoder>>(m_code, "repetition_decoder", D(code,repetition_decoder))
+
         .def_static("make",&repetition_decoder::make,
-           py::arg("frame_size"), 
-           py::arg("rep"), 
-           py::arg("ap_prob") = 0.5 
+           py::arg("frame_size"),
+           py::arg("rep"),
+           py::arg("ap_prob") = 0.5,
+           D(code,repetition_decoder,make)
         )
         
 
+
+
+
         .def("set_frame_size",&repetition_decoder::set_frame_size,
-            py::arg("frame_size") 
+            py::arg("frame_size"),
+            D(code,repetition_decoder,set_frame_size)
         )
-        .def("rate",&repetition_decoder::rate)
+
+
+        .def("rate",&repetition_decoder::rate,
+            D(code,repetition_decoder,rate)
+        )
+
         ;
 
 
-} 
+
+
+
+
+}
+
+
+
+
+
+
+
