@@ -16,23 +16,40 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbs2_physical_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbs2_physical_cc_pydoc.h>
 
 void bind_dvbs2_physical_cc(py::module& m)
 {
-    using dvbs2_physical_cc    = gr::dtv::dvbs2_physical_cc;
+
+    using dvbs2_physical_cc    = ::gr::dtv::dvbs2_physical_cc;
 
 
-    py::class_<dvbs2_physical_cc,gr::block, gr::basic_block,
-        std::shared_ptr<dvbs2_physical_cc>>(m, "dvbs2_physical_cc")
+    py::class_<dvbs2_physical_cc, gr::block, gr::basic_block,
+        std::shared_ptr<dvbs2_physical_cc>>(m, "dvbs2_physical_cc", D(dvbs2_physical_cc))
 
         .def(py::init(&dvbs2_physical_cc::make),
-           py::arg("framesize"), 
-           py::arg("rate"), 
-           py::arg("constellation"), 
-           py::arg("pilots"), 
-           py::arg("goldcode") 
+           py::arg("framesize"),
+           py::arg("rate"),
+           py::arg("constellation"),
+           py::arg("pilots"),
+           py::arg("goldcode"),
+           D(dvbs2_physical_cc,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

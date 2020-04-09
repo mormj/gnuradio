@@ -16,23 +16,40 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_inner_coder.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_inner_coder_pydoc.h>
 
 void bind_dvbt_inner_coder(py::module& m)
 {
-    using dvbt_inner_coder    = gr::dtv::dvbt_inner_coder;
+
+    using dvbt_inner_coder    = ::gr::dtv::dvbt_inner_coder;
 
 
-    py::class_<dvbt_inner_coder,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_inner_coder>>(m, "dvbt_inner_coder")
+    py::class_<dvbt_inner_coder, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt_inner_coder>>(m, "dvbt_inner_coder", D(dvbt_inner_coder))
 
         .def(py::init(&dvbt_inner_coder::make),
-           py::arg("ninput"), 
-           py::arg("noutput"), 
-           py::arg("constellation"), 
-           py::arg("hierarchy"), 
-           py::arg("coderate") 
+           py::arg("ninput"),
+           py::arg("noutput"),
+           py::arg("constellation"),
+           py::arg("hierarchy"),
+           py::arg("coderate"),
+           D(dvbt_inner_coder,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

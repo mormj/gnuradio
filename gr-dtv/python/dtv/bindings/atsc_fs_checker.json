@@ -1,1 +1,0 @@
-{"module_name": "dtv", "namespace": ["gr", "dtv"], "enums": [], "variables": [], "classes": [{"name": "atsc_fs_checker", "member_functions": [{"name": "make", "return_type": "gr::dtv::atsc_fs_checker::sptr", "has_static": "1", "arguments": []}], "bases": ["::", "gr", "block"], "constructors": [{"name": "atsc_fs_checker", "arguments": []}]}], "free_functions": []}

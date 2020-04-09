@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/atsc_depad.h>
+// pydoc.h is automatically generated in the build directory
+#include <atsc_depad_pydoc.h>
 
 void bind_atsc_depad(py::module& m)
 {
-    using atsc_depad    = gr::dtv::atsc_depad;
+
+    using atsc_depad    = ::gr::dtv::atsc_depad;
 
 
-    py::class_<atsc_depad,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<atsc_depad>>(m, "atsc_depad")
+    py::class_<atsc_depad, gr::sync_interpolator,
+        std::shared_ptr<atsc_depad>>(m, "atsc_depad", D(atsc_depad))
 
-        .def(py::init(&atsc_depad::make)
+        .def(py::init(&atsc_depad::make),
+           D(atsc_depad,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

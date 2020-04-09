@@ -16,9 +16,21 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/atsc_consts.h>
+// pydoc.h is automatically generated in the build directory
+#include <atsc_consts_pydoc.h>
 
 void bind_atsc_consts(py::module& m)
 {
 
 
-} 
+
+
+
+}
+
+
+
+
+
+
+

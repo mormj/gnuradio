@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/catv_frame_sync_enc_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <catv_frame_sync_enc_bb_pydoc.h>
 
 void bind_catv_frame_sync_enc_bb(py::module& m)
 {
-    using catv_frame_sync_enc_bb    = gr::dtv::catv_frame_sync_enc_bb;
+
+    using catv_frame_sync_enc_bb    = ::gr::dtv::catv_frame_sync_enc_bb;
 
 
-    py::class_<catv_frame_sync_enc_bb,gr::block, gr::basic_block,
-        std::shared_ptr<catv_frame_sync_enc_bb>>(m, "catv_frame_sync_enc_bb")
+    py::class_<catv_frame_sync_enc_bb, gr::block, gr::basic_block,
+        std::shared_ptr<catv_frame_sync_enc_bb>>(m, "catv_frame_sync_enc_bb", D(catv_frame_sync_enc_bb))
 
         .def(py::init(&catv_frame_sync_enc_bb::make),
-           py::arg("constellation"), 
-           py::arg("ctrlword") 
+           py::arg("constellation"),
+           py::arg("ctrlword"),
+           D(catv_frame_sync_enc_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

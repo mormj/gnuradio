@@ -16,21 +16,40 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/atsc_viterbi_decoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <atsc_viterbi_decoder_pydoc.h>
 
 void bind_atsc_viterbi_decoder(py::module& m)
 {
-    using atsc_viterbi_decoder    = gr::dtv::atsc_viterbi_decoder;
+
+    using atsc_viterbi_decoder    = ::gr::dtv::atsc_viterbi_decoder;
 
 
-    py::class_<atsc_viterbi_decoder,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<atsc_viterbi_decoder>>(m, "atsc_viterbi_decoder")
+    py::class_<atsc_viterbi_decoder, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<atsc_viterbi_decoder>>(m, "atsc_viterbi_decoder", D(atsc_viterbi_decoder))
 
-        .def(py::init(&atsc_viterbi_decoder::make)
+        .def(py::init(&atsc_viterbi_decoder::make),
+           D(atsc_viterbi_decoder,make)
         )
         
 
-        .def("decoder_metrics",&atsc_viterbi_decoder::decoder_metrics)
+
+
+
+        .def("decoder_metrics",&atsc_viterbi_decoder::decoder_metrics,
+            D(atsc_viterbi_decoder,decoder_metrics)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

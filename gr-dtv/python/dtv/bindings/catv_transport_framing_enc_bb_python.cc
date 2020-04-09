@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/catv_transport_framing_enc_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <catv_transport_framing_enc_bb_pydoc.h>
 
 void bind_catv_transport_framing_enc_bb(py::module& m)
 {
-    using catv_transport_framing_enc_bb    = gr::dtv::catv_transport_framing_enc_bb;
+
+    using catv_transport_framing_enc_bb    = ::gr::dtv::catv_transport_framing_enc_bb;
 
 
-    py::class_<catv_transport_framing_enc_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<catv_transport_framing_enc_bb>>(m, "catv_transport_framing_enc_bb")
+    py::class_<catv_transport_framing_enc_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<catv_transport_framing_enc_bb>>(m, "catv_transport_framing_enc_bb", D(catv_transport_framing_enc_bb))
 
-        .def(py::init(&catv_transport_framing_enc_bb::make)
+        .def(py::init(&catv_transport_framing_enc_bb::make),
+           D(catv_transport_framing_enc_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

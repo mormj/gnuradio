@@ -16,22 +16,39 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_bit_inner_interleaver.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_bit_inner_interleaver_pydoc.h>
 
 void bind_dvbt_bit_inner_interleaver(py::module& m)
 {
-    using dvbt_bit_inner_interleaver    = gr::dtv::dvbt_bit_inner_interleaver;
+
+    using dvbt_bit_inner_interleaver    = ::gr::dtv::dvbt_bit_inner_interleaver;
 
 
-    py::class_<dvbt_bit_inner_interleaver,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_bit_inner_interleaver>>(m, "dvbt_bit_inner_interleaver")
+    py::class_<dvbt_bit_inner_interleaver, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt_bit_inner_interleaver>>(m, "dvbt_bit_inner_interleaver", D(dvbt_bit_inner_interleaver))
 
         .def(py::init(&dvbt_bit_inner_interleaver::make),
-           py::arg("nsize"), 
-           py::arg("constellation"), 
-           py::arg("hierarchy"), 
-           py::arg("transmission") 
+           py::arg("nsize"),
+           py::arg("constellation"),
+           py::arg("hierarchy"),
+           py::arg("transmission"),
+           D(dvbt_bit_inner_interleaver,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

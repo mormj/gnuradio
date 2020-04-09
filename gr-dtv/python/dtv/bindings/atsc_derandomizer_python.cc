@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/atsc_derandomizer.h>
+// pydoc.h is automatically generated in the build directory
+#include <atsc_derandomizer_pydoc.h>
 
 void bind_atsc_derandomizer(py::module& m)
 {
-    using atsc_derandomizer    = gr::dtv::atsc_derandomizer;
+
+    using atsc_derandomizer    = ::gr::dtv::atsc_derandomizer;
 
 
-    py::class_<atsc_derandomizer,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<atsc_derandomizer>>(m, "atsc_derandomizer")
+    py::class_<atsc_derandomizer, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<atsc_derandomizer>>(m, "atsc_derandomizer", D(atsc_derandomizer))
 
-        .def(py::init(&atsc_derandomizer::make)
+        .def(py::init(&atsc_derandomizer::make),
+           D(atsc_derandomizer,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

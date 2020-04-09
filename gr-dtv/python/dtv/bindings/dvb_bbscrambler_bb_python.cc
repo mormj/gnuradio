@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvb_bbscrambler_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvb_bbscrambler_bb_pydoc.h>
 
 void bind_dvb_bbscrambler_bb(py::module& m)
 {
-    using dvb_bbscrambler_bb    = gr::dtv::dvb_bbscrambler_bb;
+
+    using dvb_bbscrambler_bb    = ::gr::dtv::dvb_bbscrambler_bb;
 
 
-    py::class_<dvb_bbscrambler_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<dvb_bbscrambler_bb>>(m, "dvb_bbscrambler_bb")
+    py::class_<dvb_bbscrambler_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<dvb_bbscrambler_bb>>(m, "dvb_bbscrambler_bb", D(dvb_bbscrambler_bb))
 
         .def(py::init(&dvb_bbscrambler_bb::make),
-           py::arg("standard"), 
-           py::arg("framesize"), 
-           py::arg("rate") 
+           py::arg("standard"),
+           py::arg("framesize"),
+           py::arg("rate"),
+           D(dvb_bbscrambler_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

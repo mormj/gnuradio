@@ -1,8 +1,10 @@
+include(GrPybind)
+
 ########################################################################
 # Python Bindings
 ########################################################################
 
-pybind11_add_module(dtv_python
+list(APPEND dtv_python_files
     atsc_consts_python.cc
     atsc_deinterleaver_python.cc
     atsc_depad_python.cc
@@ -63,16 +65,9 @@ pybind11_add_module(dtv_python
     dvbt_viterbi_decoder_python.cc
     python_bindings.cc)
 
-target_include_directories(dtv_python PUBLIC
-    ${PYTHON_NUMPY_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
-    ${PYBIND11_INCLUDE_DIR}
-)
-target_link_libraries(dtv_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime gnuradio-dtv)
-
-if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
-    SET_TARGET_PROPERTIES(dtv_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
-endif()
+GR_PYBIND_MAKE(dtv 
+   ../../.. 
+   gr::dtv
+   "${dtv_python_files}")
 
 install(TARGETS dtv_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/dtv COMPONENT pythonapi)

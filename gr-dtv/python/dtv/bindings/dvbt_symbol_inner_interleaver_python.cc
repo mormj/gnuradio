@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_symbol_inner_interleaver.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_symbol_inner_interleaver_pydoc.h>
 
 void bind_dvbt_symbol_inner_interleaver(py::module& m)
 {
-    using dvbt_symbol_inner_interleaver    = gr::dtv::dvbt_symbol_inner_interleaver;
+
+    using dvbt_symbol_inner_interleaver    = ::gr::dtv::dvbt_symbol_inner_interleaver;
 
 
-    py::class_<dvbt_symbol_inner_interleaver,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_symbol_inner_interleaver>>(m, "dvbt_symbol_inner_interleaver")
+    py::class_<dvbt_symbol_inner_interleaver, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt_symbol_inner_interleaver>>(m, "dvbt_symbol_inner_interleaver", D(dvbt_symbol_inner_interleaver))
 
         .def(py::init(&dvbt_symbol_inner_interleaver::make),
-           py::arg("ninput"), 
-           py::arg("transmission"), 
-           py::arg("direction") 
+           py::arg("ninput"),
+           py::arg("transmission"),
+           py::arg("direction"),
+           D(dvbt_symbol_inner_interleaver,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

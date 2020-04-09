@@ -16,21 +16,33 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_config.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_config_pydoc.h>
 
 void bind_dvbt_config(py::module& m)
 {
 
-    py::enum_<gr::dtv::dvbt_hierarchy_t>(m,"dvbt_hierarchy_t")
-        .value("NH", gr::dtv::NH) // 0
-        .value("ALPHA1", gr::dtv::ALPHA1) // 1
-        .value("ALPHA2", gr::dtv::ALPHA2) // 2
-        .value("ALPHA4", gr::dtv::ALPHA4) // 3
+
+    py::enum_<::gr::dtv::dvbt_hierarchy_t>(m,"dvbt_hierarchy_t")
+        .value("NH", ::gr::dtv::NH) // 0
+        .value("ALPHA1", ::gr::dtv::ALPHA1) // 1
+        .value("ALPHA2", ::gr::dtv::ALPHA2) // 2
+        .value("ALPHA4", ::gr::dtv::ALPHA4) // 3
         .export_values()
     ;
-    py::enum_<gr::dtv::dvbt_transmission_mode_t>(m,"dvbt_transmission_mode_t")
-        .value("T2k", gr::dtv::T2k) // 0
-        .value("T8k", gr::dtv::T8k) // 1
+    py::enum_<::gr::dtv::dvbt_transmission_mode_t>(m,"dvbt_transmission_mode_t")
+        .value("T2k", ::gr::dtv::T2k) // 0
+        .value("T8k", ::gr::dtv::T8k) // 1
         .export_values()
     ;
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/catv_trellis_enc_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <catv_trellis_enc_bb_pydoc.h>
 
 void bind_catv_trellis_enc_bb(py::module& m)
 {
-    using catv_trellis_enc_bb    = gr::dtv::catv_trellis_enc_bb;
+
+    using catv_trellis_enc_bb    = ::gr::dtv::catv_trellis_enc_bb;
 
 
-    py::class_<catv_trellis_enc_bb,gr::block, gr::basic_block,
-        std::shared_ptr<catv_trellis_enc_bb>>(m, "catv_trellis_enc_bb")
+    py::class_<catv_trellis_enc_bb, gr::block, gr::basic_block,
+        std::shared_ptr<catv_trellis_enc_bb>>(m, "catv_trellis_enc_bb", D(catv_trellis_enc_bb))
 
         .def(py::init(&catv_trellis_enc_bb::make),
-           py::arg("constellation") 
+           py::arg("constellation"),
+           D(catv_trellis_enc_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

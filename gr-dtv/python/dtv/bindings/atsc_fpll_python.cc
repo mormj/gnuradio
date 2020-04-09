@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/atsc_fpll.h>
+// pydoc.h is automatically generated in the build directory
+#include <atsc_fpll_pydoc.h>
 
 void bind_atsc_fpll(py::module& m)
 {
-    using atsc_fpll    = gr::dtv::atsc_fpll;
+
+    using atsc_fpll    = ::gr::dtv::atsc_fpll;
 
 
-    py::class_<atsc_fpll,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<atsc_fpll>>(m, "atsc_fpll")
+    py::class_<atsc_fpll, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<atsc_fpll>>(m, "atsc_fpll", D(atsc_fpll))
 
         .def(py::init(&atsc_fpll::make),
-           py::arg("rate") 
+           py::arg("rate"),
+           D(atsc_fpll,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

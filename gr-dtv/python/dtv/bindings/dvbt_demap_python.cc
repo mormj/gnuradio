@@ -16,23 +16,40 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_demap.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_demap_pydoc.h>
 
 void bind_dvbt_demap(py::module& m)
 {
-    using dvbt_demap    = gr::dtv::dvbt_demap;
+
+    using dvbt_demap    = ::gr::dtv::dvbt_demap;
 
 
-    py::class_<dvbt_demap,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_demap>>(m, "dvbt_demap")
+    py::class_<dvbt_demap, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt_demap>>(m, "dvbt_demap", D(dvbt_demap))
 
         .def(py::init(&dvbt_demap::make),
-           py::arg("nsize"), 
-           py::arg("constellation"), 
-           py::arg("hierarchy"), 
-           py::arg("transmission"), 
-           py::arg("gain") 
+           py::arg("nsize"),
+           py::arg("constellation"),
+           py::arg("hierarchy"),
+           py::arg("transmission"),
+           py::arg("gain"),
+           D(dvbt_demap,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

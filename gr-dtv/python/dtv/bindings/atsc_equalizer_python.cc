@@ -16,22 +16,45 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/atsc_equalizer.h>
+// pydoc.h is automatically generated in the build directory
+#include <atsc_equalizer_pydoc.h>
 
 void bind_atsc_equalizer(py::module& m)
 {
-    using atsc_equalizer    = gr::dtv::atsc_equalizer;
+
+    using atsc_equalizer    = ::gr::dtv::atsc_equalizer;
 
 
-    py::class_<atsc_equalizer,gr::block, gr::basic_block,
-        std::shared_ptr<atsc_equalizer>>(m, "atsc_equalizer")
+    py::class_<atsc_equalizer, gr::block, gr::basic_block,
+        std::shared_ptr<atsc_equalizer>>(m, "atsc_equalizer", D(atsc_equalizer))
 
-        .def(py::init(&atsc_equalizer::make)
+        .def(py::init(&atsc_equalizer::make),
+           D(atsc_equalizer,make)
         )
         
 
-        .def("taps",&atsc_equalizer::taps)
-        .def("data",&atsc_equalizer::data)
+
+
+
+        .def("taps",&atsc_equalizer::taps,
+            D(atsc_equalizer,taps)
+        )
+
+
+        .def("data",&atsc_equalizer::data,
+            D(atsc_equalizer,data)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt2_modulator_bc.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt2_modulator_bc_pydoc.h>
 
 void bind_dvbt2_modulator_bc(py::module& m)
 {
-    using dvbt2_modulator_bc    = gr::dtv::dvbt2_modulator_bc;
+
+    using dvbt2_modulator_bc    = ::gr::dtv::dvbt2_modulator_bc;
 
 
-    py::class_<dvbt2_modulator_bc,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt2_modulator_bc>>(m, "dvbt2_modulator_bc")
+    py::class_<dvbt2_modulator_bc, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt2_modulator_bc>>(m, "dvbt2_modulator_bc", D(dvbt2_modulator_bc))
 
         .def(py::init(&dvbt2_modulator_bc::make),
-           py::arg("framesize"), 
-           py::arg("constellation"), 
-           py::arg("rotation") 
+           py::arg("framesize"),
+           py::arg("constellation"),
+           py::arg("rotation"),
+           D(dvbt2_modulator_bc,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

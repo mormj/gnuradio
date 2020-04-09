@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/atsc_randomizer.h>
+// pydoc.h is automatically generated in the build directory
+#include <atsc_randomizer_pydoc.h>
 
 void bind_atsc_randomizer(py::module& m)
 {
-    using atsc_randomizer    = gr::dtv::atsc_randomizer;
+
+    using atsc_randomizer    = ::gr::dtv::atsc_randomizer;
 
 
-    py::class_<atsc_randomizer,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<atsc_randomizer>>(m, "atsc_randomizer")
+    py::class_<atsc_randomizer, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<atsc_randomizer>>(m, "atsc_randomizer", D(atsc_randomizer))
 
-        .def(py::init(&atsc_randomizer::make)
+        .def(py::init(&atsc_randomizer::make),
+           D(atsc_randomizer,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

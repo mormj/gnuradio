@@ -16,25 +16,42 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt2_p1insertion_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt2_p1insertion_cc_pydoc.h>
 
 void bind_dvbt2_p1insertion_cc(py::module& m)
 {
-    using dvbt2_p1insertion_cc    = gr::dtv::dvbt2_p1insertion_cc;
+
+    using dvbt2_p1insertion_cc    = ::gr::dtv::dvbt2_p1insertion_cc;
 
 
-    py::class_<dvbt2_p1insertion_cc,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt2_p1insertion_cc>>(m, "dvbt2_p1insertion_cc")
+    py::class_<dvbt2_p1insertion_cc, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt2_p1insertion_cc>>(m, "dvbt2_p1insertion_cc", D(dvbt2_p1insertion_cc))
 
         .def(py::init(&dvbt2_p1insertion_cc::make),
-           py::arg("carriermode"), 
-           py::arg("fftsize"), 
-           py::arg("guardinterval"), 
-           py::arg("numdatasyms"), 
-           py::arg("preamble"), 
-           py::arg("showlevels"), 
-           py::arg("vclip") 
+           py::arg("carriermode"),
+           py::arg("fftsize"),
+           py::arg("guardinterval"),
+           py::arg("numdatasyms"),
+           py::arg("preamble"),
+           py::arg("showlevels"),
+           py::arg("vclip"),
+           D(dvbt2_p1insertion_cc,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,22 +16,39 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_viterbi_decoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_viterbi_decoder_pydoc.h>
 
 void bind_dvbt_viterbi_decoder(py::module& m)
 {
-    using dvbt_viterbi_decoder    = gr::dtv::dvbt_viterbi_decoder;
+
+    using dvbt_viterbi_decoder    = ::gr::dtv::dvbt_viterbi_decoder;
 
 
-    py::class_<dvbt_viterbi_decoder,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_viterbi_decoder>>(m, "dvbt_viterbi_decoder")
+    py::class_<dvbt_viterbi_decoder, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt_viterbi_decoder>>(m, "dvbt_viterbi_decoder", D(dvbt_viterbi_decoder))
 
         .def(py::init(&dvbt_viterbi_decoder::make),
-           py::arg("constellation"), 
-           py::arg("hierarchy"), 
-           py::arg("coderate"), 
-           py::arg("bsize") 
+           py::arg("constellation"),
+           py::arg("hierarchy"),
+           py::arg("coderate"),
+           py::arg("bsize"),
+           D(dvbt_viterbi_decoder,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

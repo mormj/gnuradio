@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/atsc_sync.h>
+// pydoc.h is automatically generated in the build directory
+#include <atsc_sync_pydoc.h>
 
 void bind_atsc_sync(py::module& m)
 {
-    using atsc_sync    = gr::dtv::atsc_sync;
+
+    using atsc_sync    = ::gr::dtv::atsc_sync;
 
 
-    py::class_<atsc_sync,gr::block, gr::basic_block,
-        std::shared_ptr<atsc_sync>>(m, "atsc_sync")
+    py::class_<atsc_sync, gr::block, gr::basic_block,
+        std::shared_ptr<atsc_sync>>(m, "atsc_sync", D(atsc_sync))
 
         .def(py::init(&atsc_sync::make),
-           py::arg("rate") 
+           py::arg("rate"),
+           D(atsc_sync,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/catv_randomizer_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <catv_randomizer_bb_pydoc.h>
 
 void bind_catv_randomizer_bb(py::module& m)
 {
-    using catv_randomizer_bb    = gr::dtv::catv_randomizer_bb;
+
+    using catv_randomizer_bb    = ::gr::dtv::catv_randomizer_bb;
 
 
-    py::class_<catv_randomizer_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<catv_randomizer_bb>>(m, "catv_randomizer_bb")
+    py::class_<catv_randomizer_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<catv_randomizer_bb>>(m, "catv_randomizer_bb", D(catv_randomizer_bb))
 
         .def(py::init(&catv_randomizer_bb::make),
-           py::arg("constellation") 
+           py::arg("constellation"),
+           D(catv_randomizer_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

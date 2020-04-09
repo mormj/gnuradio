@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_convolutional_interleaver.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_convolutional_interleaver_pydoc.h>
 
 void bind_dvbt_convolutional_interleaver(py::module& m)
 {
-    using dvbt_convolutional_interleaver    = gr::dtv::dvbt_convolutional_interleaver;
+
+    using dvbt_convolutional_interleaver    = ::gr::dtv::dvbt_convolutional_interleaver;
 
 
-    py::class_<dvbt_convolutional_interleaver,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_convolutional_interleaver>>(m, "dvbt_convolutional_interleaver")
+    py::class_<dvbt_convolutional_interleaver, gr::sync_interpolator,
+        std::shared_ptr<dvbt_convolutional_interleaver>>(m, "dvbt_convolutional_interleaver", D(dvbt_convolutional_interleaver))
 
         .def(py::init(&dvbt_convolutional_interleaver::make),
-           py::arg("nsize"), 
-           py::arg("I"), 
-           py::arg("M") 
+           py::arg("nsize"),
+           py::arg("I"),
+           py::arg("M"),
+           D(dvbt_convolutional_interleaver,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

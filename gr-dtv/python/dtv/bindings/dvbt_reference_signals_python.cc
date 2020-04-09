@@ -16,29 +16,46 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_reference_signals.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_reference_signals_pydoc.h>
 
 void bind_dvbt_reference_signals(py::module& m)
 {
-    using dvbt_reference_signals    = gr::dtv::dvbt_reference_signals;
+
+    using dvbt_reference_signals    = ::gr::dtv::dvbt_reference_signals;
 
 
-    py::class_<dvbt_reference_signals,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_reference_signals>>(m, "dvbt_reference_signals")
+    py::class_<dvbt_reference_signals, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt_reference_signals>>(m, "dvbt_reference_signals", D(dvbt_reference_signals))
 
         .def(py::init(&dvbt_reference_signals::make),
-           py::arg("itemsize"), 
-           py::arg("ninput"), 
-           py::arg("noutput"), 
-           py::arg("constellation"), 
-           py::arg("hierarchy"), 
-           py::arg("code_rate_HP"), 
-           py::arg("code_rate_LP"), 
-           py::arg("guard_interval"), 
-           py::arg("transmission_mode"), 
-           py::arg("include_cell_id"), 
-           py::arg("cell_id") 
+           py::arg("itemsize"),
+           py::arg("ninput"),
+           py::arg("noutput"),
+           py::arg("constellation"),
+           py::arg("hierarchy"),
+           py::arg("code_rate_HP"),
+           py::arg("code_rate_LP"),
+           py::arg("guard_interval"),
+           py::arg("transmission_mode"),
+           py::arg("include_cell_id"),
+           py::arg("cell_id"),
+           D(dvbt_reference_signals,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

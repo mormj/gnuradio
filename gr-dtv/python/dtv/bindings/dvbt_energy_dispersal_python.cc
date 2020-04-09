@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_energy_dispersal.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_energy_dispersal_pydoc.h>
 
 void bind_dvbt_energy_dispersal(py::module& m)
 {
-    using dvbt_energy_dispersal    = gr::dtv::dvbt_energy_dispersal;
+
+    using dvbt_energy_dispersal    = ::gr::dtv::dvbt_energy_dispersal;
 
 
-    py::class_<dvbt_energy_dispersal,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_energy_dispersal>>(m, "dvbt_energy_dispersal")
+    py::class_<dvbt_energy_dispersal, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt_energy_dispersal>>(m, "dvbt_energy_dispersal", D(dvbt_energy_dispersal))
 
         .def(py::init(&dvbt_energy_dispersal::make),
-           py::arg("nsize") 
+           py::arg("nsize"),
+           D(dvbt_energy_dispersal,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

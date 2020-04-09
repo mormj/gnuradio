@@ -16,28 +16,45 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt2_paprtr_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt2_paprtr_cc_pydoc.h>
 
 void bind_dvbt2_paprtr_cc(py::module& m)
 {
-    using dvbt2_paprtr_cc    = gr::dtv::dvbt2_paprtr_cc;
+
+    using dvbt2_paprtr_cc    = ::gr::dtv::dvbt2_paprtr_cc;
 
 
-    py::class_<dvbt2_paprtr_cc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<dvbt2_paprtr_cc>>(m, "dvbt2_paprtr_cc")
+    py::class_<dvbt2_paprtr_cc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt2_paprtr_cc>>(m, "dvbt2_paprtr_cc", D(dvbt2_paprtr_cc))
 
         .def(py::init(&dvbt2_paprtr_cc::make),
-           py::arg("carriermode"), 
-           py::arg("fftsize"), 
-           py::arg("pilotpattern"), 
-           py::arg("guardinterval"), 
-           py::arg("numdatasyms"), 
-           py::arg("paprmode"), 
-           py::arg("version"), 
-           py::arg("vclip"), 
-           py::arg("iterations"), 
-           py::arg("vlength") 
+           py::arg("carriermode"),
+           py::arg("fftsize"),
+           py::arg("pilotpattern"),
+           py::arg("guardinterval"),
+           py::arg("numdatasyms"),
+           py::arg("paprmode"),
+           py::arg("version"),
+           py::arg("vclip"),
+           py::arg("iterations"),
+           py::arg("vlength"),
+           D(dvbt2_paprtr_cc,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

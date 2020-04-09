@@ -16,26 +16,43 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbt_reed_solomon_dec.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbt_reed_solomon_dec_pydoc.h>
 
 void bind_dvbt_reed_solomon_dec(py::module& m)
 {
-    using dvbt_reed_solomon_dec    = gr::dtv::dvbt_reed_solomon_dec;
+
+    using dvbt_reed_solomon_dec    = ::gr::dtv::dvbt_reed_solomon_dec;
 
 
-    py::class_<dvbt_reed_solomon_dec,gr::block, gr::basic_block,
-        std::shared_ptr<dvbt_reed_solomon_dec>>(m, "dvbt_reed_solomon_dec")
+    py::class_<dvbt_reed_solomon_dec, gr::block, gr::basic_block,
+        std::shared_ptr<dvbt_reed_solomon_dec>>(m, "dvbt_reed_solomon_dec", D(dvbt_reed_solomon_dec))
 
         .def(py::init(&dvbt_reed_solomon_dec::make),
-           py::arg("p"), 
-           py::arg("m"), 
-           py::arg("gfpoly"), 
-           py::arg("n"), 
-           py::arg("k"), 
-           py::arg("t"), 
-           py::arg("s"), 
-           py::arg("blocks") 
+           py::arg("p"),
+           py::arg("m"),
+           py::arg("gfpoly"),
+           py::arg("n"),
+           py::arg("k"),
+           py::arg("t"),
+           py::arg("s"),
+           py::arg("blocks"),
+           D(dvbt_reed_solomon_dec,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

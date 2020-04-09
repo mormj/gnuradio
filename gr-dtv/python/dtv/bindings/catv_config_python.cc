@@ -16,14 +16,26 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/catv_config.h>
+// pydoc.h is automatically generated in the build directory
+#include <catv_config_pydoc.h>
 
 void bind_catv_config(py::module& m)
 {
 
-    py::enum_<gr::dtv::catv_constellation_t>(m,"catv_constellation_t")
-        .value("CATV_MOD_64QAM", gr::dtv::CATV_MOD_64QAM) // 0
-        .value("CATV_MOD_256QAM", gr::dtv::CATV_MOD_256QAM) // 1
+
+    py::enum_<::gr::dtv::catv_constellation_t>(m,"catv_constellation_t")
+        .value("CATV_MOD_64QAM", ::gr::dtv::CATV_MOD_64QAM) // 0
+        .value("CATV_MOD_256QAM", ::gr::dtv::CATV_MOD_256QAM) // 1
         .export_values()
     ;
 
-} 
+
+
+}
+
+
+
+
+
+
+

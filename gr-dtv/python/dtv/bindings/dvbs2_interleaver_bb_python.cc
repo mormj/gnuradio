@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/dtv/dvbs2_interleaver_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <dvbs2_interleaver_bb_pydoc.h>
 
 void bind_dvbs2_interleaver_bb(py::module& m)
 {
-    using dvbs2_interleaver_bb    = gr::dtv::dvbs2_interleaver_bb;
+
+    using dvbs2_interleaver_bb    = ::gr::dtv::dvbs2_interleaver_bb;
 
 
-    py::class_<dvbs2_interleaver_bb,gr::block, gr::basic_block,
-        std::shared_ptr<dvbs2_interleaver_bb>>(m, "dvbs2_interleaver_bb")
+    py::class_<dvbs2_interleaver_bb, gr::block, gr::basic_block,
+        std::shared_ptr<dvbs2_interleaver_bb>>(m, "dvbs2_interleaver_bb", D(dvbs2_interleaver_bb))
 
         .def(py::init(&dvbs2_interleaver_bb::make),
-           py::arg("framesize"), 
-           py::arg("rate"), 
-           py::arg("constellation") 
+           py::arg("framesize"),
+           py::arg("rate"),
+           py::arg("constellation"),
+           D(dvbs2_interleaver_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+
