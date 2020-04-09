@@ -16,32 +16,50 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/ofdm_equalizer_static.h>
+// pydoc.h is automatically generated in the build directory
+#include <ofdm_equalizer_static_pydoc.h>
 
 void bind_ofdm_equalizer_static(py::module& m)
 {
-    using ofdm_equalizer_static    = gr::digital::ofdm_equalizer_static;
+
+    using ofdm_equalizer_static    = ::gr::digital::ofdm_equalizer_static;
 
 
-    py::class_<ofdm_equalizer_static,gr::digital::ofdm_equalizer_1d_pilots,
-        std::shared_ptr<ofdm_equalizer_static>>(m, "ofdm_equalizer_static")
+    py::class_<ofdm_equalizer_static, gr::digital::ofdm_equalizer_1d_pilots,
+        std::shared_ptr<ofdm_equalizer_static>>(m, "ofdm_equalizer_static", D(ofdm_equalizer_static))
 
         .def(py::init(&ofdm_equalizer_static::make),
-           py::arg("fft_len"), 
-           py::arg("occupied_carriers") = std::vector<std::vector<int> >(), 
-           py::arg("pilot_carriers") = std::vector<std::vector<int> >(), 
-           py::arg("pilot_symbols") = std::vector<std::vector<gr_complex> >(), 
-           py::arg("symbols_skipped") = 0, 
-           py::arg("input_is_shifted") = true 
+           py::arg("fft_len"),
+           py::arg("occupied_carriers") = std::vector<std::vector<int> >(),
+           py::arg("pilot_carriers") = std::vector<std::vector<int> >(),
+           py::arg("pilot_symbols") = std::vector<std::vector<gr_complex> >(),
+           py::arg("symbols_skipped") = 0,
+           py::arg("input_is_shifted") = true,
+           D(ofdm_equalizer_static,make)
         )
         
 
+
         .def("equalize",&ofdm_equalizer_static::equalize,
-            py::arg("frame"), 
-            py::arg("n_sym"), 
-            py::arg("initial_taps") = std::vector<gr_complex>(), 
-            py::arg("tags") = std::vector<gr::tag_t>() 
+            py::arg("frame"),
+            py::arg("n_sym"),
+            py::arg("initial_taps") = std::vector<gr_complex>(),
+            py::arg("tags") = std::vector<gr::tag_t>(),
+            D(ofdm_equalizer_static,equalize)
         )
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,26 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/kurtotic_equalizer_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <kurtotic_equalizer_cc_pydoc.h>
 
 void bind_kurtotic_equalizer_cc(py::module& m)
 {
-    using kurtotic_equalizer_cc    = gr::digital::kurtotic_equalizer_cc;
+
+    using kurtotic_equalizer_cc    = ::gr::digital::kurtotic_equalizer_cc;
 
 
-    py::class_<kurtotic_equalizer_cc,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<kurtotic_equalizer_cc>>(m, "kurtotic_equalizer_cc")
+    py::class_<kurtotic_equalizer_cc, gr::sync_decimator,
+        std::shared_ptr<kurtotic_equalizer_cc>>(m, "kurtotic_equalizer_cc", D(kurtotic_equalizer_cc))
 
         .def(py::init(&kurtotic_equalizer_cc::make),
-           py::arg("num_taps"), 
-           py::arg("mu") 
+           py::arg("num_taps"),
+           py::arg("mu"),
+           D(kurtotic_equalizer_cc,make)
         )
         
 
-        .def("gain",&kurtotic_equalizer_cc::gain)
-        .def("set_gain",&kurtotic_equalizer_cc::set_gain,
-            py::arg("mu") 
+
+
+
+        .def("gain",&kurtotic_equalizer_cc::gain,
+            D(kurtotic_equalizer_cc,gain)
         )
+
+
+        .def("set_gain",&kurtotic_equalizer_cc::set_gain,
+            py::arg("mu"),
+            D(kurtotic_equalizer_cc,set_gain)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

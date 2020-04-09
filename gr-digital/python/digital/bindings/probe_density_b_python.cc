@@ -16,25 +16,47 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/probe_density_b.h>
+// pydoc.h is automatically generated in the build directory
+#include <probe_density_b_pydoc.h>
 
 void bind_probe_density_b(py::module& m)
 {
-    using probe_density_b    = gr::digital::probe_density_b;
+
+    using probe_density_b    = ::gr::digital::probe_density_b;
 
 
-    py::class_<probe_density_b,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<probe_density_b>>(m, "probe_density_b")
+    py::class_<probe_density_b, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<probe_density_b>>(m, "probe_density_b", D(probe_density_b))
 
         .def(py::init(&probe_density_b::make),
-           py::arg("alpha") 
+           py::arg("alpha"),
+           D(probe_density_b,make)
         )
         
 
-        .def("density",&probe_density_b::density)
-        .def("set_alpha",&probe_density_b::set_alpha,
-            py::arg("alpha") 
+
+
+
+        .def("density",&probe_density_b::density,
+            D(probe_density_b,density)
         )
+
+
+        .def("set_alpha",&probe_density_b::set_alpha,
+            py::arg("alpha"),
+            D(probe_density_b,set_alpha)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

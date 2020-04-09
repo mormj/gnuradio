@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/ofdm_cyclic_prefixer.h>
+// pydoc.h is automatically generated in the build directory
+#include <ofdm_cyclic_prefixer_pydoc.h>
 
 void bind_ofdm_cyclic_prefixer(py::module& m)
 {
@@ -29,14 +31,16 @@ void bind_ofdm_cyclic_prefixer(py::module& m)
            py::arg("input_size"), 
            py::arg("output_size"), 
            py::arg("rolloff_len") = 0, 
-           py::arg("len_tag_key") = "" 
+           py::arg("len_tag_key") = "",
+           D(ofdm_cyclic_prefixer,make,0)
         )
 
         .def(py::init((std::shared_ptr<ofdm_cyclic_prefixer>(*)(int, const std::vector<int>&, int, const std::string&))&ofdm_cyclic_prefixer::make),
            py::arg("input_size"), 
            py::arg("output_size"), 
            py::arg("rolloff_len") = 0, 
-           py::arg("len_tag_key") = "" 
+           py::arg("len_tag_key") = "", 
+           D(ofdm_cyclic_prefixer,make,1)
         )
         ;
 

@@ -16,9 +16,11 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/simple_framer_sync.h>
+// pydoc.h is automatically generated in the build directory
+#include <simple_framer_sync_pydoc.h>
 
 void bind_simple_framer_sync(py::module& m)
 {
-
+  // TODO: Add the constexprs here
 
 } 

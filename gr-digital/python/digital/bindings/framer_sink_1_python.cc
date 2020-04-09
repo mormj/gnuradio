@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/framer_sink_1.h>
+// pydoc.h is automatically generated in the build directory
+#include <framer_sink_1_pydoc.h>
 
 void bind_framer_sink_1(py::module& m)
 {
-    using framer_sink_1    = gr::digital::framer_sink_1;
+
+    using framer_sink_1    = ::gr::digital::framer_sink_1;
 
 
-    py::class_<framer_sink_1,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<framer_sink_1>>(m, "framer_sink_1")
+    py::class_<framer_sink_1, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<framer_sink_1>>(m, "framer_sink_1", D(framer_sink_1))
 
         .def(py::init(&framer_sink_1::make),
-           py::arg("target_queue") 
+           py::arg("target_queue"),
+           D(framer_sink_1,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

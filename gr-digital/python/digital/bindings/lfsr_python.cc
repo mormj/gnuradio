@@ -16,35 +16,70 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/lfsr.h>
+// pydoc.h is automatically generated in the build directory
+#include <lfsr_pydoc.h>
 
 void bind_lfsr(py::module& m)
 {
-    using lfsr    = gr::digital::lfsr;
+
+    using lfsr    = ::gr::digital::lfsr;
 
 
     py::class_<lfsr,
-        std::shared_ptr<lfsr>>(m, "lfsr")
+        std::shared_ptr<lfsr>>(m, "lfsr", D(lfsr))
 
-        .def(py::init<uint32_t,uint32_t,uint32_t>(),           py::arg("mask"), 
-           py::arg("seed"), 
-           py::arg("reg_len") 
+        .def(py::init<uint32_t,uint32_t,uint32_t>(),           py::arg("mask"),
+           py::arg("seed"),
+           py::arg("reg_len"),
+           D(lfsr,lfsr,0)
         )
-        .def(py::init<gr::digital::lfsr const &>(),           py::arg("arg0") 
+        .def(py::init<gr::digital::lfsr const &>(),           py::arg("arg0"),
+           D(lfsr,lfsr,1)
         )
 
-        .def("next_bit",&lfsr::next_bit)
+
+        .def("next_bit",&lfsr::next_bit,
+            D(lfsr,next_bit)
+        )
+
+
         .def("next_bit_scramble",&lfsr::next_bit_scramble,
-            py::arg("input") 
+            py::arg("input"),
+            D(lfsr,next_bit_scramble)
         )
+
+
         .def("next_bit_descramble",&lfsr::next_bit_descramble,
-            py::arg("input") 
+            py::arg("input"),
+            D(lfsr,next_bit_descramble)
         )
-        .def("reset",&lfsr::reset)
+
+
+        .def("reset",&lfsr::reset,
+            D(lfsr,reset)
+        )
+
+
         .def("pre_shift",&lfsr::pre_shift,
-            py::arg("num") 
+            py::arg("num"),
+            D(lfsr,pre_shift)
         )
-        .def("mask",&lfsr::mask)
+
+
+        .def("mask",&lfsr::mask,
+            D(lfsr,mask)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

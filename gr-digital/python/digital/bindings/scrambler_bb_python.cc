@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/scrambler_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <scrambler_bb_pydoc.h>
 
 void bind_scrambler_bb(py::module& m)
 {
-    using scrambler_bb    = gr::digital::scrambler_bb;
+
+    using scrambler_bb    = ::gr::digital::scrambler_bb;
 
 
-    py::class_<scrambler_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<scrambler_bb>>(m, "scrambler_bb")
+    py::class_<scrambler_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<scrambler_bb>>(m, "scrambler_bb", D(scrambler_bb))
 
         .def(py::init(&scrambler_bb::make),
-           py::arg("mask"), 
-           py::arg("seed"), 
-           py::arg("len") 
+           py::arg("mask"),
+           py::arg("seed"),
+           py::arg("len"),
+           D(scrambler_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

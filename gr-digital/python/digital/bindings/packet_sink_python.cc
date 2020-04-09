@@ -16,24 +16,43 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/packet_sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <packet_sink_pydoc.h>
 
 void bind_packet_sink(py::module& m)
 {
-    using packet_sink    = gr::digital::packet_sink;
+
+    using packet_sink    = ::gr::digital::packet_sink;
 
 
-    py::class_<packet_sink,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<packet_sink>>(m, "packet_sink")
+    py::class_<packet_sink, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<packet_sink>>(m, "packet_sink", D(packet_sink))
 
         .def(py::init(&packet_sink::make),
-           py::arg("sync_vector"), 
-           py::arg("target_queue"), 
-           py::arg("threshold") = -1 
+           py::arg("sync_vector"),
+           py::arg("target_queue"),
+           py::arg("threshold") = -1,
+           D(packet_sink,make)
         )
         
 
-        .def("carrier_sensed",&packet_sink::carrier_sensed)
+
+
+
+        .def("carrier_sensed",&packet_sink::carrier_sensed,
+            D(packet_sink,carrier_sensed)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

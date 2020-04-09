@@ -16,25 +16,43 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/correlate_access_code_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <correlate_access_code_bb_pydoc.h>
 
 void bind_correlate_access_code_bb(py::module& m)
 {
-    using correlate_access_code_bb    = gr::digital::correlate_access_code_bb;
+
+    using correlate_access_code_bb    = ::gr::digital::correlate_access_code_bb;
 
 
-    py::class_<correlate_access_code_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<correlate_access_code_bb>>(m, "correlate_access_code_bb")
+    py::class_<correlate_access_code_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<correlate_access_code_bb>>(m, "correlate_access_code_bb", D(correlate_access_code_bb))
 
         .def(py::init(&correlate_access_code_bb::make),
-           py::arg("access_code"), 
-           py::arg("threshold") 
+           py::arg("access_code"),
+           py::arg("threshold"),
+           D(correlate_access_code_bb,make)
         )
         
 
+
+
+
         .def("set_access_code",&correlate_access_code_bb::set_access_code,
-            py::arg("access_code") 
+            py::arg("access_code"),
+            D(correlate_access_code_bb,set_access_code)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

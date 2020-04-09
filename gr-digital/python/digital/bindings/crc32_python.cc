@@ -16,25 +16,49 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/crc32.h>
+// pydoc.h is automatically generated in the build directory
+#include <crc32_pydoc.h>
 
 void bind_crc32(py::module& m)
 {
 
 
-    m.def("update_crc32",(unsigned int (*)(unsigned int, const unsigned char*, size_t))&gr::digital::update_crc32,
-        py::arg("crc"), 
-        py::arg("buf"), 
-        py::arg("len") 
-    );
-    m.def("update_crc32",(unsigned int (*)(unsigned int, const std::string))&gr::digital::update_crc32,
-        py::arg("crc"), 
-        py::arg("buf") 
-    );
-    m.def("crc32",(unsigned int (*)(const unsigned char*, size_t))&gr::digital::crc32,
-        py::arg("buf"), 
-        py::arg("len") 
-    );
-    m.def("crc32",(unsigned int (*)(const std::string))&gr::digital::crc32,
-        py::arg("buf") 
-    );
-} 
+
+
+        m.def("update_crc32",(unsigned int (*)(unsigned int, unsigned char const *, size_t))&::gr::digital::update_crc32,
+            py::arg("crc"),
+            py::arg("buf"),
+            py::arg("len"),
+            D(update_crc32,0)
+        );
+
+
+        m.def("update_crc32",(unsigned int (*)(unsigned int, std::string const))&::gr::digital::update_crc32,
+            py::arg("crc"),
+            py::arg("buf"),
+            D(update_crc32,1)
+        );
+
+
+        m.def("crc32",(unsigned int (*)(unsigned char const *, size_t))&::gr::digital::crc32,
+            py::arg("buf"),
+            py::arg("len"),
+            D(crc32,0)
+        );
+
+
+        m.def("crc32",(unsigned int (*)(std::string const))&::gr::digital::crc32,
+            py::arg("buf"),
+            D(crc32,1)
+        );
+
+
+
+}
+
+
+
+
+
+
+

@@ -16,15 +16,27 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/metric_type.h>
+// pydoc.h is automatically generated in the build directory
+#include <metric_type_pydoc.h>
 
 void bind_metric_type(py::module& m)
 {
 
-    py::enum_<gr::digital::trellis_metric_type_t>(m,"trellis_metric_type_t")
-        .value("TRELLIS_EUCLIDEAN", gr::digital::TRELLIS_EUCLIDEAN) // 200
-        .value("TRELLIS_HARD_SYMBOL", gr::digital::TRELLIS_HARD_SYMBOL) // 201
-        .value("TRELLIS_HARD_BIT", gr::digital::TRELLIS_HARD_BIT) // 202
+
+    py::enum_<::gr::digital::trellis_metric_type_t>(m,"trellis_metric_type_t")
+        .value("TRELLIS_EUCLIDEAN", ::gr::digital::TRELLIS_EUCLIDEAN) // 200
+        .value("TRELLIS_HARD_SYMBOL", ::gr::digital::TRELLIS_HARD_SYMBOL) // 201
+        .value("TRELLIS_HARD_BIT", ::gr::digital::TRELLIS_HARD_BIT) // 202
         .export_values()
     ;
 
-} 
+
+
+}
+
+
+
+
+
+
+

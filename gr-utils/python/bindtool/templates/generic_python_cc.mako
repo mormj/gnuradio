@@ -143,7 +143,7 @@ if 'bases' in cls:
 fcn = make_function
 fcn_args = fcn['arguments']
 %>\
-        .def(py::init(&${cls['name']}::${make_function['name']})${',' if fcn_args else ''}
+        .def(py::init(&${cls['name']}::${make_function['name']}),
 % for arg in fcn_args:
            py::arg("${arg['name']}")${" = " + arg['default'] if arg['default'] else ''},
 % endfor 

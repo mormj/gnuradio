@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/simple_correlator.h>
+// pydoc.h is automatically generated in the build directory
+#include <simple_correlator_pydoc.h>
 
 void bind_simple_correlator(py::module& m)
 {
-    using simple_correlator    = gr::digital::simple_correlator;
+
+    using simple_correlator    = ::gr::digital::simple_correlator;
 
 
-    py::class_<simple_correlator,gr::block, gr::basic_block,
-        std::shared_ptr<simple_correlator>>(m, "simple_correlator")
+    py::class_<simple_correlator, gr::block, gr::basic_block,
+        std::shared_ptr<simple_correlator>>(m, "simple_correlator", D(simple_correlator))
 
         .def(py::init(&simple_correlator::make),
-           py::arg("payload_bytesize") 
+           py::arg("payload_bytesize"),
+           D(simple_correlator,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

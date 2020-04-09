@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/ofdm_serializer_vcc.h>
+// pydoc.h is automatically generated in the build directory
+#include <ofdm_serializer_vcc_pydoc.h>
 
 void bind_ofdm_serializer_vcc(py::module& m)
 {
@@ -41,7 +43,8 @@ void bind_ofdm_serializer_vcc(py::module& m)
              py::arg("packet_len_tag_key") = "",
              py::arg("symbols_skipped") = 0,
              py::arg("carr_offset_key") = "",
-             py::arg("input_is_shifted") = true)
+             py::arg("input_is_shifted") = true,
+             D(ofdm_serializer_vcc,make,0))
 
         .def(py::init((std::shared_ptr<ofdm_serializer_vcc>(*)(
                           const gr::digital::ofdm_carrier_allocator_cvc::sptr&,
@@ -54,7 +57,8 @@ void bind_ofdm_serializer_vcc(py::module& m)
              py::arg("packet_len_tag_key") = "",
              py::arg("symbols_skipped") = 0,
              py::arg("carr_offset_key") = "",
-             py::arg("input_is_shifted") = true)
+             py::arg("input_is_shifted") = true,
+             D(ofdm_serializer_vcc,make,1))
 
         ;
 }

@@ -16,24 +16,41 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/ofdm_chanest_vcvc.h>
+// pydoc.h is automatically generated in the build directory
+#include <ofdm_chanest_vcvc_pydoc.h>
 
 void bind_ofdm_chanest_vcvc(py::module& m)
 {
-    using ofdm_chanest_vcvc    = gr::digital::ofdm_chanest_vcvc;
+
+    using ofdm_chanest_vcvc    = ::gr::digital::ofdm_chanest_vcvc;
 
 
-    py::class_<ofdm_chanest_vcvc,gr::block, gr::basic_block,
-        std::shared_ptr<ofdm_chanest_vcvc>>(m, "ofdm_chanest_vcvc")
+    py::class_<ofdm_chanest_vcvc, gr::block, gr::basic_block,
+        std::shared_ptr<ofdm_chanest_vcvc>>(m, "ofdm_chanest_vcvc", D(ofdm_chanest_vcvc))
 
         .def(py::init(&ofdm_chanest_vcvc::make),
-           py::arg("sync_symbol1"), 
-           py::arg("sync_symbol2"), 
-           py::arg("n_data_symbols"), 
-           py::arg("eq_noise_red_len") = 0, 
-           py::arg("max_carr_offset") = -1, 
-           py::arg("force_one_sync_symbol") = false 
+           py::arg("sync_symbol1"),
+           py::arg("sync_symbol2"),
+           py::arg("n_data_symbols"),
+           py::arg("eq_noise_red_len") = 0,
+           py::arg("max_carr_offset") = -1,
+           py::arg("force_one_sync_symbol") = false,
+           D(ofdm_chanest_vcvc,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

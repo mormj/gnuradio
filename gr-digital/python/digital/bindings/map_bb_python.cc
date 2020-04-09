@@ -16,25 +16,47 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/map_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <map_bb_pydoc.h>
 
 void bind_map_bb(py::module& m)
 {
-    using map_bb    = gr::digital::map_bb;
+
+    using map_bb    = ::gr::digital::map_bb;
 
 
-    py::class_<map_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<map_bb>>(m, "map_bb")
+    py::class_<map_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<map_bb>>(m, "map_bb", D(map_bb))
 
         .def(py::init(&map_bb::make),
-           py::arg("map") 
+           py::arg("map"),
+           D(map_bb,make)
         )
         
 
+
+
+
         .def("set_map",&map_bb::set_map,
-            py::arg("map") 
+            py::arg("map"),
+            D(map_bb,set_map)
         )
-        .def("map",&map_bb::map)
+
+
+        .def("map",&map_bb::map,
+            D(map_bb,map)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,24 +16,43 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/costas_loop_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <costas_loop_cc_pydoc.h>
 
 void bind_costas_loop_cc(py::module& m)
 {
-    using costas_loop_cc    = gr::digital::costas_loop_cc;
+
+    using costas_loop_cc    = ::gr::digital::costas_loop_cc;
 
 
-    py::class_<costas_loop_cc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<costas_loop_cc>>(m, "costas_loop_cc")
+    py::class_<costas_loop_cc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<costas_loop_cc>>(m, "costas_loop_cc", D(costas_loop_cc))
 
         .def(py::init(&costas_loop_cc::make),
-           py::arg("loop_bw"), 
-           py::arg("order"), 
-           py::arg("use_snr") = false 
+           py::arg("loop_bw"),
+           py::arg("order"),
+           py::arg("use_snr") = false,
+           D(costas_loop_cc,make)
         )
         
 
-        .def("error",&costas_loop_cc::error)
+
+
+
+        .def("error",&costas_loop_cc::error,
+            D(costas_loop_cc,error)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

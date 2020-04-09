@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/packet_headerparser_b.h>
+// pydoc.h is automatically generated in the build directory
+#include <packet_headerparser_b_pydoc.h>
 
 void bind_packet_headerparser_b(py::module& m)
 {
@@ -26,11 +28,13 @@ void bind_packet_headerparser_b(py::module& m)
         std::shared_ptr<packet_headerparser_b>>(m, "packet_headerparser_b")
 
         .def(py::init((std::shared_ptr<packet_headerparser_b>(*)(const gr::digital::packet_header_default::sptr&))&packet_headerparser_b::make),
-           py::arg("header_formatter") 
+           py::arg("header_formatter"),
+           D(packet_headerparser_b,make,0)
         )
         .def(py::init((std::shared_ptr<packet_headerparser_b>(*)(long, const std::string&))&packet_headerparser_b::make),
            py::arg("header_len"),
-           py::arg("len_tag_key") 
+           py::arg("len_tag_key"),
+           D(packet_headerparser_b,make,1)
         )
         ;
 

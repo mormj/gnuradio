@@ -1,8 +1,10 @@
+include(GrPybind)
+
 ########################################################################
 # Python Bindings
 ########################################################################
 
-pybind11_add_module(digital_python
+list(APPEND digital_python_files
     additive_scrambler_bb_python.cc
     binary_slicer_fb_python.cc
     burst_shaper_python.cc
@@ -84,16 +86,9 @@ pybind11_add_module(digital_python
     timing_error_detector_type_python.cc
     python_bindings.cc)
 
-target_include_directories(digital_python PUBLIC
-    ${PYTHON_NUMPY_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
-    ${PYBIND11_INCLUDE_DIR}
-)
-target_link_libraries(digital_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime gnuradio-digital)
-
-if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
-    SET_TARGET_PROPERTIES(digital_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
-endif()
+GR_PYBIND_MAKE(digital 
+   ../../.. 
+   gr::digital
+   "${digital_python_files}")
 
 install(TARGETS digital_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/digital COMPONENT pythonapi)

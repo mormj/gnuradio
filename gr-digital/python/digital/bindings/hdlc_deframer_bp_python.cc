@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/hdlc_deframer_bp.h>
+// pydoc.h is automatically generated in the build directory
+#include <hdlc_deframer_bp_pydoc.h>
 
 void bind_hdlc_deframer_bp(py::module& m)
 {
-    using hdlc_deframer_bp    = gr::digital::hdlc_deframer_bp;
+
+    using hdlc_deframer_bp    = ::gr::digital::hdlc_deframer_bp;
 
 
-    py::class_<hdlc_deframer_bp,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<hdlc_deframer_bp>>(m, "hdlc_deframer_bp")
+    py::class_<hdlc_deframer_bp, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<hdlc_deframer_bp>>(m, "hdlc_deframer_bp", D(hdlc_deframer_bp))
 
         .def(py::init(&hdlc_deframer_bp::make),
-           py::arg("length_min"), 
-           py::arg("length_max") 
+           py::arg("length_min"),
+           py::arg("length_max"),
+           D(hdlc_deframer_bp,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

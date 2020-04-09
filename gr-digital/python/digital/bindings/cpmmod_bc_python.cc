@@ -16,35 +16,73 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/cpmmod_bc.h>
+// pydoc.h is automatically generated in the build directory
+#include <cpmmod_bc_pydoc.h>
 
 void bind_cpmmod_bc(py::module& m)
 {
-    using cpmmod_bc    = gr::digital::cpmmod_bc;
+
+    using cpmmod_bc    = ::gr::digital::cpmmod_bc;
 
 
-    py::class_<cpmmod_bc,gr::hier_block2,
-        std::shared_ptr<cpmmod_bc>>(m, "cpmmod_bc")
+    py::class_<cpmmod_bc, gr::hier_block2,
+        std::shared_ptr<cpmmod_bc>>(m, "cpmmod_bc", D(cpmmod_bc))
 
         .def(py::init(&cpmmod_bc::make),
-           py::arg("type"), 
-           py::arg("h"), 
-           py::arg("samples_per_sym"), 
-           py::arg("L"), 
-           py::arg("beta") = 0.29999999999999999 
+           py::arg("type"),
+           py::arg("h"),
+           py::arg("samples_per_sym"),
+           py::arg("L"),
+           py::arg("beta") = 0.29999999999999999,
+           D(cpmmod_bc,make)
         )
         
 
+
+
+
         .def_static("make_gmskmod_bc",&cpmmod_bc::make_gmskmod_bc,
-            py::arg("samples_per_sym") = 2, 
-            py::arg("L") = 4, 
-            py::arg("beta") = 0.29999999999999999 
+            py::arg("samples_per_sym") = 2,
+            py::arg("L") = 4,
+            py::arg("beta") = 0.29999999999999999,
+            D(cpmmod_bc,make_gmskmod_bc)
         )
-        .def("taps",&cpmmod_bc::taps)
-        .def("type",&cpmmod_bc::type)
-        .def("index",&cpmmod_bc::index)
-        .def("samples_per_sym",&cpmmod_bc::samples_per_sym)
-        .def("beta",&cpmmod_bc::beta)
+
+
+        .def("taps",&cpmmod_bc::taps,
+            D(cpmmod_bc,taps)
+        )
+
+
+        .def("type",&cpmmod_bc::type,
+            D(cpmmod_bc,type)
+        )
+
+
+        .def("index",&cpmmod_bc::index,
+            D(cpmmod_bc,index)
+        )
+
+
+        .def("samples_per_sym",&cpmmod_bc::samples_per_sym,
+            D(cpmmod_bc,samples_per_sym)
+        )
+
+
+        .def("beta",&cpmmod_bc::beta,
+            D(cpmmod_bc,beta)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

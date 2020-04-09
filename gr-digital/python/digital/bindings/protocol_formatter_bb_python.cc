@@ -16,25 +16,43 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/protocol_formatter_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <protocol_formatter_bb_pydoc.h>
 
 void bind_protocol_formatter_bb(py::module& m)
 {
-    using protocol_formatter_bb    = gr::digital::protocol_formatter_bb;
+
+    using protocol_formatter_bb    = ::gr::digital::protocol_formatter_bb;
 
 
     py::class_<protocol_formatter_bb, gr::tagged_stream_block, gr::block, gr::basic_block,
-        std::shared_ptr<protocol_formatter_bb>>(m, "protocol_formatter_bb")
+        std::shared_ptr<protocol_formatter_bb>>(m, "protocol_formatter_bb", D(protocol_formatter_bb))
 
         .def(py::init(&protocol_formatter_bb::make),
-           py::arg("format"), 
-           py::arg("len_tag_key") = "packet_len" 
+           py::arg("format"),
+           py::arg("len_tag_key") = "packet_len",
+           D(protocol_formatter_bb,make)
         )
         
 
+
+
+
         .def("set_header_format",&protocol_formatter_bb::set_header_format,
-            py::arg("format") 
+            py::arg("format"),
+            D(protocol_formatter_bb,set_header_format)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

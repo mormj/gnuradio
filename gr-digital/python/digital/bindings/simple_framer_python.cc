@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/simple_framer.h>
+// pydoc.h is automatically generated in the build directory
+#include <simple_framer_pydoc.h>
 
 void bind_simple_framer(py::module& m)
 {
-    using simple_framer    = gr::digital::simple_framer;
+
+    using simple_framer    = ::gr::digital::simple_framer;
 
 
-    py::class_<simple_framer,gr::block, gr::basic_block,
-        std::shared_ptr<simple_framer>>(m, "simple_framer")
+    py::class_<simple_framer, gr::block, gr::basic_block,
+        std::shared_ptr<simple_framer>>(m, "simple_framer", D(simple_framer))
 
         .def(py::init(&simple_framer::make),
-           py::arg("payload_bytesize") 
+           py::arg("payload_bytesize"),
+           D(simple_framer,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

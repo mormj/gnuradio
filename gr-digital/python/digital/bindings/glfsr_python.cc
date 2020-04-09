@@ -16,27 +16,52 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/glfsr.h>
+// pydoc.h is automatically generated in the build directory
+#include <glfsr_pydoc.h>
 
 void bind_glfsr(py::module& m)
 {
-    using glfsr    = gr::digital::glfsr;
+
+    using glfsr    = ::gr::digital::glfsr;
 
 
     py::class_<glfsr,
-        std::shared_ptr<glfsr>>(m, "glfsr")
+        std::shared_ptr<glfsr>>(m, "glfsr", D(glfsr))
 
-        .def(py::init<uint32_t,uint32_t>(),           py::arg("mask"), 
-           py::arg("seed") 
+        .def(py::init<uint32_t,uint32_t>(),           py::arg("mask"),
+           py::arg("seed"),
+           D(glfsr,glfsr,0)
         )
-        .def(py::init<gr::digital::glfsr const &>(),           py::arg("arg0") 
+        .def(py::init<gr::digital::glfsr const &>(),           py::arg("arg0"),
+           D(glfsr,glfsr,1)
         )
+
 
         .def_static("glfsr_mask",&glfsr::glfsr_mask,
-            py::arg("degree") 
+            py::arg("degree"),
+            D(glfsr,glfsr_mask)
         )
-        .def("next_bit",&glfsr::next_bit)
-        .def("mask",&glfsr::mask)
+
+
+        .def("next_bit",&glfsr::next_bit,
+            D(glfsr,next_bit)
+        )
+
+
+        .def("mask",&glfsr::mask,
+            D(glfsr,mask)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

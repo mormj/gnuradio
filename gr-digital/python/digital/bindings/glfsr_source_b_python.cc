@@ -16,26 +16,49 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/glfsr_source_b.h>
+// pydoc.h is automatically generated in the build directory
+#include <glfsr_source_b_pydoc.h>
 
 void bind_glfsr_source_b(py::module& m)
 {
-    using glfsr_source_b    = gr::digital::glfsr_source_b;
+
+    using glfsr_source_b    = ::gr::digital::glfsr_source_b;
 
 
-    py::class_<glfsr_source_b,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<glfsr_source_b>>(m, "glfsr_source_b")
+    py::class_<glfsr_source_b, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<glfsr_source_b>>(m, "glfsr_source_b", D(glfsr_source_b))
 
         .def(py::init(&glfsr_source_b::make),
-           py::arg("degree"), 
-           py::arg("repeat") = true, 
-           py::arg("mask") = 0, 
-           py::arg("seed") = 1 
+           py::arg("degree"),
+           py::arg("repeat") = true,
+           py::arg("mask") = 0,
+           py::arg("seed") = 1,
+           D(glfsr_source_b,make)
         )
         
 
-        .def("period",&glfsr_source_b::period)
-        .def("mask",&glfsr_source_b::mask)
+
+
+
+        .def("period",&glfsr_source_b::period,
+            D(glfsr_source_b,period)
+        )
+
+
+        .def("mask",&glfsr_source_b::mask,
+            D(glfsr_source_b,mask)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

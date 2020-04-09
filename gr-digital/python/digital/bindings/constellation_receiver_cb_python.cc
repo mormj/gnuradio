@@ -16,27 +16,45 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/constellation_receiver_cb.h>
+// pydoc.h is automatically generated in the build directory
+#include <constellation_receiver_cb_pydoc.h>
 
 void bind_constellation_receiver_cb(py::module& m)
 {
-    using constellation_receiver_cb    = gr::digital::constellation_receiver_cb;
+
+    using constellation_receiver_cb    = ::gr::digital::constellation_receiver_cb;
 
 
-    py::class_<constellation_receiver_cb,gr::block, gr::basic_block,
-        std::shared_ptr<constellation_receiver_cb>>(m, "constellation_receiver_cb")
+    py::class_<constellation_receiver_cb, gr::block, gr::basic_block,
+        std::shared_ptr<constellation_receiver_cb>>(m, "constellation_receiver_cb", D(constellation_receiver_cb))
 
         .def(py::init(&constellation_receiver_cb::make),
-           py::arg("constellation"), 
-           py::arg("loop_bw"), 
-           py::arg("fmin"), 
-           py::arg("fmax") 
+           py::arg("constellation"),
+           py::arg("loop_bw"),
+           py::arg("fmin"),
+           py::arg("fmax"),
+           D(constellation_receiver_cb,make)
         )
         
 
+
+
+
         .def("phase_error_tracking",&constellation_receiver_cb::phase_error_tracking,
-            py::arg("phase_error") 
+            py::arg("phase_error"),
+            D(constellation_receiver_cb,phase_error_tracking)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

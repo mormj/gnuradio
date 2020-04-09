@@ -16,6 +16,8 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/interpolating_resampler_type.h>
+// pydoc.h is automatically generated in the build directory
+#include <interpolating_resampler_type_pydoc.h>
 
 void bind_interpolating_resampler_type(py::module& m)
 {

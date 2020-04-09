@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/digital/diff_encoder_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <diff_encoder_bb_pydoc.h>
 
 void bind_diff_encoder_bb(py::module& m)
 {
-    using diff_encoder_bb    = gr::digital::diff_encoder_bb;
+
+    using diff_encoder_bb    = ::gr::digital::diff_encoder_bb;
 
 
-    py::class_<diff_encoder_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<diff_encoder_bb>>(m, "diff_encoder_bb")
+    py::class_<diff_encoder_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<diff_encoder_bb>>(m, "diff_encoder_bb", D(diff_encoder_bb))
 
         .def(py::init(&diff_encoder_bb::make),
-           py::arg("modulus") 
+           py::arg("modulus"),
+           D(diff_encoder_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+
