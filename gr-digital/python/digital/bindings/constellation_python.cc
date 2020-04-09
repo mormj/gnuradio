@@ -36,7 +36,7 @@ void bind_constellation(py::module& m)
     using constellation_16qam    = ::gr::digital::constellation_16qam;
 
 
-    py::class_<constellation, std::enable_shared_from_this<gr::digital::constellation>,
+    py::class_<constellation, 
         std::shared_ptr<constellation>>(m, "constellation", D(constellation))
 
         // .def(py::init<std::vector<std::complex<float>, std::allocator<std::complex<float> > >,std::vector<int, std::allocator<int> >,unsigned int,unsigned int,bool>(),           py::arg("constell"),
