@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/audio/sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <sink_pydoc.h>
 
 void bind_sink(py::module& m)
 {
-    using sink    = gr::audio::sink;
+
+    using sink    = ::gr::audio::sink;
 
 
-    py::class_<sink,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<sink>>(m, "sink")
+    py::class_<sink, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<sink>>(m, "sink", D(sink))
 
         .def(py::init(&sink::make),
-           py::arg("sampling_rate"), 
-           py::arg("device_name") = "", 
-           py::arg("ok_to_block") = true 
+           py::arg("sampling_rate"),
+           py::arg("device_name") = "",
+           py::arg("ok_to_block") = true,
+           D(sink,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

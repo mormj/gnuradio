@@ -16,9 +16,21 @@
 namespace py = pybind11;
 
 #include <gnuradio/trellis/viterbi.h>
+// pydoc.h is automatically generated in the build directory
+#include <viterbi_pydoc.h>
 
 void bind_viterbi(py::module& m)
 {
 
 
-} 
+
+
+
+}
+
+
+
+
+
+
+

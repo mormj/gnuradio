@@ -16,34 +16,65 @@
 namespace py = pybind11;
 
 #include <gnuradio/trellis/interleaver.h>
+// pydoc.h is automatically generated in the build directory
+#include <interleaver_pydoc.h>
 
 void bind_interleaver(py::module& m)
 {
-    using interleaver    = gr::trellis::interleaver;
+
+    using interleaver    = ::gr::trellis::interleaver;
 
 
     py::class_<interleaver,
-        std::shared_ptr<interleaver>>(m, "interleaver")
+        std::shared_ptr<interleaver>>(m, "interleaver", D(interleaver))
 
-        .def(py::init<>())
-        .def(py::init<gr::trellis::interleaver const &>(),           py::arg("INTERLEAVER") 
+        .def(py::init<>(),D(interleaver,interleaver,0))
+        .def(py::init<gr::trellis::interleaver const &>(),           py::arg("INTERLEAVER"),
+           D(interleaver,interleaver,1)
         )
-        .def(py::init<unsigned int,std::vector<int, std::allocator<int> > const &>(),           py::arg("K"), 
-           py::arg("INTER") 
+        .def(py::init<unsigned int,std::vector<int, std::allocator<int> > const &>(),           py::arg("K"),
+           py::arg("INTER"),
+           D(interleaver,interleaver,2)
         )
-        .def(py::init<char const *>(),           py::arg("name") 
+        .def(py::init<char const *>(),           py::arg("name"),
+           D(interleaver,interleaver,3)
         )
-        .def(py::init<unsigned int,int>(),           py::arg("K"), 
-           py::arg("seed") 
+        .def(py::init<unsigned int,int>(),           py::arg("K"),
+           py::arg("seed"),
+           D(interleaver,interleaver,4)
         )
 
-        .def("K",&interleaver::K)
-        .def("INTER",&interleaver::INTER)
-        .def("DEINTER",&interleaver::DEINTER)
+
+        .def("K",&interleaver::K,
+            D(interleaver,K)
+        )
+
+
+        .def("INTER",&interleaver::INTER,
+            D(interleaver,INTER)
+        )
+
+
+        .def("DEINTER",&interleaver::DEINTER,
+            D(interleaver,DEINTER)
+        )
+
+
         .def("write_interleaver_txt",&interleaver::write_interleaver_txt,
-            py::arg("filename") 
+            py::arg("filename"),
+            D(interleaver,write_interleaver_txt)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

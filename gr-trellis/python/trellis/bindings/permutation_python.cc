@@ -16,37 +16,77 @@
 namespace py = pybind11;
 
 #include <gnuradio/trellis/permutation.h>
+// pydoc.h is automatically generated in the build directory
+#include <permutation_pydoc.h>
 
 void bind_permutation(py::module& m)
 {
-    using permutation    = gr::trellis::permutation;
+
+    using permutation    = ::gr::trellis::permutation;
 
 
-    py::class_<permutation,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<permutation>>(m, "permutation")
+    py::class_<permutation, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<permutation>>(m, "permutation", D(permutation))
 
         .def(py::init(&permutation::make),
-           py::arg("K"), 
-           py::arg("TABLE"), 
-           py::arg("SYMS_PER_BLOCK"), 
-           py::arg("NBYTES") 
+           py::arg("K"),
+           py::arg("TABLE"),
+           py::arg("SYMS_PER_BLOCK"),
+           py::arg("NBYTES"),
+           D(permutation,make)
         )
         
 
-        .def("K",&permutation::K)
-        .def("TABLE",&permutation::TABLE)
-        .def("SYMS_PER_BLOCK",&permutation::SYMS_PER_BLOCK)
-        .def("BYTES_PER_SYMBOL",&permutation::BYTES_PER_SYMBOL)
+
+
+
+        .def("K",&permutation::K,
+            D(permutation,K)
+        )
+
+
+        .def("TABLE",&permutation::TABLE,
+            D(permutation,TABLE)
+        )
+
+
+        .def("SYMS_PER_BLOCK",&permutation::SYMS_PER_BLOCK,
+            D(permutation,SYMS_PER_BLOCK)
+        )
+
+
+        .def("BYTES_PER_SYMBOL",&permutation::BYTES_PER_SYMBOL,
+            D(permutation,BYTES_PER_SYMBOL)
+        )
+
+
         .def("set_K",&permutation::set_K,
-            py::arg("K") 
+            py::arg("K"),
+            D(permutation,set_K)
         )
+
+
         .def("set_TABLE",&permutation::set_TABLE,
-            py::arg("table") 
+            py::arg("table"),
+            D(permutation,set_TABLE)
         )
+
+
         .def("set_SYMS_PER_BLOCK",&permutation::set_SYMS_PER_BLOCK,
-            py::arg("spb") 
+            py::arg("spb"),
+            D(permutation,set_SYMS_PER_BLOCK)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

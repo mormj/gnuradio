@@ -8,10 +8,12 @@
  *
  */
 
-#include "pybind11_common.h"
+#include <pybind11/pybind11.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/arrayobject.h>
+
+namespace py = pybind11;
 
 void bind_squash_ff(py::module&);
 void bind_wavelet_ff(py::module&);
@@ -33,9 +35,11 @@ PYBIND11_MODULE(wavelet_python, m)
     // (otherwise we will see segmentation faults)
     init_numpy();
 
+    // Allow access to base block methods
     py::module::import("gnuradio.gr");
 
     bind_squash_ff(m);
     bind_wavelet_ff(m);
     bind_wvps_ff(m);
 }
+

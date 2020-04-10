@@ -16,9 +16,21 @@
 namespace py = pybind11;
 
 #include <gnuradio/trellis/encoder.h>
+// pydoc.h is automatically generated in the build directory
+#include <encoder_pydoc.h>
 
 void bind_encoder(py::module& m)
 {
 
 
-} 
+
+
+
+}
+
+
+
+
+
+
+

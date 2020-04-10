@@ -16,9 +16,21 @@
 namespace py = pybind11;
 
 #include <gnuradio/trellis/metrics.h>
+// pydoc.h is automatically generated in the build directory
+#include <metrics_pydoc.h>
 
 void bind_metrics(py::module& m)
 {
 
 
-} 
+
+
+
+}
+
+
+
+
+
+
+

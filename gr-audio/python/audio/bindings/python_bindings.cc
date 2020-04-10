@@ -15,6 +15,7 @@
 
 namespace py = pybind11;
 
+//void bind_osx_impl(py::module&);
 void bind_sink(py::module&);
 void bind_source(py::module&);
 
@@ -37,6 +38,7 @@ PYBIND11_MODULE(audio_python, m)
     // Allow access to base block methods
     py::module::import("gnuradio.gr");
 
+    //bind_osx_impl(m);
     bind_sink(m);
     bind_source(m);
 }

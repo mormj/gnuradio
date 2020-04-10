@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/audio/source.h>
+// pydoc.h is automatically generated in the build directory
+#include <source_pydoc.h>
 
 void bind_source(py::module& m)
 {
-    using source    = gr::audio::source;
+
+    using source    = ::gr::audio::source;
 
 
-    py::class_<source,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<source>>(m, "source")
+    py::class_<source, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<source>>(m, "source", D(source))
 
         .def(py::init(&source::make),
-           py::arg("sampling_rate"), 
-           py::arg("device_name") = "", 
-           py::arg("ok_to_block") = true 
+           py::arg("sampling_rate"),
+           py::arg("device_name") = "",
+           py::arg("ok_to_block") = true,
+           D(source,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

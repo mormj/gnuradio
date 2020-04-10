@@ -16,6 +16,7 @@
 namespace py = pybind11;
 
 // void bind_base(py::module&);
+// void bind_calc_metric(py::module&);
 void bind_constellation_metrics_cf(py::module&);
 // void bind_core_algorithms(py::module&);
 void bind_encoder(py::module&);
@@ -56,6 +57,7 @@ PYBIND11_MODULE(trellis_python, m)
     py::module::import("gnuradio.gr");
 
     // bind_base(m);
+    // bind_calc_metric(m);
     bind_constellation_metrics_cf(m);
     // bind_core_algorithms(m);
     bind_encoder(m);

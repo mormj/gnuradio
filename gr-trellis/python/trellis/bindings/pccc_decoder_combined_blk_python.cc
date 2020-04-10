@@ -16,9 +16,21 @@
 namespace py = pybind11;
 
 #include <gnuradio/trellis/pccc_decoder_combined_blk.h>
+// pydoc.h is automatically generated in the build directory
+#include <pccc_decoder_combined_blk_pydoc.h>
 
 void bind_pccc_decoder_combined_blk(py::module& m)
 {
 
 
-} 
+
+
+
+}
+
+
+
+
+
+
+

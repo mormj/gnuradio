@@ -16,27 +16,51 @@
 namespace py = pybind11;
 
 #include <gnuradio/trellis/base.h>
+// pydoc.h is automatically generated in the build directory
+#include <base_pydoc.h>
 
 void bind_base(py::module& m)
 {
 
 
-    m.def("dec2base",&gr::trellis::dec2base,
-        py::arg("num"), 
-        py::arg("base"), 
-        py::arg("s") 
-    );
-    m.def("dec2bases",&gr::trellis::dec2bases,
-        py::arg("num"), 
-        py::arg("bases"), 
-        py::arg("s") 
-    );
-    m.def("base2dec",&gr::trellis::base2dec,
-        py::arg("s"), 
-        py::arg("base") 
-    );
-    m.def("bases2dec",&gr::trellis::bases2dec,
-        py::arg("s"), 
-        py::arg("bases") 
-    );
-} 
+
+
+        m.def("dec2base",&::gr::trellis::dec2base,
+            py::arg("num"),
+            py::arg("base"),
+            py::arg("s"),
+            D(dec2base)
+        );
+
+
+        m.def("dec2bases",&::gr::trellis::dec2bases,
+            py::arg("num"),
+            py::arg("bases"),
+            py::arg("s"),
+            D(dec2bases)
+        );
+
+
+        m.def("base2dec",&::gr::trellis::base2dec,
+            py::arg("s"),
+            py::arg("base"),
+            D(base2dec)
+        );
+
+
+        m.def("bases2dec",&::gr::trellis::bases2dec,
+            py::arg("s"),
+            py::arg("bases"),
+            D(bases2dec)
+        );
+
+
+
+}
+
+
+
+
+
+
+

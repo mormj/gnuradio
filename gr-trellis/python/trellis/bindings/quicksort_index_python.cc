@@ -16,9 +16,21 @@
 namespace py = pybind11;
 
 #include <gnuradio/trellis/quicksort_index.h>
+// pydoc.h is automatically generated in the build directory
+#include <quicksort_index_pydoc.h>
 
 void bind_quicksort_index(py::module& m)
 {
 
 
-} 
+
+
+
+}
+
+
+
+
+
+
+

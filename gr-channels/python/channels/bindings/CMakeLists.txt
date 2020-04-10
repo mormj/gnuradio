@@ -1,8 +1,10 @@
+include(GrPybind)
+
 ########################################################################
 # Python Bindings
 ########################################################################
 
-pybind11_add_module(channels_python
+list(APPEND channels_python_files
     cfo_model_python.cc
     channel_model_python.cc
     channel_model2_python.cc
@@ -13,16 +15,9 @@ pybind11_add_module(channels_python
     sro_model_python.cc
     python_bindings.cc)
 
-target_include_directories(channels_python PUBLIC
-    ${PYTHON_NUMPY_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
-    ${PYBIND11_INCLUDE_DIR}
-)
-target_link_libraries(channels_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime gnuradio-channels)
-
-if(CMAKE_COMPILER_IS_GNUCC AND NOT APPLE)
-    SET_TARGET_PROPERTIES(channels_python PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
-endif()
+GR_PYBIND_MAKE(channels 
+   ../../.. 
+   gr::channels
+   "${channels_python_files}")
 
 install(TARGETS channels_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/channels COMPONENT pythonapi)

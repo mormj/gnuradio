@@ -16,37 +16,73 @@
 namespace py = pybind11;
 
 #include <gnuradio/channels/fading_model.h>
+// pydoc.h is automatically generated in the build directory
+#include <fading_model_pydoc.h>
 
 void bind_fading_model(py::module& m)
 {
-    using fading_model    = gr::channels::fading_model;
+
+    using fading_model    = ::gr::channels::fading_model;
 
 
-    py::class_<fading_model,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<fading_model>>(m, "fading_model")
+    py::class_<fading_model, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<fading_model>>(m, "fading_model", D(fading_model))
 
         .def(py::init(&fading_model::make),
-           py::arg("N"), 
-           py::arg("fDTs") = 0.00999999977F, 
-           py::arg("LOS") = true, 
-           py::arg("K") = 4, 
-           py::arg("seed") = 0 
+           py::arg("N"),
+           py::arg("fDTs") = 0.00999999977F,
+           py::arg("LOS") = true,
+           py::arg("K") = 4,
+           py::arg("seed") = 0,
+           D(fading_model,make)
         )
         
 
-        .def("fDTs",&fading_model::fDTs)
-        .def("K",&fading_model::K)
-        .def("step",&fading_model::step)
+
+
+
+        .def("fDTs",&fading_model::fDTs,
+            D(fading_model,fDTs)
+        )
+
+
+        .def("K",&fading_model::K,
+            D(fading_model,K)
+        )
+
+
+        .def("step",&fading_model::step,
+            D(fading_model,step)
+        )
+
+
         .def("set_fDTs",&fading_model::set_fDTs,
-            py::arg("fDTs") 
+            py::arg("fDTs"),
+            D(fading_model,set_fDTs)
         )
+
+
         .def("set_K",&fading_model::set_K,
-            py::arg("K") 
+            py::arg("K"),
+            D(fading_model,set_K)
         )
+
+
         .def("set_step",&fading_model::set_step,
-            py::arg("step") 
+            py::arg("step"),
+            D(fading_model,set_step)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+
