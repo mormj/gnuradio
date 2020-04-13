@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/vocoder/g723_24_decode_bs.h>
+// pydoc.h is automatically generated in the build directory
+#include <g723_24_decode_bs_pydoc.h>
 
 void bind_g723_24_decode_bs(py::module& m)
 {
-    using g723_24_decode_bs    = gr::vocoder::g723_24_decode_bs;
+
+    using g723_24_decode_bs    = ::gr::vocoder::g723_24_decode_bs;
 
 
-    py::class_<g723_24_decode_bs,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<g723_24_decode_bs>>(m, "g723_24_decode_bs")
+    py::class_<g723_24_decode_bs, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<g723_24_decode_bs>>(m, "g723_24_decode_bs", D(g723_24_decode_bs))
 
-        .def(py::init(&g723_24_decode_bs::make)
+        .def(py::init(&g723_24_decode_bs::make),
+           D(g723_24_decode_bs,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

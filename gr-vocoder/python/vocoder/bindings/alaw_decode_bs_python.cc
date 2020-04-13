@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/vocoder/alaw_decode_bs.h>
+// pydoc.h is automatically generated in the build directory
+#include <alaw_decode_bs_pydoc.h>
 
 void bind_alaw_decode_bs(py::module& m)
 {
-    using alaw_decode_bs    = gr::vocoder::alaw_decode_bs;
+
+    using alaw_decode_bs    = ::gr::vocoder::alaw_decode_bs;
 
 
-    py::class_<alaw_decode_bs,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<alaw_decode_bs>>(m, "alaw_decode_bs")
+    py::class_<alaw_decode_bs, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<alaw_decode_bs>>(m, "alaw_decode_bs", D(alaw_decode_bs))
 
-        .def(py::init(&alaw_decode_bs::make)
+        .def(py::init(&alaw_decode_bs::make),
+           D(alaw_decode_bs,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/vocoder/gsm_fr_decode_ps.h>
+// pydoc.h is automatically generated in the build directory
+#include <gsm_fr_decode_ps_pydoc.h>
 
 void bind_gsm_fr_decode_ps(py::module& m)
 {
-    using gsm_fr_decode_ps    = gr::vocoder::gsm_fr_decode_ps;
+
+    using gsm_fr_decode_ps    = ::gr::vocoder::gsm_fr_decode_ps;
 
 
-    py::class_<gsm_fr_decode_ps,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<gsm_fr_decode_ps>>(m, "gsm_fr_decode_ps")
+    py::class_<gsm_fr_decode_ps, gr::sync_interpolator,
+        std::shared_ptr<gsm_fr_decode_ps>>(m, "gsm_fr_decode_ps", D(gsm_fr_decode_ps))
 
         .def(py::init(&gsm_fr_decode_ps::make)
+           D(gsm_fr_decode_ps,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

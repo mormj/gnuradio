@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/vocoder/gsm_fr_encode_sp.h>
+// pydoc.h is automatically generated in the build directory
+#include <gsm_fr_encode_sp_pydoc.h>
 
 void bind_gsm_fr_encode_sp(py::module& m)
 {
-    using gsm_fr_encode_sp    = gr::vocoder::gsm_fr_encode_sp;
+
+    using gsm_fr_encode_sp    = ::gr::vocoder::gsm_fr_encode_sp;
 
 
-    py::class_<gsm_fr_encode_sp,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<gsm_fr_encode_sp>>(m, "gsm_fr_encode_sp")
+    py::class_<gsm_fr_encode_sp, gr::sync_decimator,
+        std::shared_ptr<gsm_fr_encode_sp>>(m, "gsm_fr_encode_sp", D(gsm_fr_encode_sp))
 
         .def(py::init(&gsm_fr_encode_sp::make)
+           D(gsm_fr_encode_sp,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

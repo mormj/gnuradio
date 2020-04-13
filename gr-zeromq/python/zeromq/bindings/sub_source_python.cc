@@ -16,27 +16,46 @@
 namespace py = pybind11;
 
 #include <gnuradio/zeromq/sub_source.h>
+// pydoc.h is automatically generated in the build directory
+#include <sub_source_pydoc.h>
 
 void bind_sub_source(py::module& m)
 {
-    using sub_source    = gr::zeromq::sub_source;
+
+    using sub_source    = ::gr::zeromq::sub_source;
 
 
-    py::class_<sub_source,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<sub_source>>(m, "sub_source")
+    py::class_<sub_source, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<sub_source>>(m, "sub_source", D(sub_source))
 
         .def(py::init(&sub_source::make),
-           py::arg("itemsize"), 
-           py::arg("vlen"), 
-           py::arg("address"), 
-           py::arg("timeout") = 100, 
-           py::arg("pass_tags") = false, 
-           py::arg("hwm") = -1 
+           py::arg("itemsize"),
+           py::arg("vlen"),
+           py::arg("address"),
+           py::arg("timeout") = 100,
+           py::arg("pass_tags") = false,
+           py::arg("hwm") = -1,
+           D(sub_source,make)
         )
         
 
-        .def("last_endpoint",&sub_source::last_endpoint)
+
+
+
+        .def("last_endpoint",&sub_source::last_endpoint,
+            D(sub_source,last_endpoint)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

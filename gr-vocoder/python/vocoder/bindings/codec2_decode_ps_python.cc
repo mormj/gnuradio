@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/vocoder/codec2_decode_ps.h>
+// pydoc.h is automatically generated in the build directory
+#include <codec2_decode_ps_pydoc.h>
 
 void bind_codec2_decode_ps(py::module& m)
 {
-    using codec2_decode_ps    = gr::vocoder::codec2_decode_ps;
+
+    using codec2_decode_ps    = ::gr::vocoder::codec2_decode_ps;
 
 
-    py::class_<codec2_decode_ps,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<codec2_decode_ps>>(m, "codec2_decode_ps")
+    py::class_<codec2_decode_ps, gr::sync_interpolator,
+        std::shared_ptr<codec2_decode_ps>>(m, "codec2_decode_ps", D(codec2_decode_ps))
 
         .def(py::init(&codec2_decode_ps::make),
-           py::arg("mode") = gr::vocoder::codec2::MODE_2400 
+           py::arg("mode") = gr::vocoder::codec2::MODE_2400,
+           D(codec2_decode_ps,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

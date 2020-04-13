@@ -16,23 +16,42 @@
 namespace py = pybind11;
 
 #include <gnuradio/zeromq/pub_msg_sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <pub_msg_sink_pydoc.h>
 
 void bind_pub_msg_sink(py::module& m)
 {
-    using pub_msg_sink    = gr::zeromq::pub_msg_sink;
+
+    using pub_msg_sink    = ::gr::zeromq::pub_msg_sink;
 
 
-    py::class_<pub_msg_sink,gr::block, gr::basic_block,
-        std::shared_ptr<pub_msg_sink>>(m, "pub_msg_sink")
+    py::class_<pub_msg_sink, gr::block, gr::basic_block,
+        std::shared_ptr<pub_msg_sink>>(m, "pub_msg_sink", D(pub_msg_sink))
 
         .def(py::init(&pub_msg_sink::make),
-           py::arg("address"), 
-           py::arg("timeout") = 100 
+           py::arg("address"),
+           py::arg("timeout") = 100,
+           D(pub_msg_sink,make)
         )
         
 
-        .def("last_endpoint",&pub_msg_sink::last_endpoint)
+
+
+
+        .def("last_endpoint",&pub_msg_sink::last_endpoint,
+            D(pub_msg_sink,last_endpoint)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

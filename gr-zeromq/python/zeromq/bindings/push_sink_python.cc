@@ -16,27 +16,46 @@
 namespace py = pybind11;
 
 #include <gnuradio/zeromq/push_sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <push_sink_pydoc.h>
 
 void bind_push_sink(py::module& m)
 {
-    using push_sink    = gr::zeromq::push_sink;
+
+    using push_sink    = ::gr::zeromq::push_sink;
 
 
-    py::class_<push_sink,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<push_sink>>(m, "push_sink")
+    py::class_<push_sink, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<push_sink>>(m, "push_sink", D(push_sink))
 
         .def(py::init(&push_sink::make),
-           py::arg("itemsize"), 
-           py::arg("vlen"), 
-           py::arg("address"), 
-           py::arg("timeout") = 100, 
-           py::arg("pass_tags") = false, 
-           py::arg("hwm") = -1 
+           py::arg("itemsize"),
+           py::arg("vlen"),
+           py::arg("address"),
+           py::arg("timeout") = 100,
+           py::arg("pass_tags") = false,
+           py::arg("hwm") = -1,
+           D(push_sink,make)
         )
         
 
-        .def("last_endpoint",&push_sink::last_endpoint)
+
+
+
+        .def("last_endpoint",&push_sink::last_endpoint,
+            D(push_sink,last_endpoint)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

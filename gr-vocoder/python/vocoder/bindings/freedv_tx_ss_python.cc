@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/vocoder/freedv_tx_ss.h>
+// pydoc.h is automatically generated in the build directory
+#include <freedv_tx_ss_pydoc.h>
 
 void bind_freedv_tx_ss(py::module& m)
 {
-    using freedv_tx_ss    = gr::vocoder::freedv_tx_ss;
+
+    using freedv_tx_ss    = ::gr::vocoder::freedv_tx_ss;
 
 
-    py::class_<freedv_tx_ss,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<freedv_tx_ss>>(m, "freedv_tx_ss")
+    py::class_<freedv_tx_ss, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<freedv_tx_ss>>(m, "freedv_tx_ss", D(freedv_tx_ss))
 
         .def(py::init(&freedv_tx_ss::make),
-           py::arg("mode") = gr::vocoder::freedv_api::MODE_1600, 
-           py::arg("msg_txt") = "GNU Radio", 
-           py::arg("interleave_frames") = 1 
+           py::arg("mode") = gr::vocoder::freedv_api::MODE_1600,
+           py::arg("msg_txt") = "GNU Radio",
+           py::arg("interleave_frames") = 1,
+           D(freedv_tx_ss,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

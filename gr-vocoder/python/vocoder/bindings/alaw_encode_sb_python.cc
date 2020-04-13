@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/vocoder/alaw_encode_sb.h>
+// pydoc.h is automatically generated in the build directory
+#include <alaw_encode_sb_pydoc.h>
 
 void bind_alaw_encode_sb(py::module& m)
 {
-    using alaw_encode_sb    = gr::vocoder::alaw_encode_sb;
+
+    using alaw_encode_sb    = ::gr::vocoder::alaw_encode_sb;
 
 
-    py::class_<alaw_encode_sb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<alaw_encode_sb>>(m, "alaw_encode_sb")
+    py::class_<alaw_encode_sb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<alaw_encode_sb>>(m, "alaw_encode_sb", D(alaw_encode_sb))
 
-        .def(py::init(&alaw_encode_sb::make)
+        .def(py::init(&alaw_encode_sb::make),
+           D(alaw_encode_sb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

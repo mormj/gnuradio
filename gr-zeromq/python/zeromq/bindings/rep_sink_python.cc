@@ -16,27 +16,46 @@
 namespace py = pybind11;
 
 #include <gnuradio/zeromq/rep_sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <rep_sink_pydoc.h>
 
 void bind_rep_sink(py::module& m)
 {
-    using rep_sink    = gr::zeromq::rep_sink;
+
+    using rep_sink    = ::gr::zeromq::rep_sink;
 
 
-    py::class_<rep_sink,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<rep_sink>>(m, "rep_sink")
+    py::class_<rep_sink, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<rep_sink>>(m, "rep_sink", D(rep_sink))
 
         .def(py::init(&rep_sink::make),
-           py::arg("itemsize"), 
-           py::arg("vlen"), 
-           py::arg("address"), 
-           py::arg("timeout") = 100, 
-           py::arg("pass_tags") = false, 
-           py::arg("hwm") = -1 
+           py::arg("itemsize"),
+           py::arg("vlen"),
+           py::arg("address"),
+           py::arg("timeout") = 100,
+           py::arg("pass_tags") = false,
+           py::arg("hwm") = -1,
+           D(rep_sink,make)
         )
         
 
-        .def("last_endpoint",&rep_sink::last_endpoint)
+
+
+
+        .def("last_endpoint",&rep_sink::last_endpoint,
+            D(rep_sink,last_endpoint)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

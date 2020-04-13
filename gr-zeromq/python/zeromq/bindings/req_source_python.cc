@@ -16,27 +16,46 @@
 namespace py = pybind11;
 
 #include <gnuradio/zeromq/req_source.h>
+// pydoc.h is automatically generated in the build directory
+#include <req_source_pydoc.h>
 
 void bind_req_source(py::module& m)
 {
-    using req_source    = gr::zeromq::req_source;
+
+    using req_source    = ::gr::zeromq::req_source;
 
 
-    py::class_<req_source,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<req_source>>(m, "req_source")
+    py::class_<req_source, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<req_source>>(m, "req_source", D(req_source))
 
         .def(py::init(&req_source::make),
-           py::arg("itemsize"), 
-           py::arg("vlen"), 
-           py::arg("address"), 
-           py::arg("timeout") = 100, 
-           py::arg("pass_tags") = false, 
-           py::arg("hwm") = -1 
+           py::arg("itemsize"),
+           py::arg("vlen"),
+           py::arg("address"),
+           py::arg("timeout") = 100,
+           py::arg("pass_tags") = false,
+           py::arg("hwm") = -1,
+           D(req_source,make)
         )
         
 
-        .def("last_endpoint",&req_source::last_endpoint)
+
+
+
+        .def("last_endpoint",&req_source::last_endpoint,
+            D(req_source,last_endpoint)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+
