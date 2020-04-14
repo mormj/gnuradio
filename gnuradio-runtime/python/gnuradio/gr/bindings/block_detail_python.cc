@@ -16,6 +16,7 @@
 namespace py = pybind11;
 
 #include <gnuradio/block_detail.h>
+#include <gnuradio/buffer.h>
 // pydoc.h is automatically generated in the build directory
 #include <block_detail_pydoc.h>
 

@@ -18,6 +18,7 @@ namespace py = pybind11;
 #include <gnuradio/block.h>
 // pydoc.h is automatically generated in the build directory
 #include <block_pydoc.h>
+#include <gnuradio/block_detail.h>
 
 void bind_block(py::module& m)
 {
@@ -545,16 +546,18 @@ void bind_block(py::module& m)
         );
 
 
-        py::module m_messages = m.def_submodule("messages");
-
-
-
-
-
-
-        py::module m_thread = m.def_submodule("thread");
-
-
+    py::enum_<gr::block::work_return_t>(m,"work_return_t")
+        .value("WORK_CALLED_PRODUCE", gr::block::WORK_CALLED_PRODUCE) // -2
+        .value("WORK_DONE", gr::block::WORK_DONE) // -1
+        .export_values()
+    ;
+    py::enum_<gr::block::tag_propagation_policy_t>(m,"tag_propagation_policy_t")
+        .value("TPP_DONT", gr::block::TPP_DONT) // 0
+        .value("TPP_ALL_TO_ALL", gr::block::TPP_ALL_TO_ALL) // 1
+        .value("TPP_ONE_TO_ONE", gr::block::TPP_ONE_TO_ONE) // 2
+        .value("TPP_CUSTOM", gr::block::TPP_CUSTOM) // 3
+        .export_values()
+    ;
 
 
 

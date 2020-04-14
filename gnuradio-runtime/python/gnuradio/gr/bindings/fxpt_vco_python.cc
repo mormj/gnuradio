@@ -51,7 +51,7 @@ void bind_fxpt_vco(py::module& m)
         )
 
 
-        .def("sincos",(void (fxpt_vco::*)(float *, float *))&fxpt_vco::sincos,
+        .def("sincos",(void (fxpt_vco::*)(float *, float *) const)&fxpt_vco::sincos,
             py::arg("sinx"),
             py::arg("cosx"),
             D(fxpt_vco,sincos,0)
@@ -78,7 +78,7 @@ void bind_fxpt_vco(py::module& m)
         )
 
 
-        .def("cos",(float (fxpt_vco::*)())&fxpt_vco::cos,
+        .def("cos",(float (fxpt_vco::*)() const)&fxpt_vco::cos,
             D(fxpt_vco,cos,1)
         )
 

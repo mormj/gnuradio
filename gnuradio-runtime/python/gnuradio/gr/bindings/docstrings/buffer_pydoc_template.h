@@ -82,7 +82,7 @@
  static const char *__doc_gr_buffer_get_tags_upper_bound = R"doc()doc";
 
  
- static const char *__doc_gr_buffer_reader = R"doc()doc";
+//  static const char *__doc_gr_buffer_reader = R"doc()doc";
 
 
  static const char *__doc_gr_buffer_reader_buffer_reader = R"doc()doc";

@@ -16,6 +16,7 @@
 namespace py = pybind11;
 
 #include <gnuradio/buffer.h>
+#include <gnuradio/block.h>
 // pydoc.h is automatically generated in the build directory
 #include <buffer_pydoc.h>
 
@@ -151,7 +152,7 @@ void bind_buffer(py::module& m)
         std::shared_ptr<buffer_reader>>(m, "buffer_reader", D(buffer_reader))
 
         .def(py::init<gr::buffer_reader const &>(),           py::arg("arg0"),
-           D(buffer_reader,buffer_reader,0)
+           D(buffer_reader,buffer_reader)
         )
 
 

@@ -112,21 +112,21 @@ PYBIND11_MODULE(gr_python, m)
 
     
     bind_messages_msg_accepter(m);
-    // bind_messages_msg_queue(m);
-    // bind_messages_msg_accepter_msgq(m);
-    // bind_messages_msg_passing(m);
-    // bind_messages_msg_producer(m);
+    bind_messages_msg_queue(m);
+    bind_messages_msg_accepter_msgq(m);
+    bind_messages_msg_passing(m);
+    bind_messages_msg_producer(m);
     
 
     bind_msg_accepter(m);
-    // bind_msg_handler(m);
-    // bind_msg_queue(m);
+    bind_msg_handler(m);
+    bind_msg_queue(m);
     
     bind_io_signature(m);
     // // bind_attributes(m);
     bind_basic_block(m);
     bind_block(m);
-    // bind_block_detail(m);
+    bind_block_detail(m);
     bind_block_gateway(m);
     // // bind_block_registry(m);
     bind_buffer(m);
@@ -137,7 +137,7 @@ PYBIND11_MODULE(gr_python, m)
     bind_fxpt(m);
     bind_fxpt_nco(m);
     bind_fxpt_vco(m);
-    // bind_gr_complex(m);
+    // // bind_gr_complex(m);
     bind_hier_block2(m);
     bind_high_res_timer(m);
     
@@ -152,7 +152,7 @@ PYBIND11_MODULE(gr_python, m)
     // // bind_misc(m);
 
 
-    // bind_nco(m);
+    bind_nco(m);
     bind_prefs(m);
     // // bind_pycallback_object(m);
     bind_random(m);
@@ -171,9 +171,9 @@ PYBIND11_MODULE(gr_python, m)
     // // bind_rpcserver_booter_thrift(m);
     // // bind_rpcserver_selector(m);
     // // bind_rpcserver_thrift(m);
-    // bind_runtime_types(m);
+    bind_runtime_types(m);
     bind_sincos(m);
-    // bind_sptr_magic(m);
+    bind_sptr_magic(m);
     bind_sync_block(m);
     bind_sync_decimator(m);
     bind_sync_interpolator(m);
@@ -187,7 +187,7 @@ PYBIND11_MODULE(gr_python, m)
     // // bind_thrift_application_base(m);
     // // bind_thrift_server_template(m);
     bind_top_block(m);
-    // bind_tpb_detail(m);
+    bind_tpb_detail(m);
     // // bind_types(m);
     // // bind_unittests(m);
     // // bind_xoroshiro128p(m);

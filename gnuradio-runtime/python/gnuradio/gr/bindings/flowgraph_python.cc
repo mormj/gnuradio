@@ -33,7 +33,7 @@ void bind_flowgraph(py::module& m)
         std::shared_ptr<flowgraph>>(m, "flowgraph", D(flowgraph))
 
         .def(py::init<gr::flowgraph const &>(),           py::arg("arg0"),
-           D(flowgraph,flowgraph,0)
+           D(flowgraph,flowgraph)
         )
 
 
@@ -259,27 +259,10 @@ void bind_flowgraph(py::module& m)
         );
 
 
-        m.def("dot_graph_fg",&::gr::dot_graph_fg,
-            py::arg("fg"),
-            D(dot_graph_fg)
-        );
-
-
-        py::module m_messages = m.def_submodule("messages");
-
-
-
-
-
-
-        py::module m_thread = m.def_submodule("thread");
-
-
-
-
-
-
-
+        // m.def("dot_graph_fg",&::gr::dot_graph_fg,
+        //     py::arg("fg"),
+        //     D(dot_graph_fg)
+        // );
 }
 
 

@@ -28,7 +28,7 @@ void bind_prefs(py::module& m)
     py::class_<prefs,
         std::shared_ptr<prefs>>(m, "prefs", D(prefs))
 
-        .def(py::init<>(),D(prefs,prefs,0))
+        .def(py::init<>(),D(prefs,prefs))
 
 
         .def_static("singleton",&prefs::singleton,
