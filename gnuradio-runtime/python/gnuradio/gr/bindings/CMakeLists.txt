@@ -1,8 +1,10 @@
+include(GrPybind)
+
 ########################################################################
 # Python Bindings
 ########################################################################
 
-pybind11_add_module(gr_python
+list(APPEND gr_python_files
 messages/msg_accepter_msgq_python.cc
 messages/msg_accepter_python.cc
 messages/msg_passing_python.cc
@@ -80,12 +82,9 @@ messages/msg_queue_python.cc
     # xoroshiro128p_python.cc
     python_bindings.cc)
 
-target_include_directories(gr_python PUBLIC
-    ${PYTHON_NUMPY_INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../include
-    ${PYBIND11_INCLUDE_DIR}
-)
-target_link_libraries(gr_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-runtime)
+GR_PYBIND_MAKE(gr 
+   ../../.. 
+   gr::gr
+   "${gr_python_files}")
 
 install(TARGETS gr_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/gr COMPONENT pythonapi)

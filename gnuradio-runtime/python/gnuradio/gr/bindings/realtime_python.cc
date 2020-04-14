@@ -16,10 +16,33 @@
 namespace py = pybind11;
 
 #include <gnuradio/realtime.h>
+// pydoc.h is automatically generated in the build directory
+#include <realtime_pydoc.h>
 
 void bind_realtime(py::module& m)
 {
 
 
-    m.def("enable_realtime_scheduling",&gr::enable_realtime_scheduling);
-} 
+
+
+        m.def("enable_realtime_scheduling",&::gr::enable_realtime_scheduling,
+            D(enable_realtime_scheduling)
+        );
+
+
+        py::module m_impl = m.def_submodule("impl");
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+

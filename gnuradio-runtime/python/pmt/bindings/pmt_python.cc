@@ -32,6 +32,8 @@ void bind_pmt(py::module& m)
 
         .def(py::init<>(), D(pmt_base, pmt_base))
 
+        .def("__str__", [](const pmt::pmt_t &p){return pmt::write_string(p);} )
+
 
         .def("is_bool", &pmt_base::is_bool, D(pmt_base, is_bool))
 
@@ -1480,6 +1482,9 @@ void bind_pmt(py::module& m)
 
     m.def("equal", &::pmt::equal, py::arg("x"), py::arg("y"), D(equal));
 
+    m.def("length",&pmt::length,
+        py::arg("v")
+    );
 
     m.def("assq", &::pmt::assq, py::arg("obj"), py::arg("alist"), D(assq));
 

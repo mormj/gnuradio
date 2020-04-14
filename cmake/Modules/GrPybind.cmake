@@ -5,7 +5,12 @@ macro(GR_PYBIND_MAKE name updir filter files)
 configure_file(${CMAKE_SOURCE_DIR}/docs/doxygen/pydoc_macros.h ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 pybind11_add_module(${name}_python ${files})
-    
+
+SET(MODULE_NAME ${name})
+if (${name} STREQUAL gr)
+    SET(MODULE_NAME "runtime")
+endif()
+
 if(ENABLE_DOXYGEN)
     add_custom_command( 
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/docstring_status
@@ -15,7 +20,7 @@ if(ENABLE_DOXYGEN)
         "--output_dir" ${CMAKE_CURRENT_BINARY_DIR}
         "--filter" ${filter}
         COMMENT "Adding docstrings into ${name} pybind headers ..."
-        DEPENDS gnuradio_docstrings gnuradio-${name})
+        DEPENDS gnuradio_docstrings gnuradio-${MODULE_NAME})
     add_custom_target(${name}_docstrings ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/docstring_status)
 else(ENABLE_DOXYGEN)
     add_custom_command( 
@@ -34,7 +39,7 @@ target_include_directories(${name}_python PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/${updir}/include
     ${PYBIND11_INCLUDE_DIR}
 )
-target_link_libraries(${name}_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-${name})
+target_link_libraries(${name}_python PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} gnuradio-${MODULE_NAME})
 target_compile_options(${name}_python PRIVATE -Wno-unused-variable) # disable warnings for docstring templates
 add_dependencies(${name}_python ${name}_docstrings)
 

@@ -16,37 +16,65 @@
 namespace py = pybind11;
 
 #include <gnuradio/fxpt.h>
+// pydoc.h is automatically generated in the build directory
+#include <fxpt_pydoc.h>
 
 void bind_fxpt(py::module& m)
 {
-    using fxpt    = gr::fxpt;
+
+    using fxpt    = ::gr::fxpt;
 
 
     py::class_<fxpt,
-        std::shared_ptr<fxpt>>(m, "fxpt")
+        std::shared_ptr<fxpt>>(m, "fxpt", D(fxpt))
 
-        .def(py::init<>())
-        .def(py::init<gr::fxpt const &>(),           py::arg("arg0") 
+        .def(py::init<>(),D(fxpt,fxpt,0))
+        .def(py::init<gr::fxpt const &>(),           py::arg("arg0"),
+           D(fxpt,fxpt,1)
         )
+
 
         .def_static("float_to_fixed",&fxpt::float_to_fixed,
-            py::arg("x") 
+            py::arg("x"),
+            D(fxpt,float_to_fixed)
         )
+
+
         .def_static("fixed_to_float",&fxpt::fixed_to_float,
-            py::arg("x") 
+            py::arg("x"),
+            D(fxpt,fixed_to_float)
         )
+
+
         .def_static("sin",&fxpt::sin,
-            py::arg("x") 
+            py::arg("x"),
+            D(fxpt,sin)
         )
+
+
         .def_static("cos",&fxpt::cos,
-            py::arg("x") 
+            py::arg("x"),
+            D(fxpt,cos)
         )
+
+
         .def_static("sincos",&fxpt::sincos,
-            py::arg("x"), 
-            py::arg("s"), 
-            py::arg("c") 
+            py::arg("x"),
+            py::arg("s"),
+            py::arg("c"),
+            D(fxpt,sincos)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+
