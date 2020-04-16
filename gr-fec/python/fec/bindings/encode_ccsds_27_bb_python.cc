@@ -25,7 +25,7 @@ void bind_encode_ccsds_27_bb(py::module& m)
     using encode_ccsds_27_bb    = ::gr::fec::encode_ccsds_27_bb;
 
 
-    py::class_<encode_ccsds_27_bb, gr::sync_interpolator,
+    py::class_<encode_ccsds_27_bb, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<encode_ccsds_27_bb>>(m, "encode_ccsds_27_bb", D(encode_ccsds_27_bb))
 
         .def(py::init(&encode_ccsds_27_bb::make),

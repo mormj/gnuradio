@@ -25,7 +25,7 @@ void bind_cpfsk_bc(py::module& m)
     using cpfsk_bc    = ::gr::analog::cpfsk_bc;
 
 
-    py::class_<cpfsk_bc, gr::sync_interpolator,
+    py::class_<cpfsk_bc, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<cpfsk_bc>>(m, "cpfsk_bc", D(cpfsk_bc))
 
         .def(py::init(&cpfsk_bc::make),

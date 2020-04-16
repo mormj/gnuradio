@@ -25,7 +25,7 @@ void bind_kurtotic_equalizer_cc(py::module& m)
     using kurtotic_equalizer_cc    = ::gr::digital::kurtotic_equalizer_cc;
 
 
-    py::class_<kurtotic_equalizer_cc, gr::sync_decimator,
+    py::class_<kurtotic_equalizer_cc, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<kurtotic_equalizer_cc>>(m, "kurtotic_equalizer_cc", D(kurtotic_equalizer_cc))
 
         .def(py::init(&kurtotic_equalizer_cc::make),

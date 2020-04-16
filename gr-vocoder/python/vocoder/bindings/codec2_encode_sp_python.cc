@@ -25,7 +25,7 @@ void bind_codec2_encode_sp(py::module& m)
     using codec2_encode_sp    = ::gr::vocoder::codec2_encode_sp;
 
 
-    py::class_<codec2_encode_sp, gr::sync_decimator,
+    py::class_<codec2_encode_sp, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<codec2_encode_sp>>(m, "codec2_encode_sp", D(codec2_encode_sp))
 
         .def(py::init(&codec2_encode_sp::make),

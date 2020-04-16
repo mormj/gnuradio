@@ -25,7 +25,7 @@ void bind_complex_to_interleaved_short(py::module& m)
     using complex_to_interleaved_short    = ::gr::blocks::complex_to_interleaved_short;
 
 
-    py::class_<complex_to_interleaved_short, gr::sync_interpolator,
+    py::class_<complex_to_interleaved_short, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<complex_to_interleaved_short>>(m, "complex_to_interleaved_short", D(complex_to_interleaved_short))
 
         .def(py::init(&complex_to_interleaved_short::make),

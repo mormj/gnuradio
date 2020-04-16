@@ -25,7 +25,7 @@ void bind_vector_to_stream(py::module& m)
     using vector_to_stream    = ::gr::blocks::vector_to_stream;
 
 
-    py::class_<vector_to_stream, gr::sync_interpolator,
+    py::class_<vector_to_stream, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<vector_to_stream>>(m, "vector_to_stream", D(vector_to_stream))
 
         .def(py::init(&vector_to_stream::make),

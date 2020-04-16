@@ -25,7 +25,7 @@ void bind_cma_equalizer_cc(py::module& m)
     using cma_equalizer_cc    = ::gr::digital::cma_equalizer_cc;
 
 
-    py::class_<cma_equalizer_cc, gr::sync_decimator,
+    py::class_<cma_equalizer_cc, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<cma_equalizer_cc>>(m, "cma_equalizer_cc", D(cma_equalizer_cc))
 
         .def(py::init(&cma_equalizer_cc::make),

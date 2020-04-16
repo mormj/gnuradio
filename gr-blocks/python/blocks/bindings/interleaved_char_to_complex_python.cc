@@ -25,7 +25,7 @@ void bind_interleaved_char_to_complex(py::module& m)
     using interleaved_char_to_complex    = ::gr::blocks::interleaved_char_to_complex;
 
 
-    py::class_<interleaved_char_to_complex, gr::sync_decimator,
+    py::class_<interleaved_char_to_complex, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<interleaved_char_to_complex>>(m, "interleaved_char_to_complex", D(interleaved_char_to_complex))
 
         .def(py::init(&interleaved_char_to_complex::make),

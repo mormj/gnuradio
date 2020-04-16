@@ -25,7 +25,7 @@ void bind_repeat(py::module& m)
     using repeat    = ::gr::blocks::repeat;
 
 
-    py::class_<repeat, gr::sync_interpolator,
+    py::class_<repeat, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<repeat>>(m, "repeat", D(repeat))
 
         .def(py::init(&repeat::make),

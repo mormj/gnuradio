@@ -25,7 +25,7 @@ void bind_cvsd_decode_bs(py::module& m)
     using cvsd_decode_bs    = ::gr::vocoder::cvsd_decode_bs;
 
 
-    py::class_<cvsd_decode_bs, gr::sync_interpolator,
+    py::class_<cvsd_decode_bs, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<cvsd_decode_bs>>(m, "cvsd_decode_bs", D(cvsd_decode_bs))
 
         .def(py::init(&cvsd_decode_bs::make),

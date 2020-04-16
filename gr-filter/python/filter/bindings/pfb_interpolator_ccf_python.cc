@@ -25,7 +25,7 @@ void bind_pfb_interpolator_ccf(py::module& m)
     using pfb_interpolator_ccf    = ::gr::filter::pfb_interpolator_ccf;
 
 
-    py::class_<pfb_interpolator_ccf, gr::sync_interpolator,
+    py::class_<pfb_interpolator_ccf, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pfb_interpolator_ccf>>(m, "pfb_interpolator_ccf", D(pfb_interpolator_ccf))
 
         .def(py::init(&pfb_interpolator_ccf::make),

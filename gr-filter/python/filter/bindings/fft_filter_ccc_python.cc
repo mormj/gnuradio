@@ -25,7 +25,7 @@ void bind_fft_filter_ccc(py::module& m)
 
 
 
-    py::class_<fft_filter_ccc, gr::sync_decimator,
+    py::class_<fft_filter_ccc, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<fft_filter_ccc>>(m, "fft_filter_ccc", D(fft_filter_ccc))
 
         .def(py::init(&fft_filter_ccc::make),

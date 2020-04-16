@@ -25,7 +25,7 @@ void bind_interleaved_short_to_complex(py::module& m)
     using interleaved_short_to_complex    = ::gr::blocks::interleaved_short_to_complex;
 
 
-    py::class_<interleaved_short_to_complex, gr::sync_decimator,
+    py::class_<interleaved_short_to_complex, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<interleaved_short_to_complex>>(m, "interleaved_short_to_complex", D(interleaved_short_to_complex))
 
         .def(py::init(&interleaved_short_to_complex::make),

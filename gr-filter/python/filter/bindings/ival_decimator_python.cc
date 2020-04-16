@@ -25,7 +25,7 @@ void bind_ival_decimator(py::module& m)
     using ival_decimator    = ::gr::filter::ival_decimator;
 
 
-    py::class_<ival_decimator, gr::sync_decimator,
+    py::class_<ival_decimator, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<ival_decimator>>(m, "ival_decimator", D(ival_decimator))
 
         .def(py::init(&ival_decimator::make),

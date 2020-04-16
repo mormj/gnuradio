@@ -25,7 +25,7 @@ void bind_pfb_synthesizer_ccf(py::module& m)
     using pfb_synthesizer_ccf    = ::gr::filter::pfb_synthesizer_ccf;
 
 
-    py::class_<pfb_synthesizer_ccf, gr::sync_interpolator,
+    py::class_<pfb_synthesizer_ccf, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<pfb_synthesizer_ccf>>(m, "pfb_synthesizer_ccf", D(pfb_synthesizer_ccf))
 
         .def(py::init(&pfb_synthesizer_ccf::make),

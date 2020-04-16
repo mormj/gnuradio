@@ -25,7 +25,7 @@ void bind_streams_to_stream(py::module& m)
     using streams_to_stream    = ::gr::blocks::streams_to_stream;
 
 
-    py::class_<streams_to_stream, gr::sync_interpolator,
+    py::class_<streams_to_stream, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<streams_to_stream>>(m, "streams_to_stream", D(streams_to_stream))
 
         .def(py::init(&streams_to_stream::make),

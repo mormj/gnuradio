@@ -25,7 +25,7 @@ void bind_goertzel_fc(py::module& m)
 
 
 
-    py::class_<goertzel_fc, gr::sync_decimator,
+    py::class_<goertzel_fc, gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<goertzel_fc>>(m, "goertzel_fc", D(goertzel_fc))
 
         .def(py::init(&goertzel_fc::make),

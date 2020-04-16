@@ -25,7 +25,7 @@ void bind_codec2_decode_ps(py::module& m)
     using codec2_decode_ps    = ::gr::vocoder::codec2_decode_ps;
 
 
-    py::class_<codec2_decode_ps, gr::sync_interpolator,
+    py::class_<codec2_decode_ps, gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
         std::shared_ptr<codec2_decode_ps>>(m, "codec2_decode_ps", D(codec2_decode_ps))
 
         .def(py::init(&codec2_decode_ps::make),
