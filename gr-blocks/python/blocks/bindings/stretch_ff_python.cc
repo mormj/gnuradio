@@ -16,27 +16,53 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/stretch_ff.h>
+// pydoc.h is automatically generated in the build directory
+#include <stretch_ff_pydoc.h>
 
 void bind_stretch_ff(py::module& m)
 {
-    using stretch_ff    = gr::blocks::stretch_ff;
+
+    using stretch_ff    = ::gr::blocks::stretch_ff;
 
 
-    py::class_<stretch_ff,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<stretch_ff>>(m, "stretch_ff")
+    py::class_<stretch_ff, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<stretch_ff>>(m, "stretch_ff", D(stretch_ff))
 
         .def(py::init(&stretch_ff::make),
-           py::arg("lo"), 
-           py::arg("vlen") = 1 
+           py::arg("lo"),
+           py::arg("vlen") = 1,
+           D(stretch_ff,make)
         )
         
 
-        .def("lo",&stretch_ff::lo)
-        .def("set_lo",&stretch_ff::set_lo,
-            py::arg("lo") 
+
+
+
+        .def("lo",&stretch_ff::lo,
+            D(stretch_ff,lo)
         )
-        .def("vlen",&stretch_ff::vlen)
+
+
+        .def("set_lo",&stretch_ff::set_lo,
+            py::arg("lo"),
+            D(stretch_ff,set_lo)
+        )
+
+
+        .def("vlen",&stretch_ff::vlen,
+            D(stretch_ff,vlen)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

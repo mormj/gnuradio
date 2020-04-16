@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/test_tag_variable_rate_ff.h>
+// pydoc.h is automatically generated in the build directory
+#include <test_tag_variable_rate_ff_pydoc.h>
 
 void bind_test_tag_variable_rate_ff(py::module& m)
 {
-    using test_tag_variable_rate_ff    = gr::blocks::test_tag_variable_rate_ff;
+
+    using test_tag_variable_rate_ff    = ::gr::blocks::test_tag_variable_rate_ff;
 
 
-    py::class_<test_tag_variable_rate_ff,gr::block, gr::basic_block,
-        std::shared_ptr<test_tag_variable_rate_ff>>(m, "test_tag_variable_rate_ff")
+    py::class_<test_tag_variable_rate_ff, gr::block, gr::basic_block,
+        std::shared_ptr<test_tag_variable_rate_ff>>(m, "test_tag_variable_rate_ff", D(test_tag_variable_rate_ff))
 
         .def(py::init(&test_tag_variable_rate_ff::make),
-           py::arg("update_once") = false, 
-           py::arg("update_step") = 0.001 
+           py::arg("update_once") = false,
+           py::arg("update_step") = 0.001,
+           D(test_tag_variable_rate_ff,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

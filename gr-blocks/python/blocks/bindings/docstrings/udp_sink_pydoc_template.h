@@ -16,24 +16,24 @@
 
 
  
- static const char *__doc_blocks_udp_sink = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_sink = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_sink_udp_sink_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_sink_udp_sink_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_sink_udp_sink_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_sink_udp_sink_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_sink_make = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_sink_make = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_sink_payload_size = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_sink_payload_size = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_sink_connect = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_sink_connect = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_sink_disconnect = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_sink_disconnect = R"doc()doc";
 
   

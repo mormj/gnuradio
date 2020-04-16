@@ -16,32 +16,63 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/pack_k_bits.h>
+// pydoc.h is automatically generated in the build directory
+#include <pack_k_bits_pydoc.h>
 
 void bind_pack_k_bits(py::module& m)
 {
-    using pack_k_bits    = gr::blocks::kernel::pack_k_bits;
+
+
+
+
+        py::module m_kernel = m.def_submodule("kernel");
+
+    using pack_k_bits    = ::gr::blocks::kernel::pack_k_bits;
 
 
     py::class_<pack_k_bits,
-        std::shared_ptr<pack_k_bits>>(m, "pack_k_bits")
+        std::shared_ptr<pack_k_bits>>(m_kernel, "pack_k_bits", D(kernel,pack_k_bits))
 
-        .def(py::init<unsigned int>(),           py::arg("k") 
+        .def(py::init<unsigned int>(),           py::arg("k"),
+           D(kernel,pack_k_bits,pack_k_bits,0)
         )
-        .def(py::init<gr::blocks::kernel::pack_k_bits const &>(),           py::arg("arg0") 
+        .def(py::init<gr::blocks::kernel::pack_k_bits const &>(),           py::arg("arg0"),
+           D(kernel,pack_k_bits,pack_k_bits,1)
         )
+
 
         .def("pack",&pack_k_bits::pack,
-            py::arg("bytes"), 
-            py::arg("bits"), 
-            py::arg("nbytes") 
+            py::arg("bytes"),
+            py::arg("bits"),
+            py::arg("nbytes"),
+            D(kernel,pack_k_bits,pack)
         )
+
+
         .def("pack_rev",&pack_k_bits::pack_rev,
-            py::arg("bytes"), 
-            py::arg("bits"), 
-            py::arg("nbytes") 
+            py::arg("bytes"),
+            py::arg("bits"),
+            py::arg("nbytes"),
+            D(kernel,pack_k_bits,pack_rev)
         )
-        .def("k",&pack_k_bits::k)
+
+
+        .def("k",&pack_k_bits::k,
+            D(kernel,pack_k_bits,k)
+        )
+
         ;
 
 
-} 
+
+
+
+
+}
+
+
+
+
+
+
+

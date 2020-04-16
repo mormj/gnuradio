@@ -34,6 +34,10 @@ list(APPEND blocks_python_files
     conjugate_cc_python.cc
     control_loop_python.cc
     copy_python.cc
+    correctiq_python.cc
+    correctiq_auto_python.cc
+    correctiq_man_python.cc
+    correctiq_swapiq_python.cc
     count_bits_python.cc
     # ctrlport_probe2_b_python.cc
     # ctrlport_probe2_c_python.cc

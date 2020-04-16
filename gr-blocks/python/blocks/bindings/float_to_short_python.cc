@@ -16,26 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/float_to_short.h>
+// pydoc.h is automatically generated in the build directory
+#include <float_to_short_pydoc.h>
 
 void bind_float_to_short(py::module& m)
 {
-    using float_to_short    = gr::blocks::float_to_short;
+
+    using float_to_short    = ::gr::blocks::float_to_short;
 
 
-    py::class_<float_to_short,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<float_to_short>>(m, "float_to_short")
+    py::class_<float_to_short, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<float_to_short>>(m, "float_to_short", D(float_to_short))
 
         .def(py::init(&float_to_short::make),
-           py::arg("vlen") = 1, 
-           py::arg("scale") = 1. 
+           py::arg("vlen") = 1,
+           py::arg("scale") = 1.,
+           D(float_to_short,make)
         )
         
 
-        .def("scale",&float_to_short::scale)
-        .def("set_scale",&float_to_short::set_scale,
-            py::arg("scale") 
+
+
+
+        .def("scale",&float_to_short::scale,
+            D(float_to_short,scale)
         )
+
+
+        .def("set_scale",&float_to_short::set_scale,
+            py::arg("scale"),
+            D(float_to_short,set_scale)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -21,8 +21,8 @@ namespace py = pybind11;
 
 void bind_add_const_ss(py::module& m)
 {
-    using add_const_ss    = gr::blocks::add_const_ss;
 
+    using add_const_ss    = ::gr::blocks::add_const_ss;
 
 
     py::class_<add_const_ss, gr::sync_block, gr::block, gr::basic_block,
@@ -32,16 +32,31 @@ void bind_add_const_ss(py::module& m)
            py::arg("k"),
            D(add_const_ss,make)
         )
+        
+
+
+
 
         .def("k",&add_const_ss::k,
             D(add_const_ss,k)
         )
 
+
         .def("set_k",&add_const_ss::set_k,
             py::arg("k"),
             D(add_const_ss,set_k)
         )
+
         ;
 
+
+
+
 }
+
+
+
+
+
+
 

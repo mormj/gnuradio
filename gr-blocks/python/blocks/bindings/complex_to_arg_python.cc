@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/complex_to_arg.h>
+// pydoc.h is automatically generated in the build directory
+#include <complex_to_arg_pydoc.h>
 
 void bind_complex_to_arg(py::module& m)
 {
-    using complex_to_arg    = gr::blocks::complex_to_arg;
+
+    using complex_to_arg    = ::gr::blocks::complex_to_arg;
 
 
-    py::class_<complex_to_arg,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<complex_to_arg>>(m, "complex_to_arg")
+    py::class_<complex_to_arg, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<complex_to_arg>>(m, "complex_to_arg", D(complex_to_arg))
 
         .def(py::init(&complex_to_arg::make),
-           py::arg("vlen") = 1 
+           py::arg("vlen") = 1,
+           D(complex_to_arg,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

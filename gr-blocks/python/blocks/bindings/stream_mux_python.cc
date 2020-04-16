@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/stream_mux.h>
+// pydoc.h is automatically generated in the build directory
+#include <stream_mux_pydoc.h>
 
 void bind_stream_mux(py::module& m)
 {
-    using stream_mux    = gr::blocks::stream_mux;
+
+    using stream_mux    = ::gr::blocks::stream_mux;
 
 
-    py::class_<stream_mux,gr::block, gr::basic_block,
-        std::shared_ptr<stream_mux>>(m, "stream_mux")
+    py::class_<stream_mux, gr::block, gr::basic_block,
+        std::shared_ptr<stream_mux>>(m, "stream_mux", D(stream_mux))
 
         .def(py::init(&stream_mux::make),
-           py::arg("itemsize"), 
-           py::arg("lengths") 
+           py::arg("itemsize"),
+           py::arg("lengths"),
+           D(stream_mux,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

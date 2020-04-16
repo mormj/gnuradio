@@ -16,29 +16,47 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/repack_bits_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <repack_bits_bb_pydoc.h>
 
 void bind_repack_bits_bb(py::module& m)
 {
-    using repack_bits_bb    = gr::blocks::repack_bits_bb;
+
+    using repack_bits_bb    = ::gr::blocks::repack_bits_bb;
 
 
     py::class_<repack_bits_bb, gr::tagged_stream_block, gr::block, gr::basic_block,
-        std::shared_ptr<repack_bits_bb>>(m, "repack_bits_bb")
+        std::shared_ptr<repack_bits_bb>>(m, "repack_bits_bb", D(repack_bits_bb))
 
         .def(py::init(&repack_bits_bb::make),
-           py::arg("k"), 
-           py::arg("l") = 8, 
-           py::arg("tsb_tag_key") = "", 
-           py::arg("align_output") = false, 
-           py::arg("endianness") = ::gr::endianness_t::GR_LSB_FIRST 
+           py::arg("k"),
+           py::arg("l") = 8,
+           py::arg("tsb_tag_key") = "",
+           py::arg("align_output") = false,
+           py::arg("endianness") = ::gr::endianness_t::GR_LSB_FIRST,
+           D(repack_bits_bb,make)
         )
         
 
+
+
+
         .def("set_k_and_l",&repack_bits_bb::set_k_and_l,
-            py::arg("k"), 
-            py::arg("l") 
+            py::arg("k"),
+            py::arg("l"),
+            D(repack_bits_bb,set_k_and_l)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

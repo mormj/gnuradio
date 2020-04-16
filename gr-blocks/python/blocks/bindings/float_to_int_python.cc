@@ -16,26 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/float_to_int.h>
+// pydoc.h is automatically generated in the build directory
+#include <float_to_int_pydoc.h>
 
 void bind_float_to_int(py::module& m)
 {
-    using float_to_int    = gr::blocks::float_to_int;
+
+    using float_to_int    = ::gr::blocks::float_to_int;
 
 
-    py::class_<float_to_int,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<float_to_int>>(m, "float_to_int")
+    py::class_<float_to_int, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<float_to_int>>(m, "float_to_int", D(float_to_int))
 
         .def(py::init(&float_to_int::make),
-           py::arg("vlen") = 1, 
-           py::arg("scale") = 1. 
+           py::arg("vlen") = 1,
+           py::arg("scale") = 1.,
+           D(float_to_int,make)
         )
         
 
-        .def("scale",&float_to_int::scale)
-        .def("set_scale",&float_to_int::set_scale,
-            py::arg("scale") 
+
+
+
+        .def("scale",&float_to_int::scale,
+            D(float_to_int,scale)
         )
+
+
+        .def("set_scale",&float_to_int::set_scale,
+            py::arg("scale"),
+            D(float_to_int,set_scale)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

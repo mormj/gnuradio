@@ -16,23 +16,42 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/multiply_by_tag_value_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <multiply_by_tag_value_cc_pydoc.h>
 
 void bind_multiply_by_tag_value_cc(py::module& m)
 {
-    using multiply_by_tag_value_cc    = gr::blocks::multiply_by_tag_value_cc;
+
+    using multiply_by_tag_value_cc    = ::gr::blocks::multiply_by_tag_value_cc;
 
 
-    py::class_<multiply_by_tag_value_cc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<multiply_by_tag_value_cc>>(m, "multiply_by_tag_value_cc")
+    py::class_<multiply_by_tag_value_cc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<multiply_by_tag_value_cc>>(m, "multiply_by_tag_value_cc", D(multiply_by_tag_value_cc))
 
         .def(py::init(&multiply_by_tag_value_cc::make),
-           py::arg("tag_name"), 
-           py::arg("vlen") = 1 
+           py::arg("tag_name"),
+           py::arg("vlen") = 1,
+           D(multiply_by_tag_value_cc,make)
         )
         
 
-        .def("k",&multiply_by_tag_value_cc::k)
+
+
+
+        .def("k",&multiply_by_tag_value_cc::k,
+            D(multiply_by_tag_value_cc,k)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

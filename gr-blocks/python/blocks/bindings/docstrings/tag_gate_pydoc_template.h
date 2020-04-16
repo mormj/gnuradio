@@ -16,24 +16,24 @@
 
 
  
- static const char *__doc_blocks_tag_gate = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_gate = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_gate_tag_gate_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_gate_tag_gate_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_gate_tag_gate_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_gate_tag_gate_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_gate_set_propagation = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_gate_set_propagation = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_gate_make = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_gate_make = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_gate_set_single_key = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_gate_set_single_key = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_gate_single_key = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_gate_single_key = R"doc()doc";
 
   

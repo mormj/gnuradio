@@ -16,34 +16,59 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/rotator.h>
+// pydoc.h is automatically generated in the build directory
+#include <rotator_pydoc.h>
 
 void bind_rotator(py::module& m)
 {
-    using rotator    = gr::blocks::rotator;
+
+    using rotator    = ::gr::blocks::rotator;
 
 
     py::class_<rotator,
-        std::shared_ptr<rotator>>(m, "rotator")
+        std::shared_ptr<rotator>>(m, "rotator", D(rotator))
 
-        .def(py::init<>())
-        .def(py::init<gr::blocks::rotator const &>(),           py::arg("arg0") 
+        .def(py::init<>(),D(rotator,rotator,0))
+        .def(py::init<gr::blocks::rotator const &>(),           py::arg("arg0"),
+           D(rotator,rotator,1)
         )
+
 
         .def("set_phase",&rotator::set_phase,
-            py::arg("phase") 
+            py::arg("phase"),
+            D(rotator,set_phase)
         )
+
+
         .def("set_phase_incr",&rotator::set_phase_incr,
-            py::arg("incr") 
+            py::arg("incr"),
+            D(rotator,set_phase_incr)
         )
+
+
         .def("rotate",&rotator::rotate,
-            py::arg("in") 
+            py::arg("in"),
+            D(rotator,rotate)
         )
+
+
         .def("rotateN",&rotator::rotateN,
-            py::arg("out"), 
-            py::arg("in"), 
-            py::arg("n") 
+            py::arg("out"),
+            py::arg("in"),
+            py::arg("n"),
+            D(rotator,rotateN)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

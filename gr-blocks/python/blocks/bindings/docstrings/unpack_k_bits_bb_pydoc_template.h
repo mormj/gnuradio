@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_unpack_k_bits_bb = R"doc()doc";
+ static const char *__doc_gr_blocks_unpack_k_bits_bb = R"doc()doc";
 
 
- static const char *__doc_blocks_unpack_k_bits_bb_unpack_k_bits_bb = R"doc()doc";
+ static const char *__doc_gr_blocks_unpack_k_bits_bb_unpack_k_bits_bb = R"doc()doc";
 
 
- static const char *__doc_blocks_unpack_k_bits_bb_make = R"doc()doc";
+ static const char *__doc_gr_blocks_unpack_k_bits_bb_make = R"doc()doc";
 
   

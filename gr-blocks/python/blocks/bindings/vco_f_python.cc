@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/vco_f.h>
+// pydoc.h is automatically generated in the build directory
+#include <vco_f_pydoc.h>
 
 void bind_vco_f(py::module& m)
 {
-    using vco_f    = gr::blocks::vco_f;
+
+    using vco_f    = ::gr::blocks::vco_f;
 
 
-    py::class_<vco_f,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<vco_f>>(m, "vco_f")
+    py::class_<vco_f, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<vco_f>>(m, "vco_f", D(vco_f))
 
         .def(py::init(&vco_f::make),
-           py::arg("sampling_rate"), 
-           py::arg("sensitivity"), 
-           py::arg("amplitude") 
+           py::arg("sampling_rate"),
+           py::arg("sensitivity"),
+           py::arg("amplitude"),
+           D(vco_f,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

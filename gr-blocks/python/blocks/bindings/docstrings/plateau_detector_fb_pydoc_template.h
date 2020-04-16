@@ -16,21 +16,21 @@
 
 
  
- static const char *__doc_blocks_plateau_detector_fb = R"doc()doc";
+ static const char *__doc_gr_blocks_plateau_detector_fb = R"doc()doc";
 
 
- static const char *__doc_blocks_plateau_detector_fb_plateau_detector_fb_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_plateau_detector_fb_plateau_detector_fb_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_plateau_detector_fb_plateau_detector_fb_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_plateau_detector_fb_plateau_detector_fb_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_plateau_detector_fb_make = R"doc()doc";
+ static const char *__doc_gr_blocks_plateau_detector_fb_make = R"doc()doc";
 
 
- static const char *__doc_blocks_plateau_detector_fb_set_threshold = R"doc()doc";
+ static const char *__doc_gr_blocks_plateau_detector_fb_set_threshold = R"doc()doc";
 
 
- static const char *__doc_blocks_plateau_detector_fb_threshold = R"doc()doc";
+ static const char *__doc_gr_blocks_plateau_detector_fb_threshold = R"doc()doc";
 
   

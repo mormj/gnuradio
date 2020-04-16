@@ -21,8 +21,8 @@ namespace py = pybind11;
 
 void bind_add_const_ff(py::module& m)
 {
-    using add_const_ff    = gr::blocks::add_const_ff;
 
+    using add_const_ff    = ::gr::blocks::add_const_ff;
 
 
     py::class_<add_const_ff, gr::sync_block, gr::block, gr::basic_block,
@@ -32,16 +32,31 @@ void bind_add_const_ff(py::module& m)
            py::arg("k"),
            D(add_const_ff,make)
         )
+        
+
+
+
 
         .def("k",&add_const_ff::k,
             D(add_const_ff,k)
         )
 
+
         .def("set_k",&add_const_ff::set_k,
             py::arg("k"),
             D(add_const_ff,set_k)
         )
+
         ;
 
-} 
+
+
+
+}
+
+
+
+
+
+
 

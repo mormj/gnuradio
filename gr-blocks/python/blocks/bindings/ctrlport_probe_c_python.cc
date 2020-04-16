@@ -16,23 +16,42 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/ctrlport_probe_c.h>
+// pydoc.h is automatically generated in the build directory
+#include <ctrlport_probe_c_pydoc.h>
 
 void bind_ctrlport_probe_c(py::module& m)
 {
-    using ctrlport_probe_c    = gr::blocks::ctrlport_probe_c;
+
+    using ctrlport_probe_c    = ::gr::blocks::ctrlport_probe_c;
 
 
-    py::class_<ctrlport_probe_c,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<ctrlport_probe_c>>(m, "ctrlport_probe_c")
+    py::class_<ctrlport_probe_c, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<ctrlport_probe_c>>(m, "ctrlport_probe_c", D(ctrlport_probe_c))
 
         .def(py::init(&ctrlport_probe_c::make),
-           py::arg("id"), 
-           py::arg("desc") 
+           py::arg("id"),
+           py::arg("desc"),
+           D(ctrlport_probe_c,make)
         )
         
 
-        .def("get",&ctrlport_probe_c::get)
+
+
+
+        .def("get",&ctrlport_probe_c::get,
+            D(ctrlport_probe_c,get)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

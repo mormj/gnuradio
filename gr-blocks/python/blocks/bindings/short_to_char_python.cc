@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/short_to_char.h>
+// pydoc.h is automatically generated in the build directory
+#include <short_to_char_pydoc.h>
 
 void bind_short_to_char(py::module& m)
 {
-    using short_to_char    = gr::blocks::short_to_char;
+
+    using short_to_char    = ::gr::blocks::short_to_char;
 
 
-    py::class_<short_to_char,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<short_to_char>>(m, "short_to_char")
+    py::class_<short_to_char, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<short_to_char>>(m, "short_to_char", D(short_to_char))
 
         .def(py::init(&short_to_char::make),
-           py::arg("vlen") = 1 
+           py::arg("vlen") = 1,
+           D(short_to_char,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

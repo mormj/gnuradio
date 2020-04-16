@@ -16,21 +16,45 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/count_bits.h>
+// pydoc.h is automatically generated in the build directory
+#include <count_bits_pydoc.h>
 
 void bind_count_bits(py::module& m)
 {
 
 
-    m.def("count_bits8",&gr::blocks::count_bits8,
-        py::arg("x") 
-    );
-    m.def("count_bits16",&gr::blocks::count_bits16,
-        py::arg("x") 
-    );
-    m.def("count_bits32",&gr::blocks::count_bits32,
-        py::arg("x") 
-    );
-    m.def("count_bits64",&gr::blocks::count_bits64,
-        py::arg("x") 
-    );
-} 
+
+
+        m.def("count_bits8",&::gr::blocks::count_bits8,
+            py::arg("x"),
+            D(count_bits8)
+        );
+
+
+        m.def("count_bits16",&::gr::blocks::count_bits16,
+            py::arg("x"),
+            D(count_bits16)
+        );
+
+
+        m.def("count_bits32",&::gr::blocks::count_bits32,
+            py::arg("x"),
+            D(count_bits32)
+        );
+
+
+        m.def("count_bits64",&::gr::blocks::count_bits64,
+            py::arg("x"),
+            D(count_bits64)
+        );
+
+
+
+}
+
+
+
+
+
+
+

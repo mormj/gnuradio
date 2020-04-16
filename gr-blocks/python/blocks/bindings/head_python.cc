@@ -16,25 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/head.h>
+// pydoc.h is automatically generated in the build directory
+#include <head_pydoc.h>
 
 void bind_head(py::module& m)
 {
-    using head    = gr::blocks::head;
+
+    using head    = ::gr::blocks::head;
 
 
     py::class_<head, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<head>>(m, "head")
+        std::shared_ptr<head>>(m, "head", D(head))
 
         .def(py::init(&head::make),
-           py::arg("sizeof_stream_item"), 
-           py::arg("nitems")
+           py::arg("sizeof_stream_item"),
+           py::arg("nitems"),
+           D(head,make)
         )
         
-        .def("reset",&head::reset)
-        .def("set_length",&head::set_length,
-            py::arg("nitems") 
+
+
+
+
+        .def("reset",&head::reset,
+            D(head,reset)
         )
+
+
+        .def("set_length",&head::set_length,
+            py::arg("nitems"),
+            D(head,set_length)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/tagged_stream_mux.h>
+// pydoc.h is automatically generated in the build directory
+#include <tagged_stream_mux_pydoc.h>
 
 void bind_tagged_stream_mux(py::module& m)
 {
-    using tagged_stream_mux    = gr::blocks::tagged_stream_mux;
+
+    using tagged_stream_mux    = ::gr::blocks::tagged_stream_mux;
 
 
-    py::class_<tagged_stream_mux,gr::tagged_stream_block,gr::block,gr::basic_block,
-        std::shared_ptr<tagged_stream_mux>>(m, "tagged_stream_mux")
+    py::class_<tagged_stream_mux, gr::tagged_stream_block, gr::block, gr::basic_block,
+        std::shared_ptr<tagged_stream_mux>>(m, "tagged_stream_mux", D(tagged_stream_mux))
 
         .def(py::init(&tagged_stream_mux::make),
-           py::arg("itemsize"), 
-           py::arg("lengthtagname"), 
-           py::arg("tag_preserve_head_pos") = 0 
+           py::arg("itemsize"),
+           py::arg("lengthtagname"),
+           py::arg("tag_preserve_head_pos") = 0,
+           D(tagged_stream_mux,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

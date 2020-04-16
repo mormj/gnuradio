@@ -15,21 +15,23 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/blocks/conjugate_cc.h>
+#include <gnuradio/blocks/correctiq_swapiq.h>
 // pydoc.h is automatically generated in the build directory
-#include <conjugate_cc_pydoc.h>
+#include <correctiq_swapiq_pydoc.h>
 
-void bind_conjugate_cc(py::module& m)
+void bind_correctiq_swapiq(py::module& m)
 {
 
-    using conjugate_cc    = ::gr::blocks::conjugate_cc;
+    using swap_iq    = ::gr::blocks::swap_iq;
 
 
-    py::class_<conjugate_cc, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<conjugate_cc>>(m, "conjugate_cc", D(conjugate_cc))
+    py::class_<swap_iq, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<swap_iq>>(m, "swap_iq", D(swap_iq))
 
-        .def(py::init(&conjugate_cc::make),
-           D(conjugate_cc,make)
+        .def(py::init(&swap_iq::make),
+           py::arg("datatype"),
+           py::arg("datasize"),
+           D(swap_iq,make)
         )
         
 

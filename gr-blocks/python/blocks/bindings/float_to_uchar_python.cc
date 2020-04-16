@@ -16,18 +16,35 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/float_to_uchar.h>
+// pydoc.h is automatically generated in the build directory
+#include <float_to_uchar_pydoc.h>
 
 void bind_float_to_uchar(py::module& m)
 {
-    using float_to_uchar    = gr::blocks::float_to_uchar;
+
+    using float_to_uchar    = ::gr::blocks::float_to_uchar;
 
 
-    py::class_<float_to_uchar,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<float_to_uchar>>(m, "float_to_uchar")
+    py::class_<float_to_uchar, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<float_to_uchar>>(m, "float_to_uchar", D(float_to_uchar))
 
-        .def(py::init(&float_to_uchar::make)
+        .def(py::init(&float_to_uchar::make),
+           D(float_to_uchar,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

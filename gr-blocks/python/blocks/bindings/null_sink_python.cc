@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/null_sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <null_sink_pydoc.h>
 
 void bind_null_sink(py::module& m)
 {
-    using null_sink    = gr::blocks::null_sink;
+
+    using null_sink    = ::gr::blocks::null_sink;
 
 
-    py::class_<null_sink,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<null_sink>>(m, "null_sink")
+    py::class_<null_sink, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<null_sink>>(m, "null_sink", D(null_sink))
 
         .def(py::init(&null_sink::make),
-           py::arg("sizeof_stream_item") 
+           py::arg("sizeof_stream_item"),
+           D(null_sink,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

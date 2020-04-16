@@ -16,33 +16,33 @@
 
 
  
- static const char *__doc_blocks_peak_detector2_fb = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_peak_detector2_fb_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_peak_detector2_fb_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_peak_detector2_fb_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_peak_detector2_fb_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_make = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_make = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_set_threshold_factor_rise = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_set_threshold_factor_rise = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_set_look_ahead = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_set_look_ahead = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_set_alpha = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_set_alpha = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_threshold_factor_rise = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_threshold_factor_rise = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_look_ahead = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_look_ahead = R"doc()doc";
 
 
- static const char *__doc_blocks_peak_detector2_fb_alpha = R"doc()doc";
+ static const char *__doc_gr_blocks_peak_detector2_fb_alpha = R"doc()doc";
 
   

@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_random_pdu = R"doc()doc";
+ static const char *__doc_gr_blocks_random_pdu = R"doc()doc";
 
 
- static const char *__doc_blocks_random_pdu_random_pdu = R"doc()doc";
+ static const char *__doc_gr_blocks_random_pdu_random_pdu = R"doc()doc";
 
 
- static const char *__doc_blocks_random_pdu_make = R"doc()doc";
+ static const char *__doc_gr_blocks_random_pdu_make = R"doc()doc";
 
   

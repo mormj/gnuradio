@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/unpack_k_bits_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <unpack_k_bits_bb_pydoc.h>
 
 void bind_unpack_k_bits_bb(py::module& m)
 {
-    using unpack_k_bits_bb    = gr::blocks::unpack_k_bits_bb;
+
+    using unpack_k_bits_bb    = ::gr::blocks::unpack_k_bits_bb;
 
 
-    py::class_<unpack_k_bits_bb,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<unpack_k_bits_bb>>(m, "unpack_k_bits_bb")
+    py::class_<unpack_k_bits_bb, gr::sync_interpolator,
+        std::shared_ptr<unpack_k_bits_bb>>(m, "unpack_k_bits_bb", D(unpack_k_bits_bb))
 
         .def(py::init(&unpack_k_bits_bb::make),
-           py::arg("k") 
+           py::arg("k"),
+           D(unpack_k_bits_bb,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

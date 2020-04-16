@@ -16,18 +16,18 @@
 
 
  
- static const char *__doc_blocks_vector_map = R"doc()doc";
+ static const char *__doc_gr_blocks_vector_map = R"doc()doc";
 
 
- static const char *__doc_blocks_vector_map_vector_map_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_vector_map_vector_map_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_vector_map_vector_map_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_vector_map_vector_map_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_vector_map_make = R"doc()doc";
+ static const char *__doc_gr_blocks_vector_map_make = R"doc()doc";
 
 
- static const char *__doc_blocks_vector_map_set_mapping = R"doc()doc";
+ static const char *__doc_gr_blocks_vector_map_set_mapping = R"doc()doc";
 
   

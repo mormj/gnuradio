@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_tagged_file_sink = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_file_sink = R"doc()doc";
 
 
- static const char *__doc_blocks_tagged_file_sink_tagged_file_sink = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_file_sink_tagged_file_sink = R"doc()doc";
 
 
- static const char *__doc_blocks_tagged_file_sink_make = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_file_sink_make = R"doc()doc";
 
   

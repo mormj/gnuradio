@@ -16,26 +16,44 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/annotator_raw.h>
+// pydoc.h is automatically generated in the build directory
+#include <annotator_raw_pydoc.h>
 
 void bind_annotator_raw(py::module& m)
 {
-    using annotator_raw    = gr::blocks::annotator_raw;
+
+    using annotator_raw    = ::gr::blocks::annotator_raw;
 
 
-    py::class_<annotator_raw,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<annotator_raw>>(m, "annotator_raw")
+    py::class_<annotator_raw, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<annotator_raw>>(m, "annotator_raw", D(annotator_raw))
 
         .def(py::init(&annotator_raw::make),
-           py::arg("sizeof_stream_item") 
+           py::arg("sizeof_stream_item"),
+           D(annotator_raw,make)
         )
         
 
+
+
+
         .def("add_tag",&annotator_raw::add_tag,
-            py::arg("offset"), 
-            py::arg("key"), 
-            py::arg("val") 
+            py::arg("offset"),
+            py::arg("key"),
+            py::arg("val"),
+            D(annotator_raw,add_tag)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

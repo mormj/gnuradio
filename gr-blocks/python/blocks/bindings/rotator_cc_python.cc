@@ -16,24 +16,42 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/rotator_cc.h>
+// pydoc.h is automatically generated in the build directory
+#include <rotator_cc_pydoc.h>
 
 void bind_rotator_cc(py::module& m)
 {
-    using rotator_cc    = gr::blocks::rotator_cc;
+
+    using rotator_cc    = ::gr::blocks::rotator_cc;
 
 
-    py::class_<rotator_cc,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<rotator_cc>>(m, "rotator_cc")
+    py::class_<rotator_cc, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<rotator_cc>>(m, "rotator_cc", D(rotator_cc))
 
         .def(py::init(&rotator_cc::make),
-           py::arg("phase_inc") = 0. 
+           py::arg("phase_inc") = 0.,
+           D(rotator_cc,make)
         )
         
 
+
+
+
         .def("set_phase_inc",&rotator_cc::set_phase_inc,
-            py::arg("phase_inc") 
+            py::arg("phase_inc"),
+            D(rotator_cc,set_phase_inc)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

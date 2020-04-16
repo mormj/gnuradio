@@ -16,24 +16,42 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/rms_cf.h>
+// pydoc.h is automatically generated in the build directory
+#include <rms_cf_pydoc.h>
 
 void bind_rms_cf(py::module& m)
 {
-    using rms_cf    = gr::blocks::rms_cf;
+
+    using rms_cf    = ::gr::blocks::rms_cf;
 
 
-    py::class_<rms_cf,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<rms_cf>>(m, "rms_cf")
+    py::class_<rms_cf, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<rms_cf>>(m, "rms_cf", D(rms_cf))
 
         .def(py::init(&rms_cf::make),
-           py::arg("alpha") = 1.0E-4 
+           py::arg("alpha") = 1.0E-4,
+           D(rms_cf,make)
         )
         
 
+
+
+
         .def("set_alpha",&rms_cf::set_alpha,
-            py::arg("alpha") 
+            py::arg("alpha"),
+            D(rms_cf,set_alpha)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,30 +16,59 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/regenerate_bb.h>
+// pydoc.h is automatically generated in the build directory
+#include <regenerate_bb_pydoc.h>
 
 void bind_regenerate_bb(py::module& m)
 {
-    using regenerate_bb    = gr::blocks::regenerate_bb;
+
+    using regenerate_bb    = ::gr::blocks::regenerate_bb;
 
 
-    py::class_<regenerate_bb,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<regenerate_bb>>(m, "regenerate_bb")
+    py::class_<regenerate_bb, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<regenerate_bb>>(m, "regenerate_bb", D(regenerate_bb))
 
         .def(py::init(&regenerate_bb::make),
-           py::arg("period"), 
-           py::arg("max_regen") = 500 
+           py::arg("period"),
+           py::arg("max_regen") = 500,
+           D(regenerate_bb,make)
         )
         
 
+
+
+
         .def("set_max_regen",&regenerate_bb::set_max_regen,
-            py::arg("regen") 
+            py::arg("regen"),
+            D(regenerate_bb,set_max_regen)
         )
+
+
         .def("set_period",&regenerate_bb::set_period,
-            py::arg("period") 
+            py::arg("period"),
+            D(regenerate_bb,set_period)
         )
-        .def("max_regen",&regenerate_bb::max_regen)
-        .def("period",&regenerate_bb::period)
+
+
+        .def("max_regen",&regenerate_bb::max_regen,
+            D(regenerate_bb,max_regen)
+        )
+
+
+        .def("period",&regenerate_bb::period,
+            D(regenerate_bb,period)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

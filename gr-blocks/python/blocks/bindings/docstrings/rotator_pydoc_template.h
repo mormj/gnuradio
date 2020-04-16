@@ -16,24 +16,24 @@
 
 
  
- static const char *__doc_blocks_rotator = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_rotator_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_rotator_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_rotator_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_rotator_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_set_phase = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_set_phase = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_set_phase_incr = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_set_phase_incr = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_rotate = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_rotate = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_rotateN = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_rotateN = R"doc()doc";
 
   

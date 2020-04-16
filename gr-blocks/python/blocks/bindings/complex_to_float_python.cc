@@ -16,19 +16,36 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/complex_to_float.h>
+// pydoc.h is automatically generated in the build directory
+#include <complex_to_float_pydoc.h>
 
 void bind_complex_to_float(py::module& m)
 {
-    using complex_to_float    = gr::blocks::complex_to_float;
+
+    using complex_to_float    = ::gr::blocks::complex_to_float;
 
 
-    py::class_<complex_to_float,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<complex_to_float>>(m, "complex_to_float")
+    py::class_<complex_to_float, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<complex_to_float>>(m, "complex_to_float", D(complex_to_float))
 
         .def(py::init(&complex_to_float::make),
-           py::arg("vlen") = 1 
+           py::arg("vlen") = 1,
+           D(complex_to_float,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

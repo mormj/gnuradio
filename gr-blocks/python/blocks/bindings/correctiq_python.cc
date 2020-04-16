@@ -15,21 +15,21 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/blocks/conjugate_cc.h>
+#include <gnuradio/blocks/correctiq.h>
 // pydoc.h is automatically generated in the build directory
-#include <conjugate_cc_pydoc.h>
+#include <correctiq_pydoc.h>
 
-void bind_conjugate_cc(py::module& m)
+void bind_correctiq(py::module& m)
 {
 
-    using conjugate_cc    = ::gr::blocks::conjugate_cc;
+    using correctiq    = ::gr::blocks::correctiq;
 
 
-    py::class_<conjugate_cc, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<conjugate_cc>>(m, "conjugate_cc", D(conjugate_cc))
+    py::class_<correctiq, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<correctiq>>(m, "correctiq", D(correctiq))
 
-        .def(py::init(&conjugate_cc::make),
-           D(conjugate_cc,make)
+        .def(py::init(&correctiq::make),
+           D(correctiq,make)
         )
         
 

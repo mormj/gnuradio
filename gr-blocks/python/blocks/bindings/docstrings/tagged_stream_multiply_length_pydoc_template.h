@@ -16,18 +16,18 @@
 
 
  
- static const char *__doc_blocks_tagged_stream_multiply_length = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_stream_multiply_length = R"doc()doc";
 
 
- static const char *__doc_blocks_tagged_stream_multiply_length_tagged_stream_multiply_length_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_stream_multiply_length_tagged_stream_multiply_length_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_tagged_stream_multiply_length_tagged_stream_multiply_length_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_stream_multiply_length_tagged_stream_multiply_length_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_tagged_stream_multiply_length_set_scalar = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_stream_multiply_length_set_scalar = R"doc()doc";
 
 
- static const char *__doc_blocks_tagged_stream_multiply_length_make = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_stream_multiply_length_make = R"doc()doc";
 
   

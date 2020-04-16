@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/deinterleave.h>
+// pydoc.h is automatically generated in the build directory
+#include <deinterleave_pydoc.h>
 
 void bind_deinterleave(py::module& m)
 {
-    using deinterleave    = gr::blocks::deinterleave;
+
+    using deinterleave    = ::gr::blocks::deinterleave;
 
 
-    py::class_<deinterleave,gr::block, gr::basic_block,
-        std::shared_ptr<deinterleave>>(m, "deinterleave")
+    py::class_<deinterleave, gr::block, gr::basic_block,
+        std::shared_ptr<deinterleave>>(m, "deinterleave", D(deinterleave))
 
         .def(py::init(&deinterleave::make),
-           py::arg("itemsize"), 
-           py::arg("blocksize") = 1 
+           py::arg("itemsize"),
+           py::arg("blocksize") = 1,
+           D(deinterleave,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

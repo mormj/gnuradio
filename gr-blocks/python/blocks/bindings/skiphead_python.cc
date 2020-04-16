@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/skiphead.h>
+// pydoc.h is automatically generated in the build directory
+#include <skiphead_pydoc.h>
 
 void bind_skiphead(py::module& m)
 {
-    using skiphead    = gr::blocks::skiphead;
+
+    using skiphead    = ::gr::blocks::skiphead;
 
 
-    py::class_<skiphead,gr::block, gr::basic_block,
-        std::shared_ptr<skiphead>>(m, "skiphead")
+    py::class_<skiphead, gr::block, gr::basic_block,
+        std::shared_ptr<skiphead>>(m, "skiphead", D(skiphead))
 
         .def(py::init(&skiphead::make),
-           py::arg("itemsize"), 
-           py::arg("nitems_to_skip") 
+           py::arg("itemsize"),
+           py::arg("nitems_to_skip"),
+           D(skiphead,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

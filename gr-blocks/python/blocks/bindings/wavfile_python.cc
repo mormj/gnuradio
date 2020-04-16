@@ -16,36 +16,63 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/wavfile.h>
+// pydoc.h is automatically generated in the build directory
+#include <wavfile_pydoc.h>
 
 void bind_wavfile(py::module& m)
 {
 
 
-    m.def("wavheader_parse",&gr::blocks::wavheader_parse,
-        py::arg("fp"), 
-        py::arg("sample_rate"), 
-        py::arg("nchans"), 
-        py::arg("bytes_per_sample"), 
-        py::arg("first_sample_pos"), 
-        py::arg("samples_per_chan") 
-    );
-    m.def("wav_read_sample",&gr::blocks::wav_read_sample,
-        py::arg("fp"), 
-        py::arg("bytes_per_sample") 
-    );
-    m.def("wavheader_write",&gr::blocks::wavheader_write,
-        py::arg("fp"), 
-        py::arg("sample_rate"), 
-        py::arg("nchans"), 
-        py::arg("bytes_per_sample") 
-    );
-    m.def("wav_write_sample",&gr::blocks::wav_write_sample,
-        py::arg("fp"), 
-        py::arg("sample"), 
-        py::arg("bytes_per_sample") 
-    );
-    m.def("wavheader_complete",&gr::blocks::wavheader_complete,
-        py::arg("fp"), 
-        py::arg("byte_count") 
-    );
-} 
+
+
+        m.def("wavheader_parse",&::gr::blocks::wavheader_parse,
+            py::arg("fp"),
+            py::arg("sample_rate"),
+            py::arg("nchans"),
+            py::arg("bytes_per_sample"),
+            py::arg("first_sample_pos"),
+            py::arg("samples_per_chan"),
+            D(wavheader_parse)
+        );
+
+
+        m.def("wav_read_sample",&::gr::blocks::wav_read_sample,
+            py::arg("fp"),
+            py::arg("bytes_per_sample"),
+            D(wav_read_sample)
+        );
+
+
+        m.def("wavheader_write",&::gr::blocks::wavheader_write,
+            py::arg("fp"),
+            py::arg("sample_rate"),
+            py::arg("nchans"),
+            py::arg("bytes_per_sample"),
+            D(wavheader_write)
+        );
+
+
+        m.def("wav_write_sample",&::gr::blocks::wav_write_sample,
+            py::arg("fp"),
+            py::arg("sample"),
+            py::arg("bytes_per_sample"),
+            D(wav_write_sample)
+        );
+
+
+        m.def("wavheader_complete",&::gr::blocks::wavheader_complete,
+            py::arg("fp"),
+            py::arg("byte_count"),
+            D(wavheader_complete)
+        );
+
+
+
+}
+
+
+
+
+
+
+

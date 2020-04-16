@@ -16,21 +16,38 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/tag_share.h>
+// pydoc.h is automatically generated in the build directory
+#include <tag_share_pydoc.h>
 
 void bind_tag_share(py::module& m)
 {
-    using tag_share    = gr::blocks::tag_share;
+
+    using tag_share    = ::gr::blocks::tag_share;
 
 
-    py::class_<tag_share,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<tag_share>>(m, "tag_share")
+    py::class_<tag_share, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<tag_share>>(m, "tag_share", D(tag_share))
 
         .def(py::init(&tag_share::make),
-           py::arg("sizeof_io_item"), 
-           py::arg("sizeof_share_item"), 
-           py::arg("vlen") = 1 
+           py::arg("sizeof_io_item"),
+           py::arg("sizeof_share_item"),
+           py::arg("vlen") = 1,
+           D(tag_share,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

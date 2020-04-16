@@ -16,26 +16,44 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/tagged_stream_multiply_length.h>
+// pydoc.h is automatically generated in the build directory
+#include <tagged_stream_multiply_length_pydoc.h>
 
 void bind_tagged_stream_multiply_length(py::module& m)
 {
-    using tagged_stream_multiply_length    = gr::blocks::tagged_stream_multiply_length;
+
+    using tagged_stream_multiply_length    = ::gr::blocks::tagged_stream_multiply_length;
 
 
-    py::class_<tagged_stream_multiply_length,gr::block, gr::basic_block,
-        std::shared_ptr<tagged_stream_multiply_length>>(m, "tagged_stream_multiply_length")
+    py::class_<tagged_stream_multiply_length, gr::block, gr::basic_block,
+        std::shared_ptr<tagged_stream_multiply_length>>(m, "tagged_stream_multiply_length", D(tagged_stream_multiply_length))
 
         .def(py::init(&tagged_stream_multiply_length::make),
-           py::arg("itemsize"), 
-           py::arg("lengthtagname"), 
-           py::arg("scalar") 
+           py::arg("itemsize"),
+           py::arg("lengthtagname"),
+           py::arg("scalar"),
+           D(tagged_stream_multiply_length,make)
         )
         
 
+
         .def("set_scalar",&tagged_stream_multiply_length::set_scalar,
-            py::arg("scalar") 
+            py::arg("scalar"),
+            D(tagged_stream_multiply_length,set_scalar)
         )
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_stream_mux = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_mux = R"doc()doc";
 
 
- static const char *__doc_blocks_stream_mux_stream_mux = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_mux_stream_mux = R"doc()doc";
 
 
- static const char *__doc_blocks_stream_mux_make = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_mux_make = R"doc()doc";
 
   

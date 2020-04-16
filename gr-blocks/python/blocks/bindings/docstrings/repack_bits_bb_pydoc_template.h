@@ -16,18 +16,18 @@
 
 
  
- static const char *__doc_blocks_repack_bits_bb = R"doc()doc";
+ static const char *__doc_gr_blocks_repack_bits_bb = R"doc()doc";
 
 
- static const char *__doc_blocks_repack_bits_bb_repack_bits_bb_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_repack_bits_bb_repack_bits_bb_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_repack_bits_bb_repack_bits_bb_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_repack_bits_bb_repack_bits_bb_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_repack_bits_bb_make = R"doc()doc";
+ static const char *__doc_gr_blocks_repack_bits_bb_make = R"doc()doc";
 
 
- static const char *__doc_blocks_repack_bits_bb_set_k_and_l = R"doc()doc";
+ static const char *__doc_gr_blocks_repack_bits_bb_set_k_and_l = R"doc()doc";
 
   

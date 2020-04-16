@@ -16,13 +16,13 @@
 
 
  
- static const char *__doc_blocks_tagged_stream_to_pdu = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_stream_to_pdu = R"doc()doc";
 
 
- static const char *__doc_blocks_tagged_stream_to_pdu_tagged_stream_to_pdu = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_stream_to_pdu_tagged_stream_to_pdu = R"doc()doc";
 
 
- static const char *__doc_blocks_tagged_stream_to_pdu_make = R"doc()doc";
+ static const char *__doc_gr_blocks_tagged_stream_to_pdu_make = R"doc()doc";
 
 
 

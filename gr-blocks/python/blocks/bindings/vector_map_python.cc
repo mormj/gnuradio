@@ -16,26 +16,44 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/vector_map.h>
+// pydoc.h is automatically generated in the build directory
+#include <vector_map_pydoc.h>
 
 void bind_vector_map(py::module& m)
 {
-    using vector_map    = gr::blocks::vector_map;
+
+    using vector_map    = ::gr::blocks::vector_map;
 
 
-    py::class_<vector_map,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<vector_map>>(m, "vector_map")
+    py::class_<vector_map, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<vector_map>>(m, "vector_map", D(vector_map))
 
         .def(py::init(&vector_map::make),
-           py::arg("item_size"), 
-           py::arg("in_vlens"), 
-           py::arg("mapping") 
+           py::arg("item_size"),
+           py::arg("in_vlens"),
+           py::arg("mapping"),
+           D(vector_map,make)
         )
         
 
+
+
+
         .def("set_mapping",&vector_map::set_mapping,
-            py::arg("mapping") 
+            py::arg("mapping"),
+            D(vector_map,set_mapping)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,26 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/float_to_char.h>
+// pydoc.h is automatically generated in the build directory
+#include <float_to_char_pydoc.h>
 
 void bind_float_to_char(py::module& m)
 {
-    using float_to_char    = gr::blocks::float_to_char;
+
+    using float_to_char    = ::gr::blocks::float_to_char;
 
 
-    py::class_<float_to_char,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<float_to_char>>(m, "float_to_char")
+    py::class_<float_to_char, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<float_to_char>>(m, "float_to_char", D(float_to_char))
 
         .def(py::init(&float_to_char::make),
-           py::arg("vlen") = 1, 
-           py::arg("scale") = 1. 
+           py::arg("vlen") = 1,
+           py::arg("scale") = 1.,
+           D(float_to_char,make)
         )
         
 
-        .def("scale",&float_to_char::scale)
-        .def("set_scale",&float_to_char::set_scale,
-            py::arg("scale") 
+
+
+
+        .def("scale",&float_to_char::scale,
+            D(float_to_char,scale)
         )
+
+
+        .def("set_scale",&float_to_char::set_scale,
+            py::arg("scale"),
+            D(float_to_char,set_scale)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

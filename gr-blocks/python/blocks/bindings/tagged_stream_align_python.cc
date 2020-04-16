@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/tagged_stream_align.h>
+// pydoc.h is automatically generated in the build directory
+#include <tagged_stream_align_pydoc.h>
 
 void bind_tagged_stream_align(py::module& m)
 {
-    using tagged_stream_align    = gr::blocks::tagged_stream_align;
+
+    using tagged_stream_align    = ::gr::blocks::tagged_stream_align;
 
 
-    py::class_<tagged_stream_align,gr::block, gr::basic_block,
-        std::shared_ptr<tagged_stream_align>>(m, "tagged_stream_align")
+    py::class_<tagged_stream_align, gr::block, gr::basic_block,
+        std::shared_ptr<tagged_stream_align>>(m, "tagged_stream_align", D(tagged_stream_align))
 
         .def(py::init(&tagged_stream_align::make),
-           py::arg("itemsize"), 
-           py::arg("lengthtagname") 
+           py::arg("itemsize"),
+           py::arg("lengthtagname"),
+           D(tagged_stream_align,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

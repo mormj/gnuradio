@@ -16,28 +16,50 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/ctrlport_probe2_i.h>
+// pydoc.h is automatically generated in the build directory
+#include <ctrlport_probe2_i_pydoc.h>
 
 void bind_ctrlport_probe2_i(py::module& m)
 {
-    using ctrlport_probe2_i    = gr::blocks::ctrlport_probe2_i;
+
+    using ctrlport_probe2_i    = ::gr::blocks::ctrlport_probe2_i;
 
 
-    py::class_<ctrlport_probe2_i,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<ctrlport_probe2_i>>(m, "ctrlport_probe2_i")
+    py::class_<ctrlport_probe2_i, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<ctrlport_probe2_i>>(m, "ctrlport_probe2_i", D(ctrlport_probe2_i))
 
         .def(py::init(&ctrlport_probe2_i::make),
-           py::arg("id"), 
-           py::arg("desc"), 
-           py::arg("len"), 
-           py::arg("disp_mask") 
+           py::arg("id"),
+           py::arg("desc"),
+           py::arg("len"),
+           py::arg("disp_mask"),
+           D(ctrlport_probe2_i,make)
         )
         
 
-        .def("get",&ctrlport_probe2_i::get)
-        .def("set_length",&ctrlport_probe2_i::set_length,
-            py::arg("len") 
+
+
+
+        .def("get",&ctrlport_probe2_i::get,
+            D(ctrlport_probe2_i,get)
         )
+
+
+        .def("set_length",&ctrlport_probe2_i::set_length,
+            py::arg("len"),
+            D(ctrlport_probe2_i,set_length)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,24 +16,53 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/lfsr_32k.h>
+// pydoc.h is automatically generated in the build directory
+#include <lfsr_32k_pydoc.h>
 
 void bind_lfsr_32k(py::module& m)
 {
-    using lfsr_32k    = gr::blocks::lfsr_32k;
+
+    using lfsr_32k    = ::gr::blocks::lfsr_32k;
 
 
     py::class_<lfsr_32k,
-        std::shared_ptr<lfsr_32k>>(m, "lfsr_32k")
+        std::shared_ptr<lfsr_32k>>(m, "lfsr_32k", D(lfsr_32k))
 
-        .def(py::init<>())
-        .def(py::init<gr::blocks::lfsr_32k const &>(),           py::arg("arg0") 
+        .def(py::init<>(),D(lfsr_32k,lfsr_32k,0))
+        .def(py::init<gr::blocks::lfsr_32k const &>(),           py::arg("arg0"),
+           D(lfsr_32k,lfsr_32k,1)
         )
 
-        .def("reset",&lfsr_32k::reset)
-        .def("next_bit",&lfsr_32k::next_bit)
-        .def("next_byte",&lfsr_32k::next_byte)
-        .def("next_short",&lfsr_32k::next_short)
+
+        .def("reset",&lfsr_32k::reset,
+            D(lfsr_32k,reset)
+        )
+
+
+        .def("next_bit",&lfsr_32k::next_bit,
+            D(lfsr_32k,next_bit)
+        )
+
+
+        .def("next_byte",&lfsr_32k::next_byte,
+            D(lfsr_32k,next_byte)
+        )
+
+
+        .def("next_short",&lfsr_32k::next_short,
+            D(lfsr_32k,next_short)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

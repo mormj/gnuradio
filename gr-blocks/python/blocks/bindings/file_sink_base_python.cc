@@ -16,26 +16,52 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/file_sink_base.h>
+// pydoc.h is automatically generated in the build directory
+#include <file_sink_base_pydoc.h>
 
 void bind_file_sink_base(py::module& m)
 {
-    using file_sink_base    = gr::blocks::file_sink_base;
+
+    using file_sink_base    = ::gr::blocks::file_sink_base;
 
 
     py::class_<file_sink_base,
-        std::shared_ptr<file_sink_base>>(m, "file_sink_base")
+        std::shared_ptr<file_sink_base>>(m, "file_sink_base", D(file_sink_base))
 
-        .def(py::init<>())
+        .def(py::init<>(),D(file_sink_base,file_sink_base))
+
 
         .def("open",&file_sink_base::open,
-            py::arg("filename") 
+            py::arg("filename"),
+            D(file_sink_base,open)
         )
-        .def("close",&file_sink_base::close)
-        .def("do_update",&file_sink_base::do_update)
+
+
+        .def("close",&file_sink_base::close,
+            D(file_sink_base,close)
+        )
+
+
+        .def("do_update",&file_sink_base::do_update,
+            D(file_sink_base,do_update)
+        )
+
+
         .def("set_unbuffered",&file_sink_base::set_unbuffered,
-            py::arg("unbuffered") 
+            py::arg("unbuffered"),
+            D(file_sink_base,set_unbuffered)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

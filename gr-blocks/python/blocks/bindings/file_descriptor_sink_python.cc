@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/file_descriptor_sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <file_descriptor_sink_pydoc.h>
 
 void bind_file_descriptor_sink(py::module& m)
 {
-    using file_descriptor_sink    = gr::blocks::file_descriptor_sink;
+
+    using file_descriptor_sink    = ::gr::blocks::file_descriptor_sink;
 
 
-    py::class_<file_descriptor_sink,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<file_descriptor_sink>>(m, "file_descriptor_sink")
+    py::class_<file_descriptor_sink, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<file_descriptor_sink>>(m, "file_descriptor_sink", D(file_descriptor_sink))
 
         .def(py::init(&file_descriptor_sink::make),
-           py::arg("itemsize"), 
-           py::arg("fd") 
+           py::arg("itemsize"),
+           py::arg("fd"),
+           D(file_descriptor_sink,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

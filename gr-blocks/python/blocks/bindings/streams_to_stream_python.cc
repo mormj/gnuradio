@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/streams_to_stream.h>
+// pydoc.h is automatically generated in the build directory
+#include <streams_to_stream_pydoc.h>
 
 void bind_streams_to_stream(py::module& m)
 {
-    using streams_to_stream    = gr::blocks::streams_to_stream;
+
+    using streams_to_stream    = ::gr::blocks::streams_to_stream;
 
 
-    py::class_<streams_to_stream,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<streams_to_stream>>(m, "streams_to_stream")
+    py::class_<streams_to_stream, gr::sync_interpolator,
+        std::shared_ptr<streams_to_stream>>(m, "streams_to_stream", D(streams_to_stream))
 
         .def(py::init(&streams_to_stream::make),
-           py::arg("itemsize"), 
-           py::arg("nstreams") 
+           py::arg("itemsize"),
+           py::arg("nstreams"),
+           D(streams_to_stream,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_transcendental = R"doc()doc";
+ static const char *__doc_gr_blocks_transcendental = R"doc()doc";
 
 
- static const char *__doc_blocks_transcendental_transcendental = R"doc()doc";
+ static const char *__doc_gr_blocks_transcendental_transcendental = R"doc()doc";
 
 
- static const char *__doc_blocks_transcendental_make = R"doc()doc";
+ static const char *__doc_gr_blocks_transcendental_make = R"doc()doc";
 
   

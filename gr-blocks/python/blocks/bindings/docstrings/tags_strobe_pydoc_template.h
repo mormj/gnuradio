@@ -16,33 +16,33 @@
 
 
  
- static const char *__doc_blocks_tags_strobe = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_tags_strobe_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_tags_strobe_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_tags_strobe_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_tags_strobe_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_make = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_make = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_set_value = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_set_value = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_set_key = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_set_key = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_value = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_value = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_key = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_key = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_set_nsamps = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_set_nsamps = R"doc()doc";
 
 
- static const char *__doc_blocks_tags_strobe_nsamps = R"doc()doc";
+ static const char *__doc_gr_blocks_tags_strobe_nsamps = R"doc()doc";
 
   

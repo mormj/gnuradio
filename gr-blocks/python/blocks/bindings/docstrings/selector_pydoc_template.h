@@ -16,33 +16,33 @@
 
 
  
- static const char *__doc_blocks_selector = R"doc()doc";
+ static const char *__doc_gr_blocks_selector = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_selector_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_selector_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_selector_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_selector_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_make = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_make = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_set_enabled = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_set_enabled = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_enabled = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_enabled = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_set_input_index = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_set_input_index = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_input_index = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_input_index = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_set_output_index = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_set_output_index = R"doc()doc";
 
 
- static const char *__doc_blocks_selector_output_index = R"doc()doc";
+ static const char *__doc_gr_blocks_selector_output_index = R"doc()doc";
 
   

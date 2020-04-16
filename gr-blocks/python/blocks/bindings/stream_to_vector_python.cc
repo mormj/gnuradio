@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/stream_to_vector.h>
+// pydoc.h is automatically generated in the build directory
+#include <stream_to_vector_pydoc.h>
 
 void bind_stream_to_vector(py::module& m)
 {
-    using stream_to_vector    = gr::blocks::stream_to_vector;
+
+    using stream_to_vector    = ::gr::blocks::stream_to_vector;
 
 
-    py::class_<stream_to_vector,gr::sync_decimator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<stream_to_vector>>(m, "stream_to_vector")
+    py::class_<stream_to_vector, gr::sync_decimator,
+        std::shared_ptr<stream_to_vector>>(m, "stream_to_vector", D(stream_to_vector))
 
         .def(py::init(&stream_to_vector::make),
-           py::arg("itemsize"), 
-           py::arg("nitems_per_block") 
+           py::arg("itemsize"),
+           py::arg("nitems_per_block"),
+           D(stream_to_vector,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

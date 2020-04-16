@@ -16,27 +16,27 @@
 
 
  
- static const char *__doc_blocks_wavfile_sink = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_sink = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_sink_wavfile_sink_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_sink_wavfile_sink_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_sink_wavfile_sink_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_sink_wavfile_sink_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_sink_make = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_sink_make = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_sink_open = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_sink_open = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_sink_close = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_sink_close = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_sink_set_sample_rate = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_sink_set_sample_rate = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_sink_set_bits_per_sample = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_sink_set_bits_per_sample = R"doc()doc";
 
   

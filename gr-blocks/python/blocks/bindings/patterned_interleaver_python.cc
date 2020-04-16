@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/patterned_interleaver.h>
+// pydoc.h is automatically generated in the build directory
+#include <patterned_interleaver_pydoc.h>
 
 void bind_patterned_interleaver(py::module& m)
 {
-    using patterned_interleaver    = gr::blocks::patterned_interleaver;
+
+    using patterned_interleaver    = ::gr::blocks::patterned_interleaver;
 
 
-    py::class_<patterned_interleaver,gr::block, gr::basic_block,
-        std::shared_ptr<patterned_interleaver>>(m, "patterned_interleaver")
+    py::class_<patterned_interleaver, gr::block, gr::basic_block,
+        std::shared_ptr<patterned_interleaver>>(m, "patterned_interleaver", D(patterned_interleaver))
 
         .def(py::init(&patterned_interleaver::make),
-           py::arg("itemsize"), 
-           py::arg("pattern") 
+           py::arg("itemsize"),
+           py::arg("pattern"),
+           D(patterned_interleaver,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

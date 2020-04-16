@@ -16,46 +16,89 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/message_strobe_random.h>
+// pydoc.h is automatically generated in the build directory
+#include <message_strobe_random_pydoc.h>
 
 void bind_message_strobe_random(py::module& m)
 {
-    using message_strobe_random    = gr::blocks::message_strobe_random;
+
+    using message_strobe_random    = ::gr::blocks::message_strobe_random;
 
 
-    py::class_<message_strobe_random,gr::block, gr::basic_block,
-        std::shared_ptr<message_strobe_random>>(m, "message_strobe_random")
+    py::class_<message_strobe_random, gr::block, gr::basic_block,
+        std::shared_ptr<message_strobe_random>>(m, "message_strobe_random", D(message_strobe_random))
 
         .def(py::init(&message_strobe_random::make),
-           py::arg("msg"), 
-           py::arg("dist"), 
-           py::arg("mean_ms"), 
-           py::arg("std_ms") 
+           py::arg("msg"),
+           py::arg("dist"),
+           py::arg("mean_ms"),
+           py::arg("std_ms"),
+           D(message_strobe_random,make)
         )
         
 
+
+
+
         .def("set_msg",&message_strobe_random::set_msg,
-            py::arg("msg") 
+            py::arg("msg"),
+            D(message_strobe_random,set_msg)
         )
-        .def("msg",&message_strobe_random::msg)
+
+
+        .def("msg",&message_strobe_random::msg,
+            D(message_strobe_random,msg)
+        )
+
+
         .def("set_dist",&message_strobe_random::set_dist,
-            py::arg("dist") 
+            py::arg("dist"),
+            D(message_strobe_random,set_dist)
         )
-        .def("dist",&message_strobe_random::dist)
+
+
+        .def("dist",&message_strobe_random::dist,
+            D(message_strobe_random,dist)
+        )
+
+
         .def("set_mean",&message_strobe_random::set_mean,
-            py::arg("mean") 
+            py::arg("mean"),
+            D(message_strobe_random,set_mean)
         )
-        .def("mean",&message_strobe_random::mean)
+
+
+        .def("mean",&message_strobe_random::mean,
+            D(message_strobe_random,mean)
+        )
+
+
         .def("set_std",&message_strobe_random::set_std,
-            py::arg("std") 
+            py::arg("std"),
+            D(message_strobe_random,set_std)
         )
-        .def("std",&message_strobe_random::std)
+
+
+        .def("std",&message_strobe_random::std,
+            D(message_strobe_random,std)
+        )
+
         ;
 
-    py::enum_<gr::blocks::message_strobe_random_distribution_t>(m,"message_strobe_random_distribution_t")
-        .value("STROBE_POISSON", gr::blocks::STROBE_POISSON) // 1
-        .value("STROBE_GAUSSIAN", gr::blocks::STROBE_GAUSSIAN) // 2
-        .value("STROBE_UNIFORM", gr::blocks::STROBE_UNIFORM) // 3
+    py::enum_<::gr::blocks::message_strobe_random_distribution_t>(m,"message_strobe_random_distribution_t")
+        .value("STROBE_POISSON", ::gr::blocks::STROBE_POISSON) // 1
+        .value("STROBE_GAUSSIAN", ::gr::blocks::STROBE_GAUSSIAN) // 2
+        .value("STROBE_UNIFORM", ::gr::blocks::STROBE_UNIFORM) // 3
         .export_values()
     ;
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,29 +16,50 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/burst_tagger.h>
+// pydoc.h is automatically generated in the build directory
+#include <burst_tagger_pydoc.h>
 
 void bind_burst_tagger(py::module& m)
 {
-    using burst_tagger    = gr::blocks::burst_tagger;
+
+    using burst_tagger    = ::gr::blocks::burst_tagger;
 
 
-    py::class_<burst_tagger,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<burst_tagger>>(m, "burst_tagger")
+    py::class_<burst_tagger, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<burst_tagger>>(m, "burst_tagger", D(burst_tagger))
 
         .def(py::init(&burst_tagger::make),
-           py::arg("itemsize") 
+           py::arg("itemsize"),
+           D(burst_tagger,make)
         )
         
 
+
+
+
         .def("set_true_tag",&burst_tagger::set_true_tag,
-            py::arg("key"), 
-            py::arg("value") 
+            py::arg("key"),
+            py::arg("value"),
+            D(burst_tagger,set_true_tag)
         )
+
+
         .def("set_false_tag",&burst_tagger::set_false_tag,
-            py::arg("key"), 
-            py::arg("value") 
+            py::arg("key"),
+            py::arg("value"),
+            D(burst_tagger,set_false_tag)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

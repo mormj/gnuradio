@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_test_tag_variable_rate_ff = R"doc()doc";
+ static const char *__doc_gr_blocks_test_tag_variable_rate_ff = R"doc()doc";
 
 
- static const char *__doc_blocks_test_tag_variable_rate_ff_test_tag_variable_rate_ff = R"doc()doc";
+ static const char *__doc_gr_blocks_test_tag_variable_rate_ff_test_tag_variable_rate_ff = R"doc()doc";
 
 
- static const char *__doc_blocks_test_tag_variable_rate_ff_make = R"doc()doc";
+ static const char *__doc_gr_blocks_test_tag_variable_rate_ff_make = R"doc()doc";
 
   

@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/interleave.h>
+// pydoc.h is automatically generated in the build directory
+#include <interleave_pydoc.h>
 
 void bind_interleave(py::module& m)
 {
-    using interleave    = gr::blocks::interleave;
+
+    using interleave    = ::gr::blocks::interleave;
 
 
-    py::class_<interleave,gr::block, gr::basic_block,
-        std::shared_ptr<interleave>>(m, "interleave")
+    py::class_<interleave, gr::block, gr::basic_block,
+        std::shared_ptr<interleave>>(m, "interleave", D(interleave))
 
         .def(py::init(&interleave::make),
-           py::arg("itemsize"), 
-           py::arg("blocksize") = 1 
+           py::arg("itemsize"),
+           py::arg("blocksize") = 1,
+           D(interleave,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

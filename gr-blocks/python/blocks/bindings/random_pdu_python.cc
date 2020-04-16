@@ -16,22 +16,39 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/random_pdu.h>
+// pydoc.h is automatically generated in the build directory
+#include <random_pdu_pydoc.h>
 
 void bind_random_pdu(py::module& m)
 {
-    using random_pdu    = gr::blocks::random_pdu;
+
+    using random_pdu    = ::gr::blocks::random_pdu;
 
 
-    py::class_<random_pdu,gr::block, gr::basic_block,
-        std::shared_ptr<random_pdu>>(m, "random_pdu")
+    py::class_<random_pdu, gr::block, gr::basic_block,
+        std::shared_ptr<random_pdu>>(m, "random_pdu", D(random_pdu))
 
         .def(py::init(&random_pdu::make),
-           py::arg("mintime"), 
-           py::arg("maxtime"), 
-           py::arg("byte_mask") = 255, 
-           py::arg("length_modulo") = 1 
+           py::arg("mintime"),
+           py::arg("maxtime"),
+           py::arg("byte_mask") = 255,
+           py::arg("length_modulo") = 1,
+           D(random_pdu,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,27 +16,27 @@
 
 
  
- static const char *__doc_blocks_probe_rate = R"doc()doc";
+ static const char *__doc_gr_blocks_probe_rate = R"doc()doc";
 
 
- static const char *__doc_blocks_probe_rate_probe_rate_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_probe_rate_probe_rate_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_probe_rate_probe_rate_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_probe_rate_probe_rate_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_probe_rate_make = R"doc()doc";
+ static const char *__doc_gr_blocks_probe_rate_make = R"doc()doc";
 
 
- static const char *__doc_blocks_probe_rate_set_alpha = R"doc()doc";
+ static const char *__doc_gr_blocks_probe_rate_set_alpha = R"doc()doc";
 
 
- static const char *__doc_blocks_probe_rate_rate = R"doc()doc";
+ static const char *__doc_gr_blocks_probe_rate_rate = R"doc()doc";
 
 
- static const char *__doc_blocks_probe_rate_start = R"doc()doc";
+ static const char *__doc_gr_blocks_probe_rate_start = R"doc()doc";
 
 
- static const char *__doc_blocks_probe_rate_stop = R"doc()doc";
+ static const char *__doc_gr_blocks_probe_rate_stop = R"doc()doc";
 
   

@@ -16,26 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/delay.h>
+// pydoc.h is automatically generated in the build directory
+#include <delay_pydoc.h>
 
 void bind_delay(py::module& m)
 {
-    using delay    = gr::blocks::delay;
+
+    using delay    = ::gr::blocks::delay;
 
 
-    py::class_<delay,gr::block, gr::basic_block,
-        std::shared_ptr<delay>>(m, "delay")
+    py::class_<delay, gr::block, gr::basic_block,
+        std::shared_ptr<delay>>(m, "delay", D(delay))
 
         .def(py::init(&delay::make),
-           py::arg("itemsize"), 
-           py::arg("delay") 
+           py::arg("itemsize"),
+           py::arg("delay"),
+           D(delay,make)
         )
         
 
-        .def("dly",&delay::dly)
-        .def("set_dly",&delay::set_dly,
-            py::arg("d") 
+
+
+
+        .def("dly",&delay::dly,
+            D(delay,dly)
         )
+
+
+        .def("set_dly",&delay::set_dly,
+            py::arg("d"),
+            D(delay,set_dly)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

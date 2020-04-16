@@ -16,27 +16,27 @@
 
 
  
- static const char *__doc_blocks_udp_source = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_source = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_source_udp_source_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_source_udp_source_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_source_udp_source_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_source_udp_source_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_source_make = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_source_make = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_source_connect = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_source_connect = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_source_disconnect = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_source_disconnect = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_source_payload_size = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_source_payload_size = R"doc()doc";
 
 
- static const char *__doc_blocks_udp_source_get_port = R"doc()doc";
+ static const char *__doc_gr_blocks_udp_source_get_port = R"doc()doc";
 
   

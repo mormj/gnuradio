@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_skiphead = R"doc()doc";
+ static const char *__doc_gr_blocks_skiphead = R"doc()doc";
 
 
- static const char *__doc_blocks_skiphead_skiphead = R"doc()doc";
+ static const char *__doc_gr_blocks_skiphead_skiphead = R"doc()doc";
 
 
- static const char *__doc_blocks_skiphead_make = R"doc()doc";
+ static const char *__doc_gr_blocks_skiphead_make = R"doc()doc";
 
   

@@ -16,18 +16,18 @@
 
 
  
- static const char *__doc_blocks_rotator_cc = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_cc = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_cc_rotator_cc_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_cc_rotator_cc_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_cc_rotator_cc_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_cc_rotator_cc_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_cc_make = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_cc_make = R"doc()doc";
 
 
- static const char *__doc_blocks_rotator_cc_set_phase_inc = R"doc()doc";
+ static const char *__doc_gr_blocks_rotator_cc_set_phase_inc = R"doc()doc";
 
   

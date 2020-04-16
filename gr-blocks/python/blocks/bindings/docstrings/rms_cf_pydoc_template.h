@@ -16,18 +16,18 @@
 
 
  
- static const char *__doc_blocks_rms_cf = R"doc()doc";
+ static const char *__doc_gr_blocks_rms_cf = R"doc()doc";
 
 
- static const char *__doc_blocks_rms_cf_rms_cf_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_rms_cf_rms_cf_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_rms_cf_rms_cf_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_rms_cf_rms_cf_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_rms_cf_make = R"doc()doc";
+ static const char *__doc_gr_blocks_rms_cf_make = R"doc()doc";
 
 
- static const char *__doc_blocks_rms_cf_set_alpha = R"doc()doc";
+ static const char *__doc_gr_blocks_rms_cf_set_alpha = R"doc()doc";
 
   

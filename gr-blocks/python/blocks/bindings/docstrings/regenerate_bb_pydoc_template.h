@@ -16,27 +16,27 @@
 
 
  
- static const char *__doc_blocks_regenerate_bb = R"doc()doc";
+ static const char *__doc_gr_blocks_regenerate_bb = R"doc()doc";
 
 
- static const char *__doc_blocks_regenerate_bb_regenerate_bb_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_regenerate_bb_regenerate_bb_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_regenerate_bb_regenerate_bb_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_regenerate_bb_regenerate_bb_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_regenerate_bb_make = R"doc()doc";
+ static const char *__doc_gr_blocks_regenerate_bb_make = R"doc()doc";
 
 
- static const char *__doc_blocks_regenerate_bb_set_max_regen = R"doc()doc";
+ static const char *__doc_gr_blocks_regenerate_bb_set_max_regen = R"doc()doc";
 
 
- static const char *__doc_blocks_regenerate_bb_set_period = R"doc()doc";
+ static const char *__doc_gr_blocks_regenerate_bb_set_period = R"doc()doc";
 
 
- static const char *__doc_blocks_regenerate_bb_max_regen = R"doc()doc";
+ static const char *__doc_gr_blocks_regenerate_bb_max_regen = R"doc()doc";
 
 
- static const char *__doc_blocks_regenerate_bb_period = R"doc()doc";
+ static const char *__doc_gr_blocks_regenerate_bb_period = R"doc()doc";
 
   

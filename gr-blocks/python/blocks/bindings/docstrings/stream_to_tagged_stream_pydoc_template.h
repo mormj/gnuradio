@@ -16,21 +16,21 @@
 
 
  
- static const char *__doc_blocks_stream_to_tagged_stream = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_to_tagged_stream = R"doc()doc";
 
 
- static const char *__doc_blocks_stream_to_tagged_stream_stream_to_tagged_stream_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_to_tagged_stream_stream_to_tagged_stream_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_stream_to_tagged_stream_stream_to_tagged_stream_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_to_tagged_stream_stream_to_tagged_stream_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_stream_to_tagged_stream_make = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_to_tagged_stream_make = R"doc()doc";
 
 
- static const char *__doc_blocks_stream_to_tagged_stream_set_packet_len = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_to_tagged_stream_set_packet_len = R"doc()doc";
 
 
- static const char *__doc_blocks_stream_to_tagged_stream_set_packet_len_pmt = R"doc()doc";
+ static const char *__doc_gr_blocks_stream_to_tagged_stream_set_packet_len_pmt = R"doc()doc";
 
   

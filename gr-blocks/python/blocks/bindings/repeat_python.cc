@@ -16,26 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/repeat.h>
+// pydoc.h is automatically generated in the build directory
+#include <repeat_pydoc.h>
 
 void bind_repeat(py::module& m)
 {
-    using repeat    = gr::blocks::repeat;
+
+    using repeat    = ::gr::blocks::repeat;
 
 
-    py::class_<repeat,gr::sync_interpolator, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<repeat>>(m, "repeat")
+    py::class_<repeat, gr::sync_interpolator,
+        std::shared_ptr<repeat>>(m, "repeat", D(repeat))
 
         .def(py::init(&repeat::make),
-           py::arg("itemsize"), 
-           py::arg("repeat") 
+           py::arg("itemsize"),
+           py::arg("repeat"),
+           D(repeat,make)
         )
         
 
-        .def("interpolation",&repeat::interpolation)
-        .def("set_interpolation",&repeat::set_interpolation,
-            py::arg("interp") 
+
+
+
+        .def("interpolation",&repeat::interpolation,
+            D(repeat,interpolation)
         )
+
+
+        .def("set_interpolation",&repeat::set_interpolation,
+            py::arg("interp"),
+            D(repeat,set_interpolation)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

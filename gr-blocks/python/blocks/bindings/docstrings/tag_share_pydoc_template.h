@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_tag_share = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_share = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_share_tag_share = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_share_tag_share = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_share_make = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_share_make = R"doc()doc";
 
   

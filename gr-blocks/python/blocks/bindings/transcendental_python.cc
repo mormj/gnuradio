@@ -16,20 +16,37 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/transcendental.h>
+// pydoc.h is automatically generated in the build directory
+#include <transcendental_pydoc.h>
 
 void bind_transcendental(py::module& m)
 {
-    using transcendental    = gr::blocks::transcendental;
+
+    using transcendental    = ::gr::blocks::transcendental;
 
 
-    py::class_<transcendental,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<transcendental>>(m, "transcendental")
+    py::class_<transcendental, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<transcendental>>(m, "transcendental", D(transcendental))
 
         .def(py::init(&transcendental::make),
-           py::arg("name"), 
-           py::arg("type") = "float" 
+           py::arg("name"),
+           py::arg("type") = "float",
+           D(transcendental,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

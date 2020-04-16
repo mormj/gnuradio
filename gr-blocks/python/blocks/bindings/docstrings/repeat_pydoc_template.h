@@ -16,21 +16,21 @@
 
 
  
- static const char *__doc_blocks_repeat = R"doc()doc";
+ static const char *__doc_gr_blocks_repeat = R"doc()doc";
 
 
- static const char *__doc_blocks_repeat_repeat_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_repeat_repeat_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_repeat_repeat_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_repeat_repeat_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_repeat_make = R"doc()doc";
+ static const char *__doc_gr_blocks_repeat_make = R"doc()doc";
 
 
- static const char *__doc_blocks_repeat_interpolation = R"doc()doc";
+ static const char *__doc_gr_blocks_repeat_interpolation = R"doc()doc";
 
 
- static const char *__doc_blocks_repeat_set_interpolation = R"doc()doc";
+ static const char *__doc_gr_blocks_repeat_set_interpolation = R"doc()doc";
 
   

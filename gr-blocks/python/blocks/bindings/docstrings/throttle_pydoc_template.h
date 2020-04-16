@@ -16,21 +16,21 @@
 
 
  
- static const char *__doc_blocks_throttle = R"doc()doc";
+ static const char *__doc_gr_blocks_throttle = R"doc()doc";
 
 
- static const char *__doc_blocks_throttle_throttle_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_throttle_throttle_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_throttle_throttle_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_throttle_throttle_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_throttle_make = R"doc()doc";
+ static const char *__doc_gr_blocks_throttle_make = R"doc()doc";
 
 
- static const char *__doc_blocks_throttle_set_sample_rate = R"doc()doc";
+ static const char *__doc_gr_blocks_throttle_set_sample_rate = R"doc()doc";
 
 
- static const char *__doc_blocks_throttle_sample_rate = R"doc()doc";
+ static const char *__doc_gr_blocks_throttle_sample_rate = R"doc()doc";
 
   

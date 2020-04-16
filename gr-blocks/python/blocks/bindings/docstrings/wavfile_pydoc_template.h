@@ -16,18 +16,18 @@
 
 
 
- static const char *__doc_blocks_wavheader_parse = R"doc()doc";
+ static const char *__doc_gr_blocks_wavheader_parse = R"doc()doc";
 
 
- static const char *__doc_blocks_wav_read_sample = R"doc()doc";
+ static const char *__doc_gr_blocks_wav_read_sample = R"doc()doc";
 
 
- static const char *__doc_blocks_wavheader_write = R"doc()doc";
+ static const char *__doc_gr_blocks_wavheader_write = R"doc()doc";
 
 
- static const char *__doc_blocks_wav_write_sample = R"doc()doc";
+ static const char *__doc_gr_blocks_wav_write_sample = R"doc()doc";
 
 
- static const char *__doc_blocks_wavheader_complete = R"doc()doc";
+ static const char *__doc_gr_blocks_wavheader_complete = R"doc()doc";
 
   

@@ -16,34 +16,62 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/wavfile_sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <wavfile_sink_pydoc.h>
 
 void bind_wavfile_sink(py::module& m)
 {
-    using wavfile_sink    = gr::blocks::wavfile_sink;
+
+    using wavfile_sink    = ::gr::blocks::wavfile_sink;
 
 
-    py::class_<wavfile_sink,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<wavfile_sink>>(m, "wavfile_sink")
+    py::class_<wavfile_sink, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<wavfile_sink>>(m, "wavfile_sink", D(wavfile_sink))
 
         .def(py::init(&wavfile_sink::make),
-           py::arg("filename"), 
-           py::arg("n_channels"), 
-           py::arg("sample_rate"), 
-           py::arg("bits_per_sample") = 16 
+           py::arg("filename"),
+           py::arg("n_channels"),
+           py::arg("sample_rate"),
+           py::arg("bits_per_sample") = 16,
+           D(wavfile_sink,make)
         )
         
 
+
+
+
         .def("open",&wavfile_sink::open,
-            py::arg("filename") 
+            py::arg("filename"),
+            D(wavfile_sink,open)
         )
-        .def("close",&wavfile_sink::close)
+
+
+        .def("close",&wavfile_sink::close,
+            D(wavfile_sink,close)
+        )
+
+
         .def("set_sample_rate",&wavfile_sink::set_sample_rate,
-            py::arg("sample_rate") 
+            py::arg("sample_rate"),
+            D(wavfile_sink,set_sample_rate)
         )
+
+
         .def("set_bits_per_sample",&wavfile_sink::set_bits_per_sample,
-            py::arg("bits_per_sample") 
+            py::arg("bits_per_sample"),
+            D(wavfile_sink,set_bits_per_sample)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

@@ -16,33 +16,33 @@
 
 
  
- static const char *__doc_blocks_tag_debug = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_tag_debug_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_tag_debug_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_tag_debug_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_tag_debug_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_make = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_make = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_current_tags = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_current_tags = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_num_tags = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_num_tags = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_set_display = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_set_display = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_set_save_all = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_set_save_all = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_set_key_filter = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_set_key_filter = R"doc()doc";
 
 
- static const char *__doc_blocks_tag_debug_key_filter = R"doc()doc";
+ static const char *__doc_gr_blocks_tag_debug_key_filter = R"doc()doc";
 
   

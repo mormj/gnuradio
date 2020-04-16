@@ -16,20 +16,44 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/tagged_stream_to_pdu.h>
+// pydoc.h is automatically generated in the build directory
+#include <tagged_stream_to_pdu_pydoc.h>
 
 void bind_tagged_stream_to_pdu(py::module& m)
 {
-    using tagged_stream_to_pdu    = gr::blocks::tagged_stream_to_pdu;
+
+    using tagged_stream_to_pdu    = ::gr::blocks::tagged_stream_to_pdu;
 
 
     py::class_<tagged_stream_to_pdu, gr::tagged_stream_block, gr::block, gr::basic_block,
-        std::shared_ptr<tagged_stream_to_pdu>>(m, "tagged_stream_to_pdu")
+        std::shared_ptr<tagged_stream_to_pdu>>(m, "tagged_stream_to_pdu", D(tagged_stream_to_pdu))
 
         .def(py::init(&tagged_stream_to_pdu::make),
-           py::arg("type"), 
-           py::arg("lengthtagname") = "packet_len" 
+           py::arg("type"),
+           py::arg("lengthtagname") = "packet_len",
+           D(tagged_stream_to_pdu,make)
         )
+        
+
+
+
         ;
 
 
-} 
+
+        py::module m_pdu = m.def_submodule("pdu");
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+

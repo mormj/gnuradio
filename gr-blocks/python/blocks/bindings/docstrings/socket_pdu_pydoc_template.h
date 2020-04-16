@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_socket_pdu = R"doc()doc";
+ static const char *__doc_gr_blocks_socket_pdu = R"doc()doc";
 
 
- static const char *__doc_blocks_socket_pdu_socket_pdu = R"doc()doc";
+ static const char *__doc_gr_blocks_socket_pdu_socket_pdu = R"doc()doc";
 
 
- static const char *__doc_blocks_socket_pdu_make = R"doc()doc";
+ static const char *__doc_gr_blocks_socket_pdu_make = R"doc()doc";
 
   

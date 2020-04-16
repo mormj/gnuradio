@@ -21,8 +21,8 @@ namespace py = pybind11;
 
 void bind_add_const_ii(py::module& m)
 {
-    using add_const_ii    = gr::blocks::add_const_ii;
 
+    using add_const_ii    = ::gr::blocks::add_const_ii;
 
 
     py::class_<add_const_ii, gr::sync_block, gr::block, gr::basic_block,
@@ -33,15 +33,30 @@ void bind_add_const_ii(py::module& m)
            D(add_const_ii,make)
         )
         
+
+
+
+
         .def("k",&add_const_ii::k,
             D(add_const_ii,k)
         )
+
 
         .def("set_k",&add_const_ii::set_k,
             py::arg("k"),
             D(add_const_ii,set_k)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

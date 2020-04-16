@@ -16,25 +16,52 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/wavfile_source.h>
+// pydoc.h is automatically generated in the build directory
+#include <wavfile_source_pydoc.h>
 
 void bind_wavfile_source(py::module& m)
 {
-    using wavfile_source    = gr::blocks::wavfile_source;
+
+    using wavfile_source    = ::gr::blocks::wavfile_source;
 
 
-    py::class_<wavfile_source,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<wavfile_source>>(m, "wavfile_source")
+    py::class_<wavfile_source, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<wavfile_source>>(m, "wavfile_source", D(wavfile_source))
 
         .def(py::init(&wavfile_source::make),
-           py::arg("filename"), 
-           py::arg("repeat") = false 
+           py::arg("filename"),
+           py::arg("repeat") = false,
+           D(wavfile_source,make)
         )
         
 
-        .def("sample_rate",&wavfile_source::sample_rate)
-        .def("bits_per_sample",&wavfile_source::bits_per_sample)
-        .def("channels",&wavfile_source::channels)
+
+
+
+        .def("sample_rate",&wavfile_source::sample_rate,
+            D(wavfile_source,sample_rate)
+        )
+
+
+        .def("bits_per_sample",&wavfile_source::bits_per_sample,
+            D(wavfile_source,bits_per_sample)
+        )
+
+
+        .def("channels",&wavfile_source::channels,
+            D(wavfile_source,channels)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

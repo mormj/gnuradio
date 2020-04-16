@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_vco_c = R"doc()doc";
+ static const char *__doc_gr_blocks_vco_c = R"doc()doc";
 
 
- static const char *__doc_blocks_vco_c_vco_c = R"doc()doc";
+ static const char *__doc_gr_blocks_vco_c_vco_c = R"doc()doc";
 
 
- static const char *__doc_blocks_vco_c_make = R"doc()doc";
+ static const char *__doc_gr_blocks_vco_c_make = R"doc()doc";
 
   

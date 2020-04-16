@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_short_to_char = R"doc()doc";
+ static const char *__doc_gr_blocks_short_to_char = R"doc()doc";
 
 
- static const char *__doc_blocks_short_to_char_short_to_char = R"doc()doc";
+ static const char *__doc_gr_blocks_short_to_char_short_to_char = R"doc()doc";
 
 
- static const char *__doc_blocks_short_to_char_make = R"doc()doc";
+ static const char *__doc_gr_blocks_short_to_char_make = R"doc()doc";
 
   

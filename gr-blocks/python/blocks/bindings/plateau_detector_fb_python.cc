@@ -16,26 +16,48 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/plateau_detector_fb.h>
+// pydoc.h is automatically generated in the build directory
+#include <plateau_detector_fb_pydoc.h>
 
 void bind_plateau_detector_fb(py::module& m)
 {
-    using plateau_detector_fb    = gr::blocks::plateau_detector_fb;
+
+    using plateau_detector_fb    = ::gr::blocks::plateau_detector_fb;
 
 
-    py::class_<plateau_detector_fb,gr::block, gr::basic_block,
-        std::shared_ptr<plateau_detector_fb>>(m, "plateau_detector_fb")
+    py::class_<plateau_detector_fb, gr::block, gr::basic_block,
+        std::shared_ptr<plateau_detector_fb>>(m, "plateau_detector_fb", D(plateau_detector_fb))
 
         .def(py::init(&plateau_detector_fb::make),
-           py::arg("max_len"), 
-           py::arg("threshold") = 0.90000000000000002 
+           py::arg("max_len"),
+           py::arg("threshold") = 0.90000000000000002,
+           D(plateau_detector_fb,make)
         )
         
 
+
+
+
         .def("set_threshold",&plateau_detector_fb::set_threshold,
-            py::arg("threshold") 
+            py::arg("threshold"),
+            D(plateau_detector_fb,set_threshold)
         )
-        .def("threshold",&plateau_detector_fb::threshold)
+
+
+        .def("threshold",&plateau_detector_fb::threshold,
+            D(plateau_detector_fb,threshold)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

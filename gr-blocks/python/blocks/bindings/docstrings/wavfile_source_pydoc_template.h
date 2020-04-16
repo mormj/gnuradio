@@ -16,24 +16,24 @@
 
 
  
- static const char *__doc_blocks_wavfile_source = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_source = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_source_wavfile_source_0 = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_source_wavfile_source_0 = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_source_wavfile_source_1 = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_source_wavfile_source_1 = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_source_make = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_source_make = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_source_sample_rate = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_source_sample_rate = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_source_bits_per_sample = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_source_bits_per_sample = R"doc()doc";
 
 
- static const char *__doc_blocks_wavfile_source_channels = R"doc()doc";
+ static const char *__doc_gr_blocks_wavfile_source_channels = R"doc()doc";
 
   

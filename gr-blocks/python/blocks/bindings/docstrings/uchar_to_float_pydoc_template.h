@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_uchar_to_float = R"doc()doc";
+ static const char *__doc_gr_blocks_uchar_to_float = R"doc()doc";
 
 
- static const char *__doc_blocks_uchar_to_float_uchar_to_float = R"doc()doc";
+ static const char *__doc_gr_blocks_uchar_to_float_uchar_to_float = R"doc()doc";
 
 
- static const char *__doc_blocks_uchar_to_float_make = R"doc()doc";
+ static const char *__doc_gr_blocks_uchar_to_float_make = R"doc()doc";
 
   

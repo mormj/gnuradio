@@ -16,12 +16,12 @@
 
 
  
- static const char *__doc_blocks_streams_to_vector = R"doc()doc";
+ static const char *__doc_gr_blocks_streams_to_vector = R"doc()doc";
 
 
- static const char *__doc_blocks_streams_to_vector_streams_to_vector = R"doc()doc";
+ static const char *__doc_gr_blocks_streams_to_vector_streams_to_vector = R"doc()doc";
 
 
- static const char *__doc_blocks_streams_to_vector_make = R"doc()doc";
+ static const char *__doc_gr_blocks_streams_to_vector_make = R"doc()doc";
 
   

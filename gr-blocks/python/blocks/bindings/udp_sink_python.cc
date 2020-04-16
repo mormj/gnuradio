@@ -16,31 +16,57 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/udp_sink.h>
+// pydoc.h is automatically generated in the build directory
+#include <udp_sink_pydoc.h>
 
 void bind_udp_sink(py::module& m)
 {
-    using udp_sink    = gr::blocks::udp_sink;
+
+    using udp_sink    = ::gr::blocks::udp_sink;
 
 
-    py::class_<udp_sink,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<udp_sink>>(m, "udp_sink")
+    py::class_<udp_sink, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<udp_sink>>(m, "udp_sink", D(udp_sink))
 
         .def(py::init(&udp_sink::make),
-           py::arg("itemsize"), 
-           py::arg("host"), 
-           py::arg("port"), 
-           py::arg("payload_size") = 1472, 
-           py::arg("eof") = true 
+           py::arg("itemsize"),
+           py::arg("host"),
+           py::arg("port"),
+           py::arg("payload_size") = 1472,
+           py::arg("eof") = true,
+           D(udp_sink,make)
         )
         
 
-        .def("payload_size",&udp_sink::payload_size)
-        .def("connect",&udp_sink::connect,
-            py::arg("host"), 
-            py::arg("port") 
+
+
+
+        .def("payload_size",&udp_sink::payload_size,
+            D(udp_sink,payload_size)
         )
-        .def("disconnect",&udp_sink::disconnect)
+
+
+        .def("connect",&udp_sink::connect,
+            py::arg("host"),
+            py::arg("port"),
+            D(udp_sink,connect)
+        )
+
+
+        .def("disconnect",&udp_sink::disconnect,
+            D(udp_sink,disconnect)
+        )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+

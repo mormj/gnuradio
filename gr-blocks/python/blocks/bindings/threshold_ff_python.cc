@@ -16,35 +16,71 @@
 namespace py = pybind11;
 
 #include <gnuradio/blocks/threshold_ff.h>
+// pydoc.h is automatically generated in the build directory
+#include <threshold_ff_pydoc.h>
 
 void bind_threshold_ff(py::module& m)
 {
-    using threshold_ff    = gr::blocks::threshold_ff;
+
+    using threshold_ff    = ::gr::blocks::threshold_ff;
 
 
-    py::class_<threshold_ff,gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<threshold_ff>>(m, "threshold_ff")
+    py::class_<threshold_ff, gr::sync_block, gr::block, gr::basic_block,
+        std::shared_ptr<threshold_ff>>(m, "threshold_ff", D(threshold_ff))
 
         .def(py::init(&threshold_ff::make),
-           py::arg("lo"), 
-           py::arg("hi"), 
-           py::arg("initial_state") = 0 
+           py::arg("lo"),
+           py::arg("hi"),
+           py::arg("initial_state") = 0,
+           D(threshold_ff,make)
         )
         
 
-        .def("lo",&threshold_ff::lo)
+
+
+
+        .def("lo",&threshold_ff::lo,
+            D(threshold_ff,lo)
+        )
+
+
         .def("set_lo",&threshold_ff::set_lo,
-            py::arg("lo") 
+            py::arg("lo"),
+            D(threshold_ff,set_lo)
         )
-        .def("hi",&threshold_ff::hi)
+
+
+        .def("hi",&threshold_ff::hi,
+            D(threshold_ff,hi)
+        )
+
+
         .def("set_hi",&threshold_ff::set_hi,
-            py::arg("hi") 
+            py::arg("hi"),
+            D(threshold_ff,set_hi)
         )
-        .def("last_state",&threshold_ff::last_state)
+
+
+        .def("last_state",&threshold_ff::last_state,
+            D(threshold_ff,last_state)
+        )
+
+
         .def("set_last_state",&threshold_ff::set_last_state,
-            py::arg("last_state") 
+            py::arg("last_state"),
+            D(threshold_ff,set_last_state)
         )
+
         ;
 
 
-} 
+
+
+}
+
+
+
+
+
+
+
