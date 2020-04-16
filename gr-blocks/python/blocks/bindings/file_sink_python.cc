@@ -25,7 +25,7 @@ void bind_file_sink(py::module& m)
     using file_sink    = ::gr::blocks::file_sink;
 
 
-    py::class_<file_sink, gr::sync_block, gr::block, gr::basic_block,
+    py::class_<file_sink, gr::sync_block, gr::block, gr::basic_block, gr::blocks::file_sink_base,
         std::shared_ptr<file_sink>>(m, "file_sink", D(file_sink))
 
         .def(py::init(&file_sink::make),

@@ -27,8 +27,8 @@ void bind_pdu(py::module& m)
 
         py::module m_pdu = m.def_submodule("pdu");
 
-
-    py::enum_<::gr::blocks::pdu::vector_type>(m_pdu,"vector_type")
+    // TODO - clean up pdu subnamespace -- should these enums go under pdu, or under blocks?
+    py::enum_<::gr::blocks::pdu::vector_type>(m,"vector_type")
         .value("byte_t", ::gr::blocks::pdu::byte_t) // 0
         .value("float_t", ::gr::blocks::pdu::float_t) // 1
         .value("complex_t", ::gr::blocks::pdu::complex_t) // 2
