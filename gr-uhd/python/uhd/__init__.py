@@ -16,6 +16,8 @@ line.
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+import uhd  # TODO: verify uhd python is installed as a dependency for gr-uhd with python
+
 ########################################################################
 # Prepare uhd swig module to make it more pythonic
 ########################################################################
@@ -29,14 +31,16 @@ def _prepare_uhd_python():
         from . import uhd_python
 
     #some useful typedefs for the user
-    setattr(uhd_python, 'freq_range_t', uhd_python.meta_range_t)
-    setattr(uhd_python, 'gain_range_t', uhd_python.meta_range_t)
+    # setattr(uhd_python, 'freq_range_t', uhd_python.meta_range_t)
+    # setattr(uhd_python, 'gain_range_t', uhd_python.meta_range_t)
+    setattr(uhd_python, 'freq_range_t', uhd.types.MetaRange)
+    setattr(uhd_python, 'gain_range_t', uhd.types.MetaRange)
 
     #Make the python tune request object inherit from float
     #so that it can be passed in GRC as a frequency parameter.
     #The type checking in GRC will accept the tune request.
     #Also use kwargs to construct individual struct elements.
-    class tune_request_t(uhd_python.tune_request_t, float):
+    class tune_request_t(uhd.types.TuneRequest): #, float):
         def __new__(self, *args, **kwargs): return float.__new__(self)
         def __float__(self): return self.target_freq
         def __init__(self, *args, **kwargs):
@@ -48,7 +52,7 @@ def _prepare_uhd_python():
     #so that it can be passed in GRC as a string parameter.
     #The type checking in GRC will accept the device address.
     #Define the set/get item special methods for dict access.
-    class device_addr_t(uhd_python.device_addr_t, str):
+    class device_addr_t(uhd.types.DeviceAddr): #, str):
         def __new__(self, *args): return str.__new__(self)
         def __getitem__(self, key): return self.get(key)
         def __setitem__(self, key, val): self.set(key, val)
@@ -59,8 +63,12 @@ def _prepare_uhd_python():
     setattr(uhd_python, 'device_addr_t', device_addr_t)
 
     #make the streamer args take **kwargs on init
-    class stream_args_t(uhd_python.stream_args_t):
+    class stream_args_t(uhd.usrp.StreamArgs):
         def __init__(self, *args, **kwargs):
+            # UHD Python API doesn't have default args for stream_args_t
+            # If empty args, then append empty str's
+            while len(args) < 2:
+                args += ("",)
             super(stream_args_t, self).__init__(*args)
             for key, val in list(kwargs.items()):
                 #for some reason, I can't assign a list in the constructor
@@ -70,7 +78,10 @@ def _prepare_uhd_python():
                 elif key == 'args':
                     self.args = device_addr_t(val)
                 else: setattr(self, key, val)
+
+    # FIXME: stream_args_t.channels.append does not work due to copy operation of STL vectors
     setattr(uhd_python, 'stream_args_t', stream_args_t)
+    # setattr(uhd_python, 'stream_args_t', uhd.usrp.StreamArgs)
 
     #handle general things on all uhd_python attributes
     #Install the __str__ and __repr__ handlers if applicable
@@ -114,7 +125,12 @@ def _prepare_uhd_python():
             return constructor_interceptor
         setattr(uhd_python, attr, constructor_factory(getattr(uhd_python, attr)))
 
+    #FIXME: Aliases for UHD Python API - can this go away??  Do we need more??
+    setattr(uhd_python, 'time_spec_t', uhd.types.TimeSpec)
+
+
     #Aliases for deprecated constructors
+    #FIXME: Remove for 3.9??
     setattr(uhd_python, 'single_usrp_source', uhd_python.usrp_source)
     setattr(uhd_python, 'single_usrp_sink', uhd_python.usrp_sink)
     setattr(uhd_python, 'multi_usrp_source', uhd_python.usrp_source)
