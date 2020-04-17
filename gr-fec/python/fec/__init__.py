@@ -49,12 +49,22 @@ repetition_decoder = code.repetition_decoder
 repetition_decoder.__init__ = code.repetition_decoder.make
 repetition_decoder_make = code.repetition_decoder.make
 
+polar_encoder = code.polar_encoder
+polar_encoder.__init__ = code.polar_encoder.make
+polar_encoder_make = code.polar_encoder.make
+
+polar_encoder_systematic = code.polar_encoder_systematic
+polar_encoder_systematic.__init__ = code.polar_encoder_systematic.make
+polar_encoder_systematic_make = code.polar_encoder_systematic.make
+
 
 ldpc_H_matrix = code.ldpc_H_matrix
 ldpc_G_matrix = code.ldpc_G_matrix
 ldpc_par_mtrx_encoder = code.ldpc_par_mtrx_encoder
 ldpc_bit_flip_decoder = code.ldpc_bit_flip_decoder
+polar_decoder_sc = code.polar_decoder_sc
 polar_decoder_sc_list = code.polar_decoder_sc_list
+polar_decoder_sc_systematic = code.polar_decoder_sc_systematic
 
 from .bitflip import *
 from .extended_encoder import extended_encoder
