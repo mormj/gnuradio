@@ -33,7 +33,7 @@ void bind_polar_common(py::module& m)
     py::class_<polar_common,
         std::shared_ptr<polar_common>>(m_code, "polar_common", D(code,polar_common))
 
-        .def(py::init<int,int,std::vector<int, std::allocator<int> >,std::vector<char, std::allocator<char> >>(),           py::arg("block_size"),
+        .def(py::init<int,int,std::vector<int, std::allocator<int> >,std::vector<uint8_t, std::allocator<uint8_t> >>(),           py::arg("block_size"),
            py::arg("num_info_bits"),
            py::arg("frozen_bit_positions"),
            py::arg("frozen_bit_values"),

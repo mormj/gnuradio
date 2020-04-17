@@ -21,14 +21,9 @@ namespace py = pybind11;
 
 void bind_cc_encoder(py::module& m)
 {
-
-
-
-
-        py::module m_code = m.def_submodule("code");
+    py::module m_code = m.def_submodule("code");
 
     using cc_encoder    = ::gr::fec::code::cc_encoder;
-
 
     py::class_<cc_encoder, gr::fec::generic_encoder,
         std::shared_ptr<cc_encoder>>(m_code, "cc_encoder", D(code,cc_encoder))
@@ -43,16 +38,11 @@ void bind_cc_encoder(py::module& m)
            py::arg("padded") = false,
            D(code,cc_encoder,make)
         )
-        
-
-
-
 
         .def("set_frame_size",&cc_encoder::set_frame_size,
             py::arg("frame_size"),
             D(code,cc_encoder,set_frame_size)
         )
-
 
         .def("rate",&cc_encoder::rate,
             D(code,cc_encoder,rate)
