@@ -22,6 +22,10 @@ except ImportError:
     __path__.append(os.path.join(dirname, "bindings"))
     from .fec_python import *
 
+# Pybind cannot bind constructors to make functions that return a different type
+# Remap make functions to __init__ here
+
+
 from .bitflip import *
 from .extended_encoder import extended_encoder
 from .extended_decoder import extended_decoder

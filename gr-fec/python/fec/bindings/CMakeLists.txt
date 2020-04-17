@@ -8,7 +8,7 @@ list(APPEND fec_python_files
     async_encoder_python.cc
     #awgn_bp_python.cc
     ber_bf_python.cc
-    #cc_common_python.cc
+    cc_common_python.cc
     cc_decoder_python.cc
     cc_encoder_python.cc
     ccsds_encoder_python.cc
@@ -48,15 +48,17 @@ list(APPEND fec_python_files
     #rs_python.cc
     tagged_decoder_python.cc
     tagged_encoder_python.cc
-    tpc_common_python.cc
+    # tpc_common_python.cc
     tpc_decoder_python.cc
     tpc_encoder_python.cc
-    #viterbi_python.cc
+    # #viterbi_python.cc
     python_bindings.cc)
 
 GR_PYBIND_MAKE(fec 
    ../../.. 
    gr::fec
    "${fec_python_files}")
+
+target_link_libraries(fec_python PUBLIC gnuradio-runtime gnuradio-blocks gsl::gsl)
 
 install(TARGETS fec_python DESTINATION ${GR_PYTHON_DIR}/gnuradio/fec COMPONENT pythonapi)

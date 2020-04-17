@@ -28,12 +28,6 @@ void bind_tpc_common(py::module& m)
     py::class_<tpc_common,
         std::shared_ptr<tpc_common>>(m, "tpc_common", D(tpc_common))
 
-        .def(py::init<>(),D(tpc_common,tpc_common,0))
-        .def(py::init<gr::fec::tpc_common const &>(),           py::arg("arg0"),
-           D(tpc_common,tpc_common,1)
-        )
-
-
         .def_static("parity_counter",&tpc_common::parity_counter,
             py::arg("symbol"),
             py::arg("length"),

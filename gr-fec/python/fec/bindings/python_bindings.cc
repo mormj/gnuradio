@@ -60,10 +60,10 @@ void bind_repetition_encoder(py::module&);
 void bind_rs(py::module&);
 void bind_tagged_decoder(py::module&);
 void bind_tagged_encoder(py::module&);
-void bind_tpc_common(py::module&);
+// void bind_tpc_common(py::module&);
 void bind_tpc_decoder(py::module&);
 void bind_tpc_encoder(py::module&);
-void bind_viterbi(py::module&);
+// void bind_viterbi(py::module&);
 
 // We need this hack because import_array() returns NULL
 // for newer Python versions.
@@ -86,33 +86,25 @@ PYBIND11_MODULE(fec_python, m)
 
     bind_generic_decoder(m);
     bind_generic_encoder(m);
-    
     // bind_alist(m);
     bind_async_decoder(m);
     bind_async_encoder(m);
     // bind_awgn_bp(m);
     bind_ber_bf(m);
-    
-    // bind_cc_common(m);
+    bind_cc_common(m);
     bind_cc_decoder(m);
-    return;
     bind_cc_encoder(m);
-    
     bind_decoder(m);
     bind_encoder(m);
     bind_ccsds_encoder(m);
-    
     // bind_cldpc(m);
     bind_conv_bit_corr_bb(m);
     bind_decode_ccsds_27_fb(m);
-    
     bind_depuncture_bb(m);
     bind_dummy_decoder(m);
     bind_dummy_encoder(m);
     bind_encode_ccsds_27_bb(m);
-    
     bind_fec_mtrx(m);
-
     // bind_gf2mat(m);
     // bind_gf2vec(m);
     bind_ldpc_G_matrix(m);
@@ -137,9 +129,9 @@ PYBIND11_MODULE(fec_python, m)
     // bind_rs(m);
     bind_tagged_decoder(m);
     bind_tagged_encoder(m);
-    bind_tpc_common(m);
+    // bind_tpc_common(m);
     bind_tpc_decoder(m);
     bind_tpc_encoder(m);
-    bind_viterbi(m);
+    // bind_viterbi(m);
 }
 
