@@ -25,7 +25,7 @@ void bind_channel_model(py::module& m)
     using channel_model    = ::gr::channels::channel_model;
 
 
-    py::class_<channel_model, gr::hier_block2,
+    py::class_<channel_model, gr::hier_block2,  gr::basic_block,
         std::shared_ptr<channel_model>>(m, "channel_model", D(channel_model))
 
         .def(py::init(&channel_model::make),

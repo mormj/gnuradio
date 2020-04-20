@@ -25,7 +25,7 @@ void bind_ofdm_sync_sc_cfb(py::module& m)
     using ofdm_sync_sc_cfb    = ::gr::digital::ofdm_sync_sc_cfb;
 
 
-    py::class_<ofdm_sync_sc_cfb, gr::hier_block2,
+    py::class_<ofdm_sync_sc_cfb, gr::hier_block2, gr::basic_block,
         std::shared_ptr<ofdm_sync_sc_cfb>>(m, "ofdm_sync_sc_cfb", D(ofdm_sync_sc_cfb))
 
         .def(py::init(&ofdm_sync_sc_cfb::make),

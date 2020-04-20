@@ -25,7 +25,7 @@ void bind_dynamic_channel_model(py::module& m)
     using dynamic_channel_model    = ::gr::channels::dynamic_channel_model;
 
 
-    py::class_<dynamic_channel_model, gr::hier_block2,
+    py::class_<dynamic_channel_model, gr::hier_block2, gr::basic_block,
         std::shared_ptr<dynamic_channel_model>>(m, "dynamic_channel_model", D(dynamic_channel_model))
 
         .def(py::init(&dynamic_channel_model::make),
