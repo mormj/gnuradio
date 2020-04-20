@@ -25,7 +25,7 @@ void bind_cpmmod_bc(py::module& m)
     using cpmmod_bc    = ::gr::digital::cpmmod_bc;
 
 
-    py::class_<cpmmod_bc, gr::hier_block2,
+    py::class_<cpmmod_bc, gr::hier_block2, gr::basic_block,
         std::shared_ptr<cpmmod_bc>>(m, "cpmmod_bc", D(cpmmod_bc))
 
         .def(py::init(&cpmmod_bc::make),
@@ -33,18 +33,15 @@ void bind_cpmmod_bc(py::module& m)
            py::arg("h"),
            py::arg("samples_per_sym"),
            py::arg("L"),
-           py::arg("beta") = 0.29999999999999999,
+           py::arg("beta") = 0.3,
            D(cpmmod_bc,make)
         )
         
 
-
-
-
         .def_static("make_gmskmod_bc",&cpmmod_bc::make_gmskmod_bc,
             py::arg("samples_per_sym") = 2,
             py::arg("L") = 4,
-            py::arg("beta") = 0.29999999999999999,
+            py::arg("beta") = 0.3,
             D(cpmmod_bc,make_gmskmod_bc)
         )
 
@@ -75,14 +72,4 @@ void bind_cpmmod_bc(py::module& m)
 
         ;
 
-
-
-
 }
-
-
-
-
-
-
-

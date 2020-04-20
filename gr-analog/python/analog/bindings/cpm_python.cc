@@ -24,28 +24,29 @@ void bind_cpm(py::module& m)
 
     using cpm    = ::gr::analog::cpm;
 
-
     py::class_<cpm,
-        std::shared_ptr<cpm>>(m, "cpm", D(cpm))
-
-        .def(py::init<>(),D(cpm,cpm,0))
-        .def(py::init<gr::analog::cpm const &>(),           py::arg("arg0"),
-           D(cpm,cpm,1)
-        )
+        std::shared_ptr<cpm>> cpm_class(m, "cpm");
 
 
+    py::enum_<gr::analog::cpm::cpm_type>(cpm_class,"cpm_type")
+        .value("LRC", gr::analog::cpm::LRC) // 0
+        .value("LSRC", gr::analog::cpm::LSRC) // 1
+        .value("LREC", gr::analog::cpm::LREC) // 2
+        .value("TFM", gr::analog::cpm::TFM) // 3
+        .value("GAUSSIAN", gr::analog::cpm::GAUSSIAN) // 4
+        .value("GENERIC", gr::analog::cpm::GENERIC) // 999
+        .export_values()
+    ;
+
+    cpm_class
         .def_static("phase_response",&cpm::phase_response,
-            py::arg("type"),
-            py::arg("samples_per_sym"),
-            py::arg("L"),
-            py::arg("beta") = 0.29999999999999999,
+            py::arg("type"), 
+            py::arg("samples_per_sym"), 
+            py::arg("L"), 
+            py::arg("beta") = 0.3,
             D(cpm,phase_response)
         )
-
         ;
-
-
-
 
 }
 
