@@ -28,10 +28,11 @@ void bind_header_format_crc(py::module& m)
         std::shared_ptr<header_format_crc>>(m, "header_format_crc", D(header_format_crc))
 
 
-        // .def(py::init(&header_format_crc::make),
-        //    py::arg("len_key_name") = "packet_len", 
-        //    py::arg("num_key_name") = "packet_num" 
-        // )
+        .def(py::init(&header_format_crc::make),
+           py::arg("len_key_name") = "packet_len", 
+           py::arg("num_key_name") = "packet_num",
+           D(header_format_crc,make)
+        )
         .def_static("make",&header_format_crc::make,
            py::arg("len_key_name") = "packet_len", 
            py::arg("num_key_name") = "packet_num",

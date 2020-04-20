@@ -28,11 +28,12 @@ void bind_header_format_counter(py::module& m)
         std::shared_ptr<header_format_counter>>(m, "header_format_counter", D(header_format_counter))
 
         // The make function returns a _base pointer, which is incompatible according to pybind11
-        // .def(py::init(&header_format_counter::make),
-        //    py::arg("access_code"), 
-        //    py::arg("threshold"), 
-        //    py::arg("bps") 
-        // )
+        .def(py::init(&header_format_counter::make),
+           py::arg("access_code"), 
+           py::arg("threshold"), 
+           py::arg("bps"), 
+           D(header_format_counter,make)
+        )
 
         .def_static("make",&header_format_counter::make,
            py::arg("access_code"), 

@@ -28,16 +28,17 @@ void bind_header_format_ofdm(py::module& m)
         std::shared_ptr<header_format_ofdm>>(m, "header_format_ofdm", D(header_format_ofdm))
 
 
-        // .def(py::init(&header_format_ofdm::make),
-        //    py::arg("occupied_carriers"), 
-        //    py::arg("n_syms"), 
-        //    py::arg("len_key_name") = "packet_len", 
-        //    py::arg("frame_key_name") = "frame_len", 
-        //    py::arg("num_key_name") = "packet_num", 
-        //    py::arg("bits_per_header_sym") = 1, 
-        //    py::arg("bits_per_payload_sym") = 1, 
-        //    py::arg("scramble_header") = false 
-        // )
+        .def(py::init(&header_format_ofdm::make),
+           py::arg("occupied_carriers"), 
+           py::arg("n_syms"), 
+           py::arg("len_key_name") = "packet_len", 
+           py::arg("frame_key_name") = "frame_len", 
+           py::arg("num_key_name") = "packet_num", 
+           py::arg("bits_per_header_sym") = 1, 
+           py::arg("bits_per_payload_sym") = 1, 
+           py::arg("scramble_header") = false,
+           D(header_format_ofdm,make)
+        )
         .def_static("make",&header_format_ofdm::make,
            py::arg("occupied_carriers"), 
            py::arg("n_syms"), 
