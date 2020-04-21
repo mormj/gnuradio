@@ -17,15 +17,20 @@ import re
 import codecs
 import logging
 
-from pygccxml import parser, declarations, utils
-
 from ..core.base import BlockToolException, BlockTool
 from ..core.iosignature import io_signature, message_port
 from ..core.comments import read_comments, add_comments, exist_comments
 from ..core import Constants
 
 LOGGER = logging.getLogger(__name__)
-
+PYGCCXML_AVAILABLE = False
+try:
+    raise Exception("just for kicks")
+    from pygccxml import parser, declarations, utils
+    PYGCCXML_AVAILABLE = True
+except:
+    from ...modtool.tools import ParserCCBlock
+    from ...modtool.cli import ModToolException
 
 class GenericHeaderParser(BlockTool):
     """
@@ -51,6 +56,9 @@ class GenericHeaderParser(BlockTool):
             raise BlockToolException('file does not exist')
         file_path = os.path.abspath(file_path)
         self.target_file = file_path
+
+
+
         self.initialize()
         self.validate()
 
@@ -81,6 +89,37 @@ class GenericHeaderParser(BlockTool):
         if not self.filename.endswith('.h'):
             raise BlockToolException(
                 'Cannot parse a non-header file')
+
+    def _parse_cc_h(self, fname_h):
+        """ Go through a .cc and .h-file defining a block and return info """
+        def _get_blockdata(fname_h):
+            """ Return the block name and the header file name from the .cc file name """
+            blockname = os.path.splitext(os.path.basename(
+                fname_h))[0]
+            fname_cc = blockname + '_impl' + '.cc'
+            contains_modulename = blockname.startswith(
+                self.modname+'_')
+            blockname = blockname.replace(self.modname+'_', '', 1)
+            fname_cc = os.path.join(fname_h.split('include')[0],'lib',fname_cc)
+            return (blockname, fname_cc, contains_modulename)
+        # Go, go, go
+        LOGGER.info("Making GRC bindings for {}...".format(fname_h))
+        (blockname, fname_cc, contains_modulename) = _get_blockdata(fname_h)
+        try:
+            parser = ParserCCBlock(fname_cc,
+                                   os.path.join(
+                                       self.targetdir, fname_h),
+                                   blockname,
+                                   '39'
+                                   )
+        except IOError:
+            raise ModToolException(
+                "Can't open some of the files necessary to parse {}.".format(fname_cc))
+
+        if contains_modulename:
+            return (parser.read_params(), parser.read_io_signature(), self.modname+'_'+blockname)
+        else:
+            return (parser.read_params(), parser.read_io_signature(), blockname)
 
     def parse_function(self, func_decl):
         fcn_dict = {
@@ -227,38 +266,74 @@ class GenericHeaderParser(BlockTool):
         """
         module = self.modname.split('-')[-1]
         self.parsed_data['module_name'] = module
-        generator_path, generator_name = utils.find_xml_generator()
-        xml_generator_config = parser.xml_generator_configuration_t(
-            xml_generator_path=generator_path,
-            xml_generator=generator_name,
-            include_paths=self.include_paths,
-            compiler='gcc',
-            undefine_symbols=['__PIE__'],
-            #define_symbols=['BOOST_ATOMIC_DETAIL_EXTRA_BACKEND_GENERIC', '__PIC__'],
-            define_symbols=['BOOST_ATOMIC_DETAIL_EXTRA_BACKEND_GENERIC'],
-            cflags='-std=c++11 -fPIC')
-        decls = parser.parse(
-            [self.target_file], xml_generator_config)
-        global_namespace = declarations.get_global_namespace(decls)
 
-        # namespace
-        # try:
-        main_namespace = global_namespace
-        for ns in namespace_to_parse:
-            main_namespace = main_namespace.namespace(ns)
-        if main_namespace is None:
-            raise BlockToolException('namespace cannot be none')
-        self.parsed_data['target_namespace'] = namespace_to_parse
+        # Right now if pygccxml is not installed, it will only handle the make function
+        # TODO: extend this to other publicly declared functions in the h file
+        if not PYGCCXML_AVAILABLE:
+            (params, iosig, blockname) = self._parse_cc_h(self.target_file)
+            self.parsed_data['target_namespace'] = namespace_to_parse
 
-        self.parsed_data['namespace'] = self.parse_namespace(main_namespace)
+            namespace_dict = {}
+            namespace_dict['name'] = "::".join(namespace_to_parse)
+            class_dict = {}
+            class_dict['name'] = blockname
 
-        # except RuntimeError:
-        #     raise BlockToolException(
-        #         'Invalid namespace format in the block header file')
+            mf_dict = {
+                "name": "make",
+                "return_type": "::".join(namespace_to_parse + [blockname,"sptr"]),
+                "has_static": "1"
+            }
+            
+            args = []
+            
+            for p in params:
+                arg_dict = {
+                    "name":p['key'],
+                    "dtype":p['type'],
+                    "default":p['default']
+                }
+                args.append(arg_dict)
 
-        # namespace
+            mf_dict["arguments"] = args
 
-        return self.parsed_data
+            class_dict["member_functions"] = [mf_dict]
+            namespace_dict["classes"] = [class_dict]
+            self.parsed_data["namespace"] = namespace_dict
+
+            return self.parsed_data
+        else:
+            generator_path, generator_name = utils.find_xml_generator()
+            xml_generator_config = parser.xml_generator_configuration_t(
+                xml_generator_path=generator_path,
+                xml_generator=generator_name,
+                include_paths=self.include_paths,
+                compiler='gcc',
+                undefine_symbols=['__PIE__'],
+                #define_symbols=['BOOST_ATOMIC_DETAIL_EXTRA_BACKEND_GENERIC', '__PIC__'],
+                define_symbols=['BOOST_ATOMIC_DETAIL_EXTRA_BACKEND_GENERIC'],
+                cflags='-std=c++11 -fPIC')
+            decls = parser.parse(
+                [self.target_file], xml_generator_config)
+            global_namespace = declarations.get_global_namespace(decls)
+
+            # namespace
+            # try:
+            main_namespace = global_namespace
+            for ns in namespace_to_parse:
+                main_namespace = main_namespace.namespace(ns)
+            if main_namespace is None:
+                raise BlockToolException('namespace cannot be none')
+            self.parsed_data['target_namespace'] = namespace_to_parse
+
+            self.parsed_data['namespace'] = self.parse_namespace(main_namespace)
+
+            # except RuntimeError:
+            #     raise BlockToolException(
+            #         'Invalid namespace format in the block header file')
+
+            # namespace
+
+            return self.parsed_data
 
     def run_blocktool(self):
         """ Run, run, run. """

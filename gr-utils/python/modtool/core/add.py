@@ -233,7 +233,7 @@ class ModToolAdd(ModTool):
 
         # Generate bindings cc file
         fname_cc = self.info['blockname'] + '_python.cc'
-        fname_pydoc_h = self.info['blockname'] + '_pydoc_template.h'
+        fname_pydoc_h = os.path.join('docstrings',self.info['blockname'] + '_pydoc_template.h')
 
         # Update python_bindings.cc
         ed = CPPFileEditor(self._file['ccpybind'])
@@ -302,8 +302,8 @@ class ModToolAdd(ModTool):
 
         if not self.skip_cmakefiles:
             ed = CMakeFileEditor(self._file['cmpybind'])
-            cmake_list_var = '[a-z]*_?' + self.info['modname']
-            ed.append_value('pybind11_add_module', fname_cc, to_ignore_start=cmake_list_var, to_ignore_end='python_bindings.cc')
+            cmake_list_var = 'APPEND {}_python_files'.format(self.info['modname'])
+            ed.append_value('list', fname_cc, to_ignore_start=cmake_list_var, to_ignore_end='python_bindings.cc')
             ed.write()
             self.scm.mark_files_updated((self._file['cmpybind']))
 
