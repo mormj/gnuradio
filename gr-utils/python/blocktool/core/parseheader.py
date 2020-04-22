@@ -17,7 +17,12 @@ import re
 import codecs
 import logging
 
-from pygccxml import parser, declarations, utils
+PYGCCXML_AVAILABLE = False
+try:
+    from pygccxml import parser, declarations, utils
+    PYGCCXML_AVAILABLE = True
+except:
+    pass
 
 from ..core.base import BlockToolException, BlockTool
 from ..core.iosignature import io_signature, message_port
