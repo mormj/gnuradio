@@ -25,7 +25,6 @@ from ..core import Constants
 LOGGER = logging.getLogger(__name__)
 PYGCCXML_AVAILABLE = False
 try:
-    raise Exception("just for kicks")
     from pygccxml import parser, declarations, utils
     PYGCCXML_AVAILABLE = True
 except:
