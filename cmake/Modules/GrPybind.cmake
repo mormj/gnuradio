@@ -58,13 +58,14 @@ if (${name} STREQUAL gr)
 endif()
 
 if(ENABLE_DOXYGEN)
+    
     add_custom_command( 
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/extracted_docstrings.json
         COMMAND python3 ${CMAKE_SOURCE_DIR}/docs/doxygen/update_pydoc.py "scrape"
         "--xml_path" ${CMAKE_BINARY_DIR}/docs/doxygen/xml
         "--json_path" ${CMAKE_CURRENT_BINARY_DIR}/extracted_docstrings.json
         COMMENT "Scraping generated documentation for docstrings ..."
-        DEPENDS doxygen_target)
+        DEPENDS gnuradio-${MODULE_NAME} doxygen_target)
 
     add_custom_target(
         extracted_docstrings ALL
@@ -74,7 +75,7 @@ if(ENABLE_DOXYGEN)
     add_custom_command( 
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/docstring_status
         COMMAND python3 ${CMAKE_SOURCE_DIR}/docs/doxygen/update_pydoc.py "sub"
-        "--json_path" ${CMAKE_BINARY_DIR}/docs/doxygen/extracted_docstrings.json
+        "--json_path" ${CMAKE_CURRENT_BINARY_DIR}/extracted_docstrings.json
         "--bindings_dir" ${CMAKE_CURRENT_SOURCE_DIR}/docstrings
         "--output_dir" ${CMAKE_CURRENT_BINARY_DIR}
         "--filter" ${filter}
