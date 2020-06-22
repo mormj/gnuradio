@@ -20,9 +20,9 @@ import hashlib
 
 class BindingGenerator:
 
-    def __init__(self, prefix, namespace, prefix_include_root, output_dir="", addl_includes="", 
-                    match_include_structure=False, catch_exceptions=True, write_json_output=False, status_output=None,
-                    flag_automatic=False, flag_pygccxml=False):
+    def __init__(self, src_dir, namespace, prefix_include_root,  output_dir="", prefix=None,addl_includes="",
+                 match_include_structure=False, catch_exceptions=True, write_json_output=False, status_output=None,
+                 flag_automatic=False, flag_pygccxml=False):
         """Initialize BindingGenerator
         prefix -- path to installed gnuradio prefix (use gr.prefix() if unsure)
         namespace -- desired namespace to parse e.g. ['gr','module_name']
@@ -37,6 +37,7 @@ class BindingGenerator:
             If set to True, the directory structure under include/ will be mirrored
         """
 
+        self.src_dir = src_dir
         self.header_extensions = ['.h', '.hh', '.hpp']
         self.addl_include = addl_includes
         self.prefix = prefix
@@ -51,7 +52,14 @@ class BindingGenerator:
         self.flag_automatic = flag_automatic
         self.flag_pygccxml = flag_pygccxml
 
-        pass
+        # This is a brute force way of getting access to all the in-tree include dirs
+        modules = ['gnuradio-runtime',
+                   'gr-analog', 'gr-blocks', 'gr-channels', 'gr-digital', 'gr-dtv', 
+                   'gr-fec', 'gr-fft', 'gr-filter', 'gr-network', 'gr-qtgui', 'gr-trellis', 
+                   'gr-uhd', 'gr-video-sdl', 'gr-vocoder', 'gr-wavelet', 'gr-zeromq']
+
+        top_path = os.path.abspath(self.src_dir)    
+        self.src_include_dirs = [os.path.join(top_path, m, 'include') for m in modules]
 
     def gen_pydoc_h(self, header_info, base_name):
         current_path = os.path.dirname(pathlib.Path(__file__).absolute())
@@ -76,7 +84,6 @@ class BindingGenerator:
 
         tpl = Template(filename=os.path.join(current_path, '..',
                                              'templates', 'generic_python_cc.mako'))
-
 
         return tpl.render(
             license=license,
@@ -140,7 +147,9 @@ class BindingGenerator:
             module_include_path.split('include'+os.path.sep)[0], 'include')
 
         include_paths = ','.join(
-            (module_include_path, top_include_path))
+            (module_include_path,top_include_path) + tuple(self.src_include_dirs))
+
+
         if self.prefix:
             prefix_include_path = os.path.abspath(
                 os.path.join(self.prefix, 'include'))
@@ -154,7 +163,7 @@ class BindingGenerator:
             include_paths=include_paths, file_path=file_to_process)
         try:
             header_info = parser.get_header_info(self.namespace)
-            
+
             if self.write_json_output:
                 self.write_json(header_info, base_name, output_dir)
             self.write_pybind_cc(header_info, base_name, output_dir)
