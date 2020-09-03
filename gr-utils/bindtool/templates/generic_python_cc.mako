@@ -100,6 +100,20 @@ if overloaded:
     subnamespaces = namespace['namespaces'] if 'namespaces' in namespace else []
     doc_prefix = '' if len(modname) == 1 else ','.join(modname[1:])+','
 %>\
+% if free_enums:
+% for en in free_enums:
+<%
+values = en['values']
+%>\
+    py::enum_<${namespace['name']}::${en['name']}>(${modvar},"${en["name"]}")
+% for val in values:
+        .value("${val[0]}", ${namespace['name']}::${val[0]}) // ${val[1]}
+% endfor 
+        .export_values()
+    ;
+% endfor
+% endif
+
 % for cls in classes:
 % if classes:
     using ${cls['name']}    = ${namespace['name']}::${cls['name']};
@@ -111,7 +125,7 @@ if overloaded:
 member_functions = cls['member_functions'] if 'member_functions' in cls else []
 constructors = cls['constructors'] if 'constructors' in cls else []
 class_enums = cls['enums'] if 'enums' in cls else []
-class_variables = cls['variables'] if 'variables' in cls else []
+class_variables = cls['vars'] if 'vars' in cls else []
 try:
         def find_make_function(member_fcns):
             for mf in member_fcns:
@@ -147,6 +161,17 @@ if 'bases' in cls:
 % endif\
  
         std::shared_ptr<${cls['name']}>>(${modvar}, "${cls['name']}", D(${doc_prefix}${cls['name']}))
+
+
+% if class_variables:
+% for var in class_variables:
+% if var['has_static'] == '1':
+        .def_readonly_static("${var['name']}",&${cls['name']}::${var['name']})
+% else: 
+        .def_readonly("${var['name']}",&${cls['name']}::${var['name']})
+% endif
+% endfor
+% endif\
 
 % if make_function: ## override constructors with make function
 <%
@@ -187,21 +212,10 @@ ${arg['dtype']}${'>(),' if loop.index == len(fcn['arguments'])-1 else ',' }\
 ${render_function(fcn=fcn,fcn_list=member_functions,cls_name=cls['name'],filter_val='make',doc_prefix=doc_prefix)}
 % endfor ## member_functions
         ;
-% endfor ## classes
 
-% if free_enums:
-% for en in free_enums:
-<%
-values = en['values']
-%>\
-    py::enum_<${namespace['name']}::${en['name']}>(${modvar},"${en["name"]}")
-% for val in values:
-        .value("${val[0]}", ${namespace['name']}::${val[0]}) // ${val[1]}
-% endfor 
-        .export_values()
-    ;
-% endfor
-% endif
+## TODO - add class enums here - changes the syntax on the class definition a bit
+
+% endfor ## classes
 
 % if free_functions:
 % for fcn in free_functions:

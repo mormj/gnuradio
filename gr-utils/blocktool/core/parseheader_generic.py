@@ -193,8 +193,13 @@ class GenericHeaderParser(BlockTool):
                                              header_file=self.target_file)
             if variables:
                 for _var in variables:
+                    has_static = '0'
+                    if hasattr(_var, 'has_static'):
+                        has_static = _var.has_static
+                    if hasattr(_var,'type_qualifiers'):
+                        has_static = _var.type_qualifiers.has_static
                     current_var = {
-                        'name': _var.name, 'value': _var.value, "has_static": _var.has_static if hasattr(_var, 'has_static') else '0'}
+                        'name': _var.name, 'value': _var.value, "has_static": has_static}
                     class_vars.append(current_var)
         class_dict['vars'] = class_vars
 
@@ -220,8 +225,13 @@ class GenericHeaderParser(BlockTool):
                 allow_empty=True, recursive=False, header_file=self.target_file)
             if variables:
                 for _var in variables:
+                    has_static = '0'
+                    if hasattr(_var, 'has_static'):
+                        has_static = _var.has_static
+                    if hasattr(_var,'type_qualifiers'):
+                        has_static = _var.type_qualifiers.has_static
                     current_var = {
-                        'name': _var.name, 'values': _var.value, 'has_static': _var.has_static if hasattr(_var, 'has_static') else '0'}
+                        'name': _var.name, 'value': _var.value, "has_static": has_static}
                     namespace_dict['variables'].append(current_var)
 
         # classes
