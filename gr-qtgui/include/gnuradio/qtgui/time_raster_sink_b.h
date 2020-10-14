@@ -65,6 +65,9 @@ public:
      * \param name title for the plot
      * \param nconnections number of streams connected
      * \param parent a QWidget parent object, if any
+     * \param start_value x-axis minimum scaled value
+     * \param end_value x-axis maximum scaled value
+     * \param x_label optional x-axis label
      */
     static sptr make(double samp_rate,
                      double rows,
@@ -73,7 +76,10 @@ public:
                      const std::vector<float>& offset,
                      const std::string& name,
                      int nconnections = 1,
-                     QWidget* parent = NULL);
+                     QWidget* parent = NULL,
+                     double start_value = 0.0,
+                     double end_value = 0.0,
+                     std::string x_label = "");
 
     virtual void exec_() = 0;
     virtual QWidget* qwidget() = 0;

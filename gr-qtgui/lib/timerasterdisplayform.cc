@@ -16,8 +16,15 @@
 
 #include <cmath>
 
-TimeRasterDisplayForm::TimeRasterDisplayForm(
-    int nplots, double samp_rate, double rows, double cols, double zmax, QWidget* parent)
+TimeRasterDisplayForm::TimeRasterDisplayForm(int nplots,
+                                             double samp_rate,
+                                             double rows,
+                                             double cols,
+                                             double zmax,
+                                             QWidget* parent,
+                                             double start_value,
+                                             double end_value,
+                                             std::string x_label)
     : DisplayForm(nplots, parent)
 {
 #if QWT_VERSION < 0x060000
@@ -32,7 +39,8 @@ TimeRasterDisplayForm::TimeRasterDisplayForm(
 
     d_layout = new QGridLayout(this);
     d_layout->setContentsMargins(0, 0, 0, 0);
-    d_display_plot = new TimeRasterDisplayPlot(nplots, samp_rate, rows, cols, this);
+    d_display_plot = new TimeRasterDisplayPlot(
+        nplots, samp_rate, rows, cols, this, start_value, end_value, x_label);
     d_layout->addWidget(d_display_plot, 0, 0);
     setLayout(d_layout);
 

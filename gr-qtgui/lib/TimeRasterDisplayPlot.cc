@@ -38,15 +38,38 @@ namespace pt = boost::posix_time;
  **********************************************************************/
 class QwtXScaleDraw : public QwtScaleDraw, public TimeScaleData
 {
+protected:
+    double d_start_value;
+    double d_end_value;
+    double d_delta_value;
+    int d_max_scale;
+
 public:
-    QwtXScaleDraw() : QwtScaleDraw(), TimeScaleData() {}
+    QwtXScaleDraw(double start_value = 0.0, double end_value = 0.0, int max_scale = 1024)
+        : QwtScaleDraw(),
+          TimeScaleData(),
+          d_start_value(start_value),
+          d_end_value(end_value),
+          d_max_scale(max_scale)
+    {
+        d_delta_value = d_end_value - d_start_value;
+    }
+
 
     virtual ~QwtXScaleDraw() {}
 
     virtual QwtText label(double value) const
     {
-        double secs = double(value * getSecondsPerLine());
-        return QwtText(QString::number(secs, 'f', 2));
+        if (d_start_value == d_end_value) {
+            // no scale was provided.  Default to seconds.
+            double secs = double(value * getSecondsPerLine());
+            return QwtText(QString::number(secs, 'f', 2));
+        } else {
+            // User-defined scale provided.
+            double x_label =
+                d_start_value + (double)value / (double)d_max_scale * d_delta_value;
+            return QwtText(QString("").sprintf("%.2e", x_label));
+        }
     }
 
     virtual void initiateUpdate()
@@ -117,19 +140,34 @@ public:
     TimeRasterZoomer(QwtPlotCanvas* canvas,
                      double rows,
                      double cols,
-                     const unsigned int timePrecision)
+                     const unsigned int timePrecision,
+                     double start_value = 0.0,
+                     double end_value = 0.0,
+                     int max_scale = 0)
 #else  /* QWT_VERSION < 0x060100 */
     TimeRasterZoomer(QWidget* canvas,
                      double rows,
                      double cols,
-                     const unsigned int timePrecision)
+                     const unsigned int timePrecision,
+                     double start_value = 0.0,
+                     double end_value = 0.0,
+                     int max_scale = 0)
 #endif /* QWT_VERSION < 0x060100 */
         : QwtPlotZoomer(canvas),
           TimePrecisionClass(timePrecision),
           TimeScaleData(),
           d_rows(static_cast<double>(rows)),
-          d_cols(static_cast<double>(cols))
+          d_cols(static_cast<double>(cols)),
+          d_start_value(start_value),
+          d_end_value(end_value),
+          d_max_scale(max_scale)
     {
+        if (d_max_scale == 0) {
+            d_max_scale = d_cols;
+        }
+
+        d_delta_value = d_end_value - d_start_value;
+
         setTrackerMode(QwtPicker::AlwaysOn);
     }
 
@@ -148,27 +186,50 @@ protected:
     virtual QwtText trackerText(QPoint const& p) const
     {
         QwtDoublePoint dp = QwtPlotZoomer::invTransform(p);
-        double x = dp.x() * getSecondsPerLine();
-        // double y = dp.y() * getSecondsPerLine() * d_cols;
-        double y = floor(d_rows - dp.y());
-        QwtText t(QString("%1 %2, %3")
-                      .arg(x, 0, 'f', getTimePrecision())
-                      .arg(d_unitType.c_str())
-                      .arg(y, 0, 'f', 0));
-        return t;
+
+        if (d_start_value == d_end_value) {
+            // Original seconds in hover text
+            double x = dp.x() * getSecondsPerLine();
+            double y = floor(d_rows - dp.y());
+            // double y = dp.y() * getSecondsPerLine() * d_cols;
+            QwtText t(QString("%1 %2, %3")
+                          .arg(x, 0, 'f', getTimePrecision())
+                          .arg(d_unitType.c_str())
+                          .arg(y, 0, 'f', 0));
+            return t;
+        } else {
+            // Hover based on user-defined scale
+            double x = dp.x();
+            int y = floor(d_rows - dp.y());
+            double x_label = d_start_value + x / (double)d_max_scale * d_delta_value;
+            return QwtText(QString("").sprintf("%.2f, %d", x_label, y));
+        }
     }
 
 private:
     std::string d_unitType;
     double d_rows, d_cols;
+    double d_start_value;
+    double d_end_value;
+    double d_delta_value;
+    int d_max_scale;
 };
 
 /*********************************************************************
  * Main time raster plot widget
  *********************************************************************/
-TimeRasterDisplayPlot::TimeRasterDisplayPlot(
-    int nplots, double samp_rate, double rows, double cols, QWidget* parent)
-    : DisplayPlot(nplots, parent)
+TimeRasterDisplayPlot::TimeRasterDisplayPlot(int nplots,
+                                             double samp_rate,
+                                             double rows,
+                                             double cols,
+                                             QWidget* parent,
+                                             double start_value,
+                                             double end_value,
+                                             std::string x_label)
+    : DisplayPlot(nplots, parent),
+      d_start_value(start_value),
+      d_end_value(end_value),
+      d_x_label(x_label)
 {
     d_zoomer = NULL; // need this for proper init
 
@@ -180,7 +241,7 @@ TimeRasterDisplayPlot::TimeRasterDisplayPlot(
     d_numPoints = d_cols;
     d_color_bar_title_font_size = 18;
 
-    setAxisScaleDraw(QwtPlot::xBottom, new QwtXScaleDraw());
+    setAxisScaleDraw(QwtPlot::xBottom, new QwtXScaleDraw(start_value, end_value, cols));
     setAxisScaleDraw(QwtPlot::yLeft, new QwtYScaleDraw());
 
     for (unsigned int i = 0; i < d_nplots; ++i) {
@@ -205,7 +266,8 @@ TimeRasterDisplayPlot::TimeRasterDisplayPlot(
     // MidButton for the panning
     // RightButton: zoom out by 1
     // Ctrl+RighButton: zoom out to full size
-    d_zoomer = new TimeRasterZoomer(canvas(), d_rows, d_cols, 0);
+    d_zoomer = new TimeRasterZoomer(
+        canvas(), d_rows, d_cols, 0, d_start_value, d_end_value, d_cols);
 #if QWT_VERSION < 0x060000
     d_zoomer->setSelectionFlags(QwtPicker::RectSelection | QwtPicker::DragSelection);
 #endif
@@ -255,7 +317,11 @@ void TimeRasterDisplayPlot::reset()
 
     QwtXScaleDraw* xScale = (QwtXScaleDraw*)axisScaleDraw(QwtPlot::xBottom);
     xScale->setSecondsPerLine(sec_per_samp);
-    setAxisTitle(QwtPlot::xBottom, QString("Time (%1)").arg(strunits[iunit].c_str()));
+    if (d_x_label.length() > 0) {
+        setAxisTitle(QwtPlot::xBottom, QString(d_x_label.c_str()));
+    } else {
+        setAxisTitle(QwtPlot::xBottom, QString("Time (%1)").arg(strunits[iunit].c_str()));
+    }
     xScale->initiateUpdate();
 
     // Load up the new base zoom settings

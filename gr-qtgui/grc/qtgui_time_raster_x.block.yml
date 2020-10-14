@@ -31,6 +31,21 @@ parameters:
     label: Num. Cols
     dtype: int
     default: 256
+-   id: start_value
+    label: X-Axis Start Value
+    dtype: float
+    default: 0.0
+    hide: part
+-   id: end_value
+    label: X-Axis End Value
+    dtype: float
+    default: 0.0
+    hide: part
+-   id: x_label
+    label: X-Axis Label
+    dtype: string
+    default: '""'
+    hide: part
 -   id: grid
     label: Grid
     dtype: enum
@@ -236,7 +251,10 @@ templates:
             ${offset},
             ${name},
             ${0 if type.startswith('msg') else nconnections},
-            None
+            None,
+            ${start_value},
+            ${end_value},
+            ${x_label}
         )
 
         self.${id}.set_update_time(${update_time})

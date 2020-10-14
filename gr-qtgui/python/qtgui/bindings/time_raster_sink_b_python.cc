@@ -55,6 +55,9 @@ void bind_time_raster_sink_b(py::module& m)
              py::arg("name"),
              py::arg("nconnections") = 1,
              py::arg("parent") = nullptr,
+             py::arg("start_value") = 0.0,
+             py::arg("end_value") = 0.0,
+             py::arg("x_label") = "",
              D(time_raster_sink_b, make))
 
 
