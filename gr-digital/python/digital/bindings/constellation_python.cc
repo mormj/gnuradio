@@ -13,8 +13,8 @@
 /* If manual edits are made, the following tags should be modified accordingly.    */
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
-/* BINDTOOL_HEADER_FILE(constellation.h)                                           */
-/* BINDTOOL_HEADER_FILE_HASH(5f7cb544c3d7104e228f713f28b385ee)                     */
+/* BINDTOOL_HEADER_FILE(constellation.h)                                        */
+/* BINDTOOL_HEADER_FILE_HASH(7830b0b770b8e3ae0fa213f34ead29b7)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -43,25 +43,20 @@ void bind_constellation(py::module& m)
     using constellation_8psk_natural = ::gr::digital::constellation_8psk_natural;
     using constellation_16qam = ::gr::digital::constellation_16qam;
 
+    py::class_<constellation, std::shared_ptr<constellation>> constellation_class(
+        m, "constellation", D(constellation));
 
-    py::class_<constellation, std::shared_ptr<constellation>>(
-        m, "constellation", D(constellation))
-
-        // .def(py::init<std::vector<std::complex<float>,
-        // std::allocator<std::complex<float> > >,std::vector<int, std::allocator<int>
-        // >,unsigned int,unsigned int,bool>(),           py::arg("constell"),
-        //    py::arg("pre_diff_code"),
-        //    py::arg("rotational_symmetry"),
-        //    py::arg("dimensionality"),
-        //    py::arg("normalize_points") = true,
-        //    D(constellation,constellation,0)
-        // )
-        // .def(py::init<>(),D(constellation,constellation,1))
-        // .def(py::init<gr::digital::constellation const &>(),           py::arg("arg0"),
-        //    D(constellation,constellation,2)
-        // )
+    py::enum_<::gr::digital::constellation::normalization_t>(constellation_class,
+                                                             "normalization_t")
+        .value("NO_NORMALIZATION", ::gr::digital::constellation::NO_NORMALIZATION) // 0
+        .value("POWER_NORMALIZATION",
+               ::gr::digital::constellation::POWER_NORMALIZATION) // 1
+        .value("AMPLITUDE_NORMALIZATION",
+               ::gr::digital::constellation::AMPLITUDE_NORMALIZATION) // 2
+        .export_values();
 
 
+    constellation_class
         .def("map_to_points",
              &constellation::map_to_points,
              py::arg("value"),
@@ -212,7 +207,8 @@ void bind_constellation(py::module& m)
              py::arg("pre_diff_code"),
              py::arg("rotational_symmetry"),
              py::arg("dimensionality"),
-             py::arg("normalize_points") = true,
+             py::arg("normalization") =
+                 ::gr::digital::constellation::normalization_t::AMPLITUDE_NORMALIZATION,
              D(constellation_calcdist, make))
 
 
@@ -228,20 +224,6 @@ void bind_constellation(py::module& m)
                gr::digital::constellation,
                std::shared_ptr<constellation_sector>>(
         m, "constellation_sector", D(constellation_sector))
-
-        // .def(py::init<std::vector<std::complex<float>,
-        // std::allocator<std::complex<float> > >,std::vector<int, std::allocator<int>
-        // >,unsigned int,unsigned int,unsigned int>(),           py::arg("constell"),
-        //    py::arg("pre_diff_code"),
-        //    py::arg("rotational_symmetry"),
-        //    py::arg("dimensionality"),
-        //    py::arg("n_sectors"),
-        //    D(constellation_sector,constellation_sector,0)
-        // )
-        // .def(py::init<gr::digital::constellation_sector const &>(), py::arg("arg0"),
-        //    D(constellation_sector,constellation_sector,1)
-        // )
-
 
         .def("decision_maker",
              &constellation_sector::decision_maker,
@@ -264,6 +246,8 @@ void bind_constellation(py::module& m)
              py::arg("imag_sectors"),
              py::arg("width_real_sectors"),
              py::arg("width_imag_sectors"),
+             py::arg("normalization") =
+                 ::gr::digital::constellation::normalization_t::AMPLITUDE_NORMALIZATION,
              D(constellation_rect, make))
 
 
