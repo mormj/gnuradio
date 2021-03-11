@@ -1,0 +1,6 @@
+[ftp-master]
+fqdn = ppa.launchpad.net
+method = ftp
+incoming = ~mormj/ubuntu/autobuild-master/
+login = anonymous
+allow_unsigned_uploads = 0
