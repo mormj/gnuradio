@@ -53,6 +53,11 @@ jobs:
         export DISTRIBUTION="fedora"
         export GITBRANCH="master"
         cd /build && sh $GITHUB_WORKSPACE/.packaging/scripts/pkg-fedora.sh
+    - name: Archive SRPM
+      uses: actions/upload-artifact@v2
+      with:
+        name: srpm
+        path: /build/rpmbuild/SRPMS
     - name: Save COPR Token
       run: cd /build && echo "$COPR_TOKEN" > copr
       shell: bash
