@@ -1,4 +1,4 @@
-name: 'Package-Debian'
+name: 'Package-Fedora'
 on:
   pull_request:
     branches:
@@ -35,7 +35,7 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: "3.x"
-    - run: apt-get update && apt-get install -yq devscripts debhelper dh-python
+    - run: dnf install -y fedora-packager copr-cli
     - name: Import GPG key
       id: import_gpg
       uses: crazy-max/ghaction-import-gpg@v3
@@ -48,16 +48,15 @@ jobs:
         echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
         echo "name:        ${{ steps.import_gpg.outputs.name }}"
         echo "email:       ${{ steps.import_gpg.outputs.email }}"
+    - name: Save COPR Token
+      run: cd /build && 'echo "$COPR_TOKEN" > copr'
+      shell: bash
+      env:
+        COPR_TOKEN: ${{secrets.SSH_KEY}}
     - name: Run Packaging Script
       run: |
         export NAME="${{secrets.NAME}}" 
         export EMAIL="${{secrets.EMAIL}}" 
-        export DEBFULLNAME="${{secrets.NAME}}"
-        export DEBEMAIL="${{secrets.EMAIL}}" 
-        export UBUEMAIL="${{secrets.EMAIL}}" 
-        export DISTRIBUTION="focal"
+        export DISTRIBUTION="fedora"
         export GITBRANCH="master"
-        cd /build && sh $GITHUB_WORKSPACE/.packaging/scripts/pkg-debian.sh
-    - name: Push to Launchpad
-      run: 
-        cd /build && dput -c $GITHUB_WORKSPACE/.packaging/launchpad/dput.cf $GITBRANCH $(ls *.changes)
+        cd /build && sh $GITHUB_WORKSPACE/.packaging/scripts/pkg-fedora.sh
