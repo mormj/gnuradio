@@ -48,11 +48,6 @@ jobs:
         echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
         echo "name:        ${{ steps.import_gpg.outputs.name }}"
         echo "email:       ${{ steps.import_gpg.outputs.email }}"
-    - name: Save COPR Token
-      run: cd /build && 'echo "$COPR_TOKEN" > copr'
-      shell: bash
-      env:
-        COPR_TOKEN: ${{secrets.SSH_KEY}}
     - name: Run Packaging Script
       run: |
         export NAME="${{secrets.NAME}}" 
@@ -60,3 +55,8 @@ jobs:
         export DISTRIBUTION="fedora"
         export GITBRANCH="master"
         cd /build && sh $GITHUB_WORKSPACE/.packaging/scripts/pkg-fedora.sh
+    - name: Save COPR Token
+      run: cd /build && echo "$COPR_TOKEN" > copr
+      shell: bash
+      env:
+        COPR_TOKEN: ${{secrets.SSH_KEY}}
