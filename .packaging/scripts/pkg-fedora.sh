@@ -1,6 +1,7 @@
 release="1"
 
 cp $GITHUB_WORKSPACE/.packaging/fedora/gnuradio.spec ./
+cp -r $GITHUB_WORKSPACE /build/
 
 mkdir -p rpmbuild
 mkdir -p rpmbuild/BUILD
@@ -10,8 +11,6 @@ mkdir -p rpmbuild/SOURCES
 mkdir -p rpmbuild/SRPMS
 
 DATESTR=$(date +"%a, %d %b %Y %T %z")
-DISTRIBUTION="fedora"
-GITBRANCH=master
 GITBRANCH_CLEAN=${GITBRANCH/-/}
 
 cd gnuradio
