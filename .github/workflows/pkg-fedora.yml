@@ -19,7 +19,7 @@ jobs:
         # descriptive name, and one key 'containerid' with the name of the
         # container (i.e., what you want to docker-pull)
         include:
-          - distro: 'Ubuntu 20.04'
+          - distro: 'Fedora 33'
             containerid: 'gnuradio/ci:fedora-33-3.9'
             cxxflags: -Werror
     name: ${{ matrix.distro }}
@@ -50,8 +50,6 @@ jobs:
         echo "email:       ${{ steps.import_gpg.outputs.email }}"
     - name: Run Packaging Script
       run: |
-        export NAME="${{secrets.NAME}}" 
-        export EMAIL="${{secrets.EMAIL}}" 
         export DISTRIBUTION="fedora"
         export GITBRANCH="master"
         cd /build && sh $GITHUB_WORKSPACE/.packaging/scripts/pkg-fedora.sh
@@ -59,4 +57,6 @@ jobs:
       run: cd /build && echo "$COPR_TOKEN" > copr
       shell: bash
       env:
-        COPR_TOKEN: ${{secrets.SSH_KEY}}
+        COPR_TOKEN: ${{secrets.COPR_TOKEN}}
+    - name: Submit to COPR
+      run: cd /build && copr-cli --config copr build gnuradio $(ls rpmbuild/SRPMS/*.src.rpm)

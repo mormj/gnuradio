@@ -39,6 +39,9 @@ rm -rf .git
 cd ..
 tar cfJ rpmbuild/SOURCES/gnuradio_$VERSION_STRING~$GITBRANCH_CLEAN~$GITREV~$DISTRIBUTION.tar.xz gnuradio-$VERSION_STRING
 
+ls rpmbuild/SOURCES
+ls 
+
 sed -i 's/\%{VERSION}/'$VERSION_STRING'/g' gnuradio.spec
 sed -i 's/\%{RELEASE}/'$release'/g' gnuradio.spec
 
