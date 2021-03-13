@@ -1,6 +1,6 @@
 name: 'Package-Fedora'
 on:
-  push:
+  pull_request:
     branches:
       - pkg-master
 jobs:
