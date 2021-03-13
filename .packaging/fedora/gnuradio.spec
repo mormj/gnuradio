@@ -175,7 +175,7 @@ rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
 %exclude %{_docdir}/%{name}/html
 %exclude %{_docdir}/%{name}/xml
 %doc %{_docdir}/%{name}
-%{_datadir}/gnuradio/man
+%{_datadir}/man
 
 %files -n python3-%{name}
 %{python3_sitearch}/%{name}/
