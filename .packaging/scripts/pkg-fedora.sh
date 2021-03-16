@@ -1,5 +1,3 @@
-release="1"
-
 cp $GITHUB_WORKSPACE/.packaging/fedora/gnuradio.spec ./
 cp -r $GITHUB_WORKSPACE /build/
 
@@ -43,7 +41,7 @@ ls rpmbuild/SOURCES
 ls 
 
 sed -i 's/\%{VERSION}/'$VERSION_STRING'/g' gnuradio.spec
-sed -i 's/\%{RELEASE}/'$release'/g' gnuradio.spec
+sed -i 's/\%{RELEASE}/'$REV'/g' gnuradio.spec
 
 SOURCE="gnuradio_$VERSION_STRING~$GITBRANCH~$GITREV~fedora.tar.xz"
 sed -i 's/\%{SOURCE}/'$SOURCE'/g' gnuradio.spec
