@@ -70,7 +70,6 @@ BuildRequires:	python3-lxml
 BuildRequires:	python3-mako
 BuildRequires:	python3-qt5-devel
 BuildRequires:	python3-scipy
-BuildRequires:	python3-six
 BuildRequires:	python3-thrift
 BuildRequires:	qwt-qt5-devel
 #BuildRequires:	tex(latex)
@@ -87,14 +86,12 @@ BuildRequires:	libsndfile-devel
 
 Requires:	python3-%{name} = %{version}-%{release}
 Requires:	python3-numpy
-Requires:	python3-cheetah
 Requires:	python3-thrift
 %if ! 0%{?rhel}
 Requires:	python3-pyopengl
 %endif
 Requires:	python3-pyyaml
 Requires:	python3-gobject
-Requires:	python3-six
 Requires:	python3-mako
 Requires:	python3-click-plugins
 Requires:	gtk3
