@@ -1,8 +1,19 @@
 name: 'Package-Debian'
 on:
-  push:
-    branches:
-      - pkg-master
+  workflow_dispatch:
+    inputs:
+      build_branch:
+        description: 'Branch to build from'
+        required: true
+        default: 'master'
+      rev:
+        description: 'Package revision'
+        required: true
+        default: '1'
+      distribution:
+        description: 'Target distribution'
+        required: true
+        default: 'focal'
 jobs:
   linux-docker:
     runs-on: ubuntu-20.04
@@ -32,6 +43,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+        ref: ${{ github.event.inputs.build_branch }}
     - uses: actions/setup-python@v1
       with:
         python-version: "3.x"
@@ -55,8 +67,9 @@ jobs:
         export DEBFULLNAME="${{secrets.NAME}}"
         export DEBEMAIL="${{secrets.EMAIL}}" 
         export UBUEMAIL="${{secrets.EMAIL}}" 
-        export DISTRIBUTION="focal"
+        export DISTRIBUTION="${{ github.event.inputs.distribution }}"
         export GITBRANCH="master"
+        export REV="${{ github.event.inputs.rev }}"
         cd /build && sh $GITHUB_WORKSPACE/.packaging/scripts/pkg-debian.sh
     - name: Push to Launchpad
       run: 

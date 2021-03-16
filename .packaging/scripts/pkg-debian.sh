@@ -7,7 +7,6 @@ cd /build
 cp -r $GITHUB_WORKSPACE /build/
 cd /build/gnuradio
 GITREV="$(git rev-list --count HEAD)"
-REV=0
 
 # Scrape the version number from CMakeLists.txt
 VERSION_MAJOR="$(cat CMakeLists.txt | grep "SET(VERSION_MAJOR" | tr -s ' ' | cut -d' ' -f2 | cut -d')' -f1)"
