@@ -45,7 +45,6 @@ private:
 
     // Perform fftshift operation;
     // this is usually desired when plotting
-    bool d_shift = true;
     std::unique_ptr<fft::fft_complex_fwd> d_fft;
 
     int d_index = 0;
@@ -70,6 +69,7 @@ private:
     void windowreset();
     void buildwindow();
     void fftresize();
+    void resize_bufs(int size);
     void check_clicked();
     void fft(float* data_out, const gr_complex* data_in, int size);
 
