@@ -19,6 +19,9 @@ jobs:
         source: '.'
         exclude: './volk'
         extensions: 'h,hpp,cpp,cc,cc.in'
+    - uses: quentinguidee/pep8-action@v1
+      with:
+        arguments: '--max-line-length=120'
   # Doxygen gets built separately. It has a lot of output and its own weirdness.
   doxygen:
     name: Doxygen
