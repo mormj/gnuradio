@@ -28,6 +28,8 @@ vector, dict, uniform_vector, any (std::any cast)
 '''
 
 
+from .pmt_to_python import python_to_pmt as to_pmt
+from .pmt_to_python import pmt_to_python as to_python
 import os
 
 try:
@@ -43,6 +45,3 @@ PMT_NIL = get_PMT_NIL()
 PMT_T = get_PMT_T()
 PMT_F = get_PMT_F()
 PMT_EOF = get_PMT_EOF()
-
-from .pmt_to_python import pmt_to_python as to_python
-from .pmt_to_python import python_to_pmt as to_pmt

@@ -13,6 +13,18 @@ Blocks for forward error correction.
 
 
 try:
+    from .bercurve_generator import bercurve_generator
+    from .fec_test import fec_test
+    from .extended_tagged_decoder import extended_tagged_decoder
+    from .extended_tagged_encoder import extended_tagged_encoder
+    from .extended_async_encoder import extended_async_encoder
+    from .capillary_threaded_encoder import capillary_threaded_encoder
+    from .capillary_threaded_decoder import capillary_threaded_decoder
+    from .threaded_decoder import threaded_decoder
+    from .threaded_encoder import threaded_encoder
+    from .extended_decoder import extended_decoder
+    from .extended_encoder import extended_encoder
+    from .bitflip import *
     from .fec_python import *
 except ImportError:
     import os
@@ -74,23 +86,8 @@ try:
     ldpc_gen_mtrx_encoder_make = code.ldpc_gen_mtrx_encoder.make
     ldpc_bit_flip_decoder = code.ldpc_bit_flip_decoder
 except AttributeError:
-    pass    
+    pass
 
 polar_decoder_sc = code.polar_decoder_sc
 polar_decoder_sc_list = code.polar_decoder_sc_list
 polar_decoder_sc_systematic = code.polar_decoder_sc_systematic
-
-from .bitflip import *
-from .extended_encoder import extended_encoder
-from .extended_decoder import extended_decoder
-from .threaded_encoder import threaded_encoder
-from .threaded_decoder import threaded_decoder
-from .capillary_threaded_decoder import capillary_threaded_decoder
-from .capillary_threaded_encoder import capillary_threaded_encoder
-from .extended_async_encoder import extended_async_encoder
-from .extended_tagged_encoder import extended_tagged_encoder
-from .extended_tagged_decoder import extended_tagged_decoder
-
-
-from .fec_test import fec_test
-from .bercurve_generator import bercurve_generator
