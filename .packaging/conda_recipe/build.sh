@@ -19,7 +19,6 @@ cmake --build . --config Release --target install
 
 if [[ $target_platform == linux* ]] ; then
     SKIP_TESTS=(
-        qa_agc
         qa_cpp_py_binding
         qa_cpp_py_binding_set
         qa_ctrlport_probes
@@ -30,7 +29,6 @@ if [[ $target_platform == linux* ]] ; then
 else
     SKIP_TESTS=(
         qa_add_system_time
-        qa_agc
         qa_block_gateway
         qa_cpp_py_binding
         qa_cpp_py_binding_set
@@ -42,6 +40,8 @@ else
         qa_header_payload_demux
         qa_hier_block2
         qa_hier_block2_message_connections
+        qa_message_debug
+        qa_message_strobe
         qa_python_message_passing
         qa_rotator_cc
         qa_tcp_server_sink

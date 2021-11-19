@@ -86,7 +86,6 @@ add_library(gnuradio-runtime
   sys_paths.cc
   tagged_stream_block.cc
   terminate_handler.cc
-  test.cc
   top_block.cc
   top_block_impl.cc
   tpb_detail.cc
@@ -131,7 +130,7 @@ target_link_libraries(gnuradio-runtime PUBLIC
   Boost::system
   Boost::regex
   Boost::thread
-  Log4Cpp::log4cpp
+  spdlog::spdlog
   MPLib::mplib
   # INTERFACE/PRIVATE split so users of the library can choose how to link to Python
   # (importantly, extension modules can avoid linking against Python and resolve
