@@ -5,8 +5,8 @@ PKG_CHECK_MODULES(PC_GR_HOWTO gnuradio-howto)
 FIND_PATH(
     GR_HOWTO_INCLUDE_DIRS
     NAMES gnuradio/howto/api.h
-    HINTS $ENV{HOWTO_DIR}/include
-        ${PC_HOWTO_INCLUDEDIR}
+    HINTS $ENV{GR_HOWTO_DIR}/include
+        ${PC_GR_HOWTO_INCLUDEDIR}
     PATHS ${CMAKE_INSTALL_PREFIX}/include
           /usr/local/include
           /usr/include
@@ -15,8 +15,8 @@ FIND_PATH(
 FIND_LIBRARY(
     GR_HOWTO_LIBRARIES
     NAMES gnuradio-howto
-    HINTS $ENV{HOWTO_DIR}/lib
-        ${PC_HOWTO_LIBDIR}
+    HINTS $ENV{GR_HOWTO_DIR}/lib
+        ${PC_GR_HOWTO_LIBDIR}
     PATHS ${CMAKE_INSTALL_PREFIX}/lib
           ${CMAKE_INSTALL_PREFIX}/lib64
           /usr/local/lib
