@@ -30,7 +30,7 @@ the mailing list and post your new questions there.
            margin-left: auto;
            margin-right: auto;
            width: 80%;"
-    src="https://raw.githubusercontent.com/mormj/gr-sponsors/main/grcon21_sponsors.png" 
+    src="https://raw.githubusercontent.com/mormj/gr-sponsors/main/gr-sponsors-static-image.png" 
     alt="Our Sponsors">
 </img>
 
