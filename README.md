@@ -29,7 +29,7 @@ the mailing list and post your new questions there.
     style="display: block; 
            margin-left: auto;
            margin-right: auto;
-           width: 80%;"
+           width: 100%;"
     src="https://raw.githubusercontent.com/mormj/gr-sponsors/main/gr-sponsors-static-image.png" 
     alt="Our Sponsors">
 </img>
