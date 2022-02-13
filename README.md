@@ -25,7 +25,14 @@ as many questions have already been asked and answered. Please also
 [subscribe](https://lists.gnu.org/mailman/listinfo/discuss-gnuradio) to 
 the mailing list and post your new questions there.
 
-[![Sponsors](https://raw.githubusercontent.com/mormj/gr-sponsors/main/grcon21_sponsors.png)](https://events.gnuradio.org/event/8/page/5-sponsors)
+<img 
+    style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 80%;"
+    src="https://raw.githubusercontent.com/mormj/gr-sponsors/main/grcon21_sponsors.png" 
+    alt="Our Sponsors">
+</img>
 
 ## How to Install GNU Radio
 
