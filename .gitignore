@@ -144,3 +144,5 @@ core
 # Archives
 *.tar.gz
 *.zip
+*.pyo
+build*/
