@@ -45,16 +45,23 @@ def cpp_type(input, vec=False):
         return f'std::vector<{x}>'
     return x
 
-def grc_type(input, vec=False):
+def grc_type(input, vec=False, ref=False):
     if is_list(input):
         input = input[0]
+
+    if input.startswith('enums/'):
+        return 'enum'
+    
     if input in type_lookup:
         x = type_lookup[input][2]
     else:
         x = get_linked_value(input)
-    
+        if (ref):
+            x = f'${{{x}}}'
+        
     if (vec):
-        return f'{x}_vector>'
+        return f'{x}_vector'
+
     return x
 
 def py_type(input):

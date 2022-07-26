@@ -50,7 +50,7 @@ parameters:
 {% if 'grc' not in param or 'hide' not in param['grc'] or ('hide' in param['grc'] and param['grc']['hide'] != 'all') -%}
 -   id: {{param['id']}}
     label: {{param['label']}}
-    dtype: {{param['dtype']|grc_type(param['container']=='vector')}}
+    dtype: {{param['dtype']|grc_type(ref=True,vec=param['container']=='vector')}}
     {%if 'is_enum' in param and param['is_enum'] %}
     options: [{%for k1,enum_type in module_enums.items() %}{% if param['dtype'].endswith(k1) %}{% for val in enum_type['enumerators']%} {{module}}.{{k1}}.{{val['id']}}{{',' if not loop.last}}{%endfor%}{%endif%}{%endfor%}]
     option_labels: [{%for k1,enum_type in module_enums.items() %}{% if param['dtype'].endswith(k1) %}{% for val in enum_type['enumerators']%}{{val['label'] if 'label' in val else val['id'] | upper}}{{',' if not loop.last}}{%endfor%}{%endif%}{%endfor%}]
@@ -91,7 +91,7 @@ inputs:
 {% if type_inst %}
     dtype: ${ type_inst.{{port['type']|grc_type}} }
 {% else %}
-    dtype: {{port['type']|grc_type}}
+    dtype: {{port['type']|grc_type(ref=True)}}
 {% endif %}
     {%if 'shape' in port %}vlen: {{port['shape']|get_linked_value}}{% endif %}
     {%if 'multiplicity' in port %}multiplicity: {{port['multiplicity']|get_linked_value}}{% endif %}
@@ -111,7 +111,7 @@ outputs:
 {% if type_inst %}
     dtype: ${ type_inst.{{port['type']|grc_type}} }
 {% else %}
-    dtype: {{port['type']|grc_type}}
+    dtype: {{port['type']|grc_type(ref=True)}}
 {% endif %}
     {%if 'shape' in port %}vlen: {{get_linked_value(port['shape'])}}{% endif %}
     {%if 'multiplicity' in port %}multiplicity: {{get_linked_value(port['multiplicity'])}}{% endif %}
