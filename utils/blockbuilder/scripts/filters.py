@@ -45,6 +45,18 @@ def cpp_type(input, vec=False):
         return f'std::vector<{x}>'
     return x
 
+def grc_type(input, vec=False):
+    if is_list(input):
+        input = input[0]
+    if input in type_lookup:
+        x = type_lookup[input][2]
+    else:
+        x = get_linked_value(input)
+    
+    if (vec):
+        return f'{x}_vector>'
+    return x
+
 def py_type(input):
     if input in type_lookup:
         return type_lookup[input][1]
@@ -55,6 +67,7 @@ def custom_filters():
     return {
         'is_list': is_list,
         'cpp_type': cpp_type,
+        'grc_type': grc_type,
         'py_type': py_type,
         'get_linked_value': get_linked_value,
     }
