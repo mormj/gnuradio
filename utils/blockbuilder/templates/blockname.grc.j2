@@ -94,7 +94,7 @@ inputs:
     dtype: {{port['type']|grc_type(ref=True)}}
 {% endif %}
     {%if 'shape' in port %}vlen: {{port['shape']|get_linked_value}}{% endif %}
-    {%if 'multiplicity' in port %}multiplicity: {{port['multiplicity']|get_linked_value}}{% endif %}
+    {%if 'multiplicity' in port %}multiplicity: {{port['multiplicity']|grc_type(ref=True)}}{% endif %}
     label: {{port['id']}}
     optional: {{ port['optional'] if 'optional' in port else 'false' }}
 {% endif %}{% endfor %}
@@ -114,7 +114,7 @@ outputs:
     dtype: {{port['type']|grc_type(ref=True)}}
 {% endif %}
     {%if 'shape' in port %}vlen: {{get_linked_value(port['shape'])}}{% endif %}
-    {%if 'multiplicity' in port %}multiplicity: {{get_linked_value(port['multiplicity'])}}{% endif %}
+    {%if 'multiplicity' in port %}multiplicity: {{port['multiplicity']|grc_type(ref=True)}}{% endif %}
     label: {{port['id']}}
     optional: {{ port['optional'] if 'optional' in port else 'false' }}
 {% endif -%}

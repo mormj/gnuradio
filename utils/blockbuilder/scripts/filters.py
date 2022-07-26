@@ -27,6 +27,13 @@ def get_linked_value(value):
     newvalue = value
     if '/' in value:
         list1 = value.split('/')
+        newvalue = list1[1]
+    return newvalue
+
+def get_linked_value_with_args(value):
+    newvalue = value
+    if '/' in value:
+        list1 = value.split('/')
         category = list1[0]
         newvalue = list1[1]
         if category == 'parameters':
@@ -40,7 +47,9 @@ def cpp_type(input, vec=False):
         x = type_lookup[input][0]
     else:
         x = get_linked_value(input)
-    
+        if input.startswith('parameters/'):
+            x = 'args.' + x
+
     if (vec):
         return f'std::vector<{x}>'
     return x
@@ -77,4 +86,5 @@ def custom_filters():
         'grc_type': grc_type,
         'py_type': py_type,
         'get_linked_value': get_linked_value,
+        'get_linked_value_with_args': get_linked_value_with_args,
     }
