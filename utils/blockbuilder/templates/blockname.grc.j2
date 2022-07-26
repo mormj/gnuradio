@@ -39,7 +39,7 @@ parameters:
 -   id: {{key['id']}}
     label: {% if 'label' in key %}{{key['label']}}{% else %}IO Type{% endif %}
     dtype: enum
-    options: [{% for opt in key['options'] %}{{opt,opt|grc_type}}{{"," if not loop.last}} {% endfor %}]
+    options: [{% for opt in key['options'] %}{{opt|grc_type}}{{"," if not loop.last}} {% endfor %}]
     option_attributes:
         fcn: [{% for opt in key['options'] %}{{macros.typekey_suffix(opt,key['id'],ports)}}{{"," if not loop.last}} {% endfor %}]
     hide: part
@@ -62,7 +62,7 @@ parameters:
 {% for param in grc['parameters'] -%}
 -   id: {{param['id']}}
     label: {{param['label']}}
-    dtype: {{param['dtype']}}
+    dtype: {{param['dtype']|grc_type}}
     {% if 'default' in param %}default: {{param['default']}}{%endif%}
     {% if 'hide' in param %}hide: {{param['hide']}}{%endif%}
 {% endfor -%}
