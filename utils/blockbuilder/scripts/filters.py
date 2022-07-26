@@ -4,8 +4,8 @@
 type_lookup = {
     'cf64': ['std::complex<double>', 'complex', 'complex'],
     'cf32': ['std::complex<float>', 'complex', 'complex'],
-    'rf64': ['double', 'float', 'real'],
-    'rf32': ['float', 'float', 'real'],
+    'rf64': ['double', 'float', 'float'],
+    'rf32': ['float', 'float', 'float'],
     'ri64': ['int64_t', 'int', 'int'],
     'ri32': ['int32_t', 'int', 'int'],
     'ri16': ['int16_t', 'int', 'short'],
@@ -21,6 +21,9 @@ type_lookup = {
 
 def is_list(value):
     return isinstance(value, list)
+
+def is_numeric(value):
+    return type(value) is int or type(value) is float or type(value) is complex
 
 # Parses on '/' and returns the second part
 def get_linked_value(value):
@@ -57,7 +60,12 @@ def cpp_type(input, vec=False):
 def grc_type(input, vec=False, ref=False):
     if is_list(input):
         input = input[0]
-
+    try:
+        if is_numeric(eval(input)):
+            return input
+    except:
+        pass
+    
     if input.startswith('enums/'):
         return 'enum'
     
