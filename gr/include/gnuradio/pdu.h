@@ -62,6 +62,7 @@ public:
 
     size_t size_bytes() { return _data.bytes(); }
     size_t size() { return _data.bytes() / _data.bytes_per_element(); }
+    size_t bytes_per_element () { return _data.bytes_per_element(); }
     template <typename T>
     T* data()
     {
@@ -139,6 +140,8 @@ public:
             throw std::runtime_error("Invalid PMT vector type requested");
         }
     }
+
+    template<typename T> data_type_t data_type();
 
     const void* raw()
     {

@@ -10,24 +10,22 @@
 
 #pragma once
 
-#include <queue>
-#include <pmtf/wrap.hpp>
-
 #include <gnuradio/pdu/pdu_to_stream.h>
 #include <gnuradio/pdu.h>
 
 namespace gr {
 namespace pdu {
 
-class pdu_to_stream_cpu : public pdu_to_stream
+template <class T>
+class pdu_to_stream_cpu : public pdu_to_stream<T>
 {
 public:
-    pdu_to_stream_cpu(const typename pdu_to_stream::block_args& args);
-    
-    virtual work_return_t work(work_io& wio) override;
+    pdu_to_stream_cpu(const typename pdu_to_stream<T>::block_args& args);
+
+    work_return_t work(work_io&) override;
 
 private:
-    data_type_t d_data_type;
+    // data_type_t d_data_type;
 
     std::queue<pmtf::pmt> d_pmt_queue;
     pdu_wrap d_pdu;

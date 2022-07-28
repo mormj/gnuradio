@@ -1,36 +1,40 @@
 module: pdu
 block: stream_to_pdu
-label: Stream to PDU
+label: stream_to_pdu
 blocktype: sync_block
 
-# Example Parameters
+typekeys:
+    - id: T
+      type: class
+      options:
+          - cf32
+          - rf32
+          - ri32
+          - ri16
+          - ri8
+
 parameters:
--   id: data_type
-    label: Vector Data Type
-    dtype: enums/data_type_t
-    grc:
-        default: gr.data_type_t.CF32
--   id: packet_len
-    label: Packet Length
-    dtype: size_t
-    grc:
-        default: 96
+    #TODO: make this block handle SOB/EOB/pkt_len tags as well
+    - id: packet_len
+      label: Packet Length
+      dtype: size_t
+      grc:
+          default: 96
 
 # Example Ports
 ports:
--   domain: stream
-    id: in
-    direction: input
-    type: untyped
-    size: parameters/itemsize
+    - domain: stream
+      id: in
+      direction: input
+      type: typekeys/T
 
--   domain: message
-    id: pdus
-    direction: output
-    optional: true
+    - domain: message
+      id: pdus
+      direction: output
+      optional: true
 
 implementations:
--   id: cpu
+    - id: cpu
 # -   id: cuda
 
 file_format: 1

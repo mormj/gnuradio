@@ -34,7 +34,7 @@ namespace gr {
         BOOL
     };
 
-    
+    template <typename T> data_type_t get_data_type();
 }
 
 using pmt_sptr = std::shared_ptr<pmtf::pmt>;

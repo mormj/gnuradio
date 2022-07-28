@@ -11,18 +11,24 @@
 #include "pdu_to_stream_cpu.h"
 #include "pdu_to_stream_cpu_gen.h"
 
-#include <gnuradio/pdu.h>
-
 namespace gr {
 namespace pdu {
 
-pdu_to_stream_cpu::pdu_to_stream_cpu(const typename pdu_to_stream::block_args& args)
-    : INHERITED_CONSTRUCTORS, d_data_type(args.data_type)
+template <class T>
+pdu_to_stream_cpu<T>::pdu_to_stream_cpu(const typename pdu_to_stream<T>::block_args& args)
+    : INHERITED_CONSTRUCTORS(T)
 {
 }
 
-work_return_t
-pdu_to_stream_cpu::work(work_io& wio)
+template <class T>
+void pdu_to_stream_cpu<T>::handle_msg_pdus(pmtf::pmt msg)
+{
+    d_pmt_queue.push(msg);
+    this->notify_scheduler_output();
+}
+
+template <class T>
+work_return_t pdu_to_stream_cpu<T>::work(work_io& wio)
 {
     auto out = wio.outputs()[0].items<uint8_t>();
     auto noutput_items = wio.outputs()[0].n_items;
@@ -40,13 +46,13 @@ pdu_to_stream_cpu::work(work_io& wio)
         if (d_vec_ready) {
             auto num_in_this_pmt = std::min(noutput_items - i, (d_pdu.size() - d_vec_idx) );
 
-            std::copy((uint8_t*)d_pdu.raw() + d_vec_idx*d_pdu.size_bytes(),
-                      (uint8_t*)d_pdu.raw() + (d_vec_idx + num_in_this_pmt)*d_pdu.size_bytes(),
-                      out + i * itemsize);
+            std::copy((uint8_t*)d_pdu.raw() + d_vec_idx*d_pdu.bytes_per_element(),
+                      (uint8_t*)d_pdu.raw() + (d_vec_idx + num_in_this_pmt)*d_pdu.bytes_per_element(),
+                      out + i * d_pdu.bytes_per_element());
             i += num_in_this_pmt;
-            d_vec_idx += num_in_this_pmt * itemsize;
+            d_vec_idx += num_in_this_pmt ;
 
-            if (d_vec_idx >= d_pdu.size_bytes()) {
+            if (d_vec_idx >= d_pdu.size()) {
                 d_vec_ready = false;
             }
         }
@@ -57,12 +63,6 @@ pdu_to_stream_cpu::work(work_io& wio)
 
     wio.produce_each(i);
     return work_return_t::OK;
-}
-
-void pdu_to_stream_cpu::handle_msg_pdus(pmtf::pmt msg)
-{
-    d_pmt_queue.push(msg);
-    this->notify_scheduler_output();
 }
 
 } /* namespace pdu */

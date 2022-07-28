@@ -60,7 +60,8 @@ runtime_sources = [
   'hier_block.cc',
   'prefs.cc',
   'tag.cc',
-  'types.cc'
+  'types.cc',
+  'pdu.cc'
 ]
 
 if USE_CUDA

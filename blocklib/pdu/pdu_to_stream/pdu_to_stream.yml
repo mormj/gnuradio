@@ -1,14 +1,17 @@
 module: pdu
 block: pdu_to_stream
-label: PDU to Stream
+label: pdu_to_stream
 blocktype: sync_block
 
-parameters:
--   id: data_type
-    label: Vector Data Type
-    dtype: enums/data_type_t
-    grc:
-        default: gr.data_type_t.CF32
+typekeys:
+    - id: T
+      type: class
+      options:
+          - cf32
+          - rf32
+          - ri32
+          - ri16
+          - ri8
 
 ports:
     - domain: message
@@ -19,7 +22,7 @@ ports:
     - domain: stream
       id: out
       direction: output
-      type: parameters/data_type
+      type: typekeys/T
 
 implementations:
     - id: cpu

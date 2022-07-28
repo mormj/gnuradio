@@ -15,15 +15,15 @@
 namespace gr {
 namespace pdu {
 
-class stream_to_pdu_cpu : public stream_to_pdu
+template <class T>
+class stream_to_pdu_cpu : public stream_to_pdu<T>
 {
 public:
-    stream_to_pdu_cpu(const typename stream_to_pdu::block_args& args);
-    
-    virtual work_return_t work(work_io& wio) override;
+    stream_to_pdu_cpu(const typename stream_to_pdu<T>::block_args& args);
+
+    work_return_t work(work_io&) override;
 
 private:
-    data_type_t d_data_type;
     size_t d_packet_len;
 };
 
