@@ -59,7 +59,8 @@ runtime_sources = [
   'sptr_magic.cc',
   'hier_block.cc',
   'prefs.cc',
-  'tag.cc'
+  'tag.cc',
+  'types.cc'
 ]
 
 if USE_CUDA
