@@ -30,29 +30,36 @@ void pdu_to_stream_cpu<T>::handle_msg_pdus(pmtf::pmt msg)
 template <class T>
 work_return_t pdu_to_stream_cpu<T>::work(work_io& wio)
 {
-    auto out = wio.outputs()[0].items<uint8_t>();
+    auto out = wio.outputs()[0].items<T>();
     auto noutput_items = wio.outputs()[0].n_items;
 
     // fill up the output buffer with the data from the pdus
     size_t i = 0;
     while (i < noutput_items) {
         if (!d_vec_ready && !d_pmt_queue.empty()) {
-            d_pdu = pdu_wrap(d_pmt_queue.front());
+            // d_pdu = pdu_wrap(d_pmt_queue.front());
+            auto a = d_pmt_queue.front();
+            auto b = pmtf::map(a);
+            auto c = b["meta"];
+            auto d = pmtf::map(c);
+            d_pdu_meta = d;
+            d_pdu_data = pmtf::vector<T>(pmtf::map(d_pmt_queue.front())["data"]);
             d_pmt_queue.pop();
             d_vec_idx = 0;
             d_vec_ready = true;
         }
 
         if (d_vec_ready) {
-            auto num_in_this_pmt = std::min(noutput_items - i, (d_pdu.size() - d_vec_idx) );
+            auto items_in_this_pmt =
+                std::min(noutput_items - i, (d_pdu_data.size() - d_vec_idx));
 
-            std::copy((uint8_t*)d_pdu.raw() + d_vec_idx*d_pdu.bytes_per_element(),
-                      (uint8_t*)d_pdu.raw() + (d_vec_idx + num_in_this_pmt)*d_pdu.bytes_per_element(),
-                      out + i * d_pdu.bytes_per_element());
-            i += num_in_this_pmt;
-            d_vec_idx += num_in_this_pmt ;
+            std::copy(d_pdu_data.data() + d_vec_idx,
+                      d_pdu_data.data() + d_vec_idx + items_in_this_pmt,
+                      out + i);
+            i += items_in_this_pmt;
+            d_vec_idx += items_in_this_pmt;
 
-            if (d_vec_idx >= d_pdu.size()) {
+            if (d_vec_idx >= d_pdu_data.size()) {
                 d_vec_ready = false;
             }
         }

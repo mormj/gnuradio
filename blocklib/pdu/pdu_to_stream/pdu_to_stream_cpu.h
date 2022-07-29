@@ -11,7 +11,6 @@
 #pragma once
 
 #include <gnuradio/pdu/pdu_to_stream.h>
-#include <gnuradio/pdu.h>
 
 namespace gr {
 namespace pdu {
@@ -28,7 +27,8 @@ private:
     // data_type_t d_data_type;
 
     std::queue<pmtf::pmt> d_pmt_queue;
-    pdu_wrap d_pdu;
+    pmtf::map d_pdu_meta;
+    pmtf::vector<T> d_pdu_data;
     bool d_vec_ready = false;
     size_t d_vec_idx = 0;
 

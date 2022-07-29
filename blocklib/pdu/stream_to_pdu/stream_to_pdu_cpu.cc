@@ -28,12 +28,16 @@ work_return_t stream_to_pdu_cpu<T>::work(work_io& wio)
     auto in = wio.inputs()[0].items<T>();
 
     for (size_t n = 0; n < n_pdu; n++) {
-        auto pdu_out =
-            pdu_wrap(get_data_type<T>(), (void *)(in + n * d_packet_len * itemsize), d_packet_len * itemsize);
+        auto pdu_out = pmtf::map{ { "meta", pmtf::map{} },
+                                  { "data",
+                                    pmtf::vector<T>(in + n * d_packet_len,
+                                                    in + (n + 1) * d_packet_len) } };
+        // pdu_wrap(get_data_type<T>(), (void *)(in + n * d_packet_len * itemsize),
+        // d_packet_len * itemsize);
 
-        pdu_out["packet_len"] = d_packet_len;
+        // pdu_out["packet_len"] = d_packet_len;
 
-        get_message_port("pdus")->post(pdu_out);
+        this->get_message_port("pdus")->post(pdu_out);
     }
 
     wio.consume_each(n_pdu * d_packet_len);
