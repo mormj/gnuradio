@@ -110,11 +110,11 @@ public:
     underlying_logger_ptr d_logger;
 
     // Wrappers for logging macros
-    /*! \brief inline function, wrapper to set the logger level */
+    /*! \brief wrapper to set the logger level */
     void set_level(const std::string& level);
     void set_level(const log_level level);
 
-    /*! \brief inline function, wrapper to get the logger level */
+    /*! \brief wrapper to get the logger level */
     void get_level(std::string& level) const;
     const std::string get_string_level() const;
     log_level get_level() const;
@@ -122,74 +122,60 @@ public:
     const std::string& name() const;
     void set_name(const std::string& name);
 
-    /*! \brief inline function, wrapper for TRACE message */
+    /*! \brief wrapper for TRACE message */
     template <typename... Args>
-    inline void trace(const spdlog::string_view_t& msg, const Args&... args)
+    inline void trace(fmt::format_string<Args...> fmt, Args&&... args)
     {
-        d_logger->trace(msg, args...);
+        d_logger->trace(std::forward<fmt::format_string<Args...>>(fmt),
+                        std::forward<Args>(args)...);
     }
 
-    /*! \brief inline function, wrapper for DEBUG message */
+    /*! \brief wrapper for DEBUG message */
     template <typename... Args>
-    inline void debug(const spdlog::string_view_t& msg, const Args&... args)
+    inline void debug(fmt::format_string<Args...> fmt, Args&&... args)
     {
-        d_logger->debug(msg, args...);
+        d_logger->debug(std::forward<fmt::format_string<Args...>>(fmt),
+                        std::forward<Args>(args)...);
     }
 
-    /*! \brief inline function, wrapper for INFO message */
+    /*! \brief wrapper for INFO message */
     template <typename... Args>
-    inline void info(const spdlog::string_view_t& msg, const Args&... args)
+    inline void info(fmt::format_string<Args...> fmt, Args&&... args)
     {
-        d_logger->info(msg, args...);
+        d_logger->info(std::forward<fmt::format_string<Args...>>(fmt),
+                       std::forward<Args>(args)...);
     }
 
-    /*! \brief inline function, wrapper for INFO message, DEPRECATED */
+    /*! \brief wrapper for INFO message, DEPRECATED */
     template <typename... Args>
-    inline void notice(const spdlog::string_view_t& msg, const Args&... args)
+    inline void notice(fmt::format_string<Args...> fmt, Args&&... args)
     {
-        d_logger->info(msg, args...);
+        d_logger->info(std::forward<fmt::format_string<Args...>>(fmt),
+                       std::forward<Args>(args)...);
     }
 
-    /*! \brief inline function, wrapper for WARN message */
+    /*! \brief wrapper for WARN message */
     template <typename... Args>
-    inline void warn(const spdlog::string_view_t& msg, const Args&... args)
+    inline void warn(fmt::format_string<Args...> fmt, Args&&... args)
     {
-        d_logger->warn(msg, args...);
+        d_logger->warn(std::forward<fmt::format_string<Args...>>(fmt),
+                       std::forward<Args>(args)...);
     }
 
-    /*! \brief inline function, wrapper for ERROR message */
+    /*! \brief wrapper for ERROR message */
     template <typename... Args>
-    inline void error(const spdlog::string_view_t& msg, const Args&... args)
+    inline void error(fmt::format_string<Args...> fmt, Args&&... args)
     {
-        d_logger->error(msg, args...);
+        d_logger->error(std::forward<fmt::format_string<Args...>>(fmt),
+                        std::forward<Args>(args)...);
     }
 
-    /*! \brief inline function, wrapper for CRITICAL message */
+    /*! \brief wrapper for CRITICAL message */
     template <typename... Args>
-    inline void crit(const spdlog::string_view_t& msg, const Args&... args)
+    inline void critical(fmt::format_string<Args...> fmt, Args&&... args)
     {
-        d_logger->critical(msg, args...);
-    }
-
-    /*! \brief inline function, wrapper for CRITICAL message, DEPRECATED */
-    template <typename... Args>
-    inline void alert(const spdlog::string_view_t& msg, const Args&... args)
-    {
-        d_logger->critical(msg, args...);
-    }
-
-    /*! \brief inline function, wrapper for CRITICAL message, DEPRECATED */
-    template <typename... Args>
-    inline void fatal(const spdlog::string_view_t& msg, const Args&... args)
-    {
-        d_logger->critical(msg, args...);
-    }
-
-    /*! \brief inline function, wrapper for CRITICAL message, DEPRECATED */
-    template <typename... Args>
-    inline void emerg(const spdlog::string_view_t& msg, const Args&... args)
-    {
-        d_logger->critical(msg, args...);
+        d_logger->critical(std::forward<fmt::format_string<Args...>>(fmt),
+                           std::forward<Args>(args)...);
     }
 };
 using logger_ptr = std::shared_ptr<logger>;
