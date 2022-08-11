@@ -227,18 +227,24 @@ public:
     }
     bool pop(T& msg)
     {
-        while (true) {
-            _cond.wait(false); // TODO - replace with a waitfor
-            std::unique_lock<std::mutex> l(_mutex);
-            if (_queue.empty()) {
-                continue;
-            }
+        std::unique_lock<std::mutex> l(_mutex);
+        if (!_queue.empty()) {
             msg = _queue.front();
             _queue.pop_front();
-            if (_queue.empty())
-                _cond.clear();
-            break;
+            return true;
         }
+
+        l.unlock();
+        _cond.wait(false); // TODO - replace with a waitfor
+        
+        std::unique_lock<std::mutex> l2(_mutex);
+        if (_queue.empty())
+            return false;
+            
+        msg = _queue.front();
+        _queue.pop_front();
+        
+
         return true;
     }
     void clear()
