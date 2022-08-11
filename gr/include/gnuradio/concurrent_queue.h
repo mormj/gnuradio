@@ -40,7 +40,7 @@ private:
     moodycamel::BlockingConcurrentQueue<T> q;
 };
 } // namespace gr
-#else
+#elif 0
 
 #include <condition_variable>
 #include <chrono>
@@ -114,6 +114,72 @@ private:
     std::deque<T> _queue;
     std::mutex _mutex;
     std::condition_variable _cond;
+};
+} // namespace gr
+#else
+// atomic flag
+// described here: 
+// https://modernescpp.com/index.php/performancecomparison-of-condition-variables-and-atomics-in-c-20
+#include <atomic>
+#include <chrono>
+#include <deque>
+#include <iostream>
+#include <mutex>
+namespace gr {
+
+/**
+ * @brief Blocking Multi-producer Single-consumer Queue class
+ *
+ * @tparam T Data type of items in queue
+ */
+template <typename T>
+class concurrent_queue
+{
+public:
+    bool push(const T& msg)
+    {
+        std::unique_lock<std::mutex> l(_mutex);
+        // std::scoped_lock l(_mutex);
+        _queue.push_back(msg);
+        l.unlock();
+        _cond.test_and_set();
+        _cond.notify_one();
+
+        return true;
+    }
+
+    // Non-blocking
+    bool try_pop(T& msg)
+    {
+        std::unique_lock<std::mutex> l(_mutex);
+        if (!_queue.empty()) {
+            msg = _queue.front();
+            _queue.pop_front();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    bool pop(T& msg)
+    {
+        std::unique_lock<std::mutex> l(_mutex);
+        _cond.wait(false);
+        msg = _queue.front();
+        _queue.pop_front();
+        _cond.clear();
+        return true;
+    }
+    void clear()
+    {
+        std::unique_lock<std::mutex> l(_mutex);
+        _queue.clear();
+    }
+
+private:
+    std::deque<T> _queue;
+    std::mutex _mutex;
+    std::atomic_flag _cond{};
 };
 } // namespace gr
 #endif
