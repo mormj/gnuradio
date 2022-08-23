@@ -1,10 +1,11 @@
 from gnuradio import math
 from gnuradio import gr
 
-class add_ff(math.add_ff):
+class add_ff(): # (math.add_ff):
     def __init__(self, *args, **kwargs):
-        math.add_ff.__init__(self, *args, **kwargs, impl = math.add_ff.available_impl.pyshell)
-        self.set_pyblock_detail(gr.pyblock_detail(self))
+        print(args)
+        print(kwargs)
+        # math.add_ff.__init__(self, *args, **kwargs, impl=math.add_ff.pyshell)
     
     def work(self, wio):
         out = wio.outputs()[0]
