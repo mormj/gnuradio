@@ -21,6 +21,7 @@ pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::pfb_arb_resampler_cpu(
       d_resamp(args.rate, args.taps, args.filter_size)
 {
     d_history = d_resamp.taps_per_filter();
+    d_history_buf.resize(d_history);
     this->set_relative_rate(args.rate);
     if (args.rate >= 1.0f) {
         size_t output_multiple = std::max(args.rate, args.filter_size);
@@ -57,6 +58,14 @@ work_return_t pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::work(work_io& wio)
     auto out = wio.outputs()[0].items<OUT_T>();
 
     int nitems_read;
+
+    // Have we consumed our history yet?
+    if (wio.inputs()[0].buf().total_read() == 0) {
+        d_history_buf.resize(d_history - 1 + nitems);
+        memcpy(d_history_buf.data() + d_history - 1, in, nitems * sizeof(IN_T));
+        in = d_history_buf.data();
+    }
+
     int processed = d_resamp.filter(out, in, nitems, nitems_read);
 
     wio.consume_each(nitems_read);

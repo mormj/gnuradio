@@ -33,6 +33,7 @@ public:
 private:
     kernel::filter::pfb_arb_resampler<IN_T, OUT_T, TAP_T> d_resamp;
     size_t d_history;
+    std::vector<IN_T> d_history_buf;
 
     void on_parameter_change(param_action_sptr action) override
     {
