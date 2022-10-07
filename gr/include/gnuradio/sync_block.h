@@ -70,7 +70,7 @@ public:
         }
 
         for (auto& w : wio.outputs()) {
-            if (w.n_items < output_multiple()) {
+            if (w.bufp() && w.n_items < output_multiple()) {
                 return work_return_t::INSUFFICIENT_OUTPUT_ITEMS;
             }
         }

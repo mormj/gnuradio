@@ -12,11 +12,15 @@ static void post_work_cleanup(work_io& wio)
 {
     // Decrement active counts for all inputs and outputs
     for (auto& outp : wio.outputs()) {
-        outp.buf().decrement_active();
+        if (outp.bufp()) {
+            outp.buf().decrement_active();
+        }
     }
 
     for (auto& inp : wio.inputs()) {
-        inp.buf().decrement_active();
+        if (inp.bufp()) {
+            inp.buf().decrement_active();
+        }
     }
 }
 
