@@ -1,21 +1,29 @@
 module: streamops
 block: throttle
 label: Throttle
-blocktype: sync_block
+blocktype: block
 category: '[Core]/Misc'
 
 parameters:
 -   id: samples_per_sec
     label: Samples Per Second
     dtype: rf64
-    settable: false
     grc:
         default: samp_rate
 -   id: ignore_tags
     label: Ignore Tags
     dtype: bool
-    settable: false
     default: 'true'
+-   id: trickle_mode
+    label: Trickle Mode
+    dtype: bool
+    settable: true
+    default: 'false'
+-   id: trickle_timer_ms
+    label: Trickle Timer (ms)
+    dtype: ri32
+    settable: true
+    default: 100
 -   id: itemsize
     label: Item Size
     dtype: size
@@ -36,6 +44,7 @@ ports:
     direction: output
     type: untyped
     size: parameters/itemsize
+    optional : true
 
 implementations:
 -   id: cpu

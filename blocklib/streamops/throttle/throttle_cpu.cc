@@ -46,38 +46,43 @@ work_return_t throttle_cpu::work(work_io& wio)
         return work_return_t::OK;
     }
 
-    // copy all samples output[i] <= input[i]
     auto in = wio.inputs()[0].items<uint8_t>();
-    auto out = wio.outputs()[0].items<uint8_t>();
-
-    auto noutput_items = wio.outputs()[0].n_items;
-
-    d_total_samples += noutput_items;
+    auto nitems = wio.inputs()[0].n_items;
 
     auto now = std::chrono::steady_clock::now();
-    auto expected_time = d_start + d_sample_period * d_total_samples;
-    int n = noutput_items;
+    auto expected_time = d_start + d_sample_period * (d_total_samples + nitems);
+    int n = nitems;
     if (expected_time > now) {
-        auto limit_duration =
-            std::chrono::duration<double>(std::numeric_limits<long>::max());
+        if (pmtf::get_as<bool>(*param_trickle_mode)) {
+            // produce as many samples as we can up to the current time
+            int nsamps = (now - d_start) / d_sample_period - d_total_samples;
+            if (nsamps > 0) {
+                n = nsamps;
+            }
+            else {
 
-        this->come_back_later(
-            std::chrono::duration_cast<std::chrono::milliseconds>(expected_time - now)
-                .count());
+                this->come_back_later(pmtf::get_as<int32_t>(*param_trickle_timer_ms));
+                n = 0;
+            }
+        }
+        else {
 
-        n = 0;
-        d_total_samples -= noutput_items;
-        wio.produce_each(0);
-        wio.consume_each(0);
-        return work_return_t::OK;
+            this->come_back_later(
+                std::chrono::duration_cast<std::chrono::milliseconds>(expected_time - now)
+                    .count());
+            n = 0;
+        }
     }
 
-    // TODO: blocks like throttle shouldn't need to do a memcpy, but this would have to be
-    // fixed in the buffering model and a special port type
-    if (n) {
-        std::memcpy(out, in, n * wio.outputs()[0].buf().item_size());
+    if (wio.outputs()[0].bufp()) {
+        auto out = wio.outputs()[0].items<uint8_t>();
+        if (n) {
+            std::memcpy(out, in, n * wio.outputs()[0].buf().item_size());
+        }
+        wio.produce_each(n);
     }
-    wio.outputs()[0].n_produced = n;
+    d_total_samples += n;
+    wio.consume_each(n);
 
     d_debug_logger->debug("Throttle produced {}", n);
     return work_return_t::OK;
