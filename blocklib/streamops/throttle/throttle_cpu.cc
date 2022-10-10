@@ -53,15 +53,16 @@ work_return_t throttle_cpu::work(work_io& wio)
     auto expected_time = d_start + d_sample_period * (d_total_samples + nitems);
     int n = nitems;
     if (expected_time > now) {
-        if (pmtf::get_as<bool>(*param_trickle_mode)) {
+        auto num_trickle_samples = pmtf::get_as<size_t>(*param_trickle_num_samples);
+        if (num_trickle_samples) {
             // produce as many samples as we can up to the current time
             int nsamps = (now - d_start) / d_sample_period - d_total_samples;
             if (nsamps > 0) {
                 n = nsamps;
             }
             else {
-
-                this->come_back_later(pmtf::get_as<int32_t>(*param_trickle_timer_ms));
+                double ms = num_trickle_samples / d_sample_rate;
+                this->come_back_later(ms);
                 n = 0;
             }
         }

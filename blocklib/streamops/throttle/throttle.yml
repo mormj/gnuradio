@@ -10,20 +10,16 @@ parameters:
     dtype: rf64
     grc:
         default: samp_rate
+-   id: trickle_num_samples
+    label: Num Trickle Samples
+    doc: Number of samples to trigger 
+    dtype: size
+    settable: true
+    default: 0
 -   id: ignore_tags
     label: Ignore Tags
     dtype: bool
     default: 'true'
--   id: trickle_mode
-    label: Trickle Mode
-    dtype: bool
-    settable: true
-    default: 'false'
--   id: trickle_timer_ms
-    label: Trickle Timer (ms)
-    dtype: ri32
-    settable: true
-    default: 100
 -   id: itemsize
     label: Item Size
     dtype: size
