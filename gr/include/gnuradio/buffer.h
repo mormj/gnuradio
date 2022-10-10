@@ -213,7 +213,6 @@ public:
      */
     virtual bool write_info(buffer_info_t& info);
     virtual size_t space_available();
-    virtual bool empty();
 
     /**
      * @brief Add Tags onto the tag queue

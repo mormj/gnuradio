@@ -212,20 +212,8 @@ graph_executor::run_one_iteration(std::vector<block_sptr> blocks)
                 // ret = work_return_t::OK;
 
                 if (ret == work_return_t::DONE) {
-                    // Before we flag to the monitor that the block is done, make sure the 
-                    // readers have caught up
-                    bool empty = true;
-                    for (auto& outp : wio.outputs()) {
-                        if (!outp.buf().empty()) {
-                            empty = false;
-                        }
-                    }
-                    if (empty) {
-                        per_block_status[b->id()] = executor_iteration_status_t::DONE;
-                    }
-                    else {
-                        per_block_status[b->id()] = executor_iteration_status_t::READY;
-                    }
+
+                    per_block_status[b->id()] = executor_iteration_status_t::DONE;
 
                     d_debug_logger->debug(
                         "pbs[{}]: {}", b->id(), (int)per_block_status[b->id()]);

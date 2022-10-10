@@ -23,18 +23,6 @@ size_t buffer::space_available()
     return space_in_items;
 }
 
-bool buffer::empty()
-{
-    bool ret = true;
-    for (auto& r : _readers) {
-        if (r->total_read() < total_written()) {
-            ret = false;
-        }
-    }
-
-    return ret;
-}
-
 bool buffer::write_info(buffer_info_t& info)
 {
     std::scoped_lock guard(_buf_mutex);
