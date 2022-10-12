@@ -5,6 +5,7 @@ headers = [
 'math.h',
 'nco.h',
 'random.h',
+'rotator.h',
 'sincos.h',
 'vco.h',
 'xoroshiro128p.h',
