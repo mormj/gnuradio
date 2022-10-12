@@ -1,6 +1,7 @@
 headers = [
     'fft_filter.h',
     'fir_filter.h',
+    'fir_filter_with_buffer.h',
     'firdes.h',
     'iir_filter.h',
     'interpolator_taps.h',
