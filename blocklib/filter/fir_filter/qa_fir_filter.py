@@ -15,14 +15,12 @@ import math
 
 def fir_filter(x, taps, decim=1):
     y = []
-    # x2 = (len(taps) - 1) * [0, ] + x
-    x2 = x
     m = decim *((len(x)-len(taps)+1) // decim)
 
     for i in range(0, m, decim):
         yi = 0
         for j in range(len(taps)):
-            yi += taps[len(taps) - 1 - j] * x2[i + j]
+            yi += taps[len(taps) - 1 - j] * x[i + j]
         y.append(yi)
     return y
 

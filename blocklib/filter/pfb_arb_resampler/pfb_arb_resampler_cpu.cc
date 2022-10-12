@@ -21,6 +21,14 @@ pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::pfb_arb_resampler_cpu(
       d_resamp(args.rate, args.taps, args.filter_size)
 {
     d_history = d_resamp.taps_per_filter();
+
+    std::vector<IN_T> tmp_in(2*d_history);
+    std::vector<IN_T> tmp_out(1 + int(args.rate * d_history));
+    int n_to_read = d_history-1;
+    int nread = 0;
+    
+    d_resamp.filter(tmp_out.data(), tmp_in.data(), n_to_read, nread);
+
     this->set_relative_rate(args.rate);
     if (args.rate >= 1.0f) {
         size_t output_multiple = std::max(args.rate, args.filter_size);

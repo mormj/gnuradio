@@ -56,11 +56,11 @@ class test_pfb_channelizer(gr_unittest.TestCase):
     #     self.check_channelizer(filter.pfb.channelizer_hier_ccf(
     #         self.M, n_filterbanks=1, taps=self.taps))
 
-    # def test_0002(self):
-    #     """Test roundig error handling for oversample rate (ok)."""
-    #     channels, oversample = 36, 25.
-    #     filter.pfb.channelizer_ccf(channels, taps=self.taps,
-    #                                oversample_rate=channels / oversample)
+    def test_0002(self):
+        """Test roundig error handling for oversample rate (ok)."""
+        channels, oversample = 36, 25.
+        filter.pfb_channelizer_cc(channels, taps=self.taps,
+                                   oversample_rate=channels / oversample)
 
     def test_0003(self):
         """Test roundig error handling for oversample rate, (bad)."""

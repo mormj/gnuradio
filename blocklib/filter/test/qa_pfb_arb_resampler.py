@@ -50,7 +50,7 @@ class test_pfb_arb_resampler(gr_unittest.TestCase):
             attenuation_dB=80,
             window=window.BLACKMAN_hARRIS)
 
-        freq = 121.213
+        freq = 12.1213
         data = sig_source_f(fs, freq, 1, N)
         signal = blocks.vector_source_f(data)
         pfb = filter.pfb_arb_resampler_fff(rrate, taps, nfilts)
@@ -67,13 +67,17 @@ class test_pfb_arb_resampler(gr_unittest.TestCase):
         phase = pfb.phase_offset(freq, fs)
 
         # Create a timeline offset by the filter's group delay
-        t = [float(x) / (fs * rrate) for x in range(-delay, L - delay)]
+        # t = [float(x) / (fs * rrate) for x in range(-delay, L - delay)]
+        t = [float(x) / (fs * rrate) for x in range(0, L)]
+        phase = 0.0
 
         # Data of the sinusoid at frequency freq with the delay and phase
         # offset.
         expected_data = [math.sin(2. * math.pi * freq * x + phase) for x in t]
 
         dst_data = snk.data()
+        from matplotlib import pyplot as plt
+        plt.plot(expected_data); plt.plot(dst_data); plt.show()
 
         self.assertFloatTuplesAlmostEqual(
             expected_data[-Ntest:], dst_data[-Ntest:], 2)
