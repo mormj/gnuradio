@@ -1,4 +1,5 @@
 headers = [
+'control_loop.h',
 'fxpt_nco.h',
 'fxpt_vco.h',
 'fxpt.h',
