@@ -11,9 +11,10 @@
 #pragma once
 
 #include <gnuradio/filter/pfb_arb_resampler.h>
+#include <gnuradio/kernel/fft/window.h>
 #include <gnuradio/kernel/filter/firdes.h>
+#include <gnuradio/kernel/filter/optfir.h>
 #include <gnuradio/kernel/filter/pfb_arb_resampler.h>
-
 
 using namespace gr::kernel::filter;
 
@@ -38,7 +39,9 @@ private:
     kernel::filter::pfb_arb_resampler<IN_T, OUT_T, TAP_T> d_resamp;
     size_t d_history;
 
-    std::vector<float> create_taps(float rate, size_t flt_size = 32, float atten = 100)
+    std::vector<TAP_T> create_taps(float rate, size_t flt_size=32, float atten= 100);
+
+    std::vector<float> create_taps_float(float rate, size_t flt_size = 32, float atten = 100)
     {
         // # Create a filter that covers the full bandwidth of the output signal
 
@@ -47,20 +50,25 @@ private:
         // # width of 0.5.  If rate < 1, we need to filter to less
         // # than half the output signal's bw to avoid aliasing, so
         // # the half-band here is 0.5*rate.
+        
         float percent = 0.80;
         if (rate < 1) {
             float halfband = 0.5 * rate;
             float bw = percent * halfband;
             float tb = (percent / 2.0) * halfband;
-            float ripple = 0.1;
+            // float ripple = 0.1;
 
 
             // # As we drop the bw factor, the optfir filter has a harder time converging;
             // # using the firdes method here for better results.
-            return firdes::low_pass_2(flt_size, flt_size, bw, tb, atten,
-        }                                    fft.window.WIN_BLACKMAN_HARRIS);
-        else
-        {
+            return firdes::low_pass_2(flt_size,
+                                      flt_size,
+                                      bw,
+                                      tb,
+                                      atten,
+                                      gr::kernel::fft::window::window_t::BLACKMAN_HARRIS);
+        }
+        else {
             float halfband = 0.5;
             float bw = percent * halfband;
             float tb = (percent / 2.0) * halfband;
@@ -69,21 +77,21 @@ private:
 
             while (true) {
                 try {
-                    taps =
-                        optfir.low_pass(flt_size, flt_size, bw, bw + tb, ripple, atten);
+                    taps = gr::kernel::filter::optfir::low_pass(
+                        flt_size, flt_size, bw, bw + tb, ripple, atten);
                     return taps;
-                } catch () {
+                } catch (std::exception& e) {
                     ripple += 0.01;
-                    d_logger->warn(
-                        "Warning: set ripple to {:4f} dB. If this is a problem, adjust "
-                        "the attenuation or create your own filter taps.",
-                        ripple);
+                    // d_logger->warn(
+                    //     "Warning: set ripple to {:4f} dB. If this is a problem, adjust "
+                    //     "the attenuation or create your own filter taps.",
+                    //     ripple);
 
                     // # Build in an exit strategy; if we've come this far, it ain't
                     // working.
                     if (ripple >= 1.0) {
                         throw std::runtime_error(
-                            "optfir could not generate an appropriate filter.")
+                            "optfir could not generate an appropriate filter.");
                     }
                 }
             }

@@ -14,6 +14,24 @@
 namespace gr {
 namespace filter {
 
+template<>
+std::vector<gr_complex> pfb_arb_resampler_cpu<gr_complex, gr_complex, gr_complex>::create_taps(float rate, size_t flt_size, float atten)
+{
+    auto ftaps = create_taps_float(rate, flt_size, atten);
+    std::vector<gr_complex> ctaps;
+    for (auto& f : ftaps) {
+        ctaps.push_back(gr_complex(f, 0.0));
+    }
+    return ctaps;
+}
+
+template <class IN_T, class OUT_T, class TAP_T>
+std::vector<TAP_T> pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::create_taps(float rate, size_t flt_size, float atten)
+{
+    return create_taps(rate, flt_size, atten);
+}
+
+
 template <class IN_T, class OUT_T, class TAP_T>
 pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::pfb_arb_resampler_cpu(
     const typename pfb_arb_resampler<IN_T, OUT_T, TAP_T>::block_args& args)
@@ -22,12 +40,10 @@ pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::pfb_arb_resampler_cpu(
 {
     d_history = d_resamp.taps_per_filter();
 
-    std::vector<IN_T> tmp_in(2*d_history);
-    std::vector<IN_T> tmp_out(1 + int(args.rate * d_history));
-    int n_to_read = d_history-1;
-    int nread = 0;
-    
-    d_resamp.filter(tmp_out.data(), tmp_in.data(), n_to_read, nread);
+    if (args.taps.empty())
+    {
+        this->set_taps(this->create_taps());
+    }
 
     this->set_relative_rate(args.rate);
     if (args.rate >= 1.0f) {
