@@ -20,6 +20,8 @@ fft_filter_cpu<IN_T, OUT_T, TAP_T>::fft_filter_cpu(
     : INHERITED_CONSTRUCTORS(IN_T, OUT_T, TAP_T),
       d_filter(args.decimation, args.taps, args.nthreads)
 {
+    d_nsamples = d_filter.set_taps(args.taps);
+    this->set_output_multiple(d_nsamples);
     this->set_relative_rate(1.0 / args.decimation);
 }
 
@@ -55,7 +57,10 @@ work_return_t fft_filter_cpu<IN_T, OUT_T, TAP_T>::work(work_io& wio)
     }
 
     auto min_ninput = std::min(noutput * decim + d_history - 1, ninput - (d_history - 1));
+    auto mult = this->output_multiple();
+
     auto noutput_items = std::min(min_ninput / decim, noutput);
+    noutput_items = (noutput_items / mult) * mult; // ensure output_multiple is preserved
 
     if (noutput_items <= 0) {
         return work_return_t::INSUFFICIENT_INPUT_ITEMS;

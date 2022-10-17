@@ -39,7 +39,7 @@ work_return_t pll_refout_cpu::work(work_io& wio)
         frequency_limit();
     }
 
-    wio.produce_each(size);
+    wio.produce_each(wio.outputs()[0].n_items);
     return work_return_t::OK;
 }
 

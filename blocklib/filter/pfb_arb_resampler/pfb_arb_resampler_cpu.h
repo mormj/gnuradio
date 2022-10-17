@@ -29,14 +29,14 @@ public:
         const typename pfb_arb_resampler<IN_T, OUT_T, TAP_T>::block_args& args);
 
     work_return_t work(work_io&) override;
-    virtual size_t group_delay() const override { return d_resamp.group_delay(); }
+    virtual size_t group_delay() const override { return d_resamp->group_delay(); }
     virtual size_t phase_offset(float freq, float fs) const override
     {
-        return d_resamp.phase_offset(freq, fs);
+        return d_resamp->phase_offset(freq, fs);
     };
 
 private:
-    kernel::filter::pfb_arb_resampler<IN_T, OUT_T, TAP_T> d_resamp;
+    std::unique_ptr<kernel::filter::pfb_arb_resampler<IN_T, OUT_T, TAP_T>> d_resamp;
     size_t d_history;
 
     std::vector<TAP_T> create_taps(float rate, size_t flt_size=32, float atten= 100);
@@ -73,19 +73,19 @@ private:
             float bw = percent * halfband;
             float tb = (percent / 2.0) * halfband;
             float ripple = 0.1;
-            std::vector<float> taps;
+            std::vector<double> dtaps;
 
             while (true) {
                 try {
-                    taps = gr::kernel::filter::optfir::low_pass(
+                    dtaps = gr::kernel::filter::optfir::low_pass(
                         flt_size, flt_size, bw, bw + tb, ripple, atten);
-                    return taps;
+                    break;
                 } catch (std::exception& e) {
                     ripple += 0.01;
-                    // d_logger->warn(
-                    //     "Warning: set ripple to {:4f} dB. If this is a problem, adjust "
-                    //     "the attenuation or create your own filter taps.",
-                    //     ripple);
+                    this->d_logger->warn(
+                        "Warning: set ripple to {:4f} dB. If this is a problem, adjust "
+                        "the attenuation or create your own filter taps.",
+                        ripple);
 
                     // # Build in an exit strategy; if we've come this far, it ain't
                     // working.
@@ -95,6 +95,8 @@ private:
                     }
                 }
             }
+
+            return std::vector<float>(dtaps.begin(), dtaps.end());
         }
     }
 
@@ -106,11 +108,11 @@ private:
 
         // Do more updating for certain parameters
         if (action->id() == pfb_arb_resampler<IN_T, OUT_T, TAP_T>::id_taps) {
-            d_resamp.set_taps(pmtf::get_as<std::vector<TAP_T>>(*this->param_taps));
-            d_history = d_resamp.taps_per_filter();
+            d_resamp->set_taps(pmtf::get_as<std::vector<TAP_T>>(*this->param_taps));
+            d_history = d_resamp->taps_per_filter();
         }
         else if (action->id() == pfb_arb_resampler<IN_T, OUT_T, TAP_T>::id_rate) {
-            d_resamp.set_rate(pmtf::get_as<float>(*this->param_rate));
+            d_resamp->set_rate(pmtf::get_as<float>(*this->param_rate));
             this->set_relative_rate(pmtf::get_as<float>(*this->param_rate));
         }
     }

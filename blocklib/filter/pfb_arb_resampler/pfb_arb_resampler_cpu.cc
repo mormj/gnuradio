@@ -14,8 +14,11 @@
 namespace gr {
 namespace filter {
 
-template<>
-std::vector<gr_complex> pfb_arb_resampler_cpu<gr_complex, gr_complex, gr_complex>::create_taps(float rate, size_t flt_size, float atten)
+template <>
+std::vector<gr_complex>
+pfb_arb_resampler_cpu<gr_complex, gr_complex, gr_complex>::create_taps(float rate,
+                                                                       size_t flt_size,
+                                                                       float atten)
 {
     auto ftaps = create_taps_float(rate, flt_size, atten);
     std::vector<gr_complex> ctaps;
@@ -26,24 +29,27 @@ std::vector<gr_complex> pfb_arb_resampler_cpu<gr_complex, gr_complex, gr_complex
 }
 
 template <class IN_T, class OUT_T, class TAP_T>
-std::vector<TAP_T> pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::create_taps(float rate, size_t flt_size, float atten)
+std::vector<TAP_T> pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::create_taps(float rate,
+                                                                          size_t flt_size,
+                                                                          float atten)
 {
-    return create_taps(rate, flt_size, atten);
+    return create_taps_float(rate, flt_size, atten);
 }
 
 
 template <class IN_T, class OUT_T, class TAP_T>
 pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::pfb_arb_resampler_cpu(
     const typename pfb_arb_resampler<IN_T, OUT_T, TAP_T>::block_args& args)
-    : INHERITED_CONSTRUCTORS(IN_T, OUT_T, TAP_T),
-      d_resamp(args.rate, args.taps, args.filter_size)
+    : INHERITED_CONSTRUCTORS(IN_T, OUT_T, TAP_T)
 {
-    d_history = d_resamp.taps_per_filter();
-
-    if (args.taps.empty())
-    {
-        this->set_taps(this->create_taps());
+    
+    std::vector<TAP_T> taps = args.taps;
+    if (taps.empty()) {
+        taps = create_taps(args.rate, args.filter_size, 100.0);
     }
+
+    d_resamp = std::make_unique<kernel::filter::pfb_arb_resampler<IN_T, OUT_T, TAP_T>>(args.rate, taps, args.filter_size);
+    d_history = d_resamp->taps_per_filter();
 
     this->set_relative_rate(args.rate);
     if (args.rate >= 1.0f) {
@@ -81,7 +87,7 @@ work_return_t pfb_arb_resampler_cpu<IN_T, OUT_T, TAP_T>::work(work_io& wio)
     auto out = wio.outputs()[0].items<OUT_T>();
 
     int nitems_read;
-    int processed = d_resamp.filter(out, in, nitems, nitems_read);
+    int processed = d_resamp->filter(out, in, nitems, nitems_read);
 
     wio.consume_each(nitems_read);
     wio.produce_each(processed);

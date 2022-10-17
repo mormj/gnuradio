@@ -1,0 +1,686 @@
+options:
+  parameters:
+    author: josh
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: debug_wfm_pll_310
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: run
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: audio_decim
+  id: variable
+  parameters:
+    comment: ''
+    value: (int)(demod_rate/48000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 12.0]
+    rotation: 0
+    state: true
+- name: audio_filter_coeffs
+  id: variable
+  parameters:
+    comment: ''
+    value: firdes.low_pass(1, demod_rate, 15000, 1500, window.WIN_HAMMING, 6.76)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1088, 92.0]
+    rotation: 0
+    state: true
+- name: audio_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: demod_rate / audio_decim
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1272, 28.0]
+    rotation: 0
+    state: true
+- name: deemph_tau
+  id: variable
+  parameters:
+    comment: ''
+    value: 75e-6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 12.0]
+    rotation: 0
+    state: true
+- name: demod_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: (int)(samp_rate/rf_decim)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [296, 12.0]
+    rotation: 0
+    state: true
+- name: deviation
+  id: variable
+  parameters:
+    comment: ''
+    value: '75000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 68.0]
+    rotation: 0
+    state: true
+- name: pilot_carrier_filter_coeffs
+  id: variable
+  parameters:
+    comment: ''
+    value: firdes.complex_band_pass( 1.0, demod_rate, 18980, 19020, 1500, window.WIN_HAMMING,
+      6.76)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [712, 92.0]
+    rotation: 0
+    state: true
+- name: rf_decim
+  id: variable
+  parameters:
+    comment: ''
+    value: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [288, 76.0]
+    rotation: 0
+    state: true
+- name: samp_delay
+  id: variable
+  parameters:
+    comment: ''
+    value: (len( pilot_carrier_filter_coeffs) - 1) // 2 + (len(stereo_carrier_filter_coeffs)
+      - 1) // 2
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [952, 108.0]
+    rotation: 0
+    state: true
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '768000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: stereo_carrier_filter_coeffs
+  id: variable
+  parameters:
+    comment: ''
+    value: firdes.band_pass( -2.0, demod_rate, 37600, 38400, 400, window.WIN_HAMMING,
+      6.76)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 12.0]
+    rotation: 0
+    state: true
+- name: analog_left_fm_deemph
+  id: analog_fm_deemph
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: audio_rate
+    tau: 75e-6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1464, 236.0]
+    rotation: 0
+    state: disabled
+- name: analog_pll_refout_cc_0
+  id: analog_pll_refout_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    max_freq: 2 * pmath.pi * 18800 / demod_rate
+    maxoutbuf: '0'
+    min_freq: 2 * pmath.pi * 19200 / demod_rate
+    minoutbuf: '0'
+    w: '0.001'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 476.0]
+    rotation: 0
+    state: enabled
+- name: analog_quadrature_demod_cf_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: demod_rate / (2 * pmath.pi * deviation)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [48, 212.0]
+    rotation: 0
+    state: true
+- name: analog_right_fm_deemph
+  id: analog_fm_deemph
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: audio_rate
+    tau: 75e-6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1464, 348.0]
+    rotation: 0
+    state: disabled
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    freq: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: demod_rate
+    type: complex
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [12.0, 336]
+    rotation: 90
+    state: true
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1248, 368.0]
+    rotation: 0
+    state: disabled
+- name: blocks_add_xx_1
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1256, 256.0]
+    rotation: 0
+    state: disabled
+- name: blocks_complex_to_imag_0
+  id: blocks_complex_to_imag
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [416, 332.0]
+    rotation: 0
+    state: enabled
+- name: blocks_delay_0
+  id: blocks_delay
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    delay: samp_delay
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_ports: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 168.0]
+    rotation: 0
+    state: disabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /tmp/pll_in.fc32
+    type: complex
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 636.0]
+    rotation: 0
+    state: disabled
+- name: blocks_head_0
+  id: blocks_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '10000'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [720, 500.0]
+    rotation: 0
+    state: enabled
+- name: blocks_head_0_0
+  id: blocks_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '10000'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [712, 572.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_xx_0
+  id: blocks_multiply_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [456, 552.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_xx_1
+  id: blocks_multiply_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [728, 232.0]
+    rotation: 0
+    state: disabled
+- name: blocks_null_sink_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1752, 244.0]
+    rotation: 0
+    state: disabled
+- name: blocks_null_sink_0_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1744, 348.0]
+    rotation: 0
+    state: disabled
+- name: blocks_null_source_0
+  id: blocks_null_source
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_source: '[[0,],]'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_outputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [12.0, 320]
+    rotation: 90
+    state: disabled
+- name: fft_filter_xxx_0
+  id: fft_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    samp_delay: '0'
+    taps: stereo_carrier_filter_coeffs
+    type: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 108.0]
+    rotation: 0
+    state: disabled
+- name: fft_filter_xxx_1
+  id: fft_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    samp_delay: '0'
+    taps: audio_filter_coeffs
+    type: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [992, 196.0]
+    rotation: 0
+    state: disabled
+- name: fft_filter_xxx_1_0
+  id: fft_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    samp_delay: '0'
+    taps: audio_filter_coeffs
+    type: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [712, 388.0]
+    rotation: 0
+    state: disabled
+- name: fir_filter_xxx_0
+  id: fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_delay: '0'
+    taps: pilot_carrier_filter_coeffs
+    type: fcc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [176, 308.0]
+    rotation: 0
+    state: true
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: from gnuradio.filter import firdes
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [920, 20.0]
+    rotation: 0
+    state: true
+- name: import_0_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: from gnuradio.fft import window
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1064, 12.0]
+    rotation: 0
+    state: true
+- name: import_0_1
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: import math as pmath
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 100.0]
+    rotation: 0
+    state: true
+- name: snippet_0
+  id: snippet
+  parameters:
+    alias: ''
+    code: 'import matplotlib.pyplot as plt
+
+      import numpy as np
+
+
+      plt.plot(np.real(self.snk.data()))
+
+      plt.plot(np.imag(self.snk.data()))
+
+      plt.figure()
+
+      plt.plot(np.real(self.snk2.data()))
+
+      plt.plot(np.imag(self.snk2.data()))
+
+
+      plt.show()'
+    comment: ''
+    priority: '0'
+    section: main_after_stop
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1304, 476.0]
+    rotation: 0
+    state: enabled
+- name: snk
+  id: blocks_vector_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    reserve_items: '1024'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [944, 508.0]
+    rotation: 0
+    state: enabled
+- name: snk2
+  id: blocks_vector_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    reserve_items: '1024'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [920, 572.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [analog_left_fm_deemph, '0', blocks_null_sink_0, '0']
+- [analog_pll_refout_cc_0, '0', blocks_head_0, '0']
+- [analog_pll_refout_cc_0, '0', blocks_multiply_xx_0, '0']
+- [analog_pll_refout_cc_0, '0', blocks_multiply_xx_0, '1']
+- [analog_quadrature_demod_cf_0, '0', blocks_delay_0, '0']
+- [analog_quadrature_demod_cf_0, '0', fir_filter_xxx_0, '0']
+- [analog_right_fm_deemph, '0', blocks_null_sink_0_0, '0']
+- [analog_sig_source_x_0, '0', analog_quadrature_demod_cf_0, '0']
+- [blocks_add_xx_0, '0', analog_right_fm_deemph, '0']
+- [blocks_add_xx_1, '0', analog_left_fm_deemph, '0']
+- [blocks_complex_to_imag_0, '0', blocks_head_0_0, '0']
+- [blocks_complex_to_imag_0, '0', fft_filter_xxx_0, '0']
+- [blocks_delay_0, '0', blocks_multiply_xx_1, '1']
+- [blocks_delay_0, '0', fft_filter_xxx_1_0, '0']
+- [blocks_head_0, '0', blocks_file_sink_0, '0']
+- [blocks_head_0, '0', snk, '0']
+- [blocks_head_0_0, '0', snk2, '0']
+- [blocks_multiply_xx_0, '0', blocks_complex_to_imag_0, '0']
+- [blocks_multiply_xx_1, '0', fft_filter_xxx_1, '0']
+- [fft_filter_xxx_0, '0', blocks_multiply_xx_1, '0']
+- [fft_filter_xxx_1, '0', blocks_add_xx_0, '1']
+- [fft_filter_xxx_1, '0', blocks_add_xx_1, '1']
+- [fft_filter_xxx_1_0, '0', blocks_add_xx_0, '0']
+- [fft_filter_xxx_1_0, '0', blocks_add_xx_1, '0']
+- [fir_filter_xxx_0, '0', analog_pll_refout_cc_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: v3.11.0.0git-245-g09930fdc

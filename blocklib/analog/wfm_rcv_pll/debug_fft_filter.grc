@@ -1,0 +1,263 @@
+options:
+  parameters:
+    author: josh
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: debug_wfm_pll
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    pyqtgraph_antialiasing: ''
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: run
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: audio_decim
+  id: variable
+  parameters:
+    comment: ''
+    value: (int)(demod_rate/48000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 12.0]
+    rotation: 0
+    state: true
+- name: deemph_tau
+  id: variable
+  parameters:
+    comment: ''
+    value: 75e-6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 12.0]
+    rotation: 0
+    state: true
+- name: demod_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: (int)(samp_rate/rf_decim)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [296, 12.0]
+    rotation: 0
+    state: true
+- name: deviation
+  id: variable
+  parameters:
+    comment: ''
+    value: '75000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 68.0]
+    rotation: 0
+    state: true
+- name: rf_decim
+  id: variable
+  parameters:
+    comment: ''
+    value: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [288, 76.0]
+    rotation: 0
+    state: true
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '768000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: stereo_carrier_filter_coeffs
+  id: variable
+  parameters:
+    comment: ''
+    value: firdes.band_pass( -2.0, demod_rate, 37600, 38400, 400, window.HAMMING,
+      6.76)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 12.0]
+    rotation: 0
+    state: true
+- name: blocks_vector_source_0
+  id: blocks_vector_source
+  parameters:
+    T: float
+    affinity: ''
+    alias: ''
+    comment: ''
+    data: list(range(10000))
+    impl: cpu
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    showports: 'False'
+    tags: '[]'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [88, 332.0]
+    rotation: 0
+    state: true
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: from gnuradio.kernel.filter import firdes
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [920, 20.0]
+    rotation: 0
+    state: true
+- name: import_0_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: from gnuradio.kernel.fft import window
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1064, 12.0]
+    rotation: 0
+    state: true
+- name: snippet_0
+  id: snippet
+  parameters:
+    alias: ''
+    code: 'import matplotlib.pyplot as plt
+
+      import numpy as np
+
+
+      plt.plot(np.real(fg.snk.data()))
+
+      plt.plot(np.imag(fg.snk.data()))
+
+      plt.figure()
+
+      plt.plot(fg.stereo_carrier_filter_coeffs)
+
+      plt.show()'
+    comment: ''
+    priority: '0'
+    section: main_after_stop
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 348.0]
+    rotation: 0
+    state: enabled
+- name: snk
+  id: blocks_vector_sink
+  parameters:
+    T: float
+    affinity: ''
+    alias: ''
+    comment: ''
+    impl: cpu
+    reserve_items: '1024'
+    showports: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [960, 460.0]
+    rotation: 0
+    state: enabled
+- name: stereo_carrier_bpf
+  id: filter_fft_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decimation: '1'
+    impl: cpu
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '0'
+    samp_delay: '0'
+    showports: 'False'
+    taps: stereo_carrier_filter_coeffs
+    type_inst: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 324.0]
+    rotation: 0
+    state: enabled
+- name: streamops_head_0
+  id: streamops_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    impl: cpu
+    itemsize: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nitems: '10000'
+    showports: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 372.0]
+    rotation: 0
+    state: true
+
+connections:
+- [blocks_vector_source_0, '0', stereo_carrier_bpf, '0']
+- [stereo_carrier_bpf, '0', streamops_head_0, '0']
+- [streamops_head_0, '0', snk, '0']
+
+metadata:
+  file_format: 1

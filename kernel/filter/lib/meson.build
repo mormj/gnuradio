@@ -8,6 +8,7 @@ srcs = [
     'iir_filter.cc',
     'mmse_fir_interpolator_ff.cc',
     'moving_averager.cc',
+    'optfir.cc',
     'pfb_arb_resampler.cc',
     'pm_remez.cc',
     'polyphase_filterbank.cc'
