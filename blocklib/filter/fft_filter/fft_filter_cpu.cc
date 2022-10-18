@@ -22,6 +22,7 @@ fft_filter_cpu<IN_T, OUT_T, TAP_T>::fft_filter_cpu(
 {
     d_nsamples = d_filter.set_taps(args.taps);
     this->set_output_multiple(d_nsamples);
+    this->declare_noconsume(d_filter.ntaps()-1);
     this->set_relative_rate(1.0 / args.decimation);
 }
 
@@ -50,13 +51,11 @@ work_return_t fft_filter_cpu<IN_T, OUT_T, TAP_T>::work(work_io& wio)
     auto decim = pmtf::get_as<size_t>(*this->param_decimation);
 
     if (d_updated) {
-        d_hist_change = d_history - d_filter.ntaps();
-        d_history = d_filter.ntaps();
+        this->declare_noconsume(d_filter.ntaps()-1);
         d_updated = false;
-        d_hist_updated = true;
     }
 
-    auto min_ninput = std::min(noutput * decim + d_history - 1, ninput - (d_history - 1));
+    auto min_ninput = std::min(noutput * decim + this->noconsume(), (ninput > this->noconsume()) ? ninput - this->noconsume() : 0);
     auto mult = this->output_multiple();
 
     auto noutput_items = std::min(min_ninput / decim, noutput);
@@ -74,10 +73,6 @@ work_return_t fft_filter_cpu<IN_T, OUT_T, TAP_T>::work(work_io& wio)
     wio.consume_each(noutput_items * decim);
     wio.produce_each(noutput_items);
 
-    if (d_hist_updated) {
-        d_hist_change = 0;
-        d_hist_updated = false;
-    }
     return work_return_t::OK;
 }
 

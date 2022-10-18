@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include <gnuradio/blocks/api.h>
 #include <gnuradio/gr_complex.h>
 #include <volk/volk.h>
 #include <cmath>

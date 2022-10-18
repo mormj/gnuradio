@@ -122,7 +122,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '2'
+    value: '5'
   states:
     bus_sink: false
     bus_source: false
@@ -147,7 +147,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '768000'
+    value: '1920000'
   states:
     bus_sink: false
     bus_source: false
@@ -184,7 +184,7 @@ blocks:
     bus_structure: null
     coordinate: [1464, 236.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: analog_pll_refout_cc_0
   id: analog_pll_refout_cc
   parameters:
@@ -235,7 +235,7 @@ blocks:
     bus_structure: null
     coordinate: [1464, 348.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: analog_sig_source_x_0
   id: analog_sig_source_x
   parameters:
@@ -255,8 +255,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [12.0, 336]
+    coordinate: [12.0, 408]
     rotation: 90
+    state: disabled
+- name: audio_sink_0_0
+  id: audio_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    device_name: ''
+    num_inputs: '1'
+    ok_to_block: 'True'
+    samp_rate: '48000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1920, 140.0]
+    rotation: 0
     state: true
 - name: blocks_add_xx_0
   id: blocks_add_xx
@@ -275,7 +292,7 @@ blocks:
     bus_structure: null
     coordinate: [1248, 368.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_add_xx_1
   id: blocks_add_xx
   parameters:
@@ -293,7 +310,7 @@ blocks:
     bus_structure: null
     coordinate: [1256, 256.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_complex_to_imag_0
   id: blocks_complex_to_imag
   parameters:
@@ -328,7 +345,7 @@ blocks:
     bus_structure: null
     coordinate: [256, 168.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_file_sink_0
   id: blocks_file_sink
   parameters:
@@ -364,7 +381,7 @@ blocks:
     bus_structure: null
     coordinate: [720, 500.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_head_0_0
   id: blocks_head
   parameters:
@@ -381,6 +398,24 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [712, 572.0]
+    rotation: 0
+    state: disabled
+- name: blocks_multiply_const_vxx_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: '0.2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1656, 140.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_xx_0
@@ -418,7 +453,7 @@ blocks:
     bus_structure: null
     coordinate: [728, 232.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_null_sink_0
   id: blocks_null_sink
   parameters:
@@ -435,7 +470,7 @@ blocks:
     bus_structure: null
     coordinate: [1752, 244.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_null_sink_0_0
   id: blocks_null_sink
   parameters:
@@ -452,7 +487,7 @@ blocks:
     bus_structure: null
     coordinate: [1744, 348.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_null_source_0
   id: blocks_null_source
   parameters:
@@ -491,14 +526,14 @@ blocks:
     bus_structure: null
     coordinate: [536, 108.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: fft_filter_xxx_1
   id: fft_filter_xxx
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    decim: '1'
+    decim: audio_decim
     maxoutbuf: '0'
     minoutbuf: '0'
     nthreads: '1'
@@ -511,14 +546,14 @@ blocks:
     bus_structure: null
     coordinate: [992, 196.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: fft_filter_xxx_1_0
   id: fft_filter_xxx
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    decim: '1'
+    decim: audio_decim
     maxoutbuf: '0'
     minoutbuf: '0'
     nthreads: '1'
@@ -531,7 +566,31 @@ blocks:
     bus_structure: null
     coordinate: [712, 388.0]
     rotation: 0
-    state: disabled
+    state: enabled
+- name: filter_fft_low_pass_filter_0
+  id: filter_fft_low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '90000'
+    decim: rf_decim
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '1'
+    samp_rate: samp_rate
+    type: ccc
+    width: '20000'
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 660.0]
+    rotation: 0
+    state: true
 - name: fir_filter_xxx_0
   id: fir_filter_xxx
   parameters:
@@ -620,7 +679,7 @@ blocks:
     bus_structure: null
     coordinate: [1304, 476.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: snk
   id: blocks_vector_sink_x
   parameters:
@@ -636,7 +695,7 @@ blocks:
     bus_structure: null
     coordinate: [944, 508.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: snk2
   id: blocks_vector_sink_x
   parameters:
@@ -652,9 +711,32 @@ blocks:
     bus_structure: null
     coordinate: [920, 572.0]
     rotation: 0
-    state: enabled
+    state: disabled
+- name: soapy_rtlsdr_source_0
+  id: soapy_rtlsdr_source
+  parameters:
+    affinity: ''
+    agc: 'False'
+    alias: ''
+    center_freq: '90500000'
+    comment: ''
+    dev_args: ''
+    freq_correction: '0'
+    gain: '40'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    type: fc32
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 804.0]
+    rotation: 0
+    state: true
 
 connections:
+- [analog_left_fm_deemph, '0', blocks_multiply_const_vxx_0_0, '0']
 - [analog_left_fm_deemph, '0', blocks_null_sink_0, '0']
 - [analog_pll_refout_cc_0, '0', blocks_head_0, '0']
 - [analog_pll_refout_cc_0, '0', blocks_multiply_xx_0, '0']
@@ -672,6 +754,7 @@ connections:
 - [blocks_head_0, '0', blocks_file_sink_0, '0']
 - [blocks_head_0, '0', snk, '0']
 - [blocks_head_0_0, '0', snk2, '0']
+- [blocks_multiply_const_vxx_0_0, '0', audio_sink_0_0, '0']
 - [blocks_multiply_xx_0, '0', blocks_complex_to_imag_0, '0']
 - [blocks_multiply_xx_1, '0', fft_filter_xxx_1, '0']
 - [fft_filter_xxx_0, '0', blocks_multiply_xx_1, '0']
@@ -679,7 +762,9 @@ connections:
 - [fft_filter_xxx_1, '0', blocks_add_xx_1, '1']
 - [fft_filter_xxx_1_0, '0', blocks_add_xx_0, '0']
 - [fft_filter_xxx_1_0, '0', blocks_add_xx_1, '0']
+- [filter_fft_low_pass_filter_0, '0', analog_quadrature_demod_cf_0, '0']
 - [fir_filter_xxx_0, '0', analog_pll_refout_cc_0, '0']
+- [soapy_rtlsdr_source_0, '0', filter_fft_low_pass_filter_0, '0']
 
 metadata:
   file_format: 1

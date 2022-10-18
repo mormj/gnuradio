@@ -105,6 +105,18 @@ blocks:
     coordinate: [392, 68.0]
     rotation: 0
     state: true
+- name: freq
+  id: variable
+  parameters:
+    comment: ''
+    value: '90500000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [128, 316.0]
+    rotation: 0
+    state: true
 - name: pilot_carrier_filter_coeffs
   id: variable
   parameters:
@@ -122,7 +134,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '2'
+    value: '5'
   states:
     bus_sink: false
     bus_source: false
@@ -147,7 +159,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '768000'
+    value: '1920000'
   states:
     bus_sink: false
     bus_source: false
@@ -174,7 +186,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    fs: '400000'
+    fs: audio_rate
     impl: cpu
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -187,6 +199,27 @@ blocks:
     coordinate: [1464, 236.0]
     rotation: 0
     state: enabled
+- name: analog_noise_source_0
+  id: analog_noise_source
+  parameters:
+    T: float
+    affinity: ''
+    alias: ''
+    amplitude: '1.0'
+    comment: ''
+    impl: cpu
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    seed: '0'
+    showports: 'False'
+    type: analog.noise_t.UNIFORM
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [344, 324.0]
+    rotation: 0
+    state: disabled
 - name: analog_pll_refout_0
   id: analog_pll_refout
   parameters:
@@ -231,7 +264,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    fs: '400000'
+    fs: audio_rate
     impl: cpu
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -247,7 +280,7 @@ blocks:
 - name: analog_sig_source_0
   id: analog_sig_source
   parameters:
-    T: complex
+    T: float
     affinity: ''
     alias: ''
     ampl: '1.0'
@@ -268,6 +301,25 @@ blocks:
     coordinate: [4.0, 504]
     rotation: 90
     state: disabled
+- name: audio_alsa_sink_0
+  id: audio_alsa_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    device_name: '"pulse"'
+    impl: cpu
+    num_inputs: '1'
+    ok_to_block: 'True'
+    sampling_rate: int(audio_rate)
+    showports: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1936, 140.0]
+    rotation: 0
+    state: enabled
 - name: blocks_null_sink_0
   id: blocks_null_sink
   parameters:
@@ -284,7 +336,7 @@ blocks:
     bus_structure: null
     coordinate: [1752, 244.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_null_sink_0_0
   id: blocks_null_sink
   parameters:
@@ -338,7 +390,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 476.0]
+    coordinate: [440, 548.0]
     rotation: 0
     state: enabled
 - name: blocks_stereo_multiply
@@ -358,7 +410,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [776, 212.0]
+    coordinate: [720, 212.0]
     rotation: 0
     state: enabled
 - name: fileio_file_sink_0
@@ -400,7 +452,29 @@ blocks:
     bus_structure: null
     coordinate: [8, 700.0]
     rotation: 0
-    state: enabled
+    state: disabled
+- name: filter_fft_filter_0
+  id: filter_fft_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    decimation: rf_decim
+    impl: cpu
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nthreads: '0'
+    samp_delay: '0'
+    showports: 'False'
+    taps: firdes.low_pass(1.0, samp_rate, 90000, 20000)
+    type_inst: ccf
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [208, 684.0]
+    rotation: 0
+    state: true
 - name: import_0
   id: import
   parameters:
@@ -475,7 +549,27 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 364.0]
+    coordinate: [640, 564.0]
+    rotation: 0
+    state: enabled
+- name: math_multiply_const_0
+  id: math_multiply_const
+  parameters:
+    T: float
+    affinity: ''
+    alias: ''
+    comment: ''
+    impl: cpu
+    k: '0.2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    showports: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1680, 100.0]
     rotation: 0
     state: enabled
 - name: math_sub_0
@@ -504,7 +598,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    decimation: '1'
+    decimation: audio_decim
     impl: cpu
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -517,7 +611,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 404.0]
+    coordinate: [600, 332.0]
     rotation: 0
     state: enabled
 - name: pilot_carrier_bpf
@@ -537,13 +631,13 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 404.0]
+    coordinate: [160, 404.0]
     rotation: 0
     state: enabled
 - name: pyqtgraph_pg_time_sink_0
   id: pyqtgraph_pg_time_sink
   parameters:
-    T: complex
+    T: float
     affinity: ''
     alias: ''
     comment: ''
@@ -560,7 +654,30 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [648, 588.0]
+    coordinate: [1136, 444.0]
+    rotation: 0
+    state: disabled
+- name: pyqtgraph_pg_time_sink_0_0
+  id: pyqtgraph_pg_time_sink
+  parameters:
+    T: float
+    affinity: ''
+    alias: ''
+    comment: ''
+    dock_position: top
+    dock_relative_to: ''
+    impl: numpy
+    nports: '1'
+    samp_rate: samp_rate
+    showports: 'False'
+    size: '1024'
+    title: None
+    ylabel: Amplitude
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [936, 420.0]
     rotation: 0
     state: disabled
 - name: snippet_0
@@ -593,7 +710,7 @@ blocks:
     bus_structure: null
     coordinate: [1304, 476.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: snk
   id: blocks_vector_sink
   parameters:
@@ -611,7 +728,7 @@ blocks:
     bus_structure: null
     coordinate: [1992, 444.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: snk_0
   id: blocks_vector_sink
   parameters:
@@ -629,14 +746,38 @@ blocks:
     bus_structure: null
     coordinate: [1968, 580.0]
     rotation: 0
-    state: enabled
+    state: disabled
+- name: soapy_rtlsdr_source_0
+  id: soapy_rtlsdr_source
+  parameters:
+    T: complex
+    affinity: ''
+    agc: 'False'
+    alias: ''
+    center_freq: freq
+    comment: ''
+    dev_args: ''
+    freq_correction: '0'
+    gain: '15'
+    impl: cpu
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    showports: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [156.0, 872]
+    rotation: 90
+    state: true
 - name: stereo_audio_lpf
   id: filter_fft_filter
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    decimation: '1'
+    decimation: audio_decim
     impl: cpu
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -671,7 +812,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [496, 124.0]
+    coordinate: [872, 532.0]
     rotation: 0
     state: enabled
 - name: streamops_delay_0
@@ -690,7 +831,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 268.0]
+    coordinate: [328, 228.0]
     rotation: 0
     state: enabled
 - name: streamops_head_0
@@ -711,7 +852,7 @@ blocks:
     bus_structure: null
     coordinate: [1704, 452.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: streamops_head_0_0
   id: streamops_head
   parameters:
@@ -730,31 +871,37 @@ blocks:
     bus_structure: null
     coordinate: [1696, 556.0]
     rotation: 0
-    state: enabled
+    state: disabled
 
 connections:
 - [analog_left_fm_deemph, '0', blocks_null_sink_0, '0']
+- [analog_left_fm_deemph, '0', math_multiply_const_0, '0']
 - [analog_left_fm_deemph, '0', streamops_head_0, '0']
+- [analog_noise_source_0, '0', mono_audio_lpf, '0']
 - [analog_pll_refout_0, '0', blocks_pilot_multiply, '0']
 - [analog_pll_refout_0, '0', blocks_pilot_multiply, '1']
-- [analog_pll_refout_0, '0', pyqtgraph_pg_time_sink_0, '0']
 - [analog_quadrature_demod_0, '0', pilot_carrier_bpf, '0']
 - [analog_quadrature_demod_0, '0', streamops_delay_0, '0']
 - [analog_right_fm_deemph, '0', blocks_null_sink_0_0, '0']
 - [analog_right_fm_deemph, '0', streamops_head_0_0, '0']
-- [analog_sig_source_0, '0', analog_quadrature_demod_0, '0']
+- [analog_sig_source_0, '0', mono_audio_lpf, '0']
 - [blocks_null_source_0, '0', analog_quadrature_demod_0, '0']
 - [blocks_pilot_multiply, '0', math_complex_to_imag_0, '0']
 - [blocks_stereo_multiply, '0', stereo_audio_lpf, '0']
 - [fileio_file_source_0, '0', analog_quadrature_demod_0, '0']
+- [filter_fft_filter_0, '0', analog_quadrature_demod_0, '0']
 - [math_add_0, '0', analog_left_fm_deemph, '0']
 - [math_complex_to_imag_0, '0', stereo_carrier_bpf, '0']
+- [math_multiply_const_0, '0', audio_alsa_sink_0, '0']
 - [math_sub_0, '0', analog_right_fm_deemph, '0']
 - [mono_audio_lpf, '0', math_add_0, '1']
 - [mono_audio_lpf, '0', math_sub_0, '0']
+- [mono_audio_lpf, '0', pyqtgraph_pg_time_sink_0_0, '0']
 - [pilot_carrier_bpf, '0', analog_pll_refout_0, '0']
+- [soapy_rtlsdr_source_0, '0', filter_fft_filter_0, '0']
 - [stereo_audio_lpf, '0', math_add_0, '0']
 - [stereo_audio_lpf, '0', math_sub_0, '1']
+- [stereo_audio_lpf, '0', pyqtgraph_pg_time_sink_0, '0']
 - [stereo_carrier_bpf, '0', blocks_stereo_multiply, '0']
 - [streamops_delay_0, '0', blocks_stereo_multiply, '1']
 - [streamops_delay_0, '0', mono_audio_lpf, '0']
