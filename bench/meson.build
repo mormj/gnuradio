@@ -63,3 +63,5 @@ if IMPLEMENT_CUDA
     subdir('cuda')
 endif
 endif
+
+subdir('sched')

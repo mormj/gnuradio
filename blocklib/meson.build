@@ -45,3 +45,6 @@ endif
 if get_option('enable_gr_soapy')
 subdir('soapy')
 endif
+# if get_option('enable_gr_bench') 
+subdir('bench')
+# endif
