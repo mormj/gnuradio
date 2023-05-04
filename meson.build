@@ -4,7 +4,7 @@
 project('gnuradio', 'cpp', 
   version : '4.0.0.0-preview0',
   license : 'LGPLv3',
-  default_options : ['cpp_std=c++20'])
+  default_options : ['warning_level=3', 'cpp_std=gnu++20'])
 
 ## Compilers
 cc = meson.get_compiler('cpp') # minimum version 12.1, 12.2 ?
@@ -15,9 +15,14 @@ c_available = add_languages('c', required : true)
 ## Build Dependencies
 volk_dep = dependency('volk', version : '>=2.2')
 yaml_dep = dependency('yaml-cpp', version : '>=0.6')
-fmt_dep = dependency('fmt')
+fmt_dep = dependency('fmt', version:'8.1.1')
+ut_dep = dependency('boost.ut')
 spdlog_dep = dependency('spdlog')
 threads_dep = dependency('threads')
+
+cmake = import('cmake')
+libreflcpp = cmake.subproject('refl-cpp')
+reflcpp_dep = libreflcpp.dependency('refl-cpp')
 
 ## All python stuff taken out for now
 

@@ -1,0 +1,17 @@
+function(add_benchmark BM_NAME)
+    add_executable(${BM_NAME} ${BM_NAME}.cpp)
+    target_compile_options(${BM_NAME} PRIVATE -Wall -march=native)
+    target_link_options(${BM_NAME} PRIVATE -Wall -march=native)
+    # target_compile_options(${BM_NAME} PRIVATE -Wall -march=native -fsanitize=address)
+    # target_link_options(${BM_NAME} PRIVATE -Wall -march=native -fsanitize=address)
+    target_link_libraries(${BM_NAME} PRIVATE graph-prototype-options graph-prototype refl-cpp fmt ut)
+endfunction()
+
+add_benchmark(bm_buffer)
+add_benchmark(bm_case0)
+add_benchmark(bm_case1)
+
+add_executable(bm_case1_nosimd bm_case1.cpp)
+target_compile_options(bm_case1_nosimd PRIVATE -Wall -march=native -DDISABLE_SIMD=1)
+target_link_options(bm_case1_nosimd PRIVATE -Wall -march=native)
+target_link_libraries(bm_case1_nosimd PRIVATE graph-prototype-options graph-prototype refl-cpp fmt ut)
