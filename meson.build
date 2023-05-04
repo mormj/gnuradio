@@ -32,6 +32,7 @@ pmt_dep = libpmtv.get_variable('pmt_dep')
 #py3_install_dir_dep = libpmtv.get_variable('py3_install_dir_dep')
 CLI11_dep = dependency('cli11')
 
+SCRIPTS_DIR=join_paths(meson.project_source_root(),'utils','blockbuilder','scripts')
 
 ## Test Environment
 # taken out for now

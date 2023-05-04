@@ -697,7 +697,7 @@ operator<<(std::ostream &os, const port_domain_t &value) {
 }
 
 #ifndef __EMSCRIPTEN__
-auto
+inline auto
 this_source_location(std::source_location l = std::source_location::current()) {
     return fmt::format("{}:{},{}", l.file_name(), l.line(), l.column());
 }
