@@ -1,0 +1,5 @@
+option('enable_testing', type : 'boolean', value : true)
+option('enable_bench', type : 'boolean', value : true)
+option('enable_python', type : 'boolean', value : true)
+
+#TODO - LGPL only build option

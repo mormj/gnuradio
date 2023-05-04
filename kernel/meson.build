@@ -1,0 +1,5 @@
+subdir('math')
+subdir('fft')
+subdir('filter')
+subdir('analog')
+subdir('digital')

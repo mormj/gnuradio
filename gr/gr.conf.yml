@@ -1,0 +1,9 @@
+# Default Logging Options
+LOG:
+  log_level: debug
+  debug_level: error
+  log_file: stderr
+
+DEFAULT:
+  scheduler: nbt
+  
