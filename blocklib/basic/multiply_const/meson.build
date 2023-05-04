@@ -12,3 +12,7 @@ tgt = custom_target('copy_multiply_const_header',
 basic_deps += declare_dependency(sources : [tgt[0]] ) 
 
 install_headers('multiply_const.hpp', subdir: 'gnuradio4/basic')
+
+if (GR_ENABLE_PYTHON)
+    basic_pybind_sources += files('multiply_const_pybind.cpp')
+endif

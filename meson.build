@@ -24,7 +24,7 @@ cmake = import('cmake')
 libreflcpp = cmake.subproject('refl-cpp')
 reflcpp_dep = libreflcpp.dependency('refl-cpp')
 
-## All python stuff taken out for now
+
 
 ## Subprojects
 libpmtv = subproject('pmt')
@@ -53,7 +53,31 @@ else
 endif
 GR_PKG_CONF_DIR = join_paths(SYSCONFDIR, meson.project_name(), 'conf.d')
 GR_PREFSDIR = join_paths(SYSCONFDIR, meson.project_name(), 'conf.d')
-GRC_BLOCKS_DIR = join_paths(GR_PKG_DATA_DIR, 'grc/blocks')
+
+## Python Dependencies
+GR_ENABLE_PYTHON = false
+if (get_option('enable_python'))
+
+# If we re-introduce codegen, py3 will be required for build, but not for runtime
+py3 = import('python').find_installation('python3')
+py3_version = py3.language_version()
+if py3_version.version_compare('< 3.6')
+  error('Invalid python version!?')
+endif
+py3_purelib = (get_option('libdir') == 'lib')
+py3_install_dir = py3.get_install_dir( pure : py3_purelib)
+GR_PURELIB = py3_purelib
+
+python3_dep = dependency('python3', required : get_option('enable_python'))
+python3_embed_dep = dependency('python3-embed', required : get_option('enable_python'))
+pybind11_dep = dependency('pybind11', required : get_option('enable_python'))
+incdir_numpy = run_command(py3,
+  ['-c', 'import os; os.chdir(".."); import numpy; print(numpy.get_include())'],
+  check : true
+).stdout().strip()
+
+GR_ENABLE_PYTHON = true
+endif
 
 ## Subdirectories with meson.build
 subdir('gr')
@@ -61,11 +85,10 @@ subdir('gr')
 subdir('blocklib')
 subdir('schedulers')
 # subdir('utils')
-# if (get_option('enable_python'))
-#   subdir('python/gnuradio')
-#   subdir('grc')
-#   subdir('domains/grc')
-# endif
+if (GR_ENABLE_PYTHON)
+  subdir('python/gnuradio')
+  subdir('domains/grc')
+endif
 if (get_option('enable_testing'))
     subdir('test')
 endif
